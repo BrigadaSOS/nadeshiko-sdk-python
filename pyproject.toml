@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nadeshiko-sdk"
+dynamic = ["version"]  # Read from OpenAPI spec
+description = "Python SDK for Nadeshiko API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "attrs>=23.0",
+    "httpx>=0.27.0",
+    "python-dateutil>=2.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "openapi-python-client>=0.22.0",
+    "pyyaml>=6.0",
+    "pytest>=9.0.0",
+    "ruff>=0.9.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.hatch.version]
+path = "src/nadeshiko/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nadeshiko"]
