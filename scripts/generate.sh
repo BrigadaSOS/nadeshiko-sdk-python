@@ -14,6 +14,11 @@ cd "$PROJECT_ROOT"
 
 echo "=== Nadeshiko Python SDK Generation ==="
 
+# Activate virtual environment
+if [ -f ".venv/bin/activate" ]; then
+    source .venv/bin/activate
+fi
+
 # Check if openapi-python-client is installed
 if ! command -v openapi-python-client &> /dev/null; then
     echo "Error: openapi-python-client not found"
