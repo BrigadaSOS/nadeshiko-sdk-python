@@ -1,4 +1,9 @@
+> This repository is still in WIP and not ready for production use
+
 # Nadeshiko Python SDK
+
+[![PyPI](https://img.shields.io/pypi/v/nadeshiko-sdk)](https://pypi.org/project/nadeshiko-sdk/)
+
 
 Python SDK for the [Nadeshiko API](https://nadeshiko.co)
 
