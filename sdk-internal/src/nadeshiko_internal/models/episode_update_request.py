@@ -1,0 +1,156 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
+
+
+
+
+
+T = TypeVar("T", bound="EpisodeUpdateRequest")
+
+
+
+@_attrs_define
+class EpisodeUpdateRequest:
+    """ All fields are optional for partial updates
+
+        Attributes:
+            anilist_episode_id (int | Unset): AniList episode ID for external reference Example: 123456.
+            title_english (str | Unset): English title of the episode Example: The Beginning.
+            title_romaji (str | Unset): Romanized title of the episode Example: Hajimari.
+            title_japanese (str | Unset): Japanese title of the episode Example: 始まり.
+            description (str | Unset): Episode description or synopsis Example: The hero begins their journey.
+            aired_at (datetime.datetime | Unset): When the episode originally aired Example: 2024-01-15 09:00:00+00:00.
+            length_seconds (int | Unset): Episode duration in seconds Example: 1420.
+            thumbnail_url (str | Unset): URL to episode thumbnail image Example:
+                https://example.com/thumbnails/episode1.jpg.
+     """
+
+    anilist_episode_id: int | Unset = UNSET
+    title_english: str | Unset = UNSET
+    title_romaji: str | Unset = UNSET
+    title_japanese: str | Unset = UNSET
+    description: str | Unset = UNSET
+    aired_at: datetime.datetime | Unset = UNSET
+    length_seconds: int | Unset = UNSET
+    thumbnail_url: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        anilist_episode_id = self.anilist_episode_id
+
+        title_english = self.title_english
+
+        title_romaji = self.title_romaji
+
+        title_japanese = self.title_japanese
+
+        description = self.description
+
+        aired_at: str | Unset = UNSET
+        if not isinstance(self.aired_at, Unset):
+            aired_at = self.aired_at.isoformat()
+
+        length_seconds = self.length_seconds
+
+        thumbnail_url = self.thumbnail_url
+
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({
+        })
+        if anilist_episode_id is not UNSET:
+            field_dict["anilistEpisodeId"] = anilist_episode_id
+        if title_english is not UNSET:
+            field_dict["titleEnglish"] = title_english
+        if title_romaji is not UNSET:
+            field_dict["titleRomaji"] = title_romaji
+        if title_japanese is not UNSET:
+            field_dict["titleJapanese"] = title_japanese
+        if description is not UNSET:
+            field_dict["description"] = description
+        if aired_at is not UNSET:
+            field_dict["airedAt"] = aired_at
+        if length_seconds is not UNSET:
+            field_dict["lengthSeconds"] = length_seconds
+        if thumbnail_url is not UNSET:
+            field_dict["thumbnailUrl"] = thumbnail_url
+
+        return field_dict
+
+
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        anilist_episode_id = d.pop("anilistEpisodeId", UNSET)
+
+        title_english = d.pop("titleEnglish", UNSET)
+
+        title_romaji = d.pop("titleRomaji", UNSET)
+
+        title_japanese = d.pop("titleJapanese", UNSET)
+
+        description = d.pop("description", UNSET)
+
+        _aired_at = d.pop("airedAt", UNSET)
+        aired_at: datetime.datetime | Unset
+        if isinstance(_aired_at,  Unset):
+            aired_at = UNSET
+        else:
+            aired_at = isoparse(_aired_at)
+
+
+
+
+        length_seconds = d.pop("lengthSeconds", UNSET)
+
+        thumbnail_url = d.pop("thumbnailUrl", UNSET)
+
+        episode_update_request = cls(
+            anilist_episode_id=anilist_episode_id,
+            title_english=title_english,
+            title_romaji=title_romaji,
+            title_japanese=title_japanese,
+            description=description,
+            aired_at=aired_at,
+            length_seconds=length_seconds,
+            thumbnail_url=thumbnail_url,
+        )
+
+
+        episode_update_request.additional_properties = d
+        return episode_update_request
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

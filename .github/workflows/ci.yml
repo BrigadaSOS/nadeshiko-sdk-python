@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e '.[dev]'
+
+      - name: Lint scripts
+        run: ruff check scripts
+
+      - name: Generate SDKs
+        run: python scripts/generate.py --sdk-type all
+
+      - name: Validate public/internal boundaries
+        run: python scripts/check_boundaries.py
+
+      - name: Build package artifacts
+        run: |
+          rm -rf dist
+          python -m build sdk --wheel --sdist --outdir dist/sdk
+          python -m build sdk-internal --wheel --sdist --outdir dist/sdk-internal
+
+      - name: Smoke test wheel installation
+        shell: bash
+        run: |
+          python -m venv /tmp/nadeshiko-smoke
+          source /tmp/nadeshiko-smoke/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install dist/sdk/*.whl dist/sdk-internal/*.whl
+          python - <<'PY'
+          import nadeshiko
+          import nadeshiko_internal
+          print("nadeshiko:", nadeshiko.__version__)
+          print("nadeshiko_internal:", nadeshiko_internal.__version__)
+          PY
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-sdk-dist
+          path: |
+            dist/sdk
+            dist/sdk-internal

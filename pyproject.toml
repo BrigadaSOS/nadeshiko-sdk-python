@@ -3,19 +3,16 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "nadeshiko-sdk"
-dynamic = ["version"]  # Read from OpenAPI spec
-description = "Python SDK for Nadeshiko API"
+name = "nadeshiko-sdk-python-monorepo"
+version = "0.0.0"
+description = "Tooling workspace for Nadeshiko Python SDK monorepo"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = [
-    "attrs>=23.0",
-    "httpx>=0.27.0",
-    "python-dateutil>=2.8.0",
-]
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "build>=1.2.0",
     "openapi-python-client>=0.22.0",
     "pyyaml>=6.0",
     "pytest>=9.0.0",
@@ -34,8 +31,16 @@ unfixable = []
 quote-style = "double"
 indent-style = "space"
 
-[tool.hatch.version]
-path = "src/nadeshiko/_version.py"
+[tool.hatch.envs.default]
+features = ["dev"]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/nadeshiko"]
+[tool.hatch.envs.default.scripts]
+generate = "python scripts/generate.py --sdk-type all"
+generate-public = "python scripts/generate.py --sdk-type public"
+generate-internal = "python scripts/generate.py --sdk-type internal"
+check-boundaries = "python scripts/check_boundaries.py"
+build-public = "python -m build sdk"
+build-internal = "python -m build sdk-internal"
+release-set-version = "python scripts/release_version.py set"
+release-check-version = "python scripts/release_version.py check"
+lint = "ruff check scripts"

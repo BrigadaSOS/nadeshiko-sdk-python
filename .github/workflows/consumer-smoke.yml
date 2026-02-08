@@ -1,0 +1,49 @@
+name: Consumer Smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Published SDK version to test (semver without v)"
+        required: true
+        type: string
+
+jobs:
+  public-consumer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install and import public SDK from PyPI
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "nadeshiko-sdk==${{ inputs.version }}"
+          python - <<'PY'
+          import nadeshiko
+          print("nadeshiko:", nadeshiko.__version__)
+          PY
+
+  internal-consumer:
+    if: ${{ secrets.INTERNAL_PYPI_EXTRA_INDEX_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install and import internal SDK from private index
+        env:
+          INTERNAL_PYPI_EXTRA_INDEX_URL: ${{ secrets.INTERNAL_PYPI_EXTRA_INDEX_URL }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            --extra-index-url "${INTERNAL_PYPI_EXTRA_INDEX_URL}" \
+            "nadeshiko-internal-sdk==${{ inputs.version }}"
+          python - <<'PY'
+          import nadeshiko_internal
+          print("nadeshiko_internal:", nadeshiko_internal.__version__)
+          PY

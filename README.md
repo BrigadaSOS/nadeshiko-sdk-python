@@ -1,135 +1,129 @@
-> This repository is still in WIP and not ready for production use
+# Nadeshiko Python SDK Monorepo
 
-# Nadeshiko Python SDK
+Monorepo for the Nadeshiko Python SDKs.
 
-[![PyPI](https://img.shields.io/pypi/v/nadeshiko-sdk)](https://pypi.org/project/nadeshiko-sdk/)
+## Packages
 
+- `sdk`: public SDK (`nadeshiko-sdk`, import `nadeshiko`)
+- `sdk-internal`: internal SDK (`nadeshiko-internal-sdk`, import `nadeshiko_internal`)
 
-Python SDK for the [Nadeshiko API](https://nadeshiko.co)
+## Development
 
-## Quick Start
-
-```python
-from nadeshiko import Nadeshiko, Environment
-from nadeshiko.api.search import search
-
-# Configure your client
-client = Nadeshiko(
-    api_key='your-api-key-here',
-    base_url=Environment.PRODUCTION,  # or Environment.LOCAL, or custom URL
-)
-
-# Use API methods (names match OpenAPI operationIds)
-result = search.sync(
-    client=client,
-    body={
-        'query': '彼女',
-        'limit': 10,
-    },
-)
-
-if isinstance(result, Error):
-    print(result.code, result.detail)
-else:
-    print(result.sentences)
+```bash
+python -m pip install -e '.[dev]'
 ```
 
-## API Methods
+### Generate SDKs
 
-All methods are organized under `nadeshiko.api.{module}` and match the OpenAPI operationIds exactly:
-
-You can check the full specification from the [OpenAPI spec page](https://nadeshiko.co/api/v1/docs).
-
-## Error Handling
-
-All methods return a union type: `Response | Error | None`.
-
-**Check for errors:**
-```python
-from nadeshiko import Nadeshiko, Environment
-from nadeshiko.api.search import search
-from nadeshiko.models import Error
-
-client = Nadeshiko(api_key='your-api-key', base_url=Environment.PRODUCTION)
-result = search.sync(client=client, body={'query': '彼女'})
-
-if isinstance(result, Error):
-    # Error type is fully generated from OpenAPI spec
-    print(result.code)    # e.g., 'RATE_LIMIT_EXCEEDED'
-    print(result.title)   # e.g., 'Rate Limit Exceeded'
-    print(result.detail)  # Detailed message
-    print(result.status)  # HTTP status code
-else:
-    print(result.sentences)
+```bash
+python scripts/generate.py --sdk-type all
 ```
 
-In general, all SDK methods return typed errors generated from the OpenAPI spec:
+Spec resolution order (per SDK):
+- `--public-spec-path` / `--internal-spec-path` when passed
+- `--public-spec-url` / `--internal-spec-url` (default: GitHub `main-v2`)
+- local fallback: `../Nadeshiko/backend/docs/generated/`
 
-```python
-class Error:
-    code: str                 # e.g., 'RATE_LIMIT_EXCEEDED', 'AUTH_CREDENTIALS_INVALID'
-    title: str                # Short summary
-    detail: str               # Detailed explanation
-    status: int               # HTTP status code
-    type_: str | Unset        # URI to error documentation
-    instance: str | Unset     # Trace ID
-    errors: dict | Unset      # Validation errors
+Common options:
+- `--sdk-type public`
+- `--sdk-type internal`
+- `--public-spec-path ...`
+- `--internal-spec-path ...`
+- `--public-spec-url ...`
+- `--internal-spec-url ...`
+
+Local backend example:
+
+```bash
+python scripts/generate.py --sdk-type all \
+  --public-spec-path ../Nadeshiko/backend/docs/generated/openapi.yaml \
+  --internal-spec-path ../Nadeshiko/backend/docs/generated/openapi-internal.yaml
 ```
 
-Handle each error independently based on the error code returned by the API.
+### Boundary Check
 
-```python
-from nadeshiko import Nadeshiko, Environment
-from nadeshiko.api.search import search
-from nadeshiko.models import Error
-
-client = Nadeshiko(api_key='your-api-key')
-result = search.sync(client=client, body={'query': '彼女'})
-
-if isinstance(result, Error):
-    # All error fields are typed
-    match result.code:
-        case 'RATE_LIMIT_EXCEEDED':
-            print('Wait before retrying')
-        case 'AUTH_CREDENTIALS_INVALID':
-            print('Check your API key')
-        case 'VALIDATION_FAILED':
-            print('Field errors:', result.errors)
-        case _:
-            print(result.detail)
+```bash
+python scripts/check_boundaries.py
 ```
 
-You can check the full list of errors codes for each endpoint from the [OpenAPI spec page](https://nadeshiko.co/api/v1/docs).
+This validates that internal-only operations never appear in the public SDK.
 
-## Type Support
+### Build Packages
 
-All types are auto-generated from the OpenAPI spec.
-
-```python
-from nadeshiko.models import (
-    SearchRequest,
-    SearchResponse,
-    Sentence,
-    MediaInfoData,
-)
-
-request: SearchRequest = {
-    'query': '彼女',
-    'limit': 10,
-}
-
-sentence: Sentence = {
-    'basic_info': { # ... },
-    'segment_info': { # ... },
-    'media_info': { # ... },
-}
+```bash
+python -m build sdk
+python -m build sdk-internal
 ```
 
-## Examples
+## Version Contract
 
-See `examples/usage.py` for more usage examples.
+- `sdk/src/nadeshiko/_version.py` and `sdk-internal/src/nadeshiko_internal/_version.py` must match.
+- Use:
+  - `python scripts/release_version.py set <version>`
+  - `python scripts/release_version.py check [version]`
 
-## References
+## CI and Release Workflows
 
-- [Nadeshiko Website](https://nadeshiko.co)
-- [API Documentation](https://nadeshiko.co/settings/api)
+- `.github/workflows/ci.yml`
+  - lint scripts
+  - generate SDKs
+  - boundary checks
+  - build both packages
+  - smoke-install built wheels
+- `.github/workflows/release.yml`
+  - triggers on tags (`v*`), `repository_dispatch` (`backend_release`), or manual dispatch
+  - validates payload with `scripts/release/validate_payload.py`
+  - sets aligned versions
+  - generates and validates SDKs
+  - builds artifacts
+  - publishes public package to PyPI when `PYPI_API_TOKEN` is configured
+  - publishes internal package to private index when internal publish secrets are configured
+- `.github/workflows/consumer-smoke.yml`
+  - manual post-release verification from package indexes
+
+## Backend Dispatch Payload
+
+`repository_dispatch` type: `backend_release`
+
+Supported payload fields:
+- `version` (semver, no leading `v`)
+- `release_tag` (optional, defaults to `v<version>`)
+- `prerelease` (`true`/`false`)
+- `public_spec_url` (optional; defaults to `main-v2` URL)
+- `internal_spec_url` (optional; defaults to `main-v2` URL)
+- `backend_sha` (optional metadata)
+- `backend_repo` (optional metadata)
+- `force` (optional)
+
+See `docs/backend-dispatch-example.md`.
+
+## Consuming From Other Repos
+
+Public package:
+
+```bash
+pip install nadeshiko-sdk
+```
+
+Internal package (from your private index):
+
+```bash
+pip install nadeshiko-internal-sdk
+```
+
+Direct from git (fallback):
+
+```bash
+pip install "nadeshiko-sdk @ git+https://github.com/BrigadaSOS/nadeshiko-sdk-python.git@main#subdirectory=sdk"
+pip install "nadeshiko-internal-sdk @ git+https://github.com/BrigadaSOS/nadeshiko-sdk-python.git@main#subdirectory=sdk-internal"
+```
+
+## Authentication
+
+SDK clients use `Authorization: Bearer <token>` by default.
+Do not override this to `X-API-Key` unless your backend explicitly expects it.
+
+## Package Examples
+
+- `sdk/examples/usage.py`
+- `sdk-internal/examples/usage.py`

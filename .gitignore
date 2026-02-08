@@ -18,5 +18,3 @@ venv/
 # Cache
 .ruff_cache/
 .pytest_cache/
-
-openapi-spec/

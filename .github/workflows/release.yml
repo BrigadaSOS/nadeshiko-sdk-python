@@ -1,0 +1,196 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  repository_dispatch:
+    types:
+      - backend_release
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "SDK version (semver, without leading v)"
+        required: true
+        type: string
+      release_tag:
+        description: "Release tag (e.g. v1.2.3). Defaults to v<version>"
+        required: false
+        type: string
+      prerelease:
+        description: "Mark release as prerelease"
+        required: false
+        default: false
+        type: boolean
+      public_spec_url:
+        description: "Public OpenAPI spec URL"
+        required: false
+        type: string
+      internal_spec_url:
+        description: "Internal OpenAPI spec URL"
+        required: false
+        type: string
+      backend_sha:
+        description: "Backend commit SHA used for this release"
+        required: false
+        type: string
+      backend_repo:
+        description: "Backend repository name"
+        required: false
+        type: string
+      force:
+        description: "Force release even if re-running existing version"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: python-sdk-release-${{ github.ref_name || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e '.[dev]' twine
+
+      - name: Validate release payload
+        id: payload
+        run: python scripts/release/validate_payload.py
+
+      - name: Ensure release tag exists
+        env:
+          RELEASE_TAG: ${{ steps.payload.outputs.release_tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --tags origin "refs/tags/${RELEASE_TAG}" | grep -q .; then
+            echo "Tag ${RELEASE_TAG} already exists."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "${RELEASE_TAG}" -m "SDK release ${RELEASE_TAG}"
+            git push origin "refs/tags/${RELEASE_TAG}"
+          fi
+
+      - name: Set package versions
+        run: python scripts/release_version.py set "${{ steps.payload.outputs.version }}"
+
+      - name: Generate SDKs from payload specs
+        run: |
+          python scripts/generate.py --sdk-type all \
+            --public-spec-url "${{ steps.payload.outputs.public_spec_url }}" \
+            --internal-spec-url "${{ steps.payload.outputs.internal_spec_url }}"
+
+      - name: Validate boundaries
+        run: |
+          python scripts/check_boundaries.py \
+            --public-spec-url "${{ steps.payload.outputs.public_spec_url }}" \
+            --internal-spec-url "${{ steps.payload.outputs.internal_spec_url }}"
+
+      - name: Verify version alignment
+        run: python scripts/release_version.py check "${{ steps.payload.outputs.version }}"
+
+      - name: Build artifacts
+        run: |
+          rm -rf dist
+          python -m build sdk --wheel --sdist --outdir dist/sdk
+          python -m build sdk-internal --wheel --sdist --outdir dist/sdk-internal
+
+      - name: Smoke test built wheels
+        shell: bash
+        run: |
+          python -m venv /tmp/nadeshiko-release-smoke
+          source /tmp/nadeshiko-release-smoke/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install dist/sdk/*.whl dist/sdk-internal/*.whl
+          python - <<'PY'
+          import nadeshiko
+          import nadeshiko_internal
+          print("nadeshiko:", nadeshiko.__version__)
+          print("nadeshiko_internal:", nadeshiko_internal.__version__)
+          PY
+
+      - name: Publish public package to PyPI
+        if: ${{ secrets.PYPI_API_TOKEN != '' }}
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: python -m twine upload --skip-existing dist/sdk/*
+
+      - name: Publish internal package to private index
+        if: ${{ secrets.INTERNAL_PYPI_REPOSITORY_URL != '' && secrets.INTERNAL_PYPI_PASSWORD != '' }}
+        env:
+          TWINE_REPOSITORY_URL: ${{ secrets.INTERNAL_PYPI_REPOSITORY_URL }}
+          TWINE_USERNAME: ${{ secrets.INTERNAL_PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.INTERNAL_PYPI_PASSWORD }}
+        run: |
+          if [ -z "${TWINE_USERNAME}" ]; then
+            TWINE_USERNAME="__token__"
+          fi
+          python -m twine upload --skip-existing --repository-url "${TWINE_REPOSITORY_URL}" dist/sdk-internal/*
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-sdk-release-dist
+          path: |
+            dist/sdk
+            dist/sdk-internal
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.payload.outputs.release_tag }}
+          name: Python SDK ${{ steps.payload.outputs.release_tag }}
+          prerelease: ${{ steps.payload.outputs.prerelease == 'true' }}
+          generate_release_notes: true
+          files: |
+            dist/sdk/*
+            dist/sdk-internal/*
+          body: |
+            Backend-driven Python SDK release.
+
+            - Version: `${{ steps.payload.outputs.version }}`
+            - Backend: `${{ steps.payload.outputs.backend_repo }}@${{ steps.payload.outputs.backend_sha }}`
+            - Public spec: `${{ steps.payload.outputs.public_spec_url }}`
+            - Internal spec: `${{ steps.payload.outputs.internal_spec_url }}`
+
+      - name: Publish summary
+        env:
+          PUBLIC_PUBLISH_ENABLED: ${{ secrets.PYPI_API_TOKEN != '' }}
+          INTERNAL_PUBLISH_ENABLED: ${{ secrets.INTERNAL_PYPI_REPOSITORY_URL != '' && secrets.INTERNAL_PYPI_PASSWORD != '' }}
+        run: |
+          {
+            echo "## Python SDK Release"
+            echo ""
+            echo "- Version: \`${{ steps.payload.outputs.version }}\`"
+            echo "- Tag: \`${{ steps.payload.outputs.release_tag }}\`"
+            echo "- Backend: \`${{ steps.payload.outputs.backend_repo }}@${{ steps.payload.outputs.backend_sha }}\`"
+            echo "- Public spec: \`${{ steps.payload.outputs.public_spec_url }}\`"
+            echo "- Internal spec: \`${{ steps.payload.outputs.internal_spec_url }}\`"
+            if [ "${PUBLIC_PUBLISH_ENABLED}" != "true" ]; then
+              echo "- Public publish: skipped (missing \`PYPI_API_TOKEN\`)"
+            else
+              echo "- Public publish: attempted"
+            fi
+            if [ "${INTERNAL_PUBLISH_ENABLED}" != "true" ]; then
+              echo "- Internal publish: skipped (missing private index secrets)"
+            else
+              echo "- Internal publish: attempted"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
