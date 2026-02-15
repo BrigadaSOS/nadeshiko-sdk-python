@@ -28,14 +28,10 @@ jobs:
       - name: Generate SDKs
         run: python scripts/generate.py --sdk-type all
 
-      - name: Validate public/internal boundaries
-        run: python scripts/check_boundaries.py
-
       - name: Build package artifacts
         run: |
-          rm -rf dist
-          python -m build sdk --wheel --sdist --outdir dist/sdk
-          python -m build sdk-internal --wheel --sdist --outdir dist/sdk-internal
+          python scripts/build_package.py public
+          python scripts/build_package.py internal
 
       - name: Smoke test wheel installation
         shell: bash
@@ -43,18 +39,14 @@ jobs:
           python -m venv /tmp/nadeshiko-smoke
           source /tmp/nadeshiko-smoke/bin/activate
           python -m pip install --upgrade pip
-          python -m pip install dist/sdk/*.whl dist/sdk-internal/*.whl
-          python - <<'PY'
-          import nadeshiko
-          import nadeshiko_internal
-          print("nadeshiko:", nadeshiko.__version__)
-          print("nadeshiko_internal:", nadeshiko_internal.__version__)
-          PY
+          python -m pip install build/public/dist/*.whl build/internal/dist/*.whl
+          python -c "import nadeshiko; print('nadeshiko:', nadeshiko.__version__)"
+          python -c "import nadeshiko_internal; print('nadeshiko_internal:', nadeshiko_internal.__version__)"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: python-sdk-dist
           path: |
-            dist/sdk
-            dist/sdk-internal
+            build/public/dist
+            build/internal/dist

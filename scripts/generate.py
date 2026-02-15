@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Generate public and internal Python SDK packages for the monorepo."""
+"""Generate public and internal Python SDK packages from a single OpenAPI spec."""
 
 from __future__ import annotations
 
 import argparse
+import copy
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,20 +19,15 @@ import yaml
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = ROOT_DIR / "templates"
-DEFAULT_PUBLIC_SPEC_URL = (
+DEFAULT_SPEC_URL = (
     "https://raw.githubusercontent.com/BrigadaSOS/Nadeshiko/main-v2/"
     "backend/docs/generated/openapi.yaml"
 )
-DEFAULT_INTERNAL_SPEC_URL = (
-    "https://raw.githubusercontent.com/BrigadaSOS/Nadeshiko/main-v2/"
-    "backend/docs/generated/openapi-internal.yaml"
-)
-DEFAULT_PUBLIC_LOCAL_SPEC = (
+DEFAULT_LOCAL_SPEC = (
     ROOT_DIR / ".." / "Nadeshiko" / "backend" / "docs" / "generated" / "openapi.yaml"
 )
-DEFAULT_INTERNAL_LOCAL_SPEC = (
-    ROOT_DIR / ".." / "Nadeshiko" / "backend" / "docs" / "generated" / "openapi-internal.yaml"
-)
+
+HTTP_METHODS = {"get", "put", "post", "delete", "options", "head", "patch", "trace"}
 
 
 @dataclass(frozen=True)
@@ -42,28 +39,19 @@ class PackageTarget:
 
 PUBLIC_TARGET = PackageTarget(
     name="public",
-    source_dir=ROOT_DIR / "sdk" / "src" / "nadeshiko",
-    config_path=ROOT_DIR / "sdk" / "openapi-client-config.yaml",
+    source_dir=ROOT_DIR / "generated" / "public" / "nadeshiko",
+    config_path=ROOT_DIR / "config" / "public.yaml",
 )
 
 INTERNAL_TARGET = PackageTarget(
     name="internal",
-    source_dir=ROOT_DIR / "sdk-internal" / "src" / "nadeshiko_internal",
-    config_path=ROOT_DIR / "sdk-internal" / "openapi-client-config.yaml",
+    source_dir=ROOT_DIR / "generated" / "internal" / "nadeshiko_internal",
+    config_path=ROOT_DIR / "config" / "internal.yaml",
 )
 
 
-def env_path(name: str) -> Path | None:
-    value = os.environ.get(name, "").strip()
-    if not value:
-        return None
-    return Path(value)
-
-
-def resolve_input_path(path: Path) -> Path:
-    if path.is_absolute():
-        return path
-    return (ROOT_DIR / path).resolve()
+def _is_url(value: str) -> bool:
+    return value.startswith("https://") or value.startswith("http://")
 
 
 def parse_args() -> argparse.Namespace:
@@ -75,84 +63,81 @@ def parse_args() -> argparse.Namespace:
         help="SDK target to generate.",
     )
     parser.add_argument(
-        "--public-spec-path",
-        type=Path,
-        default=env_path("NADESHIKO_PUBLIC_SPEC_PATH"),
-        help="Optional local path to the public OpenAPI spec.",
-    )
-    parser.add_argument(
-        "--internal-spec-path",
-        type=Path,
-        default=env_path("NADESHIKO_INTERNAL_SPEC_PATH"),
-        help="Optional local path to the internal OpenAPI spec.",
-    )
-    parser.add_argument(
-        "--public-spec-url",
-        default=os.environ.get("NADESHIKO_PUBLIC_SPEC_URL", DEFAULT_PUBLIC_SPEC_URL),
-        help="URL source for the public spec (default: GitHub main-v2).",
-    )
-    parser.add_argument(
-        "--internal-spec-url",
-        default=os.environ.get("NADESHIKO_INTERNAL_SPEC_URL", DEFAULT_INTERNAL_SPEC_URL),
-        help="URL source for the internal spec (default: GitHub main-v2).",
+        "--spec",
+        default=os.environ.get("OPENAPI_SPEC_PATH", "").strip() or None,
+        help="OpenAPI spec source: URL or local file path. "
+        "Falls back to GitHub main-v2, then local sibling repo.",
     )
     parser.add_argument(
         "--keep-build",
         action="store_true",
         help="Keep temporary generated artifacts for debugging.",
     )
+    parser.add_argument(
+        "--verify",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Verify public/internal boundaries after generation (default: enabled).",
+    )
     return parser.parse_args()
 
 
-def fetch_spec_file(url: str) -> Path:
+def _fetch_spec(url: str) -> Path:
     request = Request(url, headers={"User-Agent": "nadeshiko-sdk-python-generator"})
     with urlopen(request, timeout=30) as response:  # noqa: S310
         content = response.read()
 
-    with tempfile.NamedTemporaryFile(prefix="nadeshiko-spec-", suffix=".yaml", delete=False) as tmp:
+    with tempfile.NamedTemporaryFile(
+        prefix="nadeshiko-spec-", suffix=".yaml", delete=False
+    ) as tmp:
         tmp.write(content)
         return Path(tmp.name)
 
 
-def resolve_spec_path(
-    *,
-    spec_name: str,
-    explicit_path: Path | None,
-    spec_url: str,
-    fallback_path: Path,
-) -> tuple[Path, bool]:
-    if explicit_path is not None:
-        resolved_path = resolve_input_path(explicit_path)
-        if not resolved_path.exists():
-            raise FileNotFoundError(f"{spec_name} OpenAPI spec not found: {resolved_path}")
-        print(f"Using local {spec_name} spec: {resolved_path}")
-        return resolved_path, False
+def _resolve_local_path(value: str) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    return (ROOT_DIR / path).resolve()
 
-    if spec_url:
-        try:
-            fetched_path = fetch_spec_file(spec_url)
-            print(f"Fetched {spec_name} spec from: {spec_url}")
-            return fetched_path, True
-        except Exception as error:  # noqa: BLE001
-            resolved_fallback = resolve_input_path(fallback_path)
-            if resolved_fallback.exists():
-                print(
-                    f"Failed to fetch {spec_name} spec from {spec_url} ({error}). "
-                    f"Falling back to local spec: {resolved_fallback}"
-                )
-                return resolved_fallback, False
-            raise RuntimeError(
-                f"Failed to fetch {spec_name} spec from {spec_url} "
-                f"and fallback path is missing: {resolved_fallback}"
-            ) from error
 
-    resolved_fallback = resolve_input_path(fallback_path)
-    if not resolved_fallback.exists():
-        raise FileNotFoundError(
-            f"No {spec_name} spec URL provided and fallback path is missing: {resolved_fallback}"
-        )
-    print(f"Using fallback local {spec_name} spec: {resolved_fallback}")
-    return resolved_fallback, False
+def resolve_spec(spec: str | None) -> tuple[Path, bool]:
+    """Resolve spec to a local file path.
+
+    Accepts a URL, a local file path, or None (auto-detect).
+    Returns (path, is_temp) where is_temp means the file should be cleaned up.
+    """
+    # Explicit URL
+    if spec and _is_url(spec):
+        fetched = _fetch_spec(spec)
+        print(f"Fetched spec from: {spec}")
+        return fetched, True
+
+    # Explicit local path
+    if spec:
+        resolved = _resolve_local_path(spec)
+        if not resolved.exists():
+            raise FileNotFoundError(f"OpenAPI spec not found: {resolved}")
+        print(f"Using local spec: {resolved}")
+        return resolved, False
+
+    # No explicit spec: try default URL, fall back to local sibling repo
+    try:
+        fetched = _fetch_spec(DEFAULT_SPEC_URL)
+        print(f"Fetched spec from: {DEFAULT_SPEC_URL}")
+        return fetched, True
+    except Exception as error:  # noqa: BLE001
+        fallback = (ROOT_DIR / DEFAULT_LOCAL_SPEC).resolve()
+        if fallback.exists():
+            print(
+                f"Failed to fetch spec ({error}). "
+                f"Falling back to local spec: {fallback}"
+            )
+            return fallback, False
+        raise RuntimeError(
+            f"Failed to fetch spec from {DEFAULT_SPEC_URL} "
+            f"and fallback path is missing: {fallback}"
+        ) from error
 
 
 def preserve_version(version_path: Path) -> str:
@@ -208,6 +193,157 @@ def normalize_openapi_for_codegen(spec_path: Path) -> tuple[Path, bool]:
         return Path(tmp.name), True
 
 
+def filter_public_spec(spec_path: Path) -> Path:
+    """Create a filtered copy of the spec with x-internal operations removed."""
+    with spec_path.open("r", encoding="utf-8") as file:
+        spec = yaml.safe_load(file)
+
+    filtered_spec = copy.deepcopy(spec)
+    paths = filtered_spec.get("paths", {})
+    paths_to_remove: list[str] = []
+
+    for path_key, path_item in paths.items():
+        if not isinstance(path_item, dict):
+            continue
+
+        methods_to_remove: list[str] = []
+        for method in HTTP_METHODS:
+            operation = path_item.get(method)
+            if not isinstance(operation, dict):
+                continue
+            if operation.get("x-internal"):
+                methods_to_remove.append(method)
+
+        for method in methods_to_remove:
+            del path_item[method]
+
+        remaining_methods = [m for m in HTTP_METHODS if m in path_item]
+        if not remaining_methods:
+            paths_to_remove.append(path_key)
+
+    for path_key in paths_to_remove:
+        del paths[path_key]
+
+    with tempfile.NamedTemporaryFile(
+        prefix="nadeshiko-spec-public-",
+        suffix=".yaml",
+        delete=False,
+    ) as tmp:
+        tmp.write(yaml.safe_dump(filtered_spec, sort_keys=False).encode("utf-8"))
+        print(f"Created filtered public spec: {tmp.name}")
+        return Path(tmp.name)
+
+
+def categorize_operations(spec: dict) -> tuple[set[str], set[str]]:
+    """Return (public_ops, internal_only_ops) from a parsed spec."""
+    public_ops: set[str] = set()
+    internal_only_ops: set[str] = set()
+    for path_item in spec.get("paths", {}).values():
+        for method, operation in path_item.items():
+            if method in {"parameters", "$ref"}:
+                continue
+            if not isinstance(operation, dict):
+                continue
+            op_id = operation.get("operationId")
+            if not op_id:
+                continue
+            if operation.get("x-internal"):
+                internal_only_ops.add(op_id)
+            else:
+                public_ops.add(op_id)
+    return public_ops, internal_only_ops
+
+
+def _operation_id_to_snake(operation_id: str) -> str:
+    step_one = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", operation_id)
+    step_two = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", step_one)
+    return step_two.lower()
+
+
+def _api_modules(api_dir: Path) -> set[str]:
+    modules: set[str] = set()
+    for file_path in api_dir.rglob("*.py"):
+        if file_path.name == "__init__.py":
+            continue
+        modules.add(file_path.stem)
+    return modules
+
+
+def _any_candidate_present(operation_id: str, modules: set[str]) -> bool:
+    base = _operation_id_to_snake(operation_id)
+    return bool({base, f"{base}_"} & modules)
+
+
+def verify_boundaries(spec: dict) -> int:
+    """Check that public SDK outputs do not leak internal-only operations.
+
+    Returns 0 on success, 1 on failure.
+    """
+    public_ops, internal_only_ops = categorize_operations(spec)
+    all_ops = public_ops | internal_only_ops
+
+    failures: list[str] = []
+
+    public_api_dir = PUBLIC_TARGET.source_dir / "api"
+    internal_api_dir = INTERNAL_TARGET.source_dir / "api"
+
+    if not public_api_dir.exists():
+        failures.append(f"Missing public API directory: {public_api_dir}")
+    if not internal_api_dir.exists():
+        failures.append(f"Missing internal API directory: {internal_api_dir}")
+
+    if failures:
+        for failure in failures:
+            print(f"Boundary check failed: {failure}")
+        return 1
+
+    public_modules = _api_modules(public_api_dir)
+    internal_modules = _api_modules(internal_api_dir)
+
+    leaked_ops = [
+        op for op in sorted(internal_only_ops) if _any_candidate_present(op, public_modules)
+    ]
+    if leaked_ops:
+        failures.append(
+            f"Public SDK contains internal-only operations: {', '.join(leaked_ops)}"
+        )
+
+    missing_public_ops = [
+        op for op in sorted(public_ops) if not _any_candidate_present(op, public_modules)
+    ]
+    if missing_public_ops:
+        failures.append(
+            "Public SDK is missing public operations: " + ", ".join(missing_public_ops)
+        )
+
+    missing_internal_ops = [
+        op for op in sorted(all_ops) if not _any_candidate_present(op, internal_modules)
+    ]
+    if missing_internal_ops:
+        failures.append(
+            "Internal SDK is missing operations: " + ", ".join(missing_internal_ops)
+        )
+
+    public_internal_dirs = list(public_api_dir.rglob("internal"))
+    if public_internal_dirs:
+        failures.append(
+            "Public SDK should not contain internal namespace directories: "
+            + ", ".join(str(path) for path in public_internal_dirs)
+        )
+
+    if failures:
+        for failure in failures:
+            print(f"Boundary check failed: {failure}")
+        return 1
+
+    print(
+        "Boundary check passed: "
+        f"{len(public_ops)} public operations, "
+        f"{len(internal_only_ops)} internal-only operations."
+    )
+    return 0
+
+
 def run_codegen(target: PackageTarget, spec_path: Path, keep_build: bool) -> None:
     version_path = target.source_dir / "_version.py"
     version_content = preserve_version(version_path)
@@ -250,52 +386,41 @@ def run_codegen(target: PackageTarget, spec_path: Path, keep_build: bool) -> Non
 def main() -> int:
     args = parse_args()
 
-    targets: list[tuple[PackageTarget, str, Path | None, str, Path]] = []
-    if args.sdk_type in {"all", "public"}:
-        targets.append(
-            (
-                PUBLIC_TARGET,
-                "public",
-                args.public_spec_path,
-                args.public_spec_url.strip(),
-                DEFAULT_PUBLIC_LOCAL_SPEC,
-            )
-        )
-    if args.sdk_type in {"all", "internal"}:
-        targets.append(
-            (
-                INTERNAL_TARGET,
-                "internal",
-                args.internal_spec_path,
-                args.internal_spec_url.strip(),
-                DEFAULT_INTERNAL_LOCAL_SPEC,
-            )
-        )
-
     temp_files: list[Path] = []
 
     try:
-        for target, spec_name, explicit_path, spec_url, fallback_path in targets:
-            resolved_spec, is_temp = resolve_spec_path(
-                spec_name=spec_name,
-                explicit_path=explicit_path,
-                spec_url=spec_url,
-                fallback_path=fallback_path,
-            )
-            if is_temp:
-                temp_files.append(resolved_spec)
-            normalized_spec, normalized_is_temp = normalize_openapi_for_codegen(resolved_spec)
-            if normalized_is_temp:
-                print(
-                    f"Normalized {spec_name} OpenAPI spec for code generation: {normalized_spec}"
-                )
-                temp_files.append(normalized_spec)
-            run_codegen(target, normalized_spec, keep_build=args.keep_build)
+        spec_path, is_temp = resolve_spec(args.spec)
+        if is_temp:
+            temp_files.append(spec_path)
+
+        normalized_spec, normalized_is_temp = normalize_openapi_for_codegen(spec_path)
+        if normalized_is_temp:
+            print(f"Normalized OpenAPI spec for code generation: {normalized_spec}")
+            temp_files.append(normalized_spec)
+
+        # Load spec once for generation and optional verification
+        with normalized_spec.open("r", encoding="utf-8") as f:
+            parsed_spec = yaml.safe_load(f)
+
+        # Generate internal SDK: use the full (normalized) spec directly
+        if args.sdk_type in {"all", "internal"}:
+            run_codegen(INTERNAL_TARGET, normalized_spec, keep_build=args.keep_build)
+
+        # Generate public SDK: filter out x-internal operations first
+        if args.sdk_type in {"all", "public"}:
+            public_spec = filter_public_spec(normalized_spec)
+            temp_files.append(public_spec)
+            run_codegen(PUBLIC_TARGET, public_spec, keep_build=args.keep_build)
+
     finally:
         for file_path in temp_files:
             file_path.unlink(missing_ok=True)
 
     print("Generation complete.")
+
+    if args.verify and args.sdk_type == "all":
+        return verify_boundaries(parsed_spec)
+
     return 0
 
 

@@ -8,19 +8,17 @@ import json
 import os
 import re
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
-DEFAULT_PUBLIC_SPEC_URL = (
-    "https://raw.githubusercontent.com/BrigadaSOS/Nadeshiko/main-v2/"
-    "backend/docs/generated/openapi.yaml"
-)
-DEFAULT_INTERNAL_SPEC_URL = (
-    "https://raw.githubusercontent.com/BrigadaSOS/Nadeshiko/main-v2/"
-    "backend/docs/generated/openapi-internal.yaml"
-)
-VERSION_RE = re.compile(
+import yaml
+
+BACKEND_REPO = "BrigadaSOS/Nadeshiko"
+SPEC_PATH = "backend/docs/generated/openapi.yaml"
+
+SEMVER_REGEX = re.compile(
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
     r"(?:-((?:0|[1-9A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9A-Za-z-][0-9A-Za-z-]*))*))?"
     r"(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$"
@@ -28,15 +26,11 @@ VERSION_RE = re.compile(
 
 
 @dataclass(frozen=True)
-class NormalizedPayload:
-    version: str
-    release_tag: str
-    prerelease: bool
-    public_spec_url: str
-    internal_spec_url: str
-    backend_sha: str
-    backend_repo: str
-    force: bool
+class DerivedVersions:
+    spec_version: str
+    public_version: str
+    internal_version: str
+    internal_only: bool
 
 
 def fail(message: str) -> None:
@@ -50,27 +44,14 @@ def to_string(value: object, default: str = "") -> str:
     return str(value).strip()
 
 
-def to_bool(value: object, default: bool = False) -> bool:
-    if isinstance(value, bool):
-        return value
-    normalized = to_string(value).lower()
-    if not normalized:
-        return default
-    if normalized in {"true", "1", "yes"}:
-        return True
-    if normalized in {"false", "0", "no"}:
-        return False
-    fail(f"Invalid boolean value: {value}")
-    return default
-
-
 def write_output(name: str, value: str) -> None:
     output_path = os.environ.get("GITHUB_OUTPUT", "")
     if not output_path:
         print(f"{name}={value}")
         return
-    with Path(output_path).open("a", encoding="utf-8") as file:
-        file.write(f"{name}={value}\n")
+    delimiter = f"EOF_{name}_{int(time.time())}"
+    with Path(output_path).open("a", encoding="utf-8") as f:
+        f.write(f"{name}<<{delimiter}\n{value}\n{delimiter}\n")
 
 
 def parse_event_payload() -> dict[str, object]:
@@ -83,96 +64,77 @@ def parse_event_payload() -> dict[str, object]:
             return dict(event_data.get("client_payload", {}))
         if event_name == "workflow_dispatch":
             return dict(event_data.get("inputs", {}))
-        if event_name == "push":
-            return {}
 
     # Local fallback for manual testing.
     return {
-        "version": os.environ.get("INPUT_VERSION", ""),
-        "release_tag": os.environ.get("INPUT_RELEASE_TAG", ""),
-        "prerelease": os.environ.get("INPUT_PRERELEASE", ""),
-        "public_spec_url": os.environ.get("INPUT_PUBLIC_SPEC_URL", ""),
-        "internal_spec_url": os.environ.get("INPUT_INTERNAL_SPEC_URL", ""),
+        "release_channel": os.environ.get("INPUT_RELEASE_CHANNEL", ""),
         "backend_sha": os.environ.get("INPUT_BACKEND_SHA", ""),
-        "backend_repo": os.environ.get("INPUT_BACKEND_REPO", ""),
-        "force": os.environ.get("INPUT_FORCE", ""),
     }
 
 
-def parse_version_from_ref() -> str:
-    ref_name = os.environ.get("GITHUB_REF_NAME", "").strip()
-    if not ref_name:
-        return ""
-    if ref_name.startswith("v"):
-        ref_name = ref_name[1:]
-    return ref_name
+def resolve_channel(raw: object) -> str:
+    value = to_string(raw).lower()
+    if value == "dev":
+        return "dev"
+    if value == "stable" or not value:
+        return "stable"
+    fail(f'`release_channel` must be "dev" or "stable". Received: "{value}"')
+    return "stable"  # unreachable, satisfies type checker
 
 
-def normalize_version(raw_version: str) -> str:
-    version = raw_version.strip()
-    if version.startswith("v"):
-        version = version[1:]
-    if not version:
-        fail("`version` is required.")
-    if not VERSION_RE.fullmatch(version):
-        fail(f"`version` must be semver-compatible. Received: {raw_version}")
-    return version
+def load_spec_version(spec_url: str) -> str:
+    if spec_url.startswith("file://"):
+        file_path = spec_url.removeprefix("file://")
+        source = Path(file_path).read_text(encoding="utf-8")
+    else:
+        request = Request(spec_url)  # noqa: S310
+        with urlopen(request) as response:  # noqa: S310
+            if response.status != 200:
+                fail(
+                    f"Failed to fetch spec_url ({spec_url}):"
+                    f" {response.status} {response.reason}"
+                )
+            source = response.read().decode("utf-8")
+
+    spec = yaml.safe_load(source)
+    spec_version = to_string(spec.get("info", {}).get("version"))
+    if not spec_version:
+        fail("OpenAPI spec is missing `info.version`.")
+    return spec_version
 
 
-def normalize_release_tag(raw_release_tag: str, version: str) -> str:
-    candidate = raw_release_tag.strip() or f"v{version}"
-    candidate = candidate.replace("refs/tags/", "")
-    if not candidate.startswith("v"):
-        candidate = f"v{candidate}"
-    if candidate[1:] != version:
-        fail(f"release_tag ({candidate}) must match version ({version}).")
-    return candidate
+def derive_versions(
+    spec_version: str, channel: str, backend_sha: str
+) -> DerivedVersions:
+    semver_match = SEMVER_REGEX.match(spec_version)
+    if not semver_match:
+        fail(f'Spec info.version must be semver compatible. Received: "{spec_version}"')
+        raise AssertionError("unreachable")
 
-
-def normalize_url(raw_url: str, field_name: str, default_url: str) -> str:
-    value = raw_url.strip() or default_url
-    parsed = urlparse(value)
-    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
-        fail(f"`{field_name}` must be a valid http(s) URL. Received: {raw_url}")
-    return value
-
-
-def normalize_payload(raw: dict[str, object]) -> NormalizedPayload:
-    version_input = to_string(raw.get("version")) or parse_version_from_ref()
-    version = normalize_version(version_input)
-
-    release_tag = normalize_release_tag(to_string(raw.get("release_tag")), version)
-    prerelease_by_version = "-" in version
-    prerelease = to_bool(raw.get("prerelease"), default=prerelease_by_version)
-    if prerelease != prerelease_by_version:
+    build_metadata = semver_match.group(5) or ""
+    if build_metadata:
         fail(
-            f"`prerelease` ({prerelease}) does not match version ({version})."
+            "Spec info.version must not include build metadata (+...)."
+            f' Received: "{spec_version}"'
         )
 
-    public_spec_url = normalize_url(
-        to_string(raw.get("public_spec_url")),
-        field_name="public_spec_url",
-        default_url=DEFAULT_PUBLIC_SPEC_URL,
-    )
-    internal_spec_url = normalize_url(
-        to_string(raw.get("internal_spec_url")),
-        field_name="internal_spec_url",
-        default_url=DEFAULT_INTERNAL_SPEC_URL,
-    )
+    base_version = f"{semver_match.group(1)}.{semver_match.group(2)}.{semver_match.group(3)}"
 
-    backend_sha = to_string(raw.get("backend_sha")) or "unknown"
-    backend_repo = to_string(raw.get("backend_repo")) or "unknown"
-    force = to_bool(raw.get("force"), default=False)
+    if channel == "dev":
+        short_sha = backend_sha[:7]
+        return DerivedVersions(
+            spec_version=spec_version,
+            public_version=base_version,
+            internal_version=f"{base_version}.dev{short_sha}",
+            internal_only=True,
+        )
 
-    return NormalizedPayload(
-        version=version,
-        release_tag=release_tag,
-        prerelease=prerelease,
-        public_spec_url=public_spec_url,
-        internal_spec_url=internal_spec_url,
-        backend_sha=backend_sha,
-        backend_repo=backend_repo,
-        force=force,
+    # Stable channel
+    return DerivedVersions(
+        spec_version=spec_version,
+        public_version=base_version,
+        internal_version=base_version,
+        internal_only=False,
     )
 
 
@@ -188,20 +150,37 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    normalized = normalize_payload(parse_event_payload())
+    raw_payload = parse_event_payload()
+
+    channel = resolve_channel(raw_payload.get("release_channel"))
+
+    backend_sha = to_string(raw_payload.get("backend_sha"))
+    if not backend_sha:
+        fail("`backend_sha` is required.")
+
+    spec_url = f"https://raw.githubusercontent.com/{BACKEND_REPO}/{backend_sha}/{SPEC_PATH}"
+    backend_repo = BACKEND_REPO
+
+    spec_version = load_spec_version(spec_url)
+    derived = derive_versions(spec_version, channel, backend_sha)
+
+    release_tag = f"v{derived.spec_version}" if channel == "stable" else ""
+    prerelease = channel == "dev"
 
     if args.print_json:
         print(
             json.dumps(
                 {
-                    "version": normalized.version,
-                    "release_tag": normalized.release_tag,
-                    "prerelease": normalized.prerelease,
-                    "public_spec_url": normalized.public_spec_url,
-                    "internal_spec_url": normalized.internal_spec_url,
-                    "backend_sha": normalized.backend_sha,
-                    "backend_repo": normalized.backend_repo,
-                    "force": normalized.force,
+                    "release_channel": channel,
+                    "spec_version": derived.spec_version,
+                    "public_version": derived.public_version,
+                    "internal_version": derived.internal_version,
+                    "internal_only": derived.internal_only,
+                    "release_tag": release_tag,
+                    "prerelease": prerelease,
+                    "spec_url": spec_url,
+                    "backend_sha": backend_sha,
+                    "backend_repo": backend_repo,
                 },
                 indent=2,
             )
@@ -209,17 +188,24 @@ def main() -> int:
         return 0
 
     print(
-        "Release payload OK: "
-        f"{normalized.release_tag} (backend {normalized.backend_repo}@{normalized.backend_sha})"
+        f"Release payload OK: channel={channel}"
+        f" from {backend_repo}@{backend_sha} (spec={derived.spec_version})"
     )
-    write_output("version", normalized.version)
-    write_output("release_tag", normalized.release_tag)
-    write_output("prerelease", str(normalized.prerelease).lower())
-    write_output("public_spec_url", normalized.public_spec_url)
-    write_output("internal_spec_url", normalized.internal_spec_url)
-    write_output("backend_sha", normalized.backend_sha)
-    write_output("backend_repo", normalized.backend_repo)
-    write_output("force", str(normalized.force).lower())
+    print(
+        f"Publish plan: public={derived.public_version}"
+        f" internal={derived.internal_version} internal_only={derived.internal_only}"
+    )
+
+    write_output("release_channel", channel)
+    write_output("spec_version", derived.spec_version)
+    write_output("public_version", derived.public_version)
+    write_output("internal_version", derived.internal_version)
+    write_output("internal_only", str(derived.internal_only).lower())
+    write_output("release_tag", release_tag)
+    write_output("prerelease", str(prerelease).lower())
+    write_output("spec_url", spec_url)
+    write_output("backend_sha", backend_sha)
+    write_output("backend_repo", backend_repo)
     return 0
 
 

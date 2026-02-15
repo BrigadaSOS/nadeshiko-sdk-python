@@ -1,11 +1,35 @@
-# Nadeshiko Python SDK Monorepo
+# Nadeshiko Python SDK
 
-Monorepo for the Nadeshiko Python SDKs.
+Python SDK for the [Nadeshiko API](https://nadeshiko.co).
 
-## Packages
+## Install
 
-- `sdk`: public SDK (`nadeshiko-sdk`, import `nadeshiko`)
-- `sdk-internal`: internal SDK (`nadeshiko-internal-sdk`, import `nadeshiko_internal`)
+Public package:
+
+```bash
+pip install nadeshiko-sdk
+```
+
+Internal package:
+
+```bash
+pip install nadeshiko-internal-sdk
+```
+
+## Usage
+
+```python
+import os
+from nadeshiko import Nadeshiko
+from nadeshiko.api.search import search
+
+client = Nadeshiko(
+    base_url=os.getenv("NADESHIKO_BASE_URL", "https://api.nadeshiko.co"),
+    token=os.getenv("NADESHIKO_API_KEY", "your-api-key"),
+)
+
+result = search.sync(client=client, body={"query": "彼女", "limit": 5})
+```
 
 ## Development
 
@@ -19,111 +43,64 @@ python -m pip install -e '.[dev]'
 python scripts/generate.py --sdk-type all
 ```
 
-Spec resolution order (per SDK):
-- `--public-spec-path` / `--internal-spec-path` when passed
-- `--public-spec-url` / `--internal-spec-url` (default: GitHub `main-v2`)
-- local fallback: `../Nadeshiko/backend/docs/generated/`
+Spec source (`--spec` or `OPENAPI_SPEC_PATH` env var): accepts a URL or local file path.
+When omitted, fetches from GitHub `main-v2` with local fallback to `../Nadeshiko/backend/docs/generated/openapi.yaml`.
 
-Common options:
-- `--sdk-type public`
-- `--sdk-type internal`
-- `--public-spec-path ...`
-- `--internal-spec-path ...`
-- `--public-spec-url ...`
-- `--internal-spec-url ...`
-
-Local backend example:
-
-```bash
-python scripts/generate.py --sdk-type all \
-  --public-spec-path ../Nadeshiko/backend/docs/generated/openapi.yaml \
-  --internal-spec-path ../Nadeshiko/backend/docs/generated/openapi-internal.yaml
-```
-
-### Boundary Check
-
-```bash
-python scripts/check_boundaries.py
-```
-
-This validates that internal-only operations never appear in the public SDK.
+The single spec uses `x-internal` flags on operations to split public/internal SDKs.
+Generation automatically verifies that `x-internal` operations never leak into the public SDK (disable with `--no-verify`).
 
 ### Build Packages
 
 ```bash
-python -m build sdk
-python -m build sdk-internal
+python scripts/build_package.py public
+python scripts/build_package.py internal
 ```
 
-## Version Contract
+Outputs wheels and sdists to `build/public/dist/` and `build/internal/dist/`.
 
-- `sdk/src/nadeshiko/_version.py` and `sdk-internal/src/nadeshiko_internal/_version.py` must match.
-- Use:
-  - `python scripts/release_version.py set <version>`
-  - `python scripts/release_version.py check [version]`
+## Project Layout
 
-## CI and Release Workflows
+```
+generated/
+  public/nadeshiko/          # Filtered (no x-internal ops)
+  internal/nadeshiko_internal/ # Full spec (all ops)
+build/                        # .gitignored
+  public/                     # Staging + dist (wheel, sdist)
+  internal/
+config/
+  public.yaml                 # openapi-python-client config
+  internal.yaml
+templates/
+  package_init.py.jinja
+examples/
+  usage.py
+  usage_internal.py
+scripts/
+  generate.py
+  build_package.py
+  release/validate_payload.py
+```
 
-- `.github/workflows/ci.yml`
-  - lint scripts
-  - generate SDKs
-  - boundary checks
-  - build both packages
-  - smoke-install built wheels
-- `.github/workflows/release.yml`
-  - triggers on tags (`v*`), `repository_dispatch` (`backend_release`), or manual dispatch
-  - validates payload with `scripts/release/validate_payload.py`
-  - sets aligned versions
-  - generates and validates SDKs
-  - builds artifacts
-  - publishes public package to PyPI when `PYPI_API_TOKEN` is configured
-  - publishes internal package to private index when internal publish secrets are configured
-- `.github/workflows/consumer-smoke.yml`
-  - manual post-release verification from package indexes
+## CI and Release
 
-## Backend Dispatch Payload
+- `.github/workflows/ci.yml` — lint, generate, build, smoke test
+- `.github/workflows/release.yml` — triggered by `repository_dispatch` (`backend_release`) or manual dispatch
 
-`repository_dispatch` type: `backend_release`
+### Backend Dispatch Payload
 
-Supported payload fields:
-- `version` (semver, no leading `v`)
-- `release_tag` (optional, defaults to `v<version>`)
-- `prerelease` (`true`/`false`)
-- `public_spec_url` (optional; defaults to `main-v2` URL)
-- `internal_spec_url` (optional; defaults to `main-v2` URL)
-- `backend_sha` (optional metadata)
-- `backend_repo` (optional metadata)
-- `force` (optional)
+```yaml
+- name: Dispatch Python SDK release
+  env:
+    GH_TOKEN: ${{ secrets.SDK_REPO_DISPATCH_TOKEN }}
+  run: |
+    gh api repos/BrigadaSOS/nadeshiko-sdk-python/dispatches \
+      -f event_type='backend_release' \
+      -f client_payload[release_channel]="stable" \
+      -f client_payload[backend_sha]="${{ github.sha }}"
+```
 
 See `docs/backend-dispatch-example.md`.
-
-## Consuming From Other Repos
-
-Public package:
-
-```bash
-pip install nadeshiko-sdk
-```
-
-Internal package (from your private index):
-
-```bash
-pip install nadeshiko-internal-sdk
-```
-
-Direct from git (fallback):
-
-```bash
-pip install "nadeshiko-sdk @ git+https://github.com/BrigadaSOS/nadeshiko-sdk-python.git@main#subdirectory=sdk"
-pip install "nadeshiko-internal-sdk @ git+https://github.com/BrigadaSOS/nadeshiko-sdk-python.git@main#subdirectory=sdk-internal"
-```
 
 ## Authentication
 
 SDK clients use `Authorization: Bearer <token>` by default.
-Do not override this to `X-API-Key` unless your backend explicitly expects it.
-
-## Package Examples
-
-- `sdk/examples/usage.py`
-- `sdk-internal/examples/usage.py`

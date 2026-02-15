@@ -8,16 +8,17 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
+from ...models.episode import Episode
+from ...models.episode_create_request import EpisodeCreateRequest
 from ...models.error import Error
-from ...models.media import Media
-from ...models.media_create_request import MediaCreateRequest
 from typing import cast
 
 
 
 def _get_kwargs(
+    media_id: int,
     *,
-    body: MediaCreateRequest,
+    body: EpisodeCreateRequest,
 
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -29,7 +30,7 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/media",
+        "url": "/v1/media/{media_id}/episodes".format(media_id=quote(str(media_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -42,9 +43,9 @@ def _get_kwargs(
 
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | Media | None:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Episode | Error | None:
     if response.status_code == 201:
-        response_201 = Media.from_dict(response.json())
+        response_201 = Episode.from_dict(response.json())
 
 
 
@@ -71,6 +72,17 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
         return response_403
 
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+
+
+        return response_404
+
+    if response.status_code == 409:
+        response_409 = Error.from_dict(response.json())
+        return response_409
+
     if response.status_code == 429:
         response_429 = Error.from_dict(response.json())
 
@@ -91,7 +103,7 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | Media]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Episode | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -101,29 +113,32 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
 
 def sync_detailed(
+    media_id: int,
     *,
     client: AuthenticatedClient,
-    body: MediaCreateRequest,
+    body: EpisodeCreateRequest,
 
-) -> Response[Error | Media]:
-    """ Create new media
+) -> Response[Episode | Error]:
+    """ Create new episode
 
-     Creates a new media entry in the database.
+     Create a new episode for a specific media
 
     Args:
-        body (MediaCreateRequest): Request body for creating a new media entry
+        media_id (int):
+        body (EpisodeCreateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | Media]
+        Response[Episode | Error]
      """
 
 
     kwargs = _get_kwargs(
-        body=body,
+        media_id=media_id,
+body=body,
 
     )
 
@@ -134,57 +149,63 @@ def sync_detailed(
     return _build_response(client=client, response=response)
 
 def sync(
+    media_id: int,
     *,
     client: AuthenticatedClient,
-    body: MediaCreateRequest,
+    body: EpisodeCreateRequest,
 
-) -> Error | Media | None:
-    """ Create new media
+) -> Episode | Error | None:
+    """ Create new episode
 
-     Creates a new media entry in the database.
+     Create a new episode for a specific media
 
     Args:
-        body (MediaCreateRequest): Request body for creating a new media entry
+        media_id (int):
+        body (EpisodeCreateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | Media
+        Episode | Error
      """
 
 
     return sync_detailed(
-        client=client,
+        media_id=media_id,
+client=client,
 body=body,
 
     ).parsed
 
 async def asyncio_detailed(
+    media_id: int,
     *,
     client: AuthenticatedClient,
-    body: MediaCreateRequest,
+    body: EpisodeCreateRequest,
 
-) -> Response[Error | Media]:
-    """ Create new media
+) -> Response[Episode | Error]:
+    """ Create new episode
 
-     Creates a new media entry in the database.
+     Create a new episode for a specific media
 
     Args:
-        body (MediaCreateRequest): Request body for creating a new media entry
+        media_id (int):
+        body (EpisodeCreateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | Media]
+        Response[Episode | Error]
      """
 
 
     kwargs = _get_kwargs(
-        body=body,
+        media_id=media_id,
+body=body,
 
     )
 
@@ -195,29 +216,32 @@ async def asyncio_detailed(
     return _build_response(client=client, response=response)
 
 async def asyncio(
+    media_id: int,
     *,
     client: AuthenticatedClient,
-    body: MediaCreateRequest,
+    body: EpisodeCreateRequest,
 
-) -> Error | Media | None:
-    """ Create new media
+) -> Episode | Error | None:
+    """ Create new episode
 
-     Creates a new media entry in the database.
+     Create a new episode for a specific media
 
     Args:
-        body (MediaCreateRequest): Request body for creating a new media entry
+        media_id (int):
+        body (EpisodeCreateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | Media
+        Episode | Error
      """
 
 
     return (await asyncio_detailed(
-        client=client,
+        media_id=media_id,
+client=client,
 body=body,
 
     )).parsed
