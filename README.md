@@ -1,106 +1,100 @@
-# Nadeshiko Python SDK
+# Nadeshiko SDK
 
 Python SDK for the [Nadeshiko API](https://nadeshiko.co).
 
 ## Install
 
-Public package:
-
 ```bash
 pip install nadeshiko-sdk
 ```
 
-Internal package:
+## Use the public SDK
 
-```bash
-pip install nadeshiko-internal-sdk
-```
-
-## Usage
+The client sends your API key as `Authorization: Bearer <apiKey>`.
 
 ```python
 import os
+
 from nadeshiko import Nadeshiko
 from nadeshiko.api.search import search
+from nadeshiko.models import Error, SearchRequest
 
 client = Nadeshiko(
     base_url=os.getenv("NADESHIKO_BASE_URL", "https://api.nadeshiko.co"),
     token=os.getenv("NADESHIKO_API_KEY", "your-api-key"),
 )
 
-result = search.sync(client=client, body={"query": "彼女", "limit": 5})
+result = search.sync(
+    client=client,
+    body=SearchRequest(query="彼女"),
+)
+
+if isinstance(result, Error):
+    print(result.code, result.detail)
+else:
+    for sentence in result.sentences:
+        print(sentence.segment_info.content_jp)
 ```
 
-## Development
+### Error handling
 
-```bash
-python -m pip install -e '.[dev]'
+Every response returns either a typed response object or an `Error`. The `Error` object follows the [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details format, so you always get a machine-readable `code` and a human-readable `detail`.
+
+```python
+import os
+
+from nadeshiko import Nadeshiko
+from nadeshiko.api.search import search
+from nadeshiko.models import Error, SearchRequest
+
+client = Nadeshiko(
+    base_url=os.getenv("NADESHIKO_BASE_URL", "https://api.nadeshiko.co"),
+    token=os.getenv("NADESHIKO_API_KEY", "your-api-key"),
+)
+
+result = search.sync(
+    client=client,
+    body=SearchRequest(query="食べる"),
+)
+
+if isinstance(result, Error):
+    match result.code:
+        # 400 — Bad Request
+        case "VALIDATION_FAILED":
+            print("Validation failed:", result.detail)
+        case "INVALID_JSON":
+            print("Malformed JSON body:", result.detail)
+        case "INVALID_REQUEST":
+            print("Invalid request:", result.detail)
+
+        # 401 — Unauthorized
+        case "AUTH_CREDENTIALS_REQUIRED":
+            print("Missing API key or session token")
+        case "AUTH_CREDENTIALS_INVALID":
+            print("API key is invalid")
+        case "AUTH_CREDENTIALS_EXPIRED":
+            print("Token has expired, re-authenticate")
+        case "EMAIL_NOT_VERIFIED":
+            print("Email verification required")
+
+        # 403 — Forbidden
+        case "ACCESS_DENIED":
+            print("Access denied")
+        case "INSUFFICIENT_PERMISSIONS":
+            print("API key lacks the required scope")
+
+        # 429 — Too Many Requests
+        case "RATE_LIMIT_EXCEEDED":
+            print("Rate limit hit, slow down")
+        case "QUOTA_EXCEEDED":
+            print("Monthly quota exhausted")
+
+        # 500 — Internal Server Error
+        case "INTERNAL_SERVER_EXCEPTION":
+            print("Server error, trace ID:", result.instance)
+else:
+    for sentence in result.sentences:
+        print(sentence.segment_info.content_jp, "—", sentence.basic_info.name_anime_en)
 ```
 
-### Generate SDKs
-
-```bash
-python scripts/generate.py --sdk-type all
-```
-
-Spec source (`--spec` or `OPENAPI_SPEC_PATH` env var): accepts a URL or local file path.
-When omitted, fetches from GitHub `main-v2` with local fallback to `../Nadeshiko/backend/docs/generated/openapi.yaml`.
-
-The single spec uses `x-internal` flags on operations to split public/internal SDKs.
-Generation automatically verifies that `x-internal` operations never leak into the public SDK (disable with `--no-verify`).
-
-### Build Packages
-
-```bash
-python scripts/build_package.py public
-python scripts/build_package.py internal
-```
-
-Outputs wheels and sdists to `build/public/dist/` and `build/internal/dist/`.
-
-## Project Layout
-
-```
-generated/
-  public/nadeshiko/          # Filtered (no x-internal ops)
-  internal/nadeshiko_internal/ # Full spec (all ops)
-build/                        # .gitignored
-  public/                     # Staging + dist (wheel, sdist)
-  internal/
-config/
-  public.yaml                 # openapi-python-client config
-  internal.yaml
-templates/
-  package_init.py.jinja
-examples/
-  usage.py
-  usage_internal.py
-scripts/
-  generate.py
-  build_package.py
-  release/validate_payload.py
-```
-
-## CI and Release
-
-- `.github/workflows/ci.yml` — lint, generate, build, smoke test
-- `.github/workflows/release.yml` — triggered by `repository_dispatch` (`backend_release`) or manual dispatch
-
-### Backend Dispatch Payload
-
-```yaml
-- name: Dispatch Python SDK release
-  env:
-    GH_TOKEN: ${{ secrets.SDK_REPO_DISPATCH_TOKEN }}
-  run: |
-    gh api repos/BrigadaSOS/nadeshiko-sdk-python/dispatches \
-      -f event_type='backend_release' \
-      -f client_payload[release_channel]="stable" \
-      -f client_payload[backend_sha]="${{ github.sha }}"
-```
-
-See `docs/backend-dispatch-example.md`.
-
-## Authentication
-
-SDK clients use `Authorization: Bearer <token>` by default.
+See [`examples/examples.py`](examples/examples.py) for more usage patterns.
