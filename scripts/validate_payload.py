@@ -121,11 +121,13 @@ def derive_versions(
     base_version = f"{semver_match.group(1)}.{semver_match.group(2)}.{semver_match.group(3)}"
 
     if channel == "dev":
-        short_sha = backend_sha[:7]
+        # PEP 440 requires .devN where N is numeric-only.
+        # Use a UTC timestamp so dev versions sort chronologically.
+        dev_number = int(time.time())
         return DerivedVersions(
             spec_version=spec_version,
             public_version=base_version,
-            internal_version=f"{base_version}.dev{short_sha}",
+            internal_version=f"{base_version}.dev{dev_number}",
             internal_only=True,
         )
 
