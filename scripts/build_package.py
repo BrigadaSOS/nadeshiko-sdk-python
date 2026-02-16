@@ -5,7 +5,7 @@ Creates a staging area under build/<target>/ with the proper layout for
 ``python -m build``, then invokes it to produce sdist + wheel artifacts.
 
 Usage:
-    python scripts/build_package.py <public|internal>
+    python scripts/build_package.py <public|internal|dev>
 """
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from typing import Literal
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-BuildTarget = Literal["public", "internal"]
+BuildTarget = Literal["public", "internal", "dev"]
 
 DEPENDENCIES = [
     "attrs>=23.0",
@@ -43,6 +43,14 @@ TARGET_META: dict[BuildTarget, dict[str, str]] = {
         ),
         "version_env": "INTERNAL_VERSION",
     },
+    "dev": {
+        "package_name": "nadeshiko-internal-sdk",
+        "import_name": "nadeshiko_internal",
+        "description": (
+            "Python SDK for Nadeshiko API (internal build - includes internal endpoints)"
+        ),
+        "version_env": "INTERNAL_VERSION",
+    },
 }
 
 
@@ -53,10 +61,10 @@ def fail(message: str) -> None:
 
 def resolve_target() -> BuildTarget:
     if len(sys.argv) < 2:
-        fail("Usage: python scripts/build_package.py <public|internal>")
+        fail("Usage: python scripts/build_package.py <public|internal|dev>")
     value = sys.argv[1].strip().lower()
-    if value not in ("public", "internal"):
-        fail("Usage: python scripts/build_package.py <public|internal>")
+    if value not in ("public", "internal", "dev"):
+        fail("Usage: python scripts/build_package.py <public|internal|dev>")
     return value  # type: ignore[return-value]
 
 

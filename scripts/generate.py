@@ -49,6 +49,12 @@ INTERNAL_TARGET = PackageTarget(
     config_path=ROOT_DIR / "config" / "internal.yaml",
 )
 
+DEV_TARGET = PackageTarget(
+    name="dev",
+    source_dir=ROOT_DIR / "generated" / "dev" / "nadeshiko_internal",
+    config_path=ROOT_DIR / "config" / "dev.yaml",
+)
+
 
 def _is_url(value: str) -> bool:
     return value.startswith("https://") or value.startswith("http://")
@@ -58,7 +64,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--sdk-type",
-        choices=("all", "public", "internal"),
+        choices=("all", "public", "internal", "dev"),
         default="all",
         help="SDK target to generate.",
     )
@@ -401,6 +407,10 @@ def main() -> int:
         # Load spec once for generation and optional verification
         with normalized_spec.open("r", encoding="utf-8") as f:
             parsed_spec = yaml.safe_load(f)
+
+        # Generate dev SDK: use the full (normalized) spec directly
+        if args.sdk_type == "dev":
+            run_codegen(DEV_TARGET, normalized_spec, keep_build=args.keep_build)
 
         # Generate internal SDK: use the full (normalized) spec directly
         if args.sdk_type in {"all", "internal"}:
