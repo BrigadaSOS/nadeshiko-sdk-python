@@ -30,9 +30,9 @@ class SearchResultSegment:
         start_time (str): Timestamp in H:MM:SS.ffffff format indicating when the segment starts Example: 0:33:27.255000.
         end_time (str): Timestamp in H:MM:SS.ffffff format indicating when the segment ends Example: 0:33:28.464000.
         episode_number (int): Episode number where the segment appears Example: 1.
-        ja (JapaneseSearchContent): Japanese content in search results with optional highlight
-        en (TranslationSearchContent): Translation content in search results with optional highlight
-        es (TranslationSearchContent): Translation content in search results with optional highlight
+        text_ja (JapaneseSearchContent): Japanese content in search results with optional highlight
+        text_en (TranslationSearchContent): Translation content in search results with optional highlight
+        text_es (TranslationSearchContent): Translation content in search results with optional highlight
         is_nsfw (bool): Whether the segment contains NSFW content
         morphemes (list[Morpheme] | None | Unset): Morphological analysis of the Japanese content
     """
@@ -43,9 +43,9 @@ class SearchResultSegment:
     start_time: str
     end_time: str
     episode_number: int
-    ja: JapaneseSearchContent
-    en: TranslationSearchContent
-    es: TranslationSearchContent
+    text_ja: JapaneseSearchContent
+    text_en: TranslationSearchContent
+    text_es: TranslationSearchContent
     is_nsfw: bool
     morphemes: list[Morpheme] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -63,11 +63,11 @@ class SearchResultSegment:
 
         episode_number = self.episode_number
 
-        ja = self.ja.to_dict()
+        text_ja = self.text_ja.to_dict()
 
-        en = self.en.to_dict()
+        text_en = self.text_en.to_dict()
 
-        es = self.es.to_dict()
+        text_es = self.text_es.to_dict()
 
         is_nsfw = self.is_nsfw
 
@@ -93,9 +93,9 @@ class SearchResultSegment:
                 "startTime": start_time,
                 "endTime": end_time,
                 "episodeNumber": episode_number,
-                "ja": ja,
-                "en": en,
-                "es": es,
+                "textJa": text_ja,
+                "textEn": text_en,
+                "textEs": text_es,
                 "isNsfw": is_nsfw,
             }
         )
@@ -123,11 +123,11 @@ class SearchResultSegment:
 
         episode_number = d.pop("episodeNumber")
 
-        ja = JapaneseSearchContent.from_dict(d.pop("ja"))
+        text_ja = JapaneseSearchContent.from_dict(d.pop("textJa"))
 
-        en = TranslationSearchContent.from_dict(d.pop("en"))
+        text_en = TranslationSearchContent.from_dict(d.pop("textEn"))
 
-        es = TranslationSearchContent.from_dict(d.pop("es"))
+        text_es = TranslationSearchContent.from_dict(d.pop("textEs"))
 
         is_nsfw = d.pop("isNsfw")
 
@@ -160,9 +160,9 @@ class SearchResultSegment:
             start_time=start_time,
             end_time=end_time,
             episode_number=episode_number,
-            ja=ja,
-            en=en,
-            es=es,
+            text_ja=text_ja,
+            text_en=text_en,
+            text_es=text_es,
             is_nsfw=is_nsfw,
             morphemes=morphemes,
         )

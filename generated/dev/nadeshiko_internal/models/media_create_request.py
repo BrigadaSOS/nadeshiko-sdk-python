@@ -45,6 +45,7 @@ class MediaCreateRequest:
         season_year (int): Airing year for the media Example: 2010.
         external_ids (ExternalId | Unset): Map of external IDs keyed by source. Only sources with values are included.
         end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
+        storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
         characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
         lists (list[ListInput] | Unset): Lists to add this media to (e.g., series, franchise)
     """
@@ -65,6 +66,7 @@ class MediaCreateRequest:
     storage: MediaCreateRequestStorage = MediaCreateRequestStorage.R2
     external_ids: ExternalId | Unset = UNSET
     end_date: datetime.date | Unset = UNSET
+    storage_base_path: str | Unset = UNSET
     characters: list[CharacterInput] | Unset = UNSET
     lists: list[ListInput] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -106,6 +108,8 @@ class MediaCreateRequest:
         if not isinstance(self.end_date, Unset):
             end_date = self.end_date.isoformat()
 
+        storage_base_path = self.storage_base_path
+
         characters: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.characters, Unset):
             characters = []
@@ -144,6 +148,8 @@ class MediaCreateRequest:
             field_dict["externalIds"] = external_ids
         if end_date is not UNSET:
             field_dict["endDate"] = end_date
+        if storage_base_path is not UNSET:
+            field_dict["storageBasePath"] = storage_base_path
         if characters is not UNSET:
             field_dict["characters"] = characters
         if lists is not UNSET:
@@ -200,6 +206,8 @@ class MediaCreateRequest:
         else:
             end_date = isoparse(_end_date).date()
 
+        storage_base_path = d.pop("storageBasePath", UNSET)
+
         _characters = d.pop("characters", UNSET)
         characters: list[CharacterInput] | Unset = UNSET
         if _characters is not UNSET:
@@ -235,6 +243,7 @@ class MediaCreateRequest:
             season_year=season_year,
             external_ids=external_ids,
             end_date=end_date,
+            storage_base_path=storage_base_path,
             characters=characters,
             lists=lists,
         )

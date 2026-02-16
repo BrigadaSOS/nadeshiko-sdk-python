@@ -8,11 +8,11 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="SegmentUpdateRequestJa")
+T = TypeVar("T", bound="SegmentUpdateRequestTextJa")
 
 
 @_attrs_define
-class SegmentUpdateRequestJa:
+class SegmentUpdateRequestTextJa:
     """
     Attributes:
         content (str | Unset): Original Japanese content of the segment Example: 僕は僕で、君は君だ。.
@@ -37,12 +37,12 @@ class SegmentUpdateRequestJa:
         d = dict(src_dict)
         content = d.pop("content", UNSET)
 
-        segment_update_request_ja = cls(
+        segment_update_request_text_ja = cls(
             content=content,
         )
 
-        segment_update_request_ja.additional_properties = d
-        return segment_update_request_ja
+        segment_update_request_text_ja.additional_properties = d
+        return segment_update_request_text_ja
 
     @property
     def additional_keys(self) -> list[str]:

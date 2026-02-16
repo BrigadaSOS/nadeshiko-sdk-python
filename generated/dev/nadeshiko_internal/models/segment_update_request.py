@@ -11,9 +11,9 @@ from ..models.segment_update_request_storage import SegmentUpdateRequestStorage
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.segment_update_request_en import SegmentUpdateRequestEn
-    from ..models.segment_update_request_es import SegmentUpdateRequestEs
-    from ..models.segment_update_request_ja import SegmentUpdateRequestJa
+    from ..models.segment_update_request_text_en import SegmentUpdateRequestTextEn
+    from ..models.segment_update_request_text_es import SegmentUpdateRequestTextEs
+    from ..models.segment_update_request_text_ja import SegmentUpdateRequestTextJa
 
 
 T = TypeVar("T", bound="SegmentUpdateRequest")
@@ -31,9 +31,9 @@ class SegmentUpdateRequest:
             0:33:27.255000.
         end_time (str | Unset): Timestamp in H:MM:SS.ffffff format indicating when the segment ends Example:
             0:33:28.464000.
-        ja (SegmentUpdateRequestJa | Unset):
-        es (SegmentUpdateRequestEs | Unset):
-        en (SegmentUpdateRequestEn | Unset):
+        text_ja (SegmentUpdateRequestTextJa | Unset):
+        text_es (SegmentUpdateRequestTextEs | Unset):
+        text_en (SegmentUpdateRequestTextEn | Unset):
         is_nsfw (bool | Unset): Whether the segment contains NSFW content Default: False.
         storage (SegmentUpdateRequestStorage | Unset): Storage backend for segment assets Default:
             SegmentUpdateRequestStorage.R2. Example: R2.
@@ -44,9 +44,9 @@ class SegmentUpdateRequest:
     status: SegmentUpdateRequestStatus | Unset = SegmentUpdateRequestStatus.ACTIVE
     start_time: str | Unset = UNSET
     end_time: str | Unset = UNSET
-    ja: SegmentUpdateRequestJa | Unset = UNSET
-    es: SegmentUpdateRequestEs | Unset = UNSET
-    en: SegmentUpdateRequestEn | Unset = UNSET
+    text_ja: SegmentUpdateRequestTextJa | Unset = UNSET
+    text_es: SegmentUpdateRequestTextEs | Unset = UNSET
+    text_en: SegmentUpdateRequestTextEn | Unset = UNSET
     is_nsfw: bool | Unset = False
     storage: SegmentUpdateRequestStorage | Unset = SegmentUpdateRequestStorage.R2
     hashed_id: str | Unset = UNSET
@@ -63,17 +63,17 @@ class SegmentUpdateRequest:
 
         end_time = self.end_time
 
-        ja: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.ja, Unset):
-            ja = self.ja.to_dict()
+        text_ja: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.text_ja, Unset):
+            text_ja = self.text_ja.to_dict()
 
-        es: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.es, Unset):
-            es = self.es.to_dict()
+        text_es: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.text_es, Unset):
+            text_es = self.text_es.to_dict()
 
-        en: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.en, Unset):
-            en = self.en.to_dict()
+        text_en: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.text_en, Unset):
+            text_en = self.text_en.to_dict()
 
         is_nsfw = self.is_nsfw
 
@@ -94,12 +94,12 @@ class SegmentUpdateRequest:
             field_dict["startTime"] = start_time
         if end_time is not UNSET:
             field_dict["endTime"] = end_time
-        if ja is not UNSET:
-            field_dict["ja"] = ja
-        if es is not UNSET:
-            field_dict["es"] = es
-        if en is not UNSET:
-            field_dict["en"] = en
+        if text_ja is not UNSET:
+            field_dict["textJa"] = text_ja
+        if text_es is not UNSET:
+            field_dict["textEs"] = text_es
+        if text_en is not UNSET:
+            field_dict["textEn"] = text_en
         if is_nsfw is not UNSET:
             field_dict["isNsfw"] = is_nsfw
         if storage is not UNSET:
@@ -111,9 +111,9 @@ class SegmentUpdateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_update_request_en import SegmentUpdateRequestEn
-        from ..models.segment_update_request_es import SegmentUpdateRequestEs
-        from ..models.segment_update_request_ja import SegmentUpdateRequestJa
+        from ..models.segment_update_request_text_en import SegmentUpdateRequestTextEn
+        from ..models.segment_update_request_text_es import SegmentUpdateRequestTextEs
+        from ..models.segment_update_request_text_ja import SegmentUpdateRequestTextJa
 
         d = dict(src_dict)
         position = d.pop("position", UNSET)
@@ -129,26 +129,26 @@ class SegmentUpdateRequest:
 
         end_time = d.pop("endTime", UNSET)
 
-        _ja = d.pop("ja", UNSET)
-        ja: SegmentUpdateRequestJa | Unset
-        if isinstance(_ja, Unset):
-            ja = UNSET
+        _text_ja = d.pop("textJa", UNSET)
+        text_ja: SegmentUpdateRequestTextJa | Unset
+        if isinstance(_text_ja, Unset):
+            text_ja = UNSET
         else:
-            ja = SegmentUpdateRequestJa.from_dict(_ja)
+            text_ja = SegmentUpdateRequestTextJa.from_dict(_text_ja)
 
-        _es = d.pop("es", UNSET)
-        es: SegmentUpdateRequestEs | Unset
-        if isinstance(_es, Unset):
-            es = UNSET
+        _text_es = d.pop("textEs", UNSET)
+        text_es: SegmentUpdateRequestTextEs | Unset
+        if isinstance(_text_es, Unset):
+            text_es = UNSET
         else:
-            es = SegmentUpdateRequestEs.from_dict(_es)
+            text_es = SegmentUpdateRequestTextEs.from_dict(_text_es)
 
-        _en = d.pop("en", UNSET)
-        en: SegmentUpdateRequestEn | Unset
-        if isinstance(_en, Unset):
-            en = UNSET
+        _text_en = d.pop("textEn", UNSET)
+        text_en: SegmentUpdateRequestTextEn | Unset
+        if isinstance(_text_en, Unset):
+            text_en = UNSET
         else:
-            en = SegmentUpdateRequestEn.from_dict(_en)
+            text_en = SegmentUpdateRequestTextEn.from_dict(_text_en)
 
         is_nsfw = d.pop("isNsfw", UNSET)
 
@@ -166,9 +166,9 @@ class SegmentUpdateRequest:
             status=status,
             start_time=start_time,
             end_time=end_time,
-            ja=ja,
-            es=es,
-            en=en,
+            text_ja=text_ja,
+            text_es=text_es,
+            text_en=text_en,
             is_nsfw=is_nsfw,
             storage=storage,
             hashed_id=hashed_id,

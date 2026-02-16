@@ -8,27 +8,33 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="SegmentCreateRequestJa")
+T = TypeVar("T", bound="SegmentCreateRequestTextEs")
 
 
 @_attrs_define
-class SegmentCreateRequestJa:
+class SegmentCreateRequestTextEs:
     """
     Attributes:
-        content (str | Unset): Original Japanese content of the segment Example: 僕は僕で、君は君だ。.
+        content (str | Unset): Spanish translation of the segment content Example: Yo soy yo, y tú eres tú..
+        is_machine_translated (bool | Unset): Whether the Spanish translation was machine-translated Default: False.
     """
 
     content: str | Unset = UNSET
+    is_machine_translated: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         content = self.content
+
+        is_machine_translated = self.is_machine_translated
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if content is not UNSET:
             field_dict["content"] = content
+        if is_machine_translated is not UNSET:
+            field_dict["isMachineTranslated"] = is_machine_translated
 
         return field_dict
 
@@ -37,12 +43,15 @@ class SegmentCreateRequestJa:
         d = dict(src_dict)
         content = d.pop("content", UNSET)
 
-        segment_create_request_ja = cls(
+        is_machine_translated = d.pop("isMachineTranslated", UNSET)
+
+        segment_create_request_text_es = cls(
             content=content,
+            is_machine_translated=is_machine_translated,
         )
 
-        segment_create_request_ja.additional_properties = d
-        return segment_create_request_ja
+        segment_create_request_text_es.additional_properties = d
+        return segment_create_request_text_es
 
     @property
     def additional_keys(self) -> list[str]:

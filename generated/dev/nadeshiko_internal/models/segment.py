@@ -29,9 +29,9 @@ class Segment:
         status (SegmentStatus): Segment status Example: ACTIVE.
         start_time (str): Timestamp in H:MM:SS.ffffff format indicating when the segment starts Example: 0:33:27.255000.
         end_time (str): Timestamp in H:MM:SS.ffffff format indicating when the segment ends Example: 0:33:28.464000.
-        ja (JapaneseContent): Japanese content with optional character count
-        en (TranslationContent): Translation content for a language
-        es (TranslationContent): Translation content for a language
+        text_ja (JapaneseContent): Japanese content with optional character count
+        text_en (TranslationContent): Translation content for a language
+        text_es (TranslationContent): Translation content for a language
         is_nsfw (bool): Whether the segment contains NSFW content
         episode (int): Episode number this segment belongs to Example: 1.
         media_id (int): Media ID this segment belongs to Example: 7674.
@@ -52,9 +52,9 @@ class Segment:
     status: SegmentStatus
     start_time: str
     end_time: str
-    ja: JapaneseContent
-    en: TranslationContent
-    es: TranslationContent
+    text_ja: JapaneseContent
+    text_en: TranslationContent
+    text_es: TranslationContent
     is_nsfw: bool
     episode: int
     media_id: int
@@ -79,11 +79,11 @@ class Segment:
 
         end_time = self.end_time
 
-        ja = self.ja.to_dict()
+        text_ja = self.text_ja.to_dict()
 
-        en = self.en.to_dict()
+        text_en = self.text_en.to_dict()
 
-        es = self.es.to_dict()
+        text_es = self.text_es.to_dict()
 
         is_nsfw = self.is_nsfw
 
@@ -135,9 +135,9 @@ class Segment:
                 "status": status,
                 "startTime": start_time,
                 "endTime": end_time,
-                "ja": ja,
-                "en": en,
-                "es": es,
+                "textJa": text_ja,
+                "textEn": text_en,
+                "textEs": text_es,
                 "isNsfw": is_nsfw,
                 "episode": episode,
                 "mediaId": media_id,
@@ -175,11 +175,11 @@ class Segment:
 
         end_time = d.pop("endTime")
 
-        ja = JapaneseContent.from_dict(d.pop("ja"))
+        text_ja = JapaneseContent.from_dict(d.pop("textJa"))
 
-        en = TranslationContent.from_dict(d.pop("en"))
+        text_en = TranslationContent.from_dict(d.pop("textEn"))
 
-        es = TranslationContent.from_dict(d.pop("es"))
+        text_es = TranslationContent.from_dict(d.pop("textEs"))
 
         is_nsfw = d.pop("isNsfw")
 
@@ -247,9 +247,9 @@ class Segment:
             status=status,
             start_time=start_time,
             end_time=end_time,
-            ja=ja,
-            en=en,
-            es=es,
+            text_ja=text_ja,
+            text_en=text_en,
+            text_es=text_es,
             is_nsfw=is_nsfw,
             episode=episode,
             media_id=media_id,

@@ -165,20 +165,20 @@ from .search_stats_response import SearchStatsResponse
 from .segment import Segment
 from .segment_context_response import SegmentContextResponse
 from .segment_create_request import SegmentCreateRequest
-from .segment_create_request_en import SegmentCreateRequestEn
-from .segment_create_request_es import SegmentCreateRequestEs
-from .segment_create_request_ja import SegmentCreateRequestJa
 from .segment_create_request_status import SegmentCreateRequestStatus
 from .segment_create_request_storage import SegmentCreateRequestStorage
+from .segment_create_request_text_en import SegmentCreateRequestTextEn
+from .segment_create_request_text_es import SegmentCreateRequestTextEs
+from .segment_create_request_text_ja import SegmentCreateRequestTextJa
 from .segment_list_response import SegmentListResponse
 from .segment_status import SegmentStatus
 from .segment_storage import SegmentStorage
 from .segment_update_request import SegmentUpdateRequest
-from .segment_update_request_en import SegmentUpdateRequestEn
-from .segment_update_request_es import SegmentUpdateRequestEs
-from .segment_update_request_ja import SegmentUpdateRequestJa
 from .segment_update_request_status import SegmentUpdateRequestStatus
 from .segment_update_request_storage import SegmentUpdateRequestStorage
+from .segment_update_request_text_en import SegmentUpdateRequestTextEn
+from .segment_update_request_text_es import SegmentUpdateRequestTextEs
+from .segment_update_request_text_ja import SegmentUpdateRequestTextJa
 from .seiyuu import Seiyuu
 from .seiyuu_with_roles import SeiyuuWithRoles
 from .seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
@@ -369,20 +369,20 @@ __all__ = (
     "Segment",
     "SegmentContextResponse",
     "SegmentCreateRequest",
-    "SegmentCreateRequestEn",
-    "SegmentCreateRequestEs",
-    "SegmentCreateRequestJa",
     "SegmentCreateRequestStatus",
     "SegmentCreateRequestStorage",
+    "SegmentCreateRequestTextEn",
+    "SegmentCreateRequestTextEs",
+    "SegmentCreateRequestTextJa",
     "SegmentListResponse",
     "SegmentStatus",
     "SegmentStorage",
     "SegmentUpdateRequest",
-    "SegmentUpdateRequestEn",
-    "SegmentUpdateRequestEs",
-    "SegmentUpdateRequestJa",
     "SegmentUpdateRequestStatus",
     "SegmentUpdateRequestStorage",
+    "SegmentUpdateRequestTextEn",
+    "SegmentUpdateRequestTextEs",
+    "SegmentUpdateRequestTextJa",
     "Seiyuu",
     "SeiyuuWithRoles",
     "SeiyuuWithRolesRolesItem",

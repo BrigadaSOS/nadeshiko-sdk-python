@@ -8,11 +8,11 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="SegmentUpdateRequestEn")
+T = TypeVar("T", bound="SegmentUpdateRequestTextEn")
 
 
 @_attrs_define
-class SegmentUpdateRequestEn:
+class SegmentUpdateRequestTextEn:
     """
     Attributes:
         content (str | Unset): English translation of the segment content Example: I am me, and you are you..
@@ -45,13 +45,13 @@ class SegmentUpdateRequestEn:
 
         is_machine_translated = d.pop("isMachineTranslated", UNSET)
 
-        segment_update_request_en = cls(
+        segment_update_request_text_en = cls(
             content=content,
             is_machine_translated=is_machine_translated,
         )
 
-        segment_update_request_en.additional_properties = d
-        return segment_update_request_en
+        segment_update_request_text_en.additional_properties = d
+        return segment_update_request_text_en
 
     @property
     def additional_keys(self) -> list[str]:

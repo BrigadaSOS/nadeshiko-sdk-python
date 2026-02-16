@@ -46,6 +46,7 @@ class MediaUpdateRequest:
         studio (str | Unset): Animation studio that produced the media Example: J.C.STAFF.
         season_name (str | Unset): Airing season label for the media Example: FALL.
         season_year (int | Unset): Airing year for the media Example: 2010.
+        storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
         characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
         lists (list[ListInput] | Unset): Lists to add this media to (e.g., series, franchise)
         segment_count (int | Unset): Total number of subtitle segments available Example: 1234.
@@ -67,6 +68,7 @@ class MediaUpdateRequest:
     studio: str | Unset = UNSET
     season_name: str | Unset = UNSET
     season_year: int | Unset = UNSET
+    storage_base_path: str | Unset = UNSET
     characters: list[CharacterInput] | Unset = UNSET
     lists: list[ListInput] | Unset = UNSET
     segment_count: int | Unset = UNSET
@@ -116,6 +118,8 @@ class MediaUpdateRequest:
         season_name = self.season_name
 
         season_year = self.season_year
+
+        storage_base_path = self.storage_base_path
 
         characters: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.characters, Unset):
@@ -168,6 +172,8 @@ class MediaUpdateRequest:
             field_dict["seasonName"] = season_name
         if season_year is not UNSET:
             field_dict["seasonYear"] = season_year
+        if storage_base_path is not UNSET:
+            field_dict["storageBasePath"] = storage_base_path
         if characters is not UNSET:
             field_dict["characters"] = characters
         if lists is not UNSET:
@@ -241,6 +247,8 @@ class MediaUpdateRequest:
 
         season_year = d.pop("seasonYear", UNSET)
 
+        storage_base_path = d.pop("storageBasePath", UNSET)
+
         _characters = d.pop("characters", UNSET)
         characters: list[CharacterInput] | Unset = UNSET
         if _characters is not UNSET:
@@ -278,6 +286,7 @@ class MediaUpdateRequest:
             studio=studio,
             season_name=season_name,
             season_year=season_year,
+            storage_base_path=storage_base_path,
             characters=characters,
             lists=lists,
             segment_count=segment_count,
