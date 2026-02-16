@@ -51,7 +51,7 @@ jobs:
 
       - name: Validate payload
         id: payload
-        run: python scripts/release/validate_payload.py
+        run: python scripts/validate_payload.py
 
       - name: Check PyPI for existing versions
         id: pypi_check
