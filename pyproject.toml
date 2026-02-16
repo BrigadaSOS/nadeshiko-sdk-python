@@ -31,6 +31,9 @@ unfixable = []
 quote-style = "double"
 indent-style = "space"
 
+[tool.hatch.build.targets.wheel]
+packages = ["scripts"]
+
 [tool.hatch.envs.default]
 features = ["dev"]
 
