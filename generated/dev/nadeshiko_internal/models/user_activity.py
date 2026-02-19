@@ -24,6 +24,8 @@ class UserActivity:
         segment_uuid (None | str | Unset):
         media_id (int | None | Unset):
         search_query (None | str | Unset):
+        anime_name (None | str | Unset):
+        japanese_text (None | str | Unset):
     """
 
     id: int
@@ -32,6 +34,8 @@ class UserActivity:
     segment_uuid: None | str | Unset = UNSET
     media_id: int | None | Unset = UNSET
     search_query: None | str | Unset = UNSET
+    anime_name: None | str | Unset = UNSET
+    japanese_text: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -59,6 +63,18 @@ class UserActivity:
         else:
             search_query = self.search_query
 
+        anime_name: None | str | Unset
+        if isinstance(self.anime_name, Unset):
+            anime_name = UNSET
+        else:
+            anime_name = self.anime_name
+
+        japanese_text: None | str | Unset
+        if isinstance(self.japanese_text, Unset):
+            japanese_text = UNSET
+        else:
+            japanese_text = self.japanese_text
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -74,6 +90,10 @@ class UserActivity:
             field_dict["mediaId"] = media_id
         if search_query is not UNSET:
             field_dict["searchQuery"] = search_query
+        if anime_name is not UNSET:
+            field_dict["animeName"] = anime_name
+        if japanese_text is not UNSET:
+            field_dict["japaneseText"] = japanese_text
 
         return field_dict
 
@@ -113,6 +133,24 @@ class UserActivity:
 
         search_query = _parse_search_query(d.pop("searchQuery", UNSET))
 
+        def _parse_anime_name(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        anime_name = _parse_anime_name(d.pop("animeName", UNSET))
+
+        def _parse_japanese_text(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        japanese_text = _parse_japanese_text(d.pop("japaneseText", UNSET))
+
         user_activity = cls(
             id=id,
             activity_type=activity_type,
@@ -120,6 +158,8 @@ class UserActivity:
             segment_uuid=segment_uuid,
             media_id=media_id,
             search_query=search_query,
+            anime_name=anime_name,
+            japanese_text=japanese_text,
         )
 
         user_activity.additional_properties = d

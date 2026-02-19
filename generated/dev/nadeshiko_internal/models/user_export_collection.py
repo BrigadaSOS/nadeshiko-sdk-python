@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
 from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
 from ..models.collection_visibility import CollectionVisibility
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="UserExportCollection")
 
@@ -21,6 +24,9 @@ class UserExportCollection:
         user_id (int): User ID who owns the collection Example: 1.
         visibility (CollectionVisibility): Visibility of the collection Example: PRIVATE.
         segment_uuids (list[UUID]): Segment UUIDs in saved order
+        segment_count (int | Unset): Number of segments in the collection Example: 42.
+        created_at (datetime.datetime | Unset): When the collection was created
+        updated_at (datetime.datetime | Unset): When the collection was last updated
     """
 
     id: int
@@ -28,6 +34,9 @@ class UserExportCollection:
     user_id: int
     visibility: CollectionVisibility
     segment_uuids: list[UUID]
+    segment_count: int | Unset = UNSET
+    created_at: datetime.datetime | Unset = UNSET
+    updated_at: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,6 +53,16 @@ class UserExportCollection:
             segment_uuids_item = str(segment_uuids_item_data)
             segment_uuids.append(segment_uuids_item)
 
+        segment_count = self.segment_count
+
+        created_at: str | Unset = UNSET
+        if not isinstance(self.created_at, Unset):
+            created_at = self.created_at.isoformat()
+
+        updated_at: str | Unset = UNSET
+        if not isinstance(self.updated_at, Unset):
+            updated_at = self.updated_at.isoformat()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -55,6 +74,12 @@ class UserExportCollection:
                 "segmentUuids": segment_uuids,
             }
         )
+        if segment_count is not UNSET:
+            field_dict["segmentCount"] = segment_count
+        if created_at is not UNSET:
+            field_dict["createdAt"] = created_at
+        if updated_at is not UNSET:
+            field_dict["updatedAt"] = updated_at
 
         return field_dict
 
@@ -76,12 +101,31 @@ class UserExportCollection:
 
             segment_uuids.append(segment_uuids_item)
 
+        segment_count = d.pop("segmentCount", UNSET)
+
+        _created_at = d.pop("createdAt", UNSET)
+        created_at: datetime.datetime | Unset
+        if isinstance(_created_at, Unset):
+            created_at = UNSET
+        else:
+            created_at = isoparse(_created_at)
+
+        _updated_at = d.pop("updatedAt", UNSET)
+        updated_at: datetime.datetime | Unset
+        if isinstance(_updated_at, Unset):
+            updated_at = UNSET
+        else:
+            updated_at = isoparse(_updated_at)
+
         user_export_collection = cls(
             id=id,
             name=name,
             user_id=user_id,
             visibility=visibility,
             segment_uuids=segment_uuids,
+            segment_count=segment_count,
+            created_at=created_at,
+            updated_at=updated_at,
         )
 
         user_export_collection.additional_properties = d
