@@ -12,6 +12,7 @@ from ..models.search_filters_status_item import SearchFiltersStatusItem
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.search_filters_languages import SearchFiltersLanguages
     from ..models.search_filters_media import SearchFiltersMedia
     from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
     from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -32,6 +33,7 @@ class SearchFilters:
         segment_length_chars (SearchFiltersSegmentLengthChars | Unset): Content character count range filter
         segment_duration_ms (SearchFiltersSegmentDurationMs | Unset): Segment audio duration range filter (in
             milliseconds)
+        languages (SearchFiltersLanguages | Unset): Language inclusion/exclusion for search matching
     """
 
     media: SearchFiltersMedia | Unset = UNSET
@@ -40,6 +42,7 @@ class SearchFilters:
     status: list[SearchFiltersStatusItem] | Unset = UNSET
     segment_length_chars: SearchFiltersSegmentLengthChars | Unset = UNSET
     segment_duration_ms: SearchFiltersSegmentDurationMs | Unset = UNSET
+    languages: SearchFiltersLanguages | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -76,6 +79,10 @@ class SearchFilters:
         if not isinstance(self.segment_duration_ms, Unset):
             segment_duration_ms = self.segment_duration_ms.to_dict()
 
+        languages: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.languages, Unset):
+            languages = self.languages.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -91,11 +98,14 @@ class SearchFilters:
             field_dict["segmentLengthChars"] = segment_length_chars
         if segment_duration_ms is not UNSET:
             field_dict["segmentDurationMs"] = segment_duration_ms
+        if languages is not UNSET:
+            field_dict["languages"] = languages
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.search_filters_languages import SearchFiltersLanguages
         from ..models.search_filters_media import SearchFiltersMedia
         from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
         from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -149,6 +159,13 @@ class SearchFilters:
         else:
             segment_duration_ms = SearchFiltersSegmentDurationMs.from_dict(_segment_duration_ms)
 
+        _languages = d.pop("languages", UNSET)
+        languages: SearchFiltersLanguages | Unset
+        if isinstance(_languages, Unset):
+            languages = UNSET
+        else:
+            languages = SearchFiltersLanguages.from_dict(_languages)
+
         search_filters = cls(
             media=media,
             category=category,
@@ -156,6 +173,7 @@ class SearchFilters:
             status=status,
             segment_length_chars=segment_length_chars,
             segment_duration_ms=segment_duration_ms,
+            languages=languages,
         )
 
         search_filters.additional_properties = d

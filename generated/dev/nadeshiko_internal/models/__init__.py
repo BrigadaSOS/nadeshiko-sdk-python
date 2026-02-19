@@ -5,6 +5,7 @@ from .add_media_to_series_body import AddMediaToSeriesBody
 from .add_segment_to_collection_body import AddSegmentToCollectionBody
 from .admin_report import AdminReport
 from .admin_report_list_response import AdminReportListResponse
+from .autocomplete_media_category import AutocompleteMediaCategory
 from .category import Category
 from .category_count import CategoryCount
 from .character import Character
@@ -128,6 +129,7 @@ from .list_segments_response_200 import ListSegmentsResponse200
 from .list_user_activity_response_200 import ListUserActivityResponse200
 from .list_user_reports_status import ListUserReportsStatus
 from .media import Media
+from .media_autocomplete_response import MediaAutocompleteResponse
 from .media_character import MediaCharacter
 from .media_character_role import MediaCharacterRole
 from .media_create_request import MediaCreateRequest
@@ -177,6 +179,8 @@ from .run_admin_review_category import RunAdminReviewCategory
 from .run_review_response import RunReviewResponse
 from .run_review_response_checks_run_item import RunReviewResponseChecksRunItem
 from .search_filters import SearchFilters
+from .search_filters_languages import SearchFiltersLanguages
+from .search_filters_languages_exclude_item import SearchFiltersLanguagesExcludeItem
 from .search_filters_media import SearchFiltersMedia
 from .search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
 from .search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -275,6 +279,7 @@ __all__ = (
     "AddSegmentToCollectionBody",
     "AdminReport",
     "AdminReportListResponse",
+    "AutocompleteMediaCategory",
     "Category",
     "CategoryCount",
     "Character",
@@ -378,6 +383,7 @@ __all__ = (
     "ListUserActivityResponse200",
     "ListUserReportsStatus",
     "Media",
+    "MediaAutocompleteResponse",
     "MediaCharacter",
     "MediaCharacterRole",
     "MediaCreateRequest",
@@ -427,6 +433,8 @@ __all__ = (
     "RunReviewResponse",
     "RunReviewResponseChecksRunItem",
     "SearchFilters",
+    "SearchFiltersLanguages",
+    "SearchFiltersLanguagesExcludeItem",
     "SearchFiltersMedia",
     "SearchFiltersSegmentDurationMs",
     "SearchFiltersSegmentLengthChars",
