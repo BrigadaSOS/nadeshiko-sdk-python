@@ -1,10 +1,45 @@
 """Contains all the data models used in inputs/outputs"""
 
 from .activity_type import ActivityType
-from .admin_morpheme_backfill_create_response_200 import AdminMorphemeBackfillCreateResponse200
-from .admin_morpheme_backfill_create_response_200_stats import (
-    AdminMorphemeBackfillCreateResponse200Stats,
+from .admin_dashboard_show_response_200 import AdminDashboardShowResponse200
+from .admin_dashboard_show_response_200_activity import AdminDashboardShowResponse200Activity
+from .admin_dashboard_show_response_200_activity_daily_activity_30d_item import (
+    AdminDashboardShowResponse200ActivityDailyActivity30DItem,
 )
+from .admin_dashboard_show_response_200_activity_top_queries_7d_item import (
+    AdminDashboardShowResponse200ActivityTopQueries7DItem,
+)
+from .admin_dashboard_show_response_200_media import AdminDashboardShowResponse200Media
+from .admin_dashboard_show_response_200_system import AdminDashboardShowResponse200System
+from .admin_dashboard_show_response_200_system_app import AdminDashboardShowResponse200SystemApp
+from .admin_dashboard_show_response_200_system_database import (
+    AdminDashboardShowResponse200SystemDatabase,
+)
+from .admin_dashboard_show_response_200_system_database_status import (
+    AdminDashboardShowResponse200SystemDatabaseStatus,
+)
+from .admin_dashboard_show_response_200_system_elasticsearch import (
+    AdminDashboardShowResponse200SystemElasticsearch,
+)
+from .admin_dashboard_show_response_200_system_elasticsearch_status import (
+    AdminDashboardShowResponse200SystemElasticsearchStatus,
+)
+from .admin_dashboard_show_response_200_system_queues_item import (
+    AdminDashboardShowResponse200SystemQueuesItem,
+)
+from .admin_dashboard_show_response_200_system_status import (
+    AdminDashboardShowResponse200SystemStatus,
+)
+from .admin_dashboard_show_response_200_users import AdminDashboardShowResponse200Users
+from .admin_health_show_response_200 import AdminHealthShowResponse200
+from .admin_health_show_response_200_app import AdminHealthShowResponse200App
+from .admin_health_show_response_200_database import AdminHealthShowResponse200Database
+from .admin_health_show_response_200_database_status import AdminHealthShowResponse200DatabaseStatus
+from .admin_health_show_response_200_elasticsearch import AdminHealthShowResponse200Elasticsearch
+from .admin_health_show_response_200_elasticsearch_status import (
+    AdminHealthShowResponse200ElasticsearchStatus,
+)
+from .admin_health_show_response_200_status import AdminHealthShowResponse200Status
 from .admin_queue_failed_destroy_queue_name import AdminQueueFailedDestroyQueueName
 from .admin_queue_failed_destroy_response_200 import AdminQueueFailedDestroyResponse200
 from .admin_queue_failed_index_queue_name import AdminQueueFailedIndexQueueName
@@ -13,6 +48,8 @@ from .admin_queue_retry_create_queue_name import AdminQueueRetryCreateQueueName
 from .admin_queue_retry_create_response_200 import AdminQueueRetryCreateResponse200
 from .admin_queue_show_queue_name import AdminQueueShowQueueName
 from .admin_queue_show_response_200 import AdminQueueShowResponse200
+from .admin_queue_show_response_200_metadata import AdminQueueShowResponse200Metadata
+from .admin_queue_show_response_200_stats import AdminQueueShowResponse200Stats
 from .admin_queue_stats_index_response_200_item import AdminQueueStatsIndexResponse200Item
 from .admin_report import AdminReport
 from .admin_report_index_source import AdminReportIndexSource
@@ -35,9 +72,25 @@ from .character_with_media_media_appearances_item import CharacterWithMediaMedia
 from .character_with_media_media_appearances_item_role import (
     CharacterWithMediaMediaAppearancesItemRole,
 )
+from .collection import Collection
+from .collection_add_segment_body import CollectionAddSegmentBody
+from .collection_index_visibility import CollectionIndexVisibility
+from .collection_list_response import CollectionListResponse
+from .collection_requests import CollectionRequests
+from .collection_requests_visibility import CollectionRequestsVisibility
+from .collection_update_body import CollectionUpdateBody
+from .collection_update_body_visibility import CollectionUpdateBodyVisibility
+from .collection_update_segment_body import CollectionUpdateSegmentBody
+from .collection_visibility import CollectionVisibility
+from .collection_with_segments import CollectionWithSegments
+from .collection_with_segments_includes import CollectionWithSegmentsIncludes
+from .collection_with_segments_includes_media import CollectionWithSegmentsIncludesMedia
+from .collection_with_segments_segments_item import CollectionWithSegmentsSegmentsItem
+from .collection_with_segments_visibility import CollectionWithSegmentsVisibility
+from .content_rating import ContentRating
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
-from .create_report_request_target_type import CreateReportRequestTargetType
+from .cursor_pagination import CursorPagination
 from .episode import Episode
 from .episode_create_request import EpisodeCreateRequest
 from .episode_list_response import EpisodeListResponse
@@ -71,48 +124,15 @@ from .error_500_code import Error500Code
 from .error_500_errors import Error500Errors
 from .error_500_status import Error500Status
 from .external_id import ExternalId
-from .japanese_content import JapaneseContent
-from .japanese_search_content import JapaneseSearchContent
-from .lab_feature import LabFeature
-from .list_ import List
-from .list_add_item_body import ListAddItemBody
-from .list_add_item_response_201 import ListAddItemResponse201
-from .list_add_segment_body import ListAddSegmentBody
-from .list_add_segment_response_201 import ListAddSegmentResponse201
-from .list_create_request import ListCreateRequest
-from .list_create_request_type import ListCreateRequestType
-from .list_create_request_visibility import ListCreateRequestVisibility
-from .list_destroy_response_200 import ListDestroyResponse200
-from .list_index_type import ListIndexType
-from .list_index_visibility import ListIndexVisibility
-from .list_input import ListInput
-from .list_input_list_type import ListInputListType
-from .list_input_list_visibility import ListInputListVisibility
-from .list_remove_item_response_200 import ListRemoveItemResponse200
-from .list_remove_segment_response_200 import ListRemoveSegmentResponse200
-from .list_type import ListType
-from .list_update_body import ListUpdateBody
-from .list_update_body_visibility import ListUpdateBodyVisibility
-from .list_update_item_body import ListUpdateItemBody
-from .list_update_item_response_200 import ListUpdateItemResponse200
-from .list_update_segment_body import ListUpdateSegmentBody
-from .list_update_segment_response_200 import ListUpdateSegmentResponse200
-from .list_visibility import ListVisibility
-from .list_with_media import ListWithMedia
-from .list_with_media_media_item import ListWithMediaMediaItem
-from .list_with_media_type import ListWithMediaType
-from .list_with_media_visibility import ListWithMediaVisibility
-from .list_with_segments import ListWithSegments
-from .list_with_segments_segments_item import ListWithSegmentsSegmentsItem
-from .list_with_segments_type import ListWithSegmentsType
-from .list_with_segments_visibility import ListWithSegmentsVisibility
+from .include_expansion import IncludeExpansion
 from .media import Media
 from .media_character import MediaCharacter
 from .media_character_role import MediaCharacterRole
 from .media_create_request import MediaCreateRequest
 from .media_create_request_category import MediaCreateRequestCategory
 from .media_create_request_storage import MediaCreateRequestStorage
-from .media_destroy_response_200 import MediaDestroyResponse200
+from .media_filter_item import MediaFilterItem
+from .media_include_expansion import MediaIncludeExpansion
 from .media_index_category import MediaIndexCategory
 from .media_list_response import MediaListResponse
 from .media_search_stats import MediaSearchStats
@@ -120,7 +140,6 @@ from .media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
 from .media_update_request import MediaUpdateRequest
 from .media_update_request_category import MediaUpdateRequestCategory
 from .media_update_request_storage import MediaUpdateRequestStorage
-from .morpheme import Morpheme
 from .pagination_info import PaginationInfo
 from .pagination_info_estimated_total_hits_relation import PaginationInfoEstimatedTotalHitsRelation
 from .reindex_request import ReindexRequest
@@ -134,7 +153,12 @@ from .report_list_response import ReportListResponse
 from .report_reason import ReportReason
 from .report_source import ReportSource
 from .report_status import ReportStatus
-from .report_target_type import ReportTargetType
+from .report_target_episode import ReportTargetEpisode
+from .report_target_episode_type import ReportTargetEpisodeType
+from .report_target_media import ReportTargetMedia
+from .report_target_media_type import ReportTargetMediaType
+from .report_target_segment import ReportTargetSegment
+from .report_target_segment_type import ReportTargetSegmentType
 from .review_allowlist import ReviewAllowlist
 from .review_check import ReviewCheck
 from .review_check_latest_run_type_0 import ReviewCheckLatestRunType0
@@ -146,59 +170,99 @@ from .review_check_threshold_schema_item import ReviewCheckThresholdSchemaItem
 from .review_check_threshold_schema_item_type import ReviewCheckThresholdSchemaItemType
 from .run_review_response import RunReviewResponse
 from .run_review_response_checks_run_item import RunReviewResponseChecksRunItem
-from .search_health_check_response import SearchHealthCheckResponse
+from .search_filters import SearchFilters
+from .search_filters_media import SearchFiltersMedia
+from .search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
+from .search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
+from .search_filters_status_item import SearchFiltersStatusItem
 from .search_multiple_request import SearchMultipleRequest
+from .search_multiple_request_query import SearchMultipleRequestQuery
 from .search_multiple_response import SearchMultipleResponse
+from .search_multiple_response_includes import SearchMultipleResponseIncludes
+from .search_multiple_response_includes_media import SearchMultipleResponseIncludesMedia
 from .search_request import SearchRequest
-from .search_request_content_sort import SearchRequestContentSort
-from .search_request_media_item import SearchRequestMediaItem
-from .search_request_status_item import SearchRequestStatusItem
+from .search_request_query import SearchRequestQuery
+from .search_request_sort import SearchRequestSort
+from .search_request_sort_mode import SearchRequestSortMode
 from .search_response import SearchResponse
-from .search_result import SearchResult
-from .search_result_media import SearchResultMedia
-from .search_result_segment import SearchResultSegment
-from .search_result_segment_status import SearchResultSegmentStatus
-from .search_result_urls import SearchResultUrls
+from .search_response_includes import SearchResponseIncludes
+from .search_response_includes_media import SearchResponseIncludesMedia
 from .search_stats_request import SearchStatsRequest
-from .search_stats_request_status_item import SearchStatsRequestStatusItem
+from .search_stats_request_query import SearchStatsRequestQuery
 from .search_stats_response import SearchStatsResponse
+from .search_stats_response_includes import SearchStatsResponseIncludes
+from .search_stats_response_includes_media import SearchStatsResponseIncludesMedia
 from .segment import Segment
 from .segment_context_response import SegmentContextResponse
+from .segment_context_response_includes import SegmentContextResponseIncludes
+from .segment_context_response_includes_media import SegmentContextResponseIncludesMedia
 from .segment_create_request import SegmentCreateRequest
+from .segment_create_request_pos_analysis_type_0 import SegmentCreateRequestPosAnalysisType0
+from .segment_create_request_rating_analysis_type_0 import SegmentCreateRequestRatingAnalysisType0
 from .segment_create_request_status import SegmentCreateRequestStatus
 from .segment_create_request_storage import SegmentCreateRequestStorage
 from .segment_create_request_text_en import SegmentCreateRequestTextEn
 from .segment_create_request_text_es import SegmentCreateRequestTextEs
 from .segment_create_request_text_ja import SegmentCreateRequestTextJa
-from .segment_list_response import SegmentListResponse
+from .segment_index_response_200 import SegmentIndexResponse200
+from .segment_internal import SegmentInternal
+from .segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
+from .segment_internal_rating_analysis_type_0 import SegmentInternalRatingAnalysisType0
+from .segment_internal_storage import SegmentInternalStorage
 from .segment_status import SegmentStatus
-from .segment_storage import SegmentStorage
+from .segment_text_en import SegmentTextEn
+from .segment_text_es import SegmentTextEs
+from .segment_text_ja import SegmentTextJa
 from .segment_update_request import SegmentUpdateRequest
+from .segment_update_request_pos_analysis_type_0 import SegmentUpdateRequestPosAnalysisType0
+from .segment_update_request_rating_analysis_type_0 import SegmentUpdateRequestRatingAnalysisType0
 from .segment_update_request_status import SegmentUpdateRequestStatus
 from .segment_update_request_storage import SegmentUpdateRequestStorage
 from .segment_update_request_text_en import SegmentUpdateRequestTextEn
 from .segment_update_request_text_es import SegmentUpdateRequestTextEs
 from .segment_update_request_text_ja import SegmentUpdateRequestTextJa
+from .segment_urls import SegmentUrls
 from .seiyuu import Seiyuu
+from .seiyuu_show_include_item import SeiyuuShowIncludeItem
 from .seiyuu_with_roles import SeiyuuWithRoles
-from .seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
-from .seiyuu_with_roles_roles_item_role import SeiyuuWithRolesRolesItemRole
-from .translation_content import TranslationContent
-from .translation_search_content import TranslationSearchContent
+from .seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
+from .seiyuu_with_roles_characters_item_role import SeiyuuWithRolesCharactersItemRole
+from .series import Series
+from .series_add_media_body import SeriesAddMediaBody
+from .series_create_body import SeriesCreateBody
+from .series_list_response import SeriesListResponse
+from .series_update_body import SeriesUpdateBody
+from .series_update_media_body import SeriesUpdateMediaBody
+from .series_with_media import SeriesWithMedia
+from .series_with_media_media_item import SeriesWithMediaMediaItem
 from .update_report_request import UpdateReportRequest
 from .update_report_request_status import UpdateReportRequestStatus
 from .user_activity import UserActivity
 from .user_activity_destroy_response_200 import UserActivityDestroyResponse200
+from .user_activity_heatmap_show_response_200 import UserActivityHeatmapShowResponse200
+from .user_activity_heatmap_show_response_200_counts import UserActivityHeatmapShowResponse200Counts
 from .user_activity_index_response_200 import UserActivityIndexResponse200
 from .user_activity_stats_show_response_200 import UserActivityStatsShowResponse200
 from .user_activity_stats_show_response_200_top_media_item import (
     UserActivityStatsShowResponse200TopMediaItem,
 )
-from .user_export_show_response_200 import UserExportShowResponse200
-from .user_export_show_response_200_lists_item import UserExportShowResponse200ListsItem
-from .user_export_show_response_200_profile import UserExportShowResponse200Profile
-from .user_export_show_response_200_reports_item import UserExportShowResponse200ReportsItem
+from .user_export_collection import UserExportCollection
+from .user_export_response import UserExportResponse
+from .user_export_response_profile import UserExportResponseProfile
+from .user_lab_feature import UserLabFeature
 from .user_preferences import UserPreferences
+from .user_preferences_anki_profiles_item import UserPreferencesAnkiProfilesItem
+from .user_preferences_anki_profiles_item_fields_item import (
+    UserPreferencesAnkiProfilesItemFieldsItem,
+)
+from .user_preferences_content_rating_preferences import UserPreferencesContentRatingPreferences
+from .user_preferences_content_rating_preferences_explicit import (
+    UserPreferencesContentRatingPreferencesExplicit,
+)
+from .user_preferences_content_rating_preferences_suggestive import (
+    UserPreferencesContentRatingPreferencesSuggestive,
+)
+from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_labs import UserPreferencesLabs
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
@@ -209,8 +273,27 @@ from .word_match_media import WordMatchMedia
 
 __all__ = (
     "ActivityType",
-    "AdminMorphemeBackfillCreateResponse200",
-    "AdminMorphemeBackfillCreateResponse200Stats",
+    "AdminDashboardShowResponse200",
+    "AdminDashboardShowResponse200Activity",
+    "AdminDashboardShowResponse200ActivityDailyActivity30DItem",
+    "AdminDashboardShowResponse200ActivityTopQueries7DItem",
+    "AdminDashboardShowResponse200Media",
+    "AdminDashboardShowResponse200System",
+    "AdminDashboardShowResponse200SystemApp",
+    "AdminDashboardShowResponse200SystemDatabase",
+    "AdminDashboardShowResponse200SystemDatabaseStatus",
+    "AdminDashboardShowResponse200SystemElasticsearch",
+    "AdminDashboardShowResponse200SystemElasticsearchStatus",
+    "AdminDashboardShowResponse200SystemQueuesItem",
+    "AdminDashboardShowResponse200SystemStatus",
+    "AdminDashboardShowResponse200Users",
+    "AdminHealthShowResponse200",
+    "AdminHealthShowResponse200App",
+    "AdminHealthShowResponse200Database",
+    "AdminHealthShowResponse200DatabaseStatus",
+    "AdminHealthShowResponse200Elasticsearch",
+    "AdminHealthShowResponse200ElasticsearchStatus",
+    "AdminHealthShowResponse200Status",
     "AdminQueueFailedDestroyQueueName",
     "AdminQueueFailedDestroyResponse200",
     "AdminQueueFailedIndexQueueName",
@@ -219,6 +302,8 @@ __all__ = (
     "AdminQueueRetryCreateResponse200",
     "AdminQueueShowQueueName",
     "AdminQueueShowResponse200",
+    "AdminQueueShowResponse200Metadata",
+    "AdminQueueShowResponse200Stats",
     "AdminQueueStatsIndexResponse200Item",
     "AdminReport",
     "AdminReportIndexSource",
@@ -239,9 +324,25 @@ __all__ = (
     "CharacterWithMedia",
     "CharacterWithMediaMediaAppearancesItem",
     "CharacterWithMediaMediaAppearancesItemRole",
+    "Collection",
+    "CollectionAddSegmentBody",
+    "CollectionIndexVisibility",
+    "CollectionListResponse",
+    "CollectionRequests",
+    "CollectionRequestsVisibility",
+    "CollectionUpdateBody",
+    "CollectionUpdateBodyVisibility",
+    "CollectionUpdateSegmentBody",
+    "CollectionVisibility",
+    "CollectionWithSegments",
+    "CollectionWithSegmentsIncludes",
+    "CollectionWithSegmentsIncludesMedia",
+    "CollectionWithSegmentsSegmentsItem",
+    "CollectionWithSegmentsVisibility",
+    "ContentRating",
     "CreateReportRequest",
     "CreateReportRequestReason",
-    "CreateReportRequestTargetType",
+    "CursorPagination",
     "Episode",
     "EpisodeCreateRequest",
     "EpisodeListResponse",
@@ -275,48 +376,15 @@ __all__ = (
     "Error500Errors",
     "Error500Status",
     "ExternalId",
-    "JapaneseContent",
-    "JapaneseSearchContent",
-    "LabFeature",
-    "List",
-    "ListAddItemBody",
-    "ListAddItemResponse201",
-    "ListAddSegmentBody",
-    "ListAddSegmentResponse201",
-    "ListCreateRequest",
-    "ListCreateRequestType",
-    "ListCreateRequestVisibility",
-    "ListDestroyResponse200",
-    "ListIndexType",
-    "ListIndexVisibility",
-    "ListInput",
-    "ListInputListType",
-    "ListInputListVisibility",
-    "ListRemoveItemResponse200",
-    "ListRemoveSegmentResponse200",
-    "ListType",
-    "ListUpdateBody",
-    "ListUpdateBodyVisibility",
-    "ListUpdateItemBody",
-    "ListUpdateItemResponse200",
-    "ListUpdateSegmentBody",
-    "ListUpdateSegmentResponse200",
-    "ListVisibility",
-    "ListWithMedia",
-    "ListWithMediaMediaItem",
-    "ListWithMediaType",
-    "ListWithMediaVisibility",
-    "ListWithSegments",
-    "ListWithSegmentsSegmentsItem",
-    "ListWithSegmentsType",
-    "ListWithSegmentsVisibility",
+    "IncludeExpansion",
     "Media",
     "MediaCharacter",
     "MediaCharacterRole",
     "MediaCreateRequest",
     "MediaCreateRequestCategory",
     "MediaCreateRequestStorage",
-    "MediaDestroyResponse200",
+    "MediaFilterItem",
+    "MediaIncludeExpansion",
     "MediaIndexCategory",
     "MediaListResponse",
     "MediaSearchStats",
@@ -324,7 +392,6 @@ __all__ = (
     "MediaUpdateRequest",
     "MediaUpdateRequestCategory",
     "MediaUpdateRequestStorage",
-    "Morpheme",
     "PaginationInfo",
     "PaginationInfoEstimatedTotalHitsRelation",
     "ReindexRequest",
@@ -338,7 +405,12 @@ __all__ = (
     "ReportReason",
     "ReportSource",
     "ReportStatus",
-    "ReportTargetType",
+    "ReportTargetEpisode",
+    "ReportTargetEpisodeType",
+    "ReportTargetMedia",
+    "ReportTargetMediaType",
+    "ReportTargetSegment",
+    "ReportTargetSegmentType",
     "ReviewAllowlist",
     "ReviewCheck",
     "ReviewCheckLatestRunType0",
@@ -350,57 +422,91 @@ __all__ = (
     "ReviewCheckThresholdSchemaItemType",
     "RunReviewResponse",
     "RunReviewResponseChecksRunItem",
-    "SearchHealthCheckResponse",
+    "SearchFilters",
+    "SearchFiltersMedia",
+    "SearchFiltersSegmentDurationMs",
+    "SearchFiltersSegmentLengthChars",
+    "SearchFiltersStatusItem",
     "SearchMultipleRequest",
+    "SearchMultipleRequestQuery",
     "SearchMultipleResponse",
+    "SearchMultipleResponseIncludes",
+    "SearchMultipleResponseIncludesMedia",
     "SearchRequest",
-    "SearchRequestContentSort",
-    "SearchRequestMediaItem",
-    "SearchRequestStatusItem",
+    "SearchRequestQuery",
+    "SearchRequestSort",
+    "SearchRequestSortMode",
     "SearchResponse",
-    "SearchResult",
-    "SearchResultMedia",
-    "SearchResultSegment",
-    "SearchResultSegmentStatus",
-    "SearchResultUrls",
+    "SearchResponseIncludes",
+    "SearchResponseIncludesMedia",
     "SearchStatsRequest",
-    "SearchStatsRequestStatusItem",
+    "SearchStatsRequestQuery",
     "SearchStatsResponse",
+    "SearchStatsResponseIncludes",
+    "SearchStatsResponseIncludesMedia",
     "Segment",
     "SegmentContextResponse",
+    "SegmentContextResponseIncludes",
+    "SegmentContextResponseIncludesMedia",
     "SegmentCreateRequest",
+    "SegmentCreateRequestPosAnalysisType0",
+    "SegmentCreateRequestRatingAnalysisType0",
     "SegmentCreateRequestStatus",
     "SegmentCreateRequestStorage",
     "SegmentCreateRequestTextEn",
     "SegmentCreateRequestTextEs",
     "SegmentCreateRequestTextJa",
-    "SegmentListResponse",
+    "SegmentIndexResponse200",
+    "SegmentInternal",
+    "SegmentInternalPosAnalysisType0",
+    "SegmentInternalRatingAnalysisType0",
+    "SegmentInternalStorage",
     "SegmentStatus",
-    "SegmentStorage",
+    "SegmentTextEn",
+    "SegmentTextEs",
+    "SegmentTextJa",
     "SegmentUpdateRequest",
+    "SegmentUpdateRequestPosAnalysisType0",
+    "SegmentUpdateRequestRatingAnalysisType0",
     "SegmentUpdateRequestStatus",
     "SegmentUpdateRequestStorage",
     "SegmentUpdateRequestTextEn",
     "SegmentUpdateRequestTextEs",
     "SegmentUpdateRequestTextJa",
+    "SegmentUrls",
     "Seiyuu",
+    "SeiyuuShowIncludeItem",
     "SeiyuuWithRoles",
-    "SeiyuuWithRolesRolesItem",
-    "SeiyuuWithRolesRolesItemRole",
-    "TranslationContent",
-    "TranslationSearchContent",
+    "SeiyuuWithRolesCharactersItem",
+    "SeiyuuWithRolesCharactersItemRole",
+    "Series",
+    "SeriesAddMediaBody",
+    "SeriesCreateBody",
+    "SeriesListResponse",
+    "SeriesUpdateBody",
+    "SeriesUpdateMediaBody",
+    "SeriesWithMedia",
+    "SeriesWithMediaMediaItem",
     "UpdateReportRequest",
     "UpdateReportRequestStatus",
     "UserActivity",
     "UserActivityDestroyResponse200",
+    "UserActivityHeatmapShowResponse200",
+    "UserActivityHeatmapShowResponse200Counts",
     "UserActivityIndexResponse200",
     "UserActivityStatsShowResponse200",
     "UserActivityStatsShowResponse200TopMediaItem",
-    "UserExportShowResponse200",
-    "UserExportShowResponse200ListsItem",
-    "UserExportShowResponse200Profile",
-    "UserExportShowResponse200ReportsItem",
+    "UserExportCollection",
+    "UserExportResponse",
+    "UserExportResponseProfile",
+    "UserLabFeature",
     "UserPreferences",
+    "UserPreferencesAnkiProfilesItem",
+    "UserPreferencesAnkiProfilesItemFieldsItem",
+    "UserPreferencesContentRatingPreferences",
+    "UserPreferencesContentRatingPreferencesExplicit",
+    "UserPreferencesContentRatingPreferencesSuggestive",
+    "UserPreferencesHiddenMediaItem",
     "UserPreferencesLabs",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",

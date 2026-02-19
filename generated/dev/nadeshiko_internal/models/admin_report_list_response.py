@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
     from ..models.admin_report import AdminReport
+    from ..models.cursor_pagination import CursorPagination
 
 
 T = TypeVar("T", bound="AdminReportListResponse")
@@ -19,70 +18,51 @@ T = TypeVar("T", bound="AdminReportListResponse")
 class AdminReportListResponse:
     """
     Attributes:
-        data (list[AdminReport]):
-        has_more (bool): Whether more results are available Example: True.
-        cursor (int | None | Unset): Cursor for next page Example: 10.
+        reports (list[AdminReport]):
+        pagination (CursorPagination): Cursor pagination metadata
     """
 
-    data: list[AdminReport]
-    has_more: bool
-    cursor: int | None | Unset = UNSET
+    reports: list[AdminReport]
+    pagination: CursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        data = []
-        for data_item_data in self.data:
-            data_item = data_item_data.to_dict()
-            data.append(data_item)
+        reports = []
+        for reports_item_data in self.reports:
+            reports_item = reports_item_data.to_dict()
+            reports.append(reports_item)
 
-        has_more = self.has_more
-
-        cursor: int | None | Unset
-        if isinstance(self.cursor, Unset):
-            cursor = UNSET
-        else:
-            cursor = self.cursor
+        pagination = self.pagination.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "data": data,
-                "hasMore": has_more,
+                "reports": reports,
+                "pagination": pagination,
             }
         )
-        if cursor is not UNSET:
-            field_dict["cursor"] = cursor
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.admin_report import AdminReport
+        from ..models.cursor_pagination import CursorPagination
 
         d = dict(src_dict)
-        data = []
-        _data = d.pop("data")
-        for data_item_data in _data:
-            data_item = AdminReport.from_dict(data_item_data)
+        reports = []
+        _reports = d.pop("reports")
+        for reports_item_data in _reports:
+            reports_item = AdminReport.from_dict(reports_item_data)
 
-            data.append(data_item)
+            reports.append(reports_item)
 
-        has_more = d.pop("hasMore")
-
-        def _parse_cursor(data: object) -> int | None | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(int | None | Unset, data)
-
-        cursor = _parse_cursor(d.pop("cursor", UNSET))
+        pagination = CursorPagination.from_dict(d.pop("pagination"))
 
         admin_report_list_response = cls(
-            data=data,
-            has_more=has_more,
-            cursor=cursor,
+            reports=reports,
+            pagination=pagination,
         )
 
         admin_report_list_response.additional_properties = d

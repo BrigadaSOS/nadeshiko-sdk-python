@@ -12,7 +12,7 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.segment import Segment
+from ...models.segment_internal import SegmentInternal
 from ...models.segment_update_request import SegmentUpdateRequest
 from ...types import Response
 
@@ -45,9 +45,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment | None:
+) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
     if response.status_code == 200:
-        response_200 = Segment.from_dict(response.json())
+        response_200 = SegmentInternal.from_dict(response.json())
 
         return response_200
 
@@ -89,7 +89,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]:
+) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -105,7 +105,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
-) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]:
+) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
     """Update segment
 
      Updates an existing segment. Only provided fields will be updated.
@@ -123,7 +123,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]
+        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]
     """
 
     kwargs = _get_kwargs(
@@ -147,7 +147,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
-) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment | None:
+) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
     """Update segment
 
      Updates an existing segment. Only provided fields will be updated.
@@ -165,7 +165,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment
+        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal
     """
 
     return sync_detailed(
@@ -184,7 +184,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
-) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]:
+) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
     """Update segment
 
      Updates an existing segment. Only provided fields will be updated.
@@ -202,7 +202,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]
+        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]
     """
 
     kwargs = _get_kwargs(
@@ -224,7 +224,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
-) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment | None:
+) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
     """Update segment
 
      Updates an existing segment. Only provided fields will be updated.
@@ -242,7 +242,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment
+        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal
     """
 
     return (

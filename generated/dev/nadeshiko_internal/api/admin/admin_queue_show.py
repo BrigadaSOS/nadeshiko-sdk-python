@@ -106,8 +106,7 @@ def sync_detailed(
 ]:
     """Get detailed queue information
 
-     Returns detailed information about a specific queue including completed, expired, and cancelled
-    jobs.
+     Returns live queue stats and queue metadata from PgBoss for a specific queue.
 
     **Queue names:**
     - `es-sync-create` - Jobs to create new segments in Elasticsearch
@@ -154,8 +153,7 @@ def sync(
 ):
     """Get detailed queue information
 
-     Returns detailed information about a specific queue including completed, expired, and cancelled
-    jobs.
+     Returns live queue stats and queue metadata from PgBoss for a specific queue.
 
     **Queue names:**
     - `es-sync-create` - Jobs to create new segments in Elasticsearch
@@ -190,8 +188,7 @@ async def asyncio_detailed(
 ]:
     """Get detailed queue information
 
-     Returns detailed information about a specific queue including completed, expired, and cancelled
-    jobs.
+     Returns live queue stats and queue metadata from PgBoss for a specific queue.
 
     **Queue names:**
     - `es-sync-create` - Jobs to create new segments in Elasticsearch
@@ -236,8 +233,7 @@ async def asyncio(
 ):
     """Get detailed queue information
 
-     Returns detailed information about a specific queue including completed, expired, and cancelled
-    jobs.
+     Returns live queue stats and queue metadata from PgBoss for a specific queue.
 
     **Queue names:**
     - `es-sync-create` - Jobs to create new segments in Elasticsearch

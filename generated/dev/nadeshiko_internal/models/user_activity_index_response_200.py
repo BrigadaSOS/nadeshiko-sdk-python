@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
+    from ..models.cursor_pagination import CursorPagination
     from ..models.user_activity import UserActivity
 
 
@@ -19,70 +18,51 @@ T = TypeVar("T", bound="UserActivityIndexResponse200")
 class UserActivityIndexResponse200:
     """
     Attributes:
-        data (list[UserActivity]):
-        has_more (bool):
-        cursor (int | None | Unset):
+        activities (list[UserActivity]):
+        pagination (CursorPagination): Cursor pagination metadata
     """
 
-    data: list[UserActivity]
-    has_more: bool
-    cursor: int | None | Unset = UNSET
+    activities: list[UserActivity]
+    pagination: CursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        data = []
-        for data_item_data in self.data:
-            data_item = data_item_data.to_dict()
-            data.append(data_item)
+        activities = []
+        for activities_item_data in self.activities:
+            activities_item = activities_item_data.to_dict()
+            activities.append(activities_item)
 
-        has_more = self.has_more
-
-        cursor: int | None | Unset
-        if isinstance(self.cursor, Unset):
-            cursor = UNSET
-        else:
-            cursor = self.cursor
+        pagination = self.pagination.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "data": data,
-                "hasMore": has_more,
+                "activities": activities,
+                "pagination": pagination,
             }
         )
-        if cursor is not UNSET:
-            field_dict["cursor"] = cursor
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.cursor_pagination import CursorPagination
         from ..models.user_activity import UserActivity
 
         d = dict(src_dict)
-        data = []
-        _data = d.pop("data")
-        for data_item_data in _data:
-            data_item = UserActivity.from_dict(data_item_data)
+        activities = []
+        _activities = d.pop("activities")
+        for activities_item_data in _activities:
+            activities_item = UserActivity.from_dict(activities_item_data)
 
-            data.append(data_item)
+            activities.append(activities_item)
 
-        has_more = d.pop("hasMore")
-
-        def _parse_cursor(data: object) -> int | None | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(int | None | Unset, data)
-
-        cursor = _parse_cursor(d.pop("cursor", UNSET))
+        pagination = CursorPagination.from_dict(d.pop("pagination"))
 
         user_activity_index_response_200 = cls(
-            data=data,
-            has_more=has_more,
-            cursor=cursor,
+            activities=activities,
+            pagination=pagination,
         )
 
         user_activity_index_response_200.additional_properties = d

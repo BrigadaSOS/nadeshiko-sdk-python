@@ -1,3 +1,4 @@
+import datetime
 from http import HTTPStatus
 from typing import Any
 
@@ -8,14 +9,27 @@ from ...client import AuthenticatedClient, Client
 from ...models.error_401 import Error401
 from ...models.error_500 import Error500
 from ...models.user_activity_stats_show_response_200 import UserActivityStatsShowResponse200
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
-def _get_kwargs() -> dict[str, Any]:
+def _get_kwargs(
+    *,
+    since: datetime.date | Unset = UNSET,
+) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    json_since: str | Unset = UNSET
+    if not isinstance(since, Unset):
+        json_since = since.isoformat()
+    params["since"] = json_since
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/user/activity/stats",
+        "params": params,
     }
 
     return _kwargs
@@ -59,6 +73,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+    since: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | UserActivityStatsShowResponse200]:
     """Get user activity statistics
 
@@ -66,6 +81,9 @@ def sync_detailed(
     total searches, exports, plays, and study streak.
 
     **Permissions:** Session authentication (cookie-based).
+
+    Args:
+        since (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -75,7 +93,9 @@ def sync_detailed(
         Response[Error401 | Error500 | UserActivityStatsShowResponse200]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        since=since,
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -87,6 +107,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
+    since: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | UserActivityStatsShowResponse200 | None:
     """Get user activity statistics
 
@@ -94,6 +115,9 @@ def sync(
     total searches, exports, plays, and study streak.
 
     **Permissions:** Session authentication (cookie-based).
+
+    Args:
+        since (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -105,12 +129,14 @@ def sync(
 
     return sync_detailed(
         client=client,
+        since=since,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+    since: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | UserActivityStatsShowResponse200]:
     """Get user activity statistics
 
@@ -118,6 +144,9 @@ async def asyncio_detailed(
     total searches, exports, plays, and study streak.
 
     **Permissions:** Session authentication (cookie-based).
+
+    Args:
+        since (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -127,7 +156,9 @@ async def asyncio_detailed(
         Response[Error401 | Error500 | UserActivityStatsShowResponse200]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        since=since,
+    )
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -137,6 +168,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
+    since: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | UserActivityStatsShowResponse200 | None:
     """Get user activity statistics
 
@@ -144,6 +176,9 @@ async def asyncio(
     total searches, exports, plays, and study streak.
 
     **Permissions:** Session authentication (cookie-based).
+
+    Args:
+        since (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -156,5 +191,6 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            since=since,
         )
     ).parsed

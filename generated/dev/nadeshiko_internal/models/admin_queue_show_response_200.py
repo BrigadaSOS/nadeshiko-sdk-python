@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
+if TYPE_CHECKING:
+    from ..models.admin_queue_show_response_200_metadata import AdminQueueShowResponse200Metadata
+    from ..models.admin_queue_show_response_200_stats import AdminQueueShowResponse200Stats
+
 
 T = TypeVar("T", bound="AdminQueueShowResponse200")
 
@@ -15,84 +18,53 @@ T = TypeVar("T", bound="AdminQueueShowResponse200")
 class AdminQueueShowResponse200:
     """
     Attributes:
-        queue (str | Unset):  Example: es-sync-create.
-        size (int | Unset): Current queue size (pending jobs) Example: 10.
-        created (int | Unset): Total jobs created Example: 1250.
-        failed (int | Unset): Total failed jobs Example: 5.
-        complete (int | Unset): Total completed jobs Example: 1235.
-        expired (int | Unset): Total expired jobs Example: 2.
-        cancelled (int | Unset): Total cancelled jobs Example: 3.
+        queue (str):  Example: es-sync-create.
+        stats (AdminQueueShowResponse200Stats):
+        metadata (AdminQueueShowResponse200Metadata):
     """
 
-    queue: str | Unset = UNSET
-    size: int | Unset = UNSET
-    created: int | Unset = UNSET
-    failed: int | Unset = UNSET
-    complete: int | Unset = UNSET
-    expired: int | Unset = UNSET
-    cancelled: int | Unset = UNSET
+    queue: str
+    stats: AdminQueueShowResponse200Stats
+    metadata: AdminQueueShowResponse200Metadata
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         queue = self.queue
 
-        size = self.size
+        stats = self.stats.to_dict()
 
-        created = self.created
-
-        failed = self.failed
-
-        complete = self.complete
-
-        expired = self.expired
-
-        cancelled = self.cancelled
+        metadata = self.metadata.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if queue is not UNSET:
-            field_dict["queue"] = queue
-        if size is not UNSET:
-            field_dict["size"] = size
-        if created is not UNSET:
-            field_dict["created"] = created
-        if failed is not UNSET:
-            field_dict["failed"] = failed
-        if complete is not UNSET:
-            field_dict["complete"] = complete
-        if expired is not UNSET:
-            field_dict["expired"] = expired
-        if cancelled is not UNSET:
-            field_dict["cancelled"] = cancelled
+        field_dict.update(
+            {
+                "queue": queue,
+                "stats": stats,
+                "metadata": metadata,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.admin_queue_show_response_200_metadata import (
+            AdminQueueShowResponse200Metadata,
+        )
+        from ..models.admin_queue_show_response_200_stats import AdminQueueShowResponse200Stats
+
         d = dict(src_dict)
-        queue = d.pop("queue", UNSET)
+        queue = d.pop("queue")
 
-        size = d.pop("size", UNSET)
+        stats = AdminQueueShowResponse200Stats.from_dict(d.pop("stats"))
 
-        created = d.pop("created", UNSET)
-
-        failed = d.pop("failed", UNSET)
-
-        complete = d.pop("complete", UNSET)
-
-        expired = d.pop("expired", UNSET)
-
-        cancelled = d.pop("cancelled", UNSET)
+        metadata = AdminQueueShowResponse200Metadata.from_dict(d.pop("metadata"))
 
         admin_queue_show_response_200 = cls(
             queue=queue,
-            size=size,
-            created=created,
-            failed=failed,
-            complete=complete,
-            expired=expired,
-            cancelled=cancelled,
+            stats=stats,
+            metadata=metadata,
         )
 
         admin_queue_show_response_200.additional_properties = d

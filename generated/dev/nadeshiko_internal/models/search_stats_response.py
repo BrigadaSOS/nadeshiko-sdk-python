@@ -11,6 +11,7 @@ from ..types import UNSET, Unset
 if TYPE_CHECKING:
     from ..models.category_count import CategoryCount
     from ..models.media_search_stats import MediaSearchStats
+    from ..models.search_stats_response_includes import SearchStatsResponseIncludes
 
 
 T = TypeVar("T", bound="SearchStatsResponse")
@@ -22,10 +23,12 @@ class SearchStatsResponse:
     Attributes:
         media (list[MediaSearchStats] | Unset):
         categories (list[CategoryCount] | Unset):
+        includes (SearchStatsResponseIncludes | Unset):
     """
 
     media: list[MediaSearchStats] | Unset = UNSET
     categories: list[CategoryCount] | Unset = UNSET
+    includes: SearchStatsResponseIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,6 +46,10 @@ class SearchStatsResponse:
                 categories_item = categories_item_data.to_dict()
                 categories.append(categories_item)
 
+        includes: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.includes, Unset):
+            includes = self.includes.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -50,6 +57,8 @@ class SearchStatsResponse:
             field_dict["media"] = media
         if categories is not UNSET:
             field_dict["categories"] = categories
+        if includes is not UNSET:
+            field_dict["includes"] = includes
 
         return field_dict
 
@@ -57,6 +66,7 @@ class SearchStatsResponse:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.category_count import CategoryCount
         from ..models.media_search_stats import MediaSearchStats
+        from ..models.search_stats_response_includes import SearchStatsResponseIncludes
 
         d = dict(src_dict)
         _media = d.pop("media", UNSET)
@@ -77,9 +87,17 @@ class SearchStatsResponse:
 
                 categories.append(categories_item)
 
+        _includes = d.pop("includes", UNSET)
+        includes: SearchStatsResponseIncludes | Unset
+        if isinstance(_includes, Unset):
+            includes = UNSET
+        else:
+            includes = SearchStatsResponseIncludes.from_dict(_includes)
+
         search_stats_response = cls(
             media=media,
             categories=categories,
+            includes=includes,
         )
 
         search_stats_response.additional_properties = d

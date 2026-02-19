@@ -1,3 +1,4 @@
+import datetime
 from http import HTTPStatus
 from typing import Any
 
@@ -15,21 +16,27 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
+    date: datetime.date | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
     params["cursor"] = cursor
 
-    params["size"] = size
+    params["limit"] = limit
 
     json_activity_type: str | Unset = UNSET
     if not isinstance(activity_type, Unset):
         json_activity_type = activity_type.value
 
     params["activityType"] = json_activity_type
+
+    json_date: str | Unset = UNSET
+    if not isinstance(date, Unset):
+        json_date = date.isoformat()
+    params["date"] = json_date
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -81,8 +88,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
+    date: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | UserActivityIndexResponse200]:
     """Get user activity history
 
@@ -92,8 +100,9 @@ def sync_detailed(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
+        date (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -105,8 +114,9 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        size=size,
+        limit=limit,
         activity_type=activity_type,
+        date=date,
     )
 
     response = client.get_httpx_client().request(
@@ -120,8 +130,9 @@ def sync(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
+    date: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | UserActivityIndexResponse200 | None:
     """Get user activity history
 
@@ -131,8 +142,9 @@ def sync(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
+        date (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,8 +157,9 @@ def sync(
     return sync_detailed(
         client=client,
         cursor=cursor,
-        size=size,
+        limit=limit,
         activity_type=activity_type,
+        date=date,
     ).parsed
 
 
@@ -154,8 +167,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
+    date: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | UserActivityIndexResponse200]:
     """Get user activity history
 
@@ -165,8 +179,9 @@ async def asyncio_detailed(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
+        date (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -178,8 +193,9 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        size=size,
+        limit=limit,
         activity_type=activity_type,
+        date=date,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -191,8 +207,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
+    date: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | UserActivityIndexResponse200 | None:
     """Get user activity history
 
@@ -202,8 +219,9 @@ async def asyncio(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
+        date (datetime.date | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -217,7 +235,8 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             cursor=cursor,
-            size=size,
+            limit=limit,
             activity_type=activity_type,
+            date=date,
         )
     ).parsed

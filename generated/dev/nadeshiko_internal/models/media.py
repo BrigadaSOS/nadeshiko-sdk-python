@@ -13,7 +13,6 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.external_id import ExternalId
-    from ..models.list_ import List
     from ..models.media_character import MediaCharacter
 
 
@@ -26,6 +25,7 @@ class Media:
 
     Attributes:
         id (int): Unique identifier for the media Example: 7674.
+        external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
         name_en (str): English name of the media Example: Bakuman..
@@ -37,20 +37,17 @@ class Media:
         banner_url (str): Full URL to the banner image Example: https://cdn.example.com/media/anime/bakuman/banner.webp.
         start_date (datetime.date): Start date of the media (first airing/release) Example: 2010-10-02.
         category (Category): Media category type Example: ANIME.
-        version (str): Version identifier for the media entry Example: 6.
+        segment_count (int): Total number of subtitle segments available
+        episode_count (int): Total number of episodes available Example: 25.
         studio (str): Animation studio that produced the media Example: J.C.STAFF.
         season_name (str): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
-        external_ids (ExternalId | Unset): Map of external IDs keyed by source. Only sources with values are included.
         end_date (datetime.date | None | Unset): End date of the media (last airing/release) Example: 2011-04-02.
-        segment_count (int | Unset): Total number of subtitle segments available
-        episode_count (int | Unset): Total number of episodes available Example: 25.
-        storage_base_path (None | str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
         characters (list[MediaCharacter] | Unset): Characters appearing in the media with their voice actors
-        lists (list[List] | Unset): Lists that contain this media
     """
 
     id: int
+    external_ids: ExternalId
     name_ja: str
     name_romaji: str
     name_en: str
@@ -61,21 +58,19 @@ class Media:
     banner_url: str
     start_date: datetime.date
     category: Category
-    version: str
+    segment_count: int
+    episode_count: int
     studio: str
     season_name: str
     season_year: int
-    external_ids: ExternalId | Unset = UNSET
     end_date: datetime.date | None | Unset = UNSET
-    segment_count: int | Unset = UNSET
-    episode_count: int | Unset = UNSET
-    storage_base_path: None | str | Unset = UNSET
     characters: list[MediaCharacter] | Unset = UNSET
-    lists: list[List] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        external_ids = self.external_ids.to_dict()
 
         name_ja = self.name_ja
 
@@ -97,17 +92,15 @@ class Media:
 
         category = self.category.value
 
-        version = self.version
+        segment_count = self.segment_count
+
+        episode_count = self.episode_count
 
         studio = self.studio
 
         season_name = self.season_name
 
         season_year = self.season_year
-
-        external_ids: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.external_ids, Unset):
-            external_ids = self.external_ids.to_dict()
 
         end_date: None | str | Unset
         if isinstance(self.end_date, Unset):
@@ -117,16 +110,6 @@ class Media:
         else:
             end_date = self.end_date
 
-        segment_count = self.segment_count
-
-        episode_count = self.episode_count
-
-        storage_base_path: None | str | Unset
-        if isinstance(self.storage_base_path, Unset):
-            storage_base_path = UNSET
-        else:
-            storage_base_path = self.storage_base_path
-
         characters: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.characters, Unset):
             characters = []
@@ -134,18 +117,12 @@ class Media:
                 characters_item = characters_item_data.to_dict()
                 characters.append(characters_item)
 
-        lists: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.lists, Unset):
-            lists = []
-            for lists_item_data in self.lists:
-                lists_item = lists_item_data.to_dict()
-                lists.append(lists_item)
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "id": id,
+                "externalIds": external_ids,
                 "nameJa": name_ja,
                 "nameRomaji": name_romaji,
                 "nameEn": name_en,
@@ -156,37 +133,29 @@ class Media:
                 "bannerUrl": banner_url,
                 "startDate": start_date,
                 "category": category,
-                "version": version,
+                "segmentCount": segment_count,
+                "episodeCount": episode_count,
                 "studio": studio,
                 "seasonName": season_name,
                 "seasonYear": season_year,
             }
         )
-        if external_ids is not UNSET:
-            field_dict["externalIds"] = external_ids
         if end_date is not UNSET:
             field_dict["endDate"] = end_date
-        if segment_count is not UNSET:
-            field_dict["segmentCount"] = segment_count
-        if episode_count is not UNSET:
-            field_dict["episodeCount"] = episode_count
-        if storage_base_path is not UNSET:
-            field_dict["storageBasePath"] = storage_base_path
         if characters is not UNSET:
             field_dict["characters"] = characters
-        if lists is not UNSET:
-            field_dict["lists"] = lists
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.external_id import ExternalId
-        from ..models.list_ import List
         from ..models.media_character import MediaCharacter
 
         d = dict(src_dict)
         id = d.pop("id")
+
+        external_ids = ExternalId.from_dict(d.pop("externalIds"))
 
         name_ja = d.pop("nameJa")
 
@@ -208,20 +177,15 @@ class Media:
 
         category = Category(d.pop("category"))
 
-        version = d.pop("version")
+        segment_count = d.pop("segmentCount")
+
+        episode_count = d.pop("episodeCount")
 
         studio = d.pop("studio")
 
         season_name = d.pop("seasonName")
 
         season_year = d.pop("seasonYear")
-
-        _external_ids = d.pop("externalIds", UNSET)
-        external_ids: ExternalId | Unset
-        if isinstance(_external_ids, Unset):
-            external_ids = UNSET
-        else:
-            external_ids = ExternalId.from_dict(_external_ids)
 
         def _parse_end_date(data: object) -> datetime.date | None | Unset:
             if data is None:
@@ -240,19 +204,6 @@ class Media:
 
         end_date = _parse_end_date(d.pop("endDate", UNSET))
 
-        segment_count = d.pop("segmentCount", UNSET)
-
-        episode_count = d.pop("episodeCount", UNSET)
-
-        def _parse_storage_base_path(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        storage_base_path = _parse_storage_base_path(d.pop("storageBasePath", UNSET))
-
         _characters = d.pop("characters", UNSET)
         characters: list[MediaCharacter] | Unset = UNSET
         if _characters is not UNSET:
@@ -262,17 +213,9 @@ class Media:
 
                 characters.append(characters_item)
 
-        _lists = d.pop("lists", UNSET)
-        lists: list[List] | Unset = UNSET
-        if _lists is not UNSET:
-            lists = []
-            for lists_item_data in _lists:
-                lists_item = List.from_dict(lists_item_data)
-
-                lists.append(lists_item)
-
         media = cls(
             id=id,
+            external_ids=external_ids,
             name_ja=name_ja,
             name_romaji=name_romaji,
             name_en=name_en,
@@ -283,17 +226,13 @@ class Media:
             banner_url=banner_url,
             start_date=start_date,
             category=category,
-            version=version,
+            segment_count=segment_count,
+            episode_count=episode_count,
             studio=studio,
             season_name=season_name,
             season_year=season_year,
-            external_ids=external_ids,
             end_date=end_date,
-            segment_count=segment_count,
-            episode_count=episode_count,
-            storage_base_path=storage_base_path,
             characters=characters,
-            lists=lists,
         )
 
         media.additional_properties = d

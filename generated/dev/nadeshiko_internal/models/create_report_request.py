@@ -1,14 +1,18 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.create_report_request_reason import CreateReportRequestReason
-from ..models.create_report_request_target_type import CreateReportRequestTargetType
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.report_target_media import ReportTargetMedia
+    from ..models.report_target_segment import ReportTargetSegment
+
 
 T = TypeVar("T", bound="CreateReportRequest")
 
@@ -17,30 +21,27 @@ T = TypeVar("T", bound="CreateReportRequest")
 class CreateReportRequest:
     """
     Attributes:
-        target_type (CreateReportRequestTargetType): Type of the entity being reported Example: SEGMENT.
-        target_media_id (int): Media ID of the reported entity Example: 42.
+        target (ReportTargetMedia | ReportTargetSegment):
         reason (CreateReportRequestReason): Reason for the report Example: WRONG_TRANSLATION.
-        target_segment_uuid (str | Unset): Segment UUID (required when targetType is SEGMENT) Example:
-            3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
         description (str | Unset): Optional description with additional details Example: The translation doesn't match
             the spoken Japanese.
     """
 
-    target_type: CreateReportRequestTargetType
-    target_media_id: int
+    target: ReportTargetMedia | ReportTargetSegment
     reason: CreateReportRequestReason
-    target_segment_uuid: str | Unset = UNSET
     description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        target_type = self.target_type.value
+        from ..models.report_target_media import ReportTargetMedia
 
-        target_media_id = self.target_media_id
+        target: dict[str, Any]
+        if isinstance(self.target, ReportTargetMedia):
+            target = self.target.to_dict()
+        else:
+            target = self.target.to_dict()
 
         reason = self.reason.value
-
-        target_segment_uuid = self.target_segment_uuid
 
         description = self.description
 
@@ -48,13 +49,10 @@ class CreateReportRequest:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "targetType": target_type,
-                "targetMediaId": target_media_id,
+                "target": target,
                 "reason": reason,
             }
         )
-        if target_segment_uuid is not UNSET:
-            field_dict["targetSegmentUuid"] = target_segment_uuid
         if description is not UNSET:
             field_dict["description"] = description
 
@@ -62,22 +60,35 @@ class CreateReportRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        target_type = CreateReportRequestTargetType(d.pop("targetType"))
+        from ..models.report_target_media import ReportTargetMedia
+        from ..models.report_target_segment import ReportTargetSegment
 
-        target_media_id = d.pop("targetMediaId")
+        d = dict(src_dict)
+
+        def _parse_target(data: object) -> ReportTargetMedia | ReportTargetSegment:
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_user_report_target_type_0 = ReportTargetMedia.from_dict(data)
+
+                return componentsschemas_user_report_target_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            componentsschemas_user_report_target_type_1 = ReportTargetSegment.from_dict(data)
+
+            return componentsschemas_user_report_target_type_1
+
+        target = _parse_target(d.pop("target"))
 
         reason = CreateReportRequestReason(d.pop("reason"))
-
-        target_segment_uuid = d.pop("targetSegmentUuid", UNSET)
 
         description = d.pop("description", UNSET)
 
         create_report_request = cls(
-            target_type=target_type,
-            target_media_id=target_media_id,
+            target=target,
             reason=reason,
-            target_segment_uuid=target_segment_uuid,
             description=description,
         )
 

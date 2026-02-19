@@ -15,7 +15,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: UserReportIndexStatus | Unset = UNSET,
 ) -> dict[str, Any]:
 
@@ -23,7 +23,7 @@ def _get_kwargs(
 
     params["cursor"] = cursor
 
-    params["size"] = size
+    params["limit"] = limit
 
     json_status: str | Unset = UNSET
     if not isinstance(status, Unset):
@@ -81,7 +81,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: UserReportIndexStatus | Unset = UNSET,
 ) -> Response[Error401 | Error500 | ReportListResponse]:
     """List user's own reports
@@ -92,7 +92,7 @@ def sync_detailed(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (UserReportIndexStatus | Unset):
 
     Raises:
@@ -105,7 +105,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        size=size,
+        limit=limit,
         status=status,
     )
 
@@ -120,7 +120,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: UserReportIndexStatus | Unset = UNSET,
 ) -> Error401 | Error500 | ReportListResponse | None:
     """List user's own reports
@@ -131,7 +131,7 @@ def sync(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (UserReportIndexStatus | Unset):
 
     Raises:
@@ -145,7 +145,7 @@ def sync(
     return sync_detailed(
         client=client,
         cursor=cursor,
-        size=size,
+        limit=limit,
         status=status,
     ).parsed
 
@@ -154,7 +154,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: UserReportIndexStatus | Unset = UNSET,
 ) -> Response[Error401 | Error500 | ReportListResponse]:
     """List user's own reports
@@ -165,7 +165,7 @@ async def asyncio_detailed(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (UserReportIndexStatus | Unset):
 
     Raises:
@@ -178,7 +178,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        size=size,
+        limit=limit,
         status=status,
     )
 
@@ -191,7 +191,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: UserReportIndexStatus | Unset = UNSET,
 ) -> Error401 | Error500 | ReportListResponse | None:
     """List user's own reports
@@ -202,7 +202,7 @@ async def asyncio(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (UserReportIndexStatus | Unset):
 
     Raises:
@@ -217,7 +217,7 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             cursor=cursor,
-            size=size,
+            limit=limit,
             status=status,
         )
     ).parsed

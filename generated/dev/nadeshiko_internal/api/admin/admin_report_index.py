@@ -19,11 +19,13 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: AdminReportIndexStatus | Unset = UNSET,
     source: AdminReportIndexSource | Unset = UNSET,
     target_type: AdminReportIndexTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
+    target_episode_number: int | Unset = UNSET,
+    target_segment_uuid: str | Unset = UNSET,
     review_check_run_id: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
@@ -31,7 +33,7 @@ def _get_kwargs(
 
     params["cursor"] = cursor
 
-    params["size"] = size
+    params["limit"] = limit
 
     json_status: str | Unset = UNSET
     if not isinstance(status, Unset):
@@ -49,9 +51,13 @@ def _get_kwargs(
     if not isinstance(target_type, Unset):
         json_target_type = target_type.value
 
-    params["targetType"] = json_target_type
+    params["target.type"] = json_target_type
 
-    params["targetMediaId"] = target_media_id
+    params["target.mediaId"] = target_media_id
+
+    params["target.episodeNumber"] = target_episode_number
+
+    params["target.segmentUuid"] = target_segment_uuid
 
     params["reviewCheckRunId"] = review_check_run_id
 
@@ -115,11 +121,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: AdminReportIndexStatus | Unset = UNSET,
     source: AdminReportIndexSource | Unset = UNSET,
     target_type: AdminReportIndexTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
+    target_episode_number: int | Unset = UNSET,
+    target_segment_uuid: str | Unset = UNSET,
     review_check_run_id: int | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
@@ -131,11 +139,13 @@ def sync_detailed(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (AdminReportIndexStatus | Unset):
         source (AdminReportIndexSource | Unset):
         target_type (AdminReportIndexTargetType | Unset):
         target_media_id (int | Unset):
+        target_episode_number (int | Unset):
+        target_segment_uuid (str | Unset):
         review_check_run_id (int | Unset):
 
     Raises:
@@ -148,11 +158,13 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        size=size,
+        limit=limit,
         status=status,
         source=source,
         target_type=target_type,
         target_media_id=target_media_id,
+        target_episode_number=target_episode_number,
+        target_segment_uuid=target_segment_uuid,
         review_check_run_id=review_check_run_id,
     )
 
@@ -167,11 +179,13 @@ def sync(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: AdminReportIndexStatus | Unset = UNSET,
     source: AdminReportIndexSource | Unset = UNSET,
     target_type: AdminReportIndexTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
+    target_episode_number: int | Unset = UNSET,
+    target_segment_uuid: str | Unset = UNSET,
     review_check_run_id: int | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
@@ -183,11 +197,13 @@ def sync(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (AdminReportIndexStatus | Unset):
         source (AdminReportIndexSource | Unset):
         target_type (AdminReportIndexTargetType | Unset):
         target_media_id (int | Unset):
+        target_episode_number (int | Unset):
+        target_segment_uuid (str | Unset):
         review_check_run_id (int | Unset):
 
     Raises:
@@ -201,11 +217,13 @@ def sync(
     return sync_detailed(
         client=client,
         cursor=cursor,
-        size=size,
+        limit=limit,
         status=status,
         source=source,
         target_type=target_type,
         target_media_id=target_media_id,
+        target_episode_number=target_episode_number,
+        target_segment_uuid=target_segment_uuid,
         review_check_run_id=review_check_run_id,
     ).parsed
 
@@ -214,11 +232,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: AdminReportIndexStatus | Unset = UNSET,
     source: AdminReportIndexSource | Unset = UNSET,
     target_type: AdminReportIndexTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
+    target_episode_number: int | Unset = UNSET,
+    target_segment_uuid: str | Unset = UNSET,
     review_check_run_id: int | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
@@ -230,11 +250,13 @@ async def asyncio_detailed(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (AdminReportIndexStatus | Unset):
         source (AdminReportIndexSource | Unset):
         target_type (AdminReportIndexTargetType | Unset):
         target_media_id (int | Unset):
+        target_episode_number (int | Unset):
+        target_segment_uuid (str | Unset):
         review_check_run_id (int | Unset):
 
     Raises:
@@ -247,11 +269,13 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        size=size,
+        limit=limit,
         status=status,
         source=source,
         target_type=target_type,
         target_media_id=target_media_id,
+        target_episode_number=target_episode_number,
+        target_segment_uuid=target_segment_uuid,
         review_check_run_id=review_check_run_id,
     )
 
@@ -264,11 +288,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
     status: AdminReportIndexStatus | Unset = UNSET,
     source: AdminReportIndexSource | Unset = UNSET,
     target_type: AdminReportIndexTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
+    target_episode_number: int | Unset = UNSET,
+    target_segment_uuid: str | Unset = UNSET,
     review_check_run_id: int | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
@@ -280,11 +306,13 @@ async def asyncio(
 
     Args:
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
         status (AdminReportIndexStatus | Unset):
         source (AdminReportIndexSource | Unset):
         target_type (AdminReportIndexTargetType | Unset):
         target_media_id (int | Unset):
+        target_episode_number (int | Unset):
+        target_segment_uuid (str | Unset):
         review_check_run_id (int | Unset):
 
     Raises:
@@ -299,11 +327,13 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             cursor=cursor,
-            size=size,
+            limit=limit,
             status=status,
             source=source,
             target_type=target_type,
             target_media_id=target_media_id,
+            target_episode_number=target_episode_number,
+            target_segment_uuid=target_segment_uuid,
             review_check_run_id=review_check_run_id,
         )
     ).parsed

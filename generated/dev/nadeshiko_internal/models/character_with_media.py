@@ -18,7 +18,7 @@ T = TypeVar("T", bound="CharacterWithMedia")
 
 @_attrs_define
 class CharacterWithMedia:
-    """Character with all media appearances
+    """Character with voice actor and all media appearances
 
     Attributes:
         id (int): AniList character ID Example: 14545.

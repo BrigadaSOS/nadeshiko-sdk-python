@@ -17,7 +17,7 @@ def _get_kwargs(
     *,
     check_name: str | Unset = UNSET,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -26,7 +26,7 @@ def _get_kwargs(
 
     params["cursor"] = cursor
 
-    params["size"] = size
+    params["limit"] = limit
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -89,7 +89,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     check_name: str | Unset = UNSET,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
 ) -> Response[AdminReviewRunIndexResponse200 | Error401 | Error403 | Error429 | Error500]:
     """List past check runs
 
@@ -101,7 +101,7 @@ def sync_detailed(
     Args:
         check_name (str | Unset):
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -114,7 +114,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         check_name=check_name,
         cursor=cursor,
-        size=size,
+        limit=limit,
     )
 
     response = client.get_httpx_client().request(
@@ -129,7 +129,7 @@ def sync(
     client: AuthenticatedClient,
     check_name: str | Unset = UNSET,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
 ) -> AdminReviewRunIndexResponse200 | Error401 | Error403 | Error429 | Error500 | None:
     """List past check runs
 
@@ -141,7 +141,7 @@ def sync(
     Args:
         check_name (str | Unset):
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -155,7 +155,7 @@ def sync(
         client=client,
         check_name=check_name,
         cursor=cursor,
-        size=size,
+        limit=limit,
     ).parsed
 
 
@@ -164,7 +164,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     check_name: str | Unset = UNSET,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
 ) -> Response[AdminReviewRunIndexResponse200 | Error401 | Error403 | Error429 | Error500]:
     """List past check runs
 
@@ -176,7 +176,7 @@ async def asyncio_detailed(
     Args:
         check_name (str | Unset):
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,7 +189,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         check_name=check_name,
         cursor=cursor,
-        size=size,
+        limit=limit,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -202,7 +202,7 @@ async def asyncio(
     client: AuthenticatedClient,
     check_name: str | Unset = UNSET,
     cursor: int | Unset = UNSET,
-    size: int | Unset = 20,
+    limit: int | Unset = 20,
 ) -> AdminReviewRunIndexResponse200 | Error401 | Error403 | Error429 | Error500 | None:
     """List past check runs
 
@@ -214,7 +214,7 @@ async def asyncio(
     Args:
         check_name (str | Unset):
         cursor (int | Unset):
-        size (int | Unset):  Default: 20.
+        limit (int | Unset):  Default: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -229,6 +229,6 @@ async def asyncio(
             client=client,
             check_name=check_name,
             cursor=cursor,
-            size=size,
+            limit=limit,
         )
     ).parsed

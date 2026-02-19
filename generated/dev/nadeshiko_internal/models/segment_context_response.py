@@ -6,8 +6,11 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
-    from ..models.search_result import SearchResult
+    from ..models.segment import Segment
+    from ..models.segment_context_response_includes import SegmentContextResponseIncludes
 
 
 T = TypeVar("T", bound="SegmentContextResponse")
@@ -17,10 +20,12 @@ T = TypeVar("T", bound="SegmentContextResponse")
 class SegmentContextResponse:
     """
     Attributes:
-        segments (list[SearchResult]):
+        segments (list[Segment]):
+        includes (SegmentContextResponseIncludes | Unset):
     """
 
-    segments: list[SearchResult]
+    segments: list[Segment]
+    includes: SegmentContextResponseIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -29,6 +34,10 @@ class SegmentContextResponse:
             segments_item = segments_item_data.to_dict()
             segments.append(segments_item)
 
+        includes: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.includes, Unset):
+            includes = self.includes.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -36,23 +45,34 @@ class SegmentContextResponse:
                 "segments": segments,
             }
         )
+        if includes is not UNSET:
+            field_dict["includes"] = includes
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_result import SearchResult
+        from ..models.segment import Segment
+        from ..models.segment_context_response_includes import SegmentContextResponseIncludes
 
         d = dict(src_dict)
         segments = []
         _segments = d.pop("segments")
         for segments_item_data in _segments:
-            segments_item = SearchResult.from_dict(segments_item_data)
+            segments_item = Segment.from_dict(segments_item_data)
 
             segments.append(segments_item)
 
+        _includes = d.pop("includes", UNSET)
+        includes: SegmentContextResponseIncludes | Unset
+        if isinstance(_includes, Unset):
+            includes = UNSET
+        else:
+            includes = SegmentContextResponseIncludes.from_dict(_includes)
+
         segment_context_response = cls(
             segments=segments,
+            includes=includes,
         )
 
         segment_context_response.additional_properties = d

@@ -7,7 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
+    from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
 
 
 T = TypeVar("T", bound="SeiyuuWithRoles")
@@ -15,21 +15,21 @@ T = TypeVar("T", bound="SeiyuuWithRoles")
 
 @_attrs_define
 class SeiyuuWithRoles:
-    """Seiyuu with all voice acting roles
+    """Seiyuu details with optional character appearances
 
     Attributes:
         id (int): AniList staff ID Example: 95991.
         name_ja (str): Japanese name of the voice actor Example: 阿部敦.
         name_en (str): English name of the voice actor Example: Atsushi Abe.
         image_url (str): Profile image URL Example: https://s4.anilist.co/file/anilistcdn/staff/large/n95991.jpg.
-        roles (list[SeiyuuWithRolesRolesItem]): All characters voiced by this seiyuu with their media appearances
+        characters (list[SeiyuuWithRolesCharactersItem]): Characters voiced by this seiyuu with their media appearances
     """
 
     id: int
     name_ja: str
     name_en: str
     image_url: str
-    roles: list[SeiyuuWithRolesRolesItem]
+    characters: list[SeiyuuWithRolesCharactersItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,10 +41,10 @@ class SeiyuuWithRoles:
 
         image_url = self.image_url
 
-        roles = []
-        for roles_item_data in self.roles:
-            roles_item = roles_item_data.to_dict()
-            roles.append(roles_item)
+        characters = []
+        for characters_item_data in self.characters:
+            characters_item = characters_item_data.to_dict()
+            characters.append(characters_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -54,7 +54,7 @@ class SeiyuuWithRoles:
                 "nameJa": name_ja,
                 "nameEn": name_en,
                 "imageUrl": image_url,
-                "roles": roles,
+                "characters": characters,
             }
         )
 
@@ -62,7 +62,7 @@ class SeiyuuWithRoles:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
+        from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
 
         d = dict(src_dict)
         id = d.pop("id")
@@ -73,19 +73,19 @@ class SeiyuuWithRoles:
 
         image_url = d.pop("imageUrl")
 
-        roles = []
-        _roles = d.pop("roles")
-        for roles_item_data in _roles:
-            roles_item = SeiyuuWithRolesRolesItem.from_dict(roles_item_data)
+        characters = []
+        _characters = d.pop("characters")
+        for characters_item_data in _characters:
+            characters_item = SeiyuuWithRolesCharactersItem.from_dict(characters_item_data)
 
-            roles.append(roles_item)
+            characters.append(characters_item)
 
         seiyuu_with_roles = cls(
             id=id,
             name_ja=name_ja,
             name_en=name_en,
             image_url=image_url,
-            roles=roles,
+            characters=characters,
         )
 
         seiyuu_with_roles.additional_properties = d

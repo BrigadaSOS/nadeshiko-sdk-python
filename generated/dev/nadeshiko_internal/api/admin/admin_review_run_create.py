@@ -17,6 +17,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     category: AdminReviewRunCreateCategory | Unset = UNSET,
+    check_name: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -26,6 +27,8 @@ def _get_kwargs(
         json_category = category.value
 
     params["category"] = json_category
+
+    params["checkName"] = check_name
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -87,6 +90,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     category: AdminReviewRunCreateCategory | Unset = UNSET,
+    check_name: str | Unset = UNSET,
 ) -> Response[Error401 | Error403 | Error429 | Error500 | RunReviewResponse]:
     """Run auto-checks
 
@@ -96,6 +100,7 @@ def sync_detailed(
 
     Args:
         category (AdminReviewRunCreateCategory | Unset):
+        check_name (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -107,6 +112,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         category=category,
+        check_name=check_name,
     )
 
     response = client.get_httpx_client().request(
@@ -120,6 +126,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     category: AdminReviewRunCreateCategory | Unset = UNSET,
+    check_name: str | Unset = UNSET,
 ) -> Error401 | Error403 | Error429 | Error500 | RunReviewResponse | None:
     """Run auto-checks
 
@@ -129,6 +136,7 @@ def sync(
 
     Args:
         category (AdminReviewRunCreateCategory | Unset):
+        check_name (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -141,6 +149,7 @@ def sync(
     return sync_detailed(
         client=client,
         category=category,
+        check_name=check_name,
     ).parsed
 
 
@@ -148,6 +157,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     category: AdminReviewRunCreateCategory | Unset = UNSET,
+    check_name: str | Unset = UNSET,
 ) -> Response[Error401 | Error403 | Error429 | Error500 | RunReviewResponse]:
     """Run auto-checks
 
@@ -157,6 +167,7 @@ async def asyncio_detailed(
 
     Args:
         category (AdminReviewRunCreateCategory | Unset):
+        check_name (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -168,6 +179,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         category=category,
+        check_name=check_name,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -179,6 +191,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     category: AdminReviewRunCreateCategory | Unset = UNSET,
+    check_name: str | Unset = UNSET,
 ) -> Error401 | Error403 | Error429 | Error500 | RunReviewResponse | None:
     """Run auto-checks
 
@@ -188,6 +201,7 @@ async def asyncio(
 
     Args:
         category (AdminReviewRunCreateCategory | Unset):
+        check_name (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -201,5 +215,6 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             category=category,
+            check_name=check_name,
         )
     ).parsed

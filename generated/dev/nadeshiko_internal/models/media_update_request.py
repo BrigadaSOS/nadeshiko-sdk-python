@@ -15,7 +15,6 @@ from ..types import UNSET, Unset
 if TYPE_CHECKING:
     from ..models.character_input import CharacterInput
     from ..models.external_id import ExternalId
-    from ..models.list_input import ListInput
 
 
 T = TypeVar("T", bound="MediaUpdateRequest")
@@ -48,7 +47,6 @@ class MediaUpdateRequest:
         season_year (int | Unset): Airing year for the media Example: 2010.
         storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
         characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
-        lists (list[ListInput] | Unset): Lists to add this media to (e.g., series, franchise)
         segment_count (int | Unset): Total number of subtitle segments available Example: 1234.
     """
 
@@ -70,7 +68,6 @@ class MediaUpdateRequest:
     season_year: int | Unset = UNSET
     storage_base_path: str | Unset = UNSET
     characters: list[CharacterInput] | Unset = UNSET
-    lists: list[ListInput] | Unset = UNSET
     segment_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -128,13 +125,6 @@ class MediaUpdateRequest:
                 characters_item = characters_item_data.to_dict()
                 characters.append(characters_item)
 
-        lists: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.lists, Unset):
-            lists = []
-            for lists_item_data in self.lists:
-                lists_item = lists_item_data.to_dict()
-                lists.append(lists_item)
-
         segment_count = self.segment_count
 
         field_dict: dict[str, Any] = {}
@@ -176,8 +166,6 @@ class MediaUpdateRequest:
             field_dict["storageBasePath"] = storage_base_path
         if characters is not UNSET:
             field_dict["characters"] = characters
-        if lists is not UNSET:
-            field_dict["lists"] = lists
         if segment_count is not UNSET:
             field_dict["segmentCount"] = segment_count
 
@@ -187,7 +175,6 @@ class MediaUpdateRequest:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.character_input import CharacterInput
         from ..models.external_id import ExternalId
-        from ..models.list_input import ListInput
 
         d = dict(src_dict)
         _external_ids = d.pop("externalIds", UNSET)
@@ -258,15 +245,6 @@ class MediaUpdateRequest:
 
                 characters.append(characters_item)
 
-        _lists = d.pop("lists", UNSET)
-        lists: list[ListInput] | Unset = UNSET
-        if _lists is not UNSET:
-            lists = []
-            for lists_item_data in _lists:
-                lists_item = ListInput.from_dict(lists_item_data)
-
-                lists.append(lists_item)
-
         segment_count = d.pop("segmentCount", UNSET)
 
         media_update_request = cls(
@@ -288,7 +266,6 @@ class MediaUpdateRequest:
             season_year=season_year,
             storage_base_path=storage_base_path,
             characters=characters,
-            lists=lists,
             segment_count=segment_count,
         )
 

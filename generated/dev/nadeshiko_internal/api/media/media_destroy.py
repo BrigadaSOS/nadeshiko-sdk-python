@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
 
 import httpx
@@ -12,7 +12,6 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.media_destroy_response_200 import MediaDestroyResponse200
 from ...types import Response
 
 
@@ -32,13 +31,10 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200 | None
-):
-    if response.status_code == 200:
-        response_200 = MediaDestroyResponse200.from_dict(response.json())
-
-        return response_200
+) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
+    if response.status_code == 204:
+        response_204 = cast(Any, None)
+        return response_204
 
     if response.status_code == 400:
         response_400 = Error400.from_dict(response.json())
@@ -78,9 +74,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200
-]:
+) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -93,9 +87,7 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> Response[
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200
-]:
+) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Delete media (soft delete)
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
@@ -111,7 +103,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200]
+        Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -129,9 +121,7 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> (
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200 | None
-):
+) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Delete media (soft delete)
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
@@ -147,7 +137,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200
+        Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -160,9 +150,7 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> Response[
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200
-]:
+) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Delete media (soft delete)
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
@@ -178,7 +166,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200]
+        Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -194,9 +182,7 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> (
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200 | None
-):
+) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Delete media (soft delete)
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
@@ -212,7 +198,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaDestroyResponse200
+        Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
     """
 
     return (

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,22 +19,20 @@ class PaginationInfo:
     """Pagination metadata for search results
 
     Attributes:
-        page_size (int | Unset): Number of results returned in this page Example: 20.
         has_more (bool | Unset): Whether there are more results after this page Example: True.
         estimated_total_hits (int | Unset): Estimated total number of matching segments Example: 12456.
         estimated_total_hits_relation (PaginationInfoEstimatedTotalHitsRelation | Unset): Whether estimatedTotalHits is
             exact or a lower bound Example: LOWER_BOUND.
+        cursor (list[float] | Unset): Cursor for fetching the next page (undefined when hasMore is false)
     """
 
-    page_size: int | Unset = UNSET
     has_more: bool | Unset = UNSET
     estimated_total_hits: int | Unset = UNSET
     estimated_total_hits_relation: PaginationInfoEstimatedTotalHitsRelation | Unset = UNSET
+    cursor: list[float] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        page_size = self.page_size
-
         has_more = self.has_more
 
         estimated_total_hits = self.estimated_total_hits
@@ -43,25 +41,27 @@ class PaginationInfo:
         if not isinstance(self.estimated_total_hits_relation, Unset):
             estimated_total_hits_relation = self.estimated_total_hits_relation.value
 
+        cursor: list[float] | Unset = UNSET
+        if not isinstance(self.cursor, Unset):
+            cursor = self.cursor
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if page_size is not UNSET:
-            field_dict["pageSize"] = page_size
         if has_more is not UNSET:
             field_dict["hasMore"] = has_more
         if estimated_total_hits is not UNSET:
             field_dict["estimatedTotalHits"] = estimated_total_hits
         if estimated_total_hits_relation is not UNSET:
             field_dict["estimatedTotalHitsRelation"] = estimated_total_hits_relation
+        if cursor is not UNSET:
+            field_dict["cursor"] = cursor
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        page_size = d.pop("pageSize", UNSET)
-
         has_more = d.pop("hasMore", UNSET)
 
         estimated_total_hits = d.pop("estimatedTotalHits", UNSET)
@@ -75,11 +75,13 @@ class PaginationInfo:
                 _estimated_total_hits_relation
             )
 
+        cursor = cast(list[float], d.pop("cursor", UNSET))
+
         pagination_info = cls(
-            page_size=page_size,
             has_more=has_more,
             estimated_total_hits=estimated_total_hits,
             estimated_total_hits_relation=estimated_total_hits_relation,
+            cursor=cursor,
         )
 
         pagination_info.additional_properties = d

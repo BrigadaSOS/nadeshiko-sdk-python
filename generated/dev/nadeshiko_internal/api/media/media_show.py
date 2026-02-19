@@ -13,18 +13,35 @@ from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.media import Media
-from ...types import Response
+from ...models.media_include_expansion import MediaIncludeExpansion
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     id: int,
+    *,
+    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    json_include: list[str] | Unset = UNSET
+    if not isinstance(include, Unset):
+        json_include = []
+        for include_item_data in include:
+            include_item = include_item_data.value
+            json_include.append(include_item)
+
+    params["include"] = json_include
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/media/{id}".format(
             id=quote(str(id), safe=""),
         ),
+        "params": params,
     }
 
     return _kwargs
@@ -89,6 +106,7 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
+    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media]:
     """Get single media
 
@@ -98,6 +116,7 @@ def sync_detailed(
 
     Args:
         id (int):  Example: 7674.
+        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,6 +128,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        include=include,
     )
 
     response = client.get_httpx_client().request(
@@ -122,6 +142,7 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
+    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media | None:
     """Get single media
 
@@ -131,6 +152,7 @@ def sync(
 
     Args:
         id (int):  Example: 7674.
+        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,6 +165,7 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
+        include=include,
     ).parsed
 
 
@@ -150,6 +173,7 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
+    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media]:
     """Get single media
 
@@ -159,6 +183,7 @@ async def asyncio_detailed(
 
     Args:
         id (int):  Example: 7674.
+        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -170,6 +195,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        include=include,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -181,6 +207,7 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
+    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media | None:
     """Get single media
 
@@ -190,6 +217,7 @@ async def asyncio(
 
     Args:
         id (int):  Example: 7674.
+        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -203,5 +231,6 @@ async def asyncio(
         await asyncio_detailed(
             id=id,
             client=client,
+            include=include,
         )
     ).parsed

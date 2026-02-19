@@ -15,7 +15,6 @@ from ..types import UNSET, Unset
 if TYPE_CHECKING:
     from ..models.character_input import CharacterInput
     from ..models.external_id import ExternalId
-    from ..models.list_input import ListInput
 
 
 T = TypeVar("T", bound="MediaCreateRequest")
@@ -47,7 +46,6 @@ class MediaCreateRequest:
         end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
         storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
         characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
-        lists (list[ListInput] | Unset): Lists to add this media to (e.g., series, franchise)
     """
 
     name_ja: str
@@ -68,7 +66,6 @@ class MediaCreateRequest:
     end_date: datetime.date | Unset = UNSET
     storage_base_path: str | Unset = UNSET
     characters: list[CharacterInput] | Unset = UNSET
-    lists: list[ListInput] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -117,13 +114,6 @@ class MediaCreateRequest:
                 characters_item = characters_item_data.to_dict()
                 characters.append(characters_item)
 
-        lists: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.lists, Unset):
-            lists = []
-            for lists_item_data in self.lists:
-                lists_item = lists_item_data.to_dict()
-                lists.append(lists_item)
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -152,8 +142,6 @@ class MediaCreateRequest:
             field_dict["storageBasePath"] = storage_base_path
         if characters is not UNSET:
             field_dict["characters"] = characters
-        if lists is not UNSET:
-            field_dict["lists"] = lists
 
         return field_dict
 
@@ -161,7 +149,6 @@ class MediaCreateRequest:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.character_input import CharacterInput
         from ..models.external_id import ExternalId
-        from ..models.list_input import ListInput
 
         d = dict(src_dict)
         name_ja = d.pop("nameJa")
@@ -217,15 +204,6 @@ class MediaCreateRequest:
 
                 characters.append(characters_item)
 
-        _lists = d.pop("lists", UNSET)
-        lists: list[ListInput] | Unset = UNSET
-        if _lists is not UNSET:
-            lists = []
-            for lists_item_data in _lists:
-                lists_item = ListInput.from_dict(lists_item_data)
-
-                lists.append(lists_item)
-
         media_create_request = cls(
             name_ja=name_ja,
             name_romaji=name_romaji,
@@ -245,7 +223,6 @@ class MediaCreateRequest:
             end_date=end_date,
             storage_base_path=storage_base_path,
             characters=characters,
-            lists=lists,
         )
 
         media_create_request.additional_properties = d

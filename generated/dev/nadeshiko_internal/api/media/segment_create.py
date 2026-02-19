@@ -13,8 +13,8 @@ from ...models.error_404 import Error404
 from ...models.error_409 import Error409
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.segment import Segment
 from ...models.segment_create_request import SegmentCreateRequest
+from ...models.segment_internal import SegmentInternal
 from ...types import Response
 
 
@@ -44,9 +44,19 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment | None:
+) -> (
+    Error400
+    | Error401
+    | Error403
+    | Error404
+    | Error409
+    | Error429
+    | Error500
+    | SegmentInternal
+    | None
+):
     if response.status_code == 201:
-        response_201 = Segment.from_dict(response.json())
+        response_201 = SegmentInternal.from_dict(response.json())
 
         return response_201
 
@@ -93,7 +103,9 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment]:
+) -> Response[
+    Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
+]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -108,7 +120,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: SegmentCreateRequest,
-) -> Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment]:
+) -> Response[
+    Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
+]:
     """Create new segment
 
      Creates a new segment for a specific episode.
@@ -125,7 +139,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment]
+        Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal]
     """
 
     kwargs = _get_kwargs(
@@ -147,7 +161,17 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: SegmentCreateRequest,
-) -> Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment | None:
+) -> (
+    Error400
+    | Error401
+    | Error403
+    | Error404
+    | Error409
+    | Error429
+    | Error500
+    | SegmentInternal
+    | None
+):
     """Create new segment
 
      Creates a new segment for a specific episode.
@@ -164,7 +188,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment
+        Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
     """
 
     return sync_detailed(
@@ -181,7 +205,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: SegmentCreateRequest,
-) -> Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment]:
+) -> Response[
+    Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
+]:
     """Create new segment
 
      Creates a new segment for a specific episode.
@@ -198,7 +224,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment]
+        Response[Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal]
     """
 
     kwargs = _get_kwargs(
@@ -218,7 +244,17 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: SegmentCreateRequest,
-) -> Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment | None:
+) -> (
+    Error400
+    | Error401
+    | Error403
+    | Error404
+    | Error409
+    | Error429
+    | Error500
+    | SegmentInternal
+    | None
+):
     """Create new segment
 
      Creates a new segment for a specific episode.
@@ -235,7 +271,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | Segment
+        Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
     """
 
     return (

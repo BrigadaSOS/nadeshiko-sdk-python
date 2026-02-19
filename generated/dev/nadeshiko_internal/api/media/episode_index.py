@@ -19,13 +19,13 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     media_id: int,
     *,
-    size: int | Unset = 50,
+    limit: int | Unset = 50,
     cursor: int | Unset = 0,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
-    params["size"] = size
+    params["limit"] = limit
 
     params["cursor"] = cursor
 
@@ -103,7 +103,7 @@ def sync_detailed(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    size: int | Unset = 50,
+    limit: int | Unset = 50,
     cursor: int | Unset = 0,
 ) -> Response[
     EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
@@ -116,7 +116,7 @@ def sync_detailed(
 
     Args:
         media_id (int):
-        size (int | Unset):  Default: 50.
+        limit (int | Unset):  Default: 50.
         cursor (int | Unset):  Default: 0.
 
     Raises:
@@ -129,7 +129,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         media_id=media_id,
-        size=size,
+        limit=limit,
         cursor=cursor,
     )
 
@@ -144,7 +144,7 @@ def sync(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    size: int | Unset = 50,
+    limit: int | Unset = 50,
     cursor: int | Unset = 0,
 ) -> EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """List episodes for a media
@@ -155,7 +155,7 @@ def sync(
 
     Args:
         media_id (int):
-        size (int | Unset):  Default: 50.
+        limit (int | Unset):  Default: 50.
         cursor (int | Unset):  Default: 0.
 
     Raises:
@@ -169,7 +169,7 @@ def sync(
     return sync_detailed(
         media_id=media_id,
         client=client,
-        size=size,
+        limit=limit,
         cursor=cursor,
     ).parsed
 
@@ -178,7 +178,7 @@ async def asyncio_detailed(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    size: int | Unset = 50,
+    limit: int | Unset = 50,
     cursor: int | Unset = 0,
 ) -> Response[
     EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
@@ -191,7 +191,7 @@ async def asyncio_detailed(
 
     Args:
         media_id (int):
-        size (int | Unset):  Default: 50.
+        limit (int | Unset):  Default: 50.
         cursor (int | Unset):  Default: 0.
 
     Raises:
@@ -204,7 +204,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         media_id=media_id,
-        size=size,
+        limit=limit,
         cursor=cursor,
     )
 
@@ -217,7 +217,7 @@ async def asyncio(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    size: int | Unset = 50,
+    limit: int | Unset = 50,
     cursor: int | Unset = 0,
 ) -> EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """List episodes for a media
@@ -228,7 +228,7 @@ async def asyncio(
 
     Args:
         media_id (int):
-        size (int | Unset):  Default: 50.
+        limit (int | Unset):  Default: 50.
         cursor (int | Unset):  Default: 0.
 
     Raises:
@@ -243,7 +243,7 @@ async def asyncio(
         await asyncio_detailed(
             media_id=media_id,
             client=client,
-            size=size,
+            limit=limit,
             cursor=cursor,
         )
     ).parsed

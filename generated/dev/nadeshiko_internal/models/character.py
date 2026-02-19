@@ -1,14 +1,10 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-if TYPE_CHECKING:
-    from ..models.seiyuu import Seiyuu
-
 
 T = TypeVar("T", bound="Character")
 
@@ -22,14 +18,12 @@ class Character:
         name_ja (str): Japanese name of the character Example: 真城最高.
         name_en (str): English name of the character Example: Moritaka Mashiro.
         image_url (str): Character image URL Example: https://s4.anilist.co/file/anilistcdn/character/large/b14545.jpg.
-        seiyuu (Seiyuu): Japanese voice actor (seiyuu)
     """
 
     id: int
     name_ja: str
     name_en: str
     image_url: str
-    seiyuu: Seiyuu
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,8 +35,6 @@ class Character:
 
         image_url = self.image_url
 
-        seiyuu = self.seiyuu.to_dict()
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -51,7 +43,6 @@ class Character:
                 "nameJa": name_ja,
                 "nameEn": name_en,
                 "imageUrl": image_url,
-                "seiyuu": seiyuu,
             }
         )
 
@@ -59,8 +50,6 @@ class Character:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.seiyuu import Seiyuu
-
         d = dict(src_dict)
         id = d.pop("id")
 
@@ -70,14 +59,11 @@ class Character:
 
         image_url = d.pop("imageUrl")
 
-        seiyuu = Seiyuu.from_dict(d.pop("seiyuu"))
-
         character = cls(
             id=id,
             name_ja=name_ja,
             name_en=name_en,
             image_url=image_url,
-            seiyuu=seiyuu,
         )
 
         character.additional_properties = d
