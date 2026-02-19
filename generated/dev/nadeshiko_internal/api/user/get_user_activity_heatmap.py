@@ -8,7 +8,7 @@ from ...client import AuthenticatedClient, Client
 from ...models.activity_type import ActivityType
 from ...models.error_401 import Error401
 from ...models.error_500 import Error500
-from ...models.get_activity_heatmap_response_200 import GetActivityHeatmapResponse200
+from ...models.get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
 from ...types import UNSET, Response, Unset
 
 
@@ -41,9 +41,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error401 | Error500 | GetActivityHeatmapResponse200 | None:
+) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     if response.status_code == 200:
-        response_200 = GetActivityHeatmapResponse200.from_dict(response.json())
+        response_200 = GetUserActivityHeatmapResponse200.from_dict(response.json())
 
         return response_200
 
@@ -65,7 +65,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error401 | Error500 | GetActivityHeatmapResponse200]:
+) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,7 +79,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     days: int | Unset = 365,
     activity_type: ActivityType | Unset = UNSET,
-) -> Response[Error401 | Error500 | GetActivityHeatmapResponse200]:
+) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     """Get activity heatmap data
 
      Returns daily activity counts for the authenticated user, grouped by date.
@@ -96,7 +96,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error500 | GetActivityHeatmapResponse200]
+        Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -116,7 +116,7 @@ def sync(
     client: AuthenticatedClient,
     days: int | Unset = 365,
     activity_type: ActivityType | Unset = UNSET,
-) -> Error401 | Error500 | GetActivityHeatmapResponse200 | None:
+) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     """Get activity heatmap data
 
      Returns daily activity counts for the authenticated user, grouped by date.
@@ -133,7 +133,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error500 | GetActivityHeatmapResponse200
+        Error401 | Error500 | GetUserActivityHeatmapResponse200
     """
 
     return sync_detailed(
@@ -148,7 +148,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     days: int | Unset = 365,
     activity_type: ActivityType | Unset = UNSET,
-) -> Response[Error401 | Error500 | GetActivityHeatmapResponse200]:
+) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     """Get activity heatmap data
 
      Returns daily activity counts for the authenticated user, grouped by date.
@@ -165,7 +165,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error500 | GetActivityHeatmapResponse200]
+        Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -183,7 +183,7 @@ async def asyncio(
     client: AuthenticatedClient,
     days: int | Unset = 365,
     activity_type: ActivityType | Unset = UNSET,
-) -> Error401 | Error500 | GetActivityHeatmapResponse200 | None:
+) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     """Get activity heatmap data
 
      Returns daily activity counts for the authenticated user, grouped by date.
@@ -200,7 +200,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error500 | GetActivityHeatmapResponse200
+        Error401 | Error500 | GetUserActivityHeatmapResponse200
     """
 
     return (

@@ -31,7 +31,7 @@ from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
 from .create_series_body import CreateSeriesBody
 from .cursor_pagination import CursorPagination
-from .delete_activity_response_200 import DeleteActivityResponse200
+from .delete_user_activity_response_200 import DeleteUserActivityResponse200
 from .episode import Episode
 from .episode_create_request import EpisodeCreateRequest
 from .episode_list_response import EpisodeListResponse
@@ -65,10 +65,6 @@ from .error_500_code import Error500Code
 from .error_500_errors import Error500Errors
 from .error_500_status import Error500Status
 from .external_id import ExternalId
-from .get_activity_heatmap_response_200 import GetActivityHeatmapResponse200
-from .get_activity_heatmap_response_200_counts import GetActivityHeatmapResponse200Counts
-from .get_activity_stats_response_200 import GetActivityStatsResponse200
-from .get_activity_stats_response_200_top_media_item import GetActivityStatsResponse200TopMediaItem
 from .get_admin_dashboard_response_200 import GetAdminDashboardResponse200
 from .get_admin_dashboard_response_200_activity import GetAdminDashboardResponse200Activity
 from .get_admin_dashboard_response_200_activity_daily_activity_30d_item import (
@@ -112,8 +108,13 @@ from .get_admin_queue_response_200_metadata import GetAdminQueueResponse200Metad
 from .get_admin_queue_response_200_stats import GetAdminQueueResponse200Stats
 from .get_admin_review_run_response_200 import GetAdminReviewRunResponse200
 from .get_seiyuu_include_item import GetSeiyuuIncludeItem
+from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
+from .get_user_activity_heatmap_response_200_counts import GetUserActivityHeatmapResponse200Counts
+from .get_user_activity_stats_response_200 import GetUserActivityStatsResponse200
+from .get_user_activity_stats_response_200_top_media_item import (
+    GetUserActivityStatsResponse200TopMediaItem,
+)
 from .include_expansion import IncludeExpansion
-from .list_activity_response_200 import ListActivityResponse200
 from .list_admin_queue_failed_queue_name import ListAdminQueueFailedQueueName
 from .list_admin_queue_failed_response_200_item import ListAdminQueueFailedResponse200Item
 from .list_admin_queue_stats_response_200_item import ListAdminQueueStatsResponse200Item
@@ -123,8 +124,9 @@ from .list_admin_reports_target_type import ListAdminReportsTargetType
 from .list_admin_review_runs_response_200 import ListAdminReviewRunsResponse200
 from .list_collections_visibility import ListCollectionsVisibility
 from .list_media_category import ListMediaCategory
-from .list_reports_status import ListReportsStatus
 from .list_segments_response_200 import ListSegmentsResponse200
+from .list_user_activity_response_200 import ListUserActivityResponse200
+from .list_user_reports_status import ListUserReportsStatus
 from .media import Media
 from .media_character import MediaCharacter
 from .media_character_role import MediaCharacterRole
@@ -297,7 +299,7 @@ __all__ = (
     "CreateReportRequestReason",
     "CreateSeriesBody",
     "CursorPagination",
-    "DeleteActivityResponse200",
+    "DeleteUserActivityResponse200",
     "Episode",
     "EpisodeCreateRequest",
     "EpisodeListResponse",
@@ -331,10 +333,6 @@ __all__ = (
     "Error500Errors",
     "Error500Status",
     "ExternalId",
-    "GetActivityHeatmapResponse200",
-    "GetActivityHeatmapResponse200Counts",
-    "GetActivityStatsResponse200",
-    "GetActivityStatsResponse200TopMediaItem",
     "GetAdminDashboardResponse200",
     "GetAdminDashboardResponse200Activity",
     "GetAdminDashboardResponse200ActivityDailyActivity30DItem",
@@ -362,8 +360,11 @@ __all__ = (
     "GetAdminQueueResponse200Stats",
     "GetAdminReviewRunResponse200",
     "GetSeiyuuIncludeItem",
+    "GetUserActivityHeatmapResponse200",
+    "GetUserActivityHeatmapResponse200Counts",
+    "GetUserActivityStatsResponse200",
+    "GetUserActivityStatsResponse200TopMediaItem",
     "IncludeExpansion",
-    "ListActivityResponse200",
     "ListAdminQueueFailedQueueName",
     "ListAdminQueueFailedResponse200Item",
     "ListAdminQueueStatsResponse200Item",
@@ -373,8 +374,9 @@ __all__ = (
     "ListAdminReviewRunsResponse200",
     "ListCollectionsVisibility",
     "ListMediaCategory",
-    "ListReportsStatus",
     "ListSegmentsResponse200",
+    "ListUserActivityResponse200",
+    "ListUserReportsStatus",
     "Media",
     "MediaCharacter",
     "MediaCharacterRole",

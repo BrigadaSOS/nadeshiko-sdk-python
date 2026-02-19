@@ -11,11 +11,11 @@ if TYPE_CHECKING:
     from ..models.user_activity import UserActivity
 
 
-T = TypeVar("T", bound="ListActivityResponse200")
+T = TypeVar("T", bound="ListUserActivityResponse200")
 
 
 @_attrs_define
-class ListActivityResponse200:
+class ListUserActivityResponse200:
     """
     Attributes:
         activities (list[UserActivity]):
@@ -60,13 +60,13 @@ class ListActivityResponse200:
 
         pagination = CursorPagination.from_dict(d.pop("pagination"))
 
-        list_activity_response_200 = cls(
+        list_user_activity_response_200 = cls(
             activities=activities,
             pagination=pagination,
         )
 
-        list_activity_response_200.additional_properties = d
-        return list_activity_response_200
+        list_user_activity_response_200.additional_properties = d
+        return list_user_activity_response_200
 
     @property
     def additional_keys(self) -> list[str]:

@@ -24,6 +24,7 @@ class Segment:
     """Segment with content, optional highlights, and media URLs
 
     Attributes:
+        id (int): Numeric identifier for the segment Example: 120045.
         uuid (str): Unique identifier for the segment Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
         position (int): Position of the segment within the episode Example: 1133.
         status (SegmentStatus): Segment status Example: ACTIVE.
@@ -39,6 +40,7 @@ class Segment:
         urls (SegmentUrls): URLs to media resources for this segment
     """
 
+    id: int
     uuid: str
     position: int
     status: SegmentStatus
@@ -54,6 +56,8 @@ class Segment:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        id = self.id
+
         uuid = self.uuid
 
         position = self.position
@@ -82,6 +86,7 @@ class Segment:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "id": id,
                 "uuid": uuid,
                 "position": position,
                 "status": status,
@@ -107,6 +112,8 @@ class Segment:
         from ..models.segment_urls import SegmentUrls
 
         d = dict(src_dict)
+        id = d.pop("id")
+
         uuid = d.pop("uuid")
 
         position = d.pop("position")
@@ -132,6 +139,7 @@ class Segment:
         urls = SegmentUrls.from_dict(d.pop("urls"))
 
         segment = cls(
+            id=id,
             uuid=uuid,
             position=position,
             status=status,

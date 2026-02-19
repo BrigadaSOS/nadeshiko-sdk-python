@@ -6,11 +6,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="GetActivityStatsResponse200TopMediaItem")
+T = TypeVar("T", bound="GetUserActivityStatsResponse200TopMediaItem")
 
 
 @_attrs_define
-class GetActivityStatsResponse200TopMediaItem:
+class GetUserActivityStatsResponse200TopMediaItem:
     """
     Attributes:
         media_id (int):
@@ -44,13 +44,13 @@ class GetActivityStatsResponse200TopMediaItem:
 
         count = d.pop("count")
 
-        get_activity_stats_response_200_top_media_item = cls(
+        get_user_activity_stats_response_200_top_media_item = cls(
             media_id=media_id,
             count=count,
         )
 
-        get_activity_stats_response_200_top_media_item.additional_properties = d
-        return get_activity_stats_response_200_top_media_item
+        get_user_activity_stats_response_200_top_media_item.additional_properties = d
+        return get_user_activity_stats_response_200_top_media_item
 
     @property
     def additional_keys(self) -> list[str]:

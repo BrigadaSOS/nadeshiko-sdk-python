@@ -6,11 +6,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="DeleteActivityResponse200")
+T = TypeVar("T", bound="DeleteUserActivityResponse200")
 
 
 @_attrs_define
-class DeleteActivityResponse200:
+class DeleteUserActivityResponse200:
     """
     Attributes:
         message (str):
@@ -44,13 +44,13 @@ class DeleteActivityResponse200:
 
         deleted_count = d.pop("deletedCount")
 
-        delete_activity_response_200 = cls(
+        delete_user_activity_response_200 = cls(
             message=message,
             deleted_count=deleted_count,
         )
 
-        delete_activity_response_200.additional_properties = d
-        return delete_activity_response_200
+        delete_user_activity_response_200.additional_properties = d
+        return delete_user_activity_response_200
 
     @property
     def additional_keys(self) -> list[str]:

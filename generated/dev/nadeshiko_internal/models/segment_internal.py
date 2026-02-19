@@ -28,6 +28,7 @@ class SegmentInternal:
     """Segment with internal fields (for internal API responses)
 
     Attributes:
+        id (int): Numeric identifier for the segment Example: 120045.
         uuid (str): Unique identifier for the segment Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
         position (int): Position of the segment within the episode Example: 1133.
         status (SegmentStatus): Segment status Example: ACTIVE.
@@ -50,6 +51,7 @@ class SegmentInternal:
             (sudachi, unidic)
     """
 
+    id: int
     uuid: str
     position: int
     status: SegmentStatus
@@ -74,6 +76,8 @@ class SegmentInternal:
         from ..models.segment_internal_rating_analysis_type_0 import (
             SegmentInternalRatingAnalysisType0,
         )
+
+        id = self.id
 
         uuid = self.uuid
 
@@ -127,6 +131,7 @@ class SegmentInternal:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "id": id,
                 "uuid": uuid,
                 "position": position,
                 "status": status,
@@ -166,6 +171,8 @@ class SegmentInternal:
         from ..models.segment_urls import SegmentUrls
 
         d = dict(src_dict)
+        id = d.pop("id")
+
         uuid = d.pop("uuid")
 
         position = d.pop("position")
@@ -238,6 +245,7 @@ class SegmentInternal:
         pos_analysis = _parse_pos_analysis(d.pop("posAnalysis", UNSET))
 
         segment_internal = cls(
+            id=id,
             uuid=uuid,
             position=position,
             status=status,

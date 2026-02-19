@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ListReportsStatus(str, Enum):
+class ListUserReportsStatus(str, Enum):
     ACCEPTED = "ACCEPTED"
     CONCERN = "CONCERN"
     IGNORED = "IGNORED"

@@ -9,7 +9,7 @@ from ...client import AuthenticatedClient, Client
 from ...models.activity_type import ActivityType
 from ...models.error_401 import Error401
 from ...models.error_500 import Error500
-from ...models.list_activity_response_200 import ListActivityResponse200
+from ...models.list_user_activity_response_200 import ListUserActivityResponse200
 from ...types import UNSET, Response, Unset
 
 
@@ -51,9 +51,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error401 | Error500 | ListActivityResponse200 | None:
+) -> Error401 | Error500 | ListUserActivityResponse200 | None:
     if response.status_code == 200:
-        response_200 = ListActivityResponse200.from_dict(response.json())
+        response_200 = ListUserActivityResponse200.from_dict(response.json())
 
         return response_200
 
@@ -75,7 +75,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error401 | Error500 | ListActivityResponse200]:
+) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -91,7 +91,7 @@ def sync_detailed(
     limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
-) -> Response[Error401 | Error500 | ListActivityResponse200]:
+) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
     """Get user activity history
 
      Returns the authenticated user's activity history with cursor-based pagination.
@@ -109,7 +109,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error500 | ListActivityResponse200]
+        Response[Error401 | Error500 | ListUserActivityResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -133,7 +133,7 @@ def sync(
     limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
-) -> Error401 | Error500 | ListActivityResponse200 | None:
+) -> Error401 | Error500 | ListUserActivityResponse200 | None:
     """Get user activity history
 
      Returns the authenticated user's activity history with cursor-based pagination.
@@ -151,7 +151,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error500 | ListActivityResponse200
+        Error401 | Error500 | ListUserActivityResponse200
     """
 
     return sync_detailed(
@@ -170,7 +170,7 @@ async def asyncio_detailed(
     limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
-) -> Response[Error401 | Error500 | ListActivityResponse200]:
+) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
     """Get user activity history
 
      Returns the authenticated user's activity history with cursor-based pagination.
@@ -188,7 +188,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error500 | ListActivityResponse200]
+        Response[Error401 | Error500 | ListUserActivityResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -210,7 +210,7 @@ async def asyncio(
     limit: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
-) -> Error401 | Error500 | ListActivityResponse200 | None:
+) -> Error401 | Error500 | ListUserActivityResponse200 | None:
     """Get user activity history
 
      Returns the authenticated user's activity history with cursor-based pagination.
@@ -228,7 +228,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error500 | ListActivityResponse200
+        Error401 | Error500 | ListUserActivityResponse200
     """
 
     return (

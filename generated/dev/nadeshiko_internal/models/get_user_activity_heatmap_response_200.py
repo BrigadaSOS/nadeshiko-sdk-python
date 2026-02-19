@@ -7,22 +7,22 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.get_activity_heatmap_response_200_counts import (
-        GetActivityHeatmapResponse200Counts,
+    from ..models.get_user_activity_heatmap_response_200_counts import (
+        GetUserActivityHeatmapResponse200Counts,
     )
 
 
-T = TypeVar("T", bound="GetActivityHeatmapResponse200")
+T = TypeVar("T", bound="GetUserActivityHeatmapResponse200")
 
 
 @_attrs_define
-class GetActivityHeatmapResponse200:
+class GetUserActivityHeatmapResponse200:
     """
     Attributes:
-        counts (GetActivityHeatmapResponse200Counts): Map of YYYY-MM-DD date strings to activity counts
+        counts (GetUserActivityHeatmapResponse200Counts): Map of YYYY-MM-DD date strings to activity counts
     """
 
-    counts: GetActivityHeatmapResponse200Counts
+    counts: GetUserActivityHeatmapResponse200Counts
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,19 +40,19 @@ class GetActivityHeatmapResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.get_activity_heatmap_response_200_counts import (
-            GetActivityHeatmapResponse200Counts,
+        from ..models.get_user_activity_heatmap_response_200_counts import (
+            GetUserActivityHeatmapResponse200Counts,
         )
 
         d = dict(src_dict)
-        counts = GetActivityHeatmapResponse200Counts.from_dict(d.pop("counts"))
+        counts = GetUserActivityHeatmapResponse200Counts.from_dict(d.pop("counts"))
 
-        get_activity_heatmap_response_200 = cls(
+        get_user_activity_heatmap_response_200 = cls(
             counts=counts,
         )
 
-        get_activity_heatmap_response_200.additional_properties = d
-        return get_activity_heatmap_response_200
+        get_user_activity_heatmap_response_200.additional_properties = d
+        return get_user_activity_heatmap_response_200
 
     @property
     def additional_keys(self) -> list[str]:

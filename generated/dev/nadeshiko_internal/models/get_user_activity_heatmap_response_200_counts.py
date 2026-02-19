@@ -6,11 +6,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="GetActivityHeatmapResponse200Counts")
+T = TypeVar("T", bound="GetUserActivityHeatmapResponse200Counts")
 
 
 @_attrs_define
-class GetActivityHeatmapResponse200Counts:
+class GetUserActivityHeatmapResponse200Counts:
     """Map of YYYY-MM-DD date strings to activity counts"""
 
     additional_properties: dict[str, int] = _attrs_field(init=False, factory=dict)
@@ -25,10 +25,10 @@ class GetActivityHeatmapResponse200Counts:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        get_activity_heatmap_response_200_counts = cls()
+        get_user_activity_heatmap_response_200_counts = cls()
 
-        get_activity_heatmap_response_200_counts.additional_properties = d
-        return get_activity_heatmap_response_200_counts
+        get_user_activity_heatmap_response_200_counts.additional_properties = d
+        return get_user_activity_heatmap_response_200_counts
 
     @property
     def additional_keys(self) -> list[str]:
