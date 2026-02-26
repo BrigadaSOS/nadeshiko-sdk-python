@@ -9,7 +9,6 @@ from attrs import field as _attrs_field
 from ..models.pagination_info_estimated_total_hits_relation import (
     PaginationInfoEstimatedTotalHitsRelation,
 )
-from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="PaginationInfo")
 
@@ -19,17 +18,17 @@ class PaginationInfo:
     """Pagination metadata for search results
 
     Attributes:
-        has_more (bool | Unset): Whether there are more results after this page Example: True.
-        estimated_total_hits (int | Unset): Estimated total number of matching segments Example: 12456.
-        estimated_total_hits_relation (PaginationInfoEstimatedTotalHitsRelation | Unset): Whether estimatedTotalHits is
-            exact or a lower bound Example: LOWER_BOUND.
-        cursor (None | str | Unset): Opaque cursor token for fetching the next page (`null` when hasMore is false)
+        has_more (bool): Whether there are more results after this page Example: True.
+        estimated_total_hits (int): Estimated total number of matching segments Example: 12456.
+        estimated_total_hits_relation (PaginationInfoEstimatedTotalHitsRelation): Whether estimatedTotalHits is exact or
+            a lower bound Example: LOWER_BOUND.
+        cursor (None | str): Opaque cursor token for fetching the next page (`null` when hasMore is false)
     """
 
-    has_more: bool | Unset = UNSET
-    estimated_total_hits: int | Unset = UNSET
-    estimated_total_hits_relation: PaginationInfoEstimatedTotalHitsRelation | Unset = UNSET
-    cursor: None | str | Unset = UNSET
+    has_more: bool
+    estimated_total_hits: int
+    estimated_total_hits_relation: PaginationInfoEstimatedTotalHitsRelation
+    cursor: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,54 +36,41 @@ class PaginationInfo:
 
         estimated_total_hits = self.estimated_total_hits
 
-        estimated_total_hits_relation: str | Unset = UNSET
-        if not isinstance(self.estimated_total_hits_relation, Unset):
-            estimated_total_hits_relation = self.estimated_total_hits_relation.value
+        estimated_total_hits_relation = self.estimated_total_hits_relation.value
 
-        cursor: None | str | Unset
-        if isinstance(self.cursor, Unset):
-            cursor = UNSET
-        else:
-            cursor = self.cursor
+        cursor: None | str
+        cursor = self.cursor
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if has_more is not UNSET:
-            field_dict["hasMore"] = has_more
-        if estimated_total_hits is not UNSET:
-            field_dict["estimatedTotalHits"] = estimated_total_hits
-        if estimated_total_hits_relation is not UNSET:
-            field_dict["estimatedTotalHitsRelation"] = estimated_total_hits_relation
-        if cursor is not UNSET:
-            field_dict["cursor"] = cursor
+        field_dict.update(
+            {
+                "hasMore": has_more,
+                "estimatedTotalHits": estimated_total_hits,
+                "estimatedTotalHitsRelation": estimated_total_hits_relation,
+                "cursor": cursor,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        has_more = d.pop("hasMore", UNSET)
+        has_more = d.pop("hasMore")
 
-        estimated_total_hits = d.pop("estimatedTotalHits", UNSET)
+        estimated_total_hits = d.pop("estimatedTotalHits")
 
-        _estimated_total_hits_relation = d.pop("estimatedTotalHitsRelation", UNSET)
-        estimated_total_hits_relation: PaginationInfoEstimatedTotalHitsRelation | Unset
-        if isinstance(_estimated_total_hits_relation, Unset):
-            estimated_total_hits_relation = UNSET
-        else:
-            estimated_total_hits_relation = PaginationInfoEstimatedTotalHitsRelation(
-                _estimated_total_hits_relation
-            )
+        estimated_total_hits_relation = PaginationInfoEstimatedTotalHitsRelation(
+            d.pop("estimatedTotalHitsRelation")
+        )
 
-        def _parse_cursor(data: object) -> None | str | Unset:
+        def _parse_cursor(data: object) -> None | str:
             if data is None:
                 return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
+            return cast(None | str, data)
 
-        cursor = _parse_cursor(d.pop("cursor", UNSET))
+        cursor = _parse_cursor(d.pop("cursor"))
 
         pagination_info = cls(
             has_more=has_more,

@@ -93,12 +93,12 @@ def sync_detailed(
     """Reindex database into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
-    Allows filtering by specific media IDs or episodes.
+    Allows filtering by specific media entries and episodes.
 
     **Behavior:**
     - If no filters provided, reindexes all segments
-    - If `mediaIds` provided, reindexes all segments from those media
-    - If `episodes` provided, reindexes only the specified episodes
+    - If `media` is provided, reindexes segments from those media entries
+    - If a media item includes `episodes`, only those episodes are reindexed for that media
 
     **Permissions:** `ADD_MEDIA`
 
@@ -133,12 +133,12 @@ def sync(
     """Reindex database into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
-    Allows filtering by specific media IDs or episodes.
+    Allows filtering by specific media entries and episodes.
 
     **Behavior:**
     - If no filters provided, reindexes all segments
-    - If `mediaIds` provided, reindexes all segments from those media
-    - If `episodes` provided, reindexes only the specified episodes
+    - If `media` is provided, reindexes segments from those media entries
+    - If a media item includes `episodes`, only those episodes are reindexed for that media
 
     **Permissions:** `ADD_MEDIA`
 
@@ -168,12 +168,12 @@ async def asyncio_detailed(
     """Reindex database into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
-    Allows filtering by specific media IDs or episodes.
+    Allows filtering by specific media entries and episodes.
 
     **Behavior:**
     - If no filters provided, reindexes all segments
-    - If `mediaIds` provided, reindexes all segments from those media
-    - If `episodes` provided, reindexes only the specified episodes
+    - If `media` is provided, reindexes segments from those media entries
+    - If a media item includes `episodes`, only those episodes are reindexed for that media
 
     **Permissions:** `ADD_MEDIA`
 
@@ -206,12 +206,12 @@ async def asyncio(
     """Reindex database into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
-    Allows filtering by specific media IDs or episodes.
+    Allows filtering by specific media entries and episodes.
 
     **Behavior:**
     - If no filters provided, reindexes all segments
-    - If `mediaIds` provided, reindexes all segments from those media
-    - If `episodes` provided, reindexes only the specified episodes
+    - If `media` is provided, reindexes segments from those media entries
+    - If a media item includes `episodes`, only those episodes are reindexed for that media
 
     **Permissions:** `ADD_MEDIA`
 

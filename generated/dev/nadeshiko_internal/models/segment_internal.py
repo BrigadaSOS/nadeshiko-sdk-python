@@ -9,7 +9,6 @@ from attrs import field as _attrs_field
 from ..models.content_rating import ContentRating
 from ..models.segment_internal_storage import SegmentInternalStorage
 from ..models.segment_status import SegmentStatus
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
@@ -42,13 +41,13 @@ class SegmentInternal:
         text_en (SegmentTextEn):
         text_es (SegmentTextEs):
         urls (SegmentUrls): URLs to media resources for this segment
-        storage (SegmentInternalStorage | Unset): Storage backend for segment assets Example: R2.
-        hashed_id (str | Unset): Hash identifier for the segment Example: 0d39e46b14.
-        storage_base_path (str | Unset): Base path in the storage backend Example: anime/steins-gate.
-        rating_analysis (None | SegmentInternalRatingAnalysisType0 | Unset): Raw WD Tagger v3 classifier output used to
-            derive content rating
-        pos_analysis (None | SegmentInternalPosAnalysisType0 | Unset): POS tokenization results keyed by engine
-            (sudachi, unidic)
+        storage (SegmentInternalStorage): Storage backend for segment assets Example: R2.
+        hashed_id (str): Hash identifier for the segment Example: 0d39e46b14.
+        storage_base_path (str): Base path in the storage backend Example: anime/steins-gate.
+        rating_analysis (None | SegmentInternalRatingAnalysisType0): Raw WD Tagger v3 classifier output used to derive
+            content rating
+        pos_analysis (None | SegmentInternalPosAnalysisType0): POS tokenization results keyed by engine (sudachi,
+            unidic)
     """
 
     id: int
@@ -64,11 +63,11 @@ class SegmentInternal:
     text_en: SegmentTextEn
     text_es: SegmentTextEs
     urls: SegmentUrls
-    storage: SegmentInternalStorage | Unset = UNSET
-    hashed_id: str | Unset = UNSET
-    storage_base_path: str | Unset = UNSET
-    rating_analysis: None | SegmentInternalRatingAnalysisType0 | Unset = UNSET
-    pos_analysis: None | SegmentInternalPosAnalysisType0 | Unset = UNSET
+    storage: SegmentInternalStorage
+    hashed_id: str
+    storage_base_path: str
+    rating_analysis: None | SegmentInternalRatingAnalysisType0
+    pos_analysis: None | SegmentInternalPosAnalysisType0
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -103,26 +102,20 @@ class SegmentInternal:
 
         urls = self.urls.to_dict()
 
-        storage: str | Unset = UNSET
-        if not isinstance(self.storage, Unset):
-            storage = self.storage.value
+        storage = self.storage.value
 
         hashed_id = self.hashed_id
 
         storage_base_path = self.storage_base_path
 
-        rating_analysis: dict[str, Any] | None | Unset
-        if isinstance(self.rating_analysis, Unset):
-            rating_analysis = UNSET
-        elif isinstance(self.rating_analysis, SegmentInternalRatingAnalysisType0):
+        rating_analysis: dict[str, Any] | None
+        if isinstance(self.rating_analysis, SegmentInternalRatingAnalysisType0):
             rating_analysis = self.rating_analysis.to_dict()
         else:
             rating_analysis = self.rating_analysis
 
-        pos_analysis: dict[str, Any] | None | Unset
-        if isinstance(self.pos_analysis, Unset):
-            pos_analysis = UNSET
-        elif isinstance(self.pos_analysis, SegmentInternalPosAnalysisType0):
+        pos_analysis: dict[str, Any] | None
+        if isinstance(self.pos_analysis, SegmentInternalPosAnalysisType0):
             pos_analysis = self.pos_analysis.to_dict()
         else:
             pos_analysis = self.pos_analysis
@@ -144,18 +137,13 @@ class SegmentInternal:
                 "textEn": text_en,
                 "textEs": text_es,
                 "urls": urls,
+                "storage": storage,
+                "hashedId": hashed_id,
+                "storageBasePath": storage_base_path,
+                "ratingAnalysis": rating_analysis,
+                "posAnalysis": pos_analysis,
             }
         )
-        if storage is not UNSET:
-            field_dict["storage"] = storage
-        if hashed_id is not UNSET:
-            field_dict["hashedId"] = hashed_id
-        if storage_base_path is not UNSET:
-            field_dict["storageBasePath"] = storage_base_path
-        if rating_analysis is not UNSET:
-            field_dict["ratingAnalysis"] = rating_analysis
-        if pos_analysis is not UNSET:
-            field_dict["posAnalysis"] = pos_analysis
 
         return field_dict
 
@@ -197,23 +185,14 @@ class SegmentInternal:
 
         urls = SegmentUrls.from_dict(d.pop("urls"))
 
-        _storage = d.pop("storage", UNSET)
-        storage: SegmentInternalStorage | Unset
-        if isinstance(_storage, Unset):
-            storage = UNSET
-        else:
-            storage = SegmentInternalStorage(_storage)
+        storage = SegmentInternalStorage(d.pop("storage"))
 
-        hashed_id = d.pop("hashedId", UNSET)
+        hashed_id = d.pop("hashedId")
 
-        storage_base_path = d.pop("storageBasePath", UNSET)
+        storage_base_path = d.pop("storageBasePath")
 
-        def _parse_rating_analysis(
-            data: object,
-        ) -> None | SegmentInternalRatingAnalysisType0 | Unset:
+        def _parse_rating_analysis(data: object) -> None | SegmentInternalRatingAnalysisType0:
             if data is None:
-                return data
-            if isinstance(data, Unset):
                 return data
             try:
                 if not isinstance(data, dict):
@@ -223,14 +202,12 @@ class SegmentInternal:
                 return rating_analysis_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(None | SegmentInternalRatingAnalysisType0 | Unset, data)
+            return cast(None | SegmentInternalRatingAnalysisType0, data)
 
-        rating_analysis = _parse_rating_analysis(d.pop("ratingAnalysis", UNSET))
+        rating_analysis = _parse_rating_analysis(d.pop("ratingAnalysis"))
 
-        def _parse_pos_analysis(data: object) -> None | SegmentInternalPosAnalysisType0 | Unset:
+        def _parse_pos_analysis(data: object) -> None | SegmentInternalPosAnalysisType0:
             if data is None:
-                return data
-            if isinstance(data, Unset):
                 return data
             try:
                 if not isinstance(data, dict):
@@ -240,9 +217,9 @@ class SegmentInternal:
                 return pos_analysis_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(None | SegmentInternalPosAnalysisType0 | Unset, data)
+            return cast(None | SegmentInternalPosAnalysisType0, data)
 
-        pos_analysis = _parse_pos_analysis(d.pop("posAnalysis", UNSET))
+        pos_analysis = _parse_pos_analysis(d.pop("posAnalysis"))
 
         segment_internal = cls(
             id=id,

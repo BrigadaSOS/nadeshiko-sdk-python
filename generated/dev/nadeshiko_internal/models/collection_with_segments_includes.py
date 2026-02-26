@@ -6,8 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
     from ..models.collection_with_segments_includes_media import CollectionWithSegmentsIncludesMedia
 
@@ -19,22 +17,22 @@ T = TypeVar("T", bound="CollectionWithSegmentsIncludes")
 class CollectionWithSegmentsIncludes:
     """
     Attributes:
-        media (CollectionWithSegmentsIncludesMedia | Unset): Media objects keyed by mediaId
+        media (CollectionWithSegmentsIncludesMedia): Media objects keyed by mediaId
     """
 
-    media: CollectionWithSegmentsIncludesMedia | Unset = UNSET
+    media: CollectionWithSegmentsIncludesMedia
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.media, Unset):
-            media = self.media.to_dict()
+        media = self.media.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if media is not UNSET:
-            field_dict["media"] = media
+        field_dict.update(
+            {
+                "media": media,
+            }
+        )
 
         return field_dict
 
@@ -45,12 +43,7 @@ class CollectionWithSegmentsIncludes:
         )
 
         d = dict(src_dict)
-        _media = d.pop("media", UNSET)
-        media: CollectionWithSegmentsIncludesMedia | Unset
-        if isinstance(_media, Unset):
-            media = UNSET
-        else:
-            media = CollectionWithSegmentsIncludesMedia.from_dict(_media)
+        media = CollectionWithSegmentsIncludesMedia.from_dict(d.pop("media"))
 
         collection_with_segments_includes = cls(
             media=media,

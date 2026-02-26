@@ -6,8 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
     from ..models.media import Media
 
@@ -19,28 +17,27 @@ T = TypeVar("T", bound="SeriesWithMediaMediaItem")
 class SeriesWithMediaMediaItem:
     """
     Attributes:
-        position (int | Unset): Position in the series (1-indexed) Example: 1.
-        media (Media | Unset): Media entry with full metadata
+        position (int): Position in the series (1-indexed) Example: 1.
+        media (Media): Media entry with full metadata
     """
 
-    position: int | Unset = UNSET
-    media: Media | Unset = UNSET
+    position: int
+    media: Media
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         position = self.position
 
-        media: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.media, Unset):
-            media = self.media.to_dict()
+        media = self.media.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if position is not UNSET:
-            field_dict["position"] = position
-        if media is not UNSET:
-            field_dict["media"] = media
+        field_dict.update(
+            {
+                "position": position,
+                "media": media,
+            }
+        )
 
         return field_dict
 
@@ -49,14 +46,9 @@ class SeriesWithMediaMediaItem:
         from ..models.media import Media
 
         d = dict(src_dict)
-        position = d.pop("position", UNSET)
+        position = d.pop("position")
 
-        _media = d.pop("media", UNSET)
-        media: Media | Unset
-        if isinstance(_media, Unset):
-            media = UNSET
-        else:
-            media = Media.from_dict(_media)
+        media = Media.from_dict(d.pop("media"))
 
         series_with_media_media_item = cls(
             position=position,

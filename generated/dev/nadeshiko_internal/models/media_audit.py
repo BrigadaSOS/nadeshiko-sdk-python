@@ -9,7 +9,6 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.media_audit_target_type import MediaAuditTargetType
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.media_audit_latest_run_type_0 import MediaAuditLatestRunType0
@@ -31,10 +30,10 @@ class MediaAudit:
         target_type (MediaAuditTargetType): What level this audit operates on
         threshold (MediaAuditThreshold): Current threshold configuration
         enabled (bool): Whether this audit is active
-        threshold_schema (list[MediaAuditThresholdSchemaItem] | Unset): Schema for threshold fields (from registry)
-        latest_run (MediaAuditLatestRunType0 | None | Unset): Latest run info for this audit
-        created_at (datetime.datetime | Unset):
-        updated_at (datetime.datetime | None | Unset):
+        threshold_schema (list[MediaAuditThresholdSchemaItem]): Schema for threshold fields (from registry)
+        latest_run (MediaAuditLatestRunType0 | None): Latest run info for this audit
+        created_at (datetime.datetime | None):
+        updated_at (datetime.datetime | None):
     """
 
     id: int
@@ -44,10 +43,10 @@ class MediaAudit:
     target_type: MediaAuditTargetType
     threshold: MediaAuditThreshold
     enabled: bool
-    threshold_schema: list[MediaAuditThresholdSchemaItem] | Unset = UNSET
-    latest_run: MediaAuditLatestRunType0 | None | Unset = UNSET
-    created_at: datetime.datetime | Unset = UNSET
-    updated_at: datetime.datetime | None | Unset = UNSET
+    threshold_schema: list[MediaAuditThresholdSchemaItem]
+    latest_run: MediaAuditLatestRunType0 | None
+    created_at: datetime.datetime | None
+    updated_at: datetime.datetime | None
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -67,29 +66,25 @@ class MediaAudit:
 
         enabled = self.enabled
 
-        threshold_schema: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.threshold_schema, Unset):
-            threshold_schema = []
-            for threshold_schema_item_data in self.threshold_schema:
-                threshold_schema_item = threshold_schema_item_data.to_dict()
-                threshold_schema.append(threshold_schema_item)
+        threshold_schema = []
+        for threshold_schema_item_data in self.threshold_schema:
+            threshold_schema_item = threshold_schema_item_data.to_dict()
+            threshold_schema.append(threshold_schema_item)
 
-        latest_run: dict[str, Any] | None | Unset
-        if isinstance(self.latest_run, Unset):
-            latest_run = UNSET
-        elif isinstance(self.latest_run, MediaAuditLatestRunType0):
+        latest_run: dict[str, Any] | None
+        if isinstance(self.latest_run, MediaAuditLatestRunType0):
             latest_run = self.latest_run.to_dict()
         else:
             latest_run = self.latest_run
 
-        created_at: str | Unset = UNSET
-        if not isinstance(self.created_at, Unset):
+        created_at: None | str
+        if isinstance(self.created_at, datetime.datetime):
             created_at = self.created_at.isoformat()
+        else:
+            created_at = self.created_at
 
-        updated_at: None | str | Unset
-        if isinstance(self.updated_at, Unset):
-            updated_at = UNSET
-        elif isinstance(self.updated_at, datetime.datetime):
+        updated_at: None | str
+        if isinstance(self.updated_at, datetime.datetime):
             updated_at = self.updated_at.isoformat()
         else:
             updated_at = self.updated_at
@@ -105,16 +100,12 @@ class MediaAudit:
                 "targetType": target_type,
                 "threshold": threshold,
                 "enabled": enabled,
+                "thresholdSchema": threshold_schema,
+                "latestRun": latest_run,
+                "createdAt": created_at,
+                "updatedAt": updated_at,
             }
         )
-        if threshold_schema is not UNSET:
-            field_dict["thresholdSchema"] = threshold_schema
-        if latest_run is not UNSET:
-            field_dict["latestRun"] = latest_run
-        if created_at is not UNSET:
-            field_dict["createdAt"] = created_at
-        if updated_at is not UNSET:
-            field_dict["updatedAt"] = updated_at
 
         return field_dict
 
@@ -139,21 +130,17 @@ class MediaAudit:
 
         enabled = d.pop("enabled")
 
-        _threshold_schema = d.pop("thresholdSchema", UNSET)
-        threshold_schema: list[MediaAuditThresholdSchemaItem] | Unset = UNSET
-        if _threshold_schema is not UNSET:
-            threshold_schema = []
-            for threshold_schema_item_data in _threshold_schema:
-                threshold_schema_item = MediaAuditThresholdSchemaItem.from_dict(
-                    threshold_schema_item_data
-                )
+        threshold_schema = []
+        _threshold_schema = d.pop("thresholdSchema")
+        for threshold_schema_item_data in _threshold_schema:
+            threshold_schema_item = MediaAuditThresholdSchemaItem.from_dict(
+                threshold_schema_item_data
+            )
 
-                threshold_schema.append(threshold_schema_item)
+            threshold_schema.append(threshold_schema_item)
 
-        def _parse_latest_run(data: object) -> MediaAuditLatestRunType0 | None | Unset:
+        def _parse_latest_run(data: object) -> MediaAuditLatestRunType0 | None:
             if data is None:
-                return data
-            if isinstance(data, Unset):
                 return data
             try:
                 if not isinstance(data, dict):
@@ -163,21 +150,27 @@ class MediaAudit:
                 return latest_run_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(MediaAuditLatestRunType0 | None | Unset, data)
+            return cast(MediaAuditLatestRunType0 | None, data)
 
-        latest_run = _parse_latest_run(d.pop("latestRun", UNSET))
+        latest_run = _parse_latest_run(d.pop("latestRun"))
 
-        _created_at = d.pop("createdAt", UNSET)
-        created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
-            created_at = UNSET
-        else:
-            created_at = isoparse(_created_at)
-
-        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
+        def _parse_created_at(data: object) -> datetime.datetime | None:
             if data is None:
                 return data
-            if isinstance(data, Unset):
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                created_at_type_0 = isoparse(data)
+
+                return created_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None, data)
+
+        created_at = _parse_created_at(d.pop("createdAt"))
+
+        def _parse_updated_at(data: object) -> datetime.datetime | None:
+            if data is None:
                 return data
             try:
                 if not isinstance(data, str):
@@ -187,9 +180,9 @@ class MediaAudit:
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(datetime.datetime | None | Unset, data)
+            return cast(datetime.datetime | None, data)
 
-        updated_at = _parse_updated_at(d.pop("updatedAt", UNSET))
+        updated_at = _parse_updated_at(d.pop("updatedAt"))
 
         media_audit = cls(
             id=id,

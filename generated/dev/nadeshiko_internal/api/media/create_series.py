@@ -93,6 +93,8 @@ def sync_detailed(
 
      Creates a new media series grouping.
 
+    **Permissions:** `ADD_MEDIA`
+
     Args:
         body (CreateSeriesBody):
 
@@ -124,6 +126,8 @@ def sync(
 
      Creates a new media series grouping.
 
+    **Permissions:** `ADD_MEDIA`
+
     Args:
         body (CreateSeriesBody):
 
@@ -149,6 +153,8 @@ async def asyncio_detailed(
     """Create series
 
      Creates a new media series grouping.
+
+    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (CreateSeriesBody):
@@ -178,6 +184,8 @@ async def asyncio(
     """Create series
 
      Creates a new media series grouping.
+
+    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (CreateSeriesBody):

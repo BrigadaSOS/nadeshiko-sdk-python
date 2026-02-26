@@ -20,15 +20,12 @@ def _get_kwargs(
     id: int,
     *,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
     params["cursor"] = cursor
-
-    params["page"] = page
 
     params["take"] = take
 
@@ -109,7 +106,6 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> Response[
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
@@ -120,8 +116,7 @@ def sync_detailed(
 
     Args:
         id (int):  Example: 123.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -135,7 +130,6 @@ def sync_detailed(
     kwargs = _get_kwargs(
         id=id,
         cursor=cursor,
-        page=page,
         take=take,
     )
 
@@ -151,7 +145,6 @@ def sync(
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> (
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
@@ -162,8 +155,7 @@ def sync(
 
     Args:
         id (int):  Example: 123.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -178,7 +170,6 @@ def sync(
         id=id,
         client=client,
         cursor=cursor,
-        page=page,
         take=take,
     ).parsed
 
@@ -188,7 +179,6 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> Response[
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
@@ -199,8 +189,7 @@ async def asyncio_detailed(
 
     Args:
         id (int):  Example: 123.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -214,7 +203,6 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         id=id,
         cursor=cursor,
-        page=page,
         take=take,
     )
 
@@ -228,7 +216,6 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> (
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
@@ -239,8 +226,7 @@ async def asyncio(
 
     Args:
         id (int):  Example: 123.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -256,7 +242,6 @@ async def asyncio(
             id=id,
             client=client,
             cursor=cursor,
-            page=page,
             take=take,
         )
     ).parsed

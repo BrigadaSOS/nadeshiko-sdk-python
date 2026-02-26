@@ -6,8 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
     from ..models.search_response_includes_media import SearchResponseIncludesMedia
 
@@ -19,22 +17,22 @@ T = TypeVar("T", bound="SearchResponseIncludes")
 class SearchResponseIncludes:
     """
     Attributes:
-        media (SearchResponseIncludesMedia | Unset): Media objects keyed by mediaId
+        media (SearchResponseIncludesMedia): Media objects keyed by mediaId
     """
 
-    media: SearchResponseIncludesMedia | Unset = UNSET
+    media: SearchResponseIncludesMedia
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.media, Unset):
-            media = self.media.to_dict()
+        media = self.media.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if media is not UNSET:
-            field_dict["media"] = media
+        field_dict.update(
+            {
+                "media": media,
+            }
+        )
 
         return field_dict
 
@@ -43,12 +41,7 @@ class SearchResponseIncludes:
         from ..models.search_response_includes_media import SearchResponseIncludesMedia
 
         d = dict(src_dict)
-        _media = d.pop("media", UNSET)
-        media: SearchResponseIncludesMedia | Unset
-        if isinstance(_media, Unset):
-            media = UNSET
-        else:
-            media = SearchResponseIncludesMedia.from_dict(_media)
+        media = SearchResponseIncludesMedia.from_dict(d.pop("media"))
 
         search_response_includes = cls(
             media=media,

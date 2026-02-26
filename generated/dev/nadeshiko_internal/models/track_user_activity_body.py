@@ -19,14 +19,14 @@ class TrackUserActivityBody:
         activity_type (TrackUserActivityBodyActivityType):
         segment_uuid (str | Unset):
         media_id (int | Unset):
-        anime_name (str | Unset):
+        media_name (str | Unset):
         japanese_text (str | Unset):
     """
 
     activity_type: TrackUserActivityBodyActivityType
     segment_uuid: str | Unset = UNSET
     media_id: int | Unset = UNSET
-    anime_name: str | Unset = UNSET
+    media_name: str | Unset = UNSET
     japanese_text: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -37,7 +37,7 @@ class TrackUserActivityBody:
 
         media_id = self.media_id
 
-        anime_name = self.anime_name
+        media_name = self.media_name
 
         japanese_text = self.japanese_text
 
@@ -52,8 +52,8 @@ class TrackUserActivityBody:
             field_dict["segmentUuid"] = segment_uuid
         if media_id is not UNSET:
             field_dict["mediaId"] = media_id
-        if anime_name is not UNSET:
-            field_dict["animeName"] = anime_name
+        if media_name is not UNSET:
+            field_dict["mediaName"] = media_name
         if japanese_text is not UNSET:
             field_dict["japaneseText"] = japanese_text
 
@@ -68,7 +68,7 @@ class TrackUserActivityBody:
 
         media_id = d.pop("mediaId", UNSET)
 
-        anime_name = d.pop("animeName", UNSET)
+        media_name = d.pop("mediaName", UNSET)
 
         japanese_text = d.pop("japaneseText", UNSET)
 
@@ -76,7 +76,7 @@ class TrackUserActivityBody:
             activity_type=activity_type,
             segment_uuid=segment_uuid,
             media_id=media_id,
-            anime_name=anime_name,
+            media_name=media_name,
             japanese_text=japanese_text,
         )
 

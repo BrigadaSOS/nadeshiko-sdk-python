@@ -87,13 +87,13 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
     r"""Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -101,8 +101,8 @@ def sync_detailed(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -142,13 +142,13 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
     r"""Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -156,8 +156,8 @@ def sync(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -192,13 +192,13 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
     r"""Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -206,8 +206,8 @@ async def asyncio_detailed(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -245,13 +245,13 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
     r"""Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -259,8 +259,8 @@ async def asyncio(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 

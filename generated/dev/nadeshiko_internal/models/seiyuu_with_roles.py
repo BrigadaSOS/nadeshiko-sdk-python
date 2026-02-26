@@ -7,6 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
+    from ..models.external_id import ExternalId
     from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
 
 
@@ -19,6 +20,7 @@ class SeiyuuWithRoles:
 
     Attributes:
         id (int): AniList staff ID Example: 95991.
+        external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
         name_ja (str): Japanese name of the voice actor Example: 阿部敦.
         name_en (str): English name of the voice actor Example: Atsushi Abe.
         image_url (str): Profile image URL Example: https://s4.anilist.co/file/anilistcdn/staff/large/n95991.jpg.
@@ -26,6 +28,7 @@ class SeiyuuWithRoles:
     """
 
     id: int
+    external_ids: ExternalId
     name_ja: str
     name_en: str
     image_url: str
@@ -34,6 +37,8 @@ class SeiyuuWithRoles:
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        external_ids = self.external_ids.to_dict()
 
         name_ja = self.name_ja
 
@@ -51,6 +56,7 @@ class SeiyuuWithRoles:
         field_dict.update(
             {
                 "id": id,
+                "externalIds": external_ids,
                 "nameJa": name_ja,
                 "nameEn": name_en,
                 "imageUrl": image_url,
@@ -62,10 +68,13 @@ class SeiyuuWithRoles:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.external_id import ExternalId
         from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
 
         d = dict(src_dict)
         id = d.pop("id")
+
+        external_ids = ExternalId.from_dict(d.pop("externalIds"))
 
         name_ja = d.pop("nameJa")
 
@@ -82,6 +91,7 @@ class SeiyuuWithRoles:
 
         seiyuu_with_roles = cls(
             id=id,
+            external_ids=external_ids,
             name_ja=name_ja,
             name_en=name_en,
             image_url=image_url,

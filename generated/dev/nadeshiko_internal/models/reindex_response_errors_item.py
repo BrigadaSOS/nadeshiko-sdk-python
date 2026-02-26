@@ -6,8 +6,6 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 T = TypeVar("T", bound="ReindexResponseErrorsItem")
 
 
@@ -15,12 +13,12 @@ T = TypeVar("T", bound="ReindexResponseErrorsItem")
 class ReindexResponseErrorsItem:
     """
     Attributes:
-        segment_id (int | Unset): ID of the segment that failed
-        error (str | Unset): Error message
+        segment_id (int): ID of the segment that failed
+        error (str): Error message
     """
 
-    segment_id: int | Unset = UNSET
-    error: str | Unset = UNSET
+    segment_id: int
+    error: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,20 +28,21 @@ class ReindexResponseErrorsItem:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if segment_id is not UNSET:
-            field_dict["segmentId"] = segment_id
-        if error is not UNSET:
-            field_dict["error"] = error
+        field_dict.update(
+            {
+                "segmentId": segment_id,
+                "error": error,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        segment_id = d.pop("segmentId", UNSET)
+        segment_id = d.pop("segmentId")
 
-        error = d.pop("error", UNSET)
+        error = d.pop("error")
 
         reindex_response_errors_item = cls(
             segment_id=segment_id,

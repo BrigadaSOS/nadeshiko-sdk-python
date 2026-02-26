@@ -6,8 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
     from ..models.reindex_response_errors_item import ReindexResponseErrorsItem
     from ..models.reindex_response_stats import ReindexResponseStats
@@ -21,16 +19,16 @@ class ReindexResponse:
     """Response from the reindex operation
 
     Attributes:
-        success (bool | Unset): Whether the reindex operation completed successfully
-        message (str | Unset): Human-readable message about the reindex operation
-        stats (ReindexResponseStats | Unset): Statistics about the reindex operation
-        errors (list[ReindexResponseErrorsItem] | Unset): Array of errors that occurred during reindexing (if any)
+        success (bool): Whether the reindex operation completed successfully
+        message (str): Human-readable message about the reindex operation
+        stats (ReindexResponseStats): Statistics about the reindex operation
+        errors (list[ReindexResponseErrorsItem]): Array of errors that occurred during reindexing (if any)
     """
 
-    success: bool | Unset = UNSET
-    message: str | Unset = UNSET
-    stats: ReindexResponseStats | Unset = UNSET
-    errors: list[ReindexResponseErrorsItem] | Unset = UNSET
+    success: bool
+    message: str
+    stats: ReindexResponseStats
+    errors: list[ReindexResponseErrorsItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,28 +36,23 @@ class ReindexResponse:
 
         message = self.message
 
-        stats: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.stats, Unset):
-            stats = self.stats.to_dict()
+        stats = self.stats.to_dict()
 
-        errors: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.errors, Unset):
-            errors = []
-            for errors_item_data in self.errors:
-                errors_item = errors_item_data.to_dict()
-                errors.append(errors_item)
+        errors = []
+        for errors_item_data in self.errors:
+            errors_item = errors_item_data.to_dict()
+            errors.append(errors_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if success is not UNSET:
-            field_dict["success"] = success
-        if message is not UNSET:
-            field_dict["message"] = message
-        if stats is not UNSET:
-            field_dict["stats"] = stats
-        if errors is not UNSET:
-            field_dict["errors"] = errors
+        field_dict.update(
+            {
+                "success": success,
+                "message": message,
+                "stats": stats,
+                "errors": errors,
+            }
+        )
 
         return field_dict
 
@@ -69,25 +62,18 @@ class ReindexResponse:
         from ..models.reindex_response_stats import ReindexResponseStats
 
         d = dict(src_dict)
-        success = d.pop("success", UNSET)
+        success = d.pop("success")
 
-        message = d.pop("message", UNSET)
+        message = d.pop("message")
 
-        _stats = d.pop("stats", UNSET)
-        stats: ReindexResponseStats | Unset
-        if isinstance(_stats, Unset):
-            stats = UNSET
-        else:
-            stats = ReindexResponseStats.from_dict(_stats)
+        stats = ReindexResponseStats.from_dict(d.pop("stats"))
 
-        _errors = d.pop("errors", UNSET)
-        errors: list[ReindexResponseErrorsItem] | Unset = UNSET
-        if _errors is not UNSET:
-            errors = []
-            for errors_item_data in _errors:
-                errors_item = ReindexResponseErrorsItem.from_dict(errors_item_data)
+        errors = []
+        _errors = d.pop("errors")
+        for errors_item_data in _errors:
+            errors_item = ReindexResponseErrorsItem.from_dict(errors_item_data)
 
-                errors.append(errors_item)
+            errors.append(errors_item)
 
         reindex_response = cls(
             success=success,

@@ -104,6 +104,8 @@ def sync_detailed(
 
      Updates series localized names.
 
+    **Permissions:** `UPDATE_MEDIA`
+
     Args:
         id (int):  Example: 1.
         body (UpdateSeriesBody):
@@ -138,6 +140,8 @@ def sync(
 
      Updates series localized names.
 
+    **Permissions:** `UPDATE_MEDIA`
+
     Args:
         id (int):  Example: 1.
         body (UpdateSeriesBody):
@@ -166,6 +170,8 @@ async def asyncio_detailed(
     """Update series metadata
 
      Updates series localized names.
+
+    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (int):  Example: 1.
@@ -198,6 +204,8 @@ async def asyncio(
     """Update series metadata
 
      Updates series localized names.
+
+    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (int):  Example: 1.

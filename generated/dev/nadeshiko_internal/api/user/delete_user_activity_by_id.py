@@ -6,8 +6,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.delete_user_activity_by_id_response_404 import DeleteUserActivityByIdResponse404
 from ...models.error_401 import Error401
+from ...models.error_404 import Error404
 from ...models.error_500 import Error500
 from ...types import Response
 
@@ -28,7 +28,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | DeleteUserActivityByIdResponse404 | Error401 | Error500 | None:
+) -> Any | Error401 | Error404 | Error500 | None:
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -39,7 +39,7 @@ def _parse_response(
         return response_401
 
     if response.status_code == 404:
-        response_404 = DeleteUserActivityByIdResponse404.from_dict(response.json())
+        response_404 = Error404.from_dict(response.json())
 
         return response_404
 
@@ -56,7 +56,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | DeleteUserActivityByIdResponse404 | Error401 | Error500]:
+) -> Response[Any | Error401 | Error404 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,7 +69,7 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | DeleteUserActivityByIdResponse404 | Error401 | Error500]:
+) -> Response[Any | Error401 | Error404 | Error500]:
     """Delete a single activity record
 
      Deletes a single activity record by ID for the authenticated user.
@@ -84,7 +84,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | DeleteUserActivityByIdResponse404 | Error401 | Error500]
+        Response[Any | Error401 | Error404 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -102,7 +102,7 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> Any | DeleteUserActivityByIdResponse404 | Error401 | Error500 | None:
+) -> Any | Error401 | Error404 | Error500 | None:
     """Delete a single activity record
 
      Deletes a single activity record by ID for the authenticated user.
@@ -117,7 +117,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | DeleteUserActivityByIdResponse404 | Error401 | Error500
+        Any | Error401 | Error404 | Error500
     """
 
     return sync_detailed(
@@ -130,7 +130,7 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | DeleteUserActivityByIdResponse404 | Error401 | Error500]:
+) -> Response[Any | Error401 | Error404 | Error500]:
     """Delete a single activity record
 
      Deletes a single activity record by ID for the authenticated user.
@@ -145,7 +145,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | DeleteUserActivityByIdResponse404 | Error401 | Error500]
+        Response[Any | Error401 | Error404 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -161,7 +161,7 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-) -> Any | DeleteUserActivityByIdResponse404 | Error401 | Error500 | None:
+) -> Any | Error401 | Error404 | Error500 | None:
     """Delete a single activity record
 
      Deletes a single activity record by ID for the authenticated user.
@@ -176,7 +176,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | DeleteUserActivityByIdResponse404 | Error401 | Error500
+        Any | Error401 | Error404 | Error500
     """
 
     return (

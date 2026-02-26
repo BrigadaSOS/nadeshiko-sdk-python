@@ -33,7 +33,6 @@ from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
 from .create_series_body import CreateSeriesBody
 from .delete_user_activity_by_date_response_200 import DeleteUserActivityByDateResponse200
-from .delete_user_activity_by_id_response_404 import DeleteUserActivityByIdResponse404
 from .delete_user_activity_response_200 import DeleteUserActivityResponse200
 from .episode import Episode
 from .episode_create_request import EpisodeCreateRequest
@@ -310,7 +309,6 @@ __all__ = (
     "CreateReportRequestReason",
     "CreateSeriesBody",
     "DeleteUserActivityByDateResponse200",
-    "DeleteUserActivityByIdResponse404",
     "DeleteUserActivityResponse200",
     "Episode",
     "EpisodeCreateRequest",

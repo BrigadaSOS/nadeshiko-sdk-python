@@ -7,7 +7,6 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.category import Category
-from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="CategoryCount")
 
@@ -17,42 +16,36 @@ class CategoryCount:
     """Count of entries grouped by media category
 
     Attributes:
-        category (Category | Unset): Media category type Example: ANIME.
-        count (int | Unset): Number of entries in this category Example: 1523.
+        category (Category): Media category type Example: ANIME.
+        count (int): Number of entries in this category Example: 1523.
     """
 
-    category: Category | Unset = UNSET
-    count: int | Unset = UNSET
+    category: Category
+    count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        category: str | Unset = UNSET
-        if not isinstance(self.category, Unset):
-            category = self.category.value
+        category = self.category.value
 
         count = self.count
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if category is not UNSET:
-            field_dict["category"] = category
-        if count is not UNSET:
-            field_dict["count"] = count
+        field_dict.update(
+            {
+                "category": category,
+                "count": count,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        _category = d.pop("category", UNSET)
-        category: Category | Unset
-        if isinstance(_category, Unset):
-            category = UNSET
-        else:
-            category = Category(_category)
+        category = Category(d.pop("category"))
 
-        count = d.pop("count", UNSET)
+        count = d.pop("count")
 
         category_count = cls(
             category=category,

@@ -6,8 +6,6 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 T = TypeVar("T", bound="ListAdminQueueStatsResponse200Item")
 
 
@@ -15,14 +13,14 @@ T = TypeVar("T", bound="ListAdminQueueStatsResponse200Item")
 class ListAdminQueueStatsResponse200Item:
     """
     Attributes:
-        queue (str | Unset):  Example: es-sync-create.
-        stuck_count (int | Unset): Number of jobs currently pending/active Example: 5.
-        failed_count (int | Unset): Number of failed jobs Example: 2.
+        queue (str):  Example: es-sync-create.
+        stuck_count (int): Number of jobs currently pending/active Example: 5.
+        failed_count (int): Number of failed jobs Example: 2.
     """
 
-    queue: str | Unset = UNSET
-    stuck_count: int | Unset = UNSET
-    failed_count: int | Unset = UNSET
+    queue: str
+    stuck_count: int
+    failed_count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,24 +32,24 @@ class ListAdminQueueStatsResponse200Item:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if queue is not UNSET:
-            field_dict["queue"] = queue
-        if stuck_count is not UNSET:
-            field_dict["stuckCount"] = stuck_count
-        if failed_count is not UNSET:
-            field_dict["failedCount"] = failed_count
+        field_dict.update(
+            {
+                "queue": queue,
+                "stuckCount": stuck_count,
+                "failedCount": failed_count,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        queue = d.pop("queue", UNSET)
+        queue = d.pop("queue")
 
-        stuck_count = d.pop("stuckCount", UNSET)
+        stuck_count = d.pop("stuckCount")
 
-        failed_count = d.pop("failedCount", UNSET)
+        failed_count = d.pop("failedCount")
 
         list_admin_queue_stats_response_200_item = cls(
             queue=queue,

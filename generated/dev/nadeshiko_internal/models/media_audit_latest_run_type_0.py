@@ -8,8 +8,6 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..types import UNSET, Unset
-
 T = TypeVar("T", bound="MediaAuditLatestRunType0")
 
 
@@ -18,14 +16,14 @@ class MediaAuditLatestRunType0:
     """Latest run info for this audit
 
     Attributes:
-        id (int | Unset):
-        result_count (int | Unset):
-        created_at (datetime.datetime | Unset):
+        id (int):
+        result_count (int):
+        created_at (datetime.datetime):
     """
 
-    id: int | Unset = UNSET
-    result_count: int | Unset = UNSET
-    created_at: datetime.datetime | Unset = UNSET
+    id: int
+    result_count: int
+    created_at: datetime.datetime
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,35 +31,28 @@ class MediaAuditLatestRunType0:
 
         result_count = self.result_count
 
-        created_at: str | Unset = UNSET
-        if not isinstance(self.created_at, Unset):
-            created_at = self.created_at.isoformat()
+        created_at = self.created_at.isoformat()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if id is not UNSET:
-            field_dict["id"] = id
-        if result_count is not UNSET:
-            field_dict["resultCount"] = result_count
-        if created_at is not UNSET:
-            field_dict["createdAt"] = created_at
+        field_dict.update(
+            {
+                "id": id,
+                "resultCount": result_count,
+                "createdAt": created_at,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        id = d.pop("id", UNSET)
+        id = d.pop("id")
 
-        result_count = d.pop("resultCount", UNSET)
+        result_count = d.pop("resultCount")
 
-        _created_at = d.pop("createdAt", UNSET)
-        created_at: datetime.datetime | Unset
-        if isinstance(_created_at, Unset):
-            created_at = UNSET
-        else:
-            created_at = isoparse(_created_at)
+        created_at = isoparse(d.pop("createdAt"))
 
         media_audit_latest_run_type_0 = cls(
             id=id,

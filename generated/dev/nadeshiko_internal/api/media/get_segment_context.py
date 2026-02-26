@@ -13,7 +13,6 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.include_expansion import IncludeExpansion
 from ...models.segment_context_response import SegmentContextResponse
 from ...types import UNSET, Response, Unset
 
@@ -23,7 +22,6 @@ def _get_kwargs(
     *,
     take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
-    include: list[IncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -38,15 +36,6 @@ def _get_kwargs(
             json_content_rating.append(content_rating_item)
 
     params["contentRating"] = json_content_rating
-
-    json_include: list[str] | Unset = UNSET
-    if not isinstance(include, Unset):
-        json_include = []
-        for include_item_data in include:
-            include_item = include_item_data.value
-            json_include.append(include_item)
-
-    params["include"] = json_include
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -126,7 +115,6 @@ def sync_detailed(
     client: AuthenticatedClient,
     take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
-    include: list[IncludeExpansion] | Unset = UNSET,
 ) -> Response[
     Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentContextResponse
 ]:
@@ -142,7 +130,6 @@ def sync_detailed(
         uuid (str):
         take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
-        include (list[IncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -156,7 +143,6 @@ def sync_detailed(
         uuid=uuid,
         take=take,
         content_rating=content_rating,
-        include=include,
     )
 
     response = client.get_httpx_client().request(
@@ -172,7 +158,6 @@ def sync(
     client: AuthenticatedClient,
     take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
-    include: list[IncludeExpansion] | Unset = UNSET,
 ) -> (
     Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentContextResponse | None
 ):
@@ -188,7 +173,6 @@ def sync(
         uuid (str):
         take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
-        include (list[IncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -203,7 +187,6 @@ def sync(
         client=client,
         take=take,
         content_rating=content_rating,
-        include=include,
     ).parsed
 
 
@@ -213,7 +196,6 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
-    include: list[IncludeExpansion] | Unset = UNSET,
 ) -> Response[
     Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentContextResponse
 ]:
@@ -229,7 +211,6 @@ async def asyncio_detailed(
         uuid (str):
         take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
-        include (list[IncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -243,7 +224,6 @@ async def asyncio_detailed(
         uuid=uuid,
         take=take,
         content_rating=content_rating,
-        include=include,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -257,7 +237,6 @@ async def asyncio(
     client: AuthenticatedClient,
     take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
-    include: list[IncludeExpansion] | Unset = UNSET,
 ) -> (
     Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentContextResponse | None
 ):
@@ -273,7 +252,6 @@ async def asyncio(
         uuid (str):
         take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
-        include (list[IncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -289,6 +267,5 @@ async def asyncio(
             client=client,
             take=take,
             content_rating=content_rating,
-            include=include,
         )
     ).parsed

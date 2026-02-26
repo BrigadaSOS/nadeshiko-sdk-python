@@ -8,8 +8,6 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..types import UNSET, Unset
-
 T = TypeVar("T", bound="ListAdminQueueFailedResponse200Item")
 
 
@@ -17,16 +15,16 @@ T = TypeVar("T", bound="ListAdminQueueFailedResponse200Item")
 class ListAdminQueueFailedResponse200Item:
     """
     Attributes:
-        id (str | Unset): Job ID
-        segment_id (int | Unset): The segment ID that failed to sync
-        error (None | str | Unset): Error message from the last attempt
-        created_on (datetime.datetime | Unset): When the job was created
+        id (str): Job ID
+        segment_id (int): The segment ID that failed to sync
+        error (None | str): Error message from the last attempt
+        created_on (datetime.datetime): When the job was created
     """
 
-    id: str | Unset = UNSET
-    segment_id: int | Unset = UNSET
-    error: None | str | Unset = UNSET
-    created_on: datetime.datetime | Unset = UNSET
+    id: str
+    segment_id: int
+    error: None | str
+    created_on: datetime.datetime
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,52 +32,39 @@ class ListAdminQueueFailedResponse200Item:
 
         segment_id = self.segment_id
 
-        error: None | str | Unset
-        if isinstance(self.error, Unset):
-            error = UNSET
-        else:
-            error = self.error
+        error: None | str
+        error = self.error
 
-        created_on: str | Unset = UNSET
-        if not isinstance(self.created_on, Unset):
-            created_on = self.created_on.isoformat()
+        created_on = self.created_on.isoformat()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if id is not UNSET:
-            field_dict["id"] = id
-        if segment_id is not UNSET:
-            field_dict["segmentId"] = segment_id
-        if error is not UNSET:
-            field_dict["error"] = error
-        if created_on is not UNSET:
-            field_dict["createdOn"] = created_on
+        field_dict.update(
+            {
+                "id": id,
+                "segmentId": segment_id,
+                "error": error,
+                "createdOn": created_on,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        id = d.pop("id", UNSET)
+        id = d.pop("id")
 
-        segment_id = d.pop("segmentId", UNSET)
+        segment_id = d.pop("segmentId")
 
-        def _parse_error(data: object) -> None | str | Unset:
+        def _parse_error(data: object) -> None | str:
             if data is None:
                 return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
+            return cast(None | str, data)
 
-        error = _parse_error(d.pop("error", UNSET))
+        error = _parse_error(d.pop("error"))
 
-        _created_on = d.pop("createdOn", UNSET)
-        created_on: datetime.datetime | Unset
-        if isinstance(_created_on, Unset):
-            created_on = UNSET
-        else:
-            created_on = isoparse(_created_on)
+        created_on = isoparse(d.pop("createdOn"))
 
         list_admin_queue_failed_response_200_item = cls(
             id=id,

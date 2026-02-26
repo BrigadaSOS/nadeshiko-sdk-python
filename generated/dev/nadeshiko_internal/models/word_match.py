@@ -6,8 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 if TYPE_CHECKING:
     from ..models.word_match_media import WordMatchMedia
 
@@ -20,16 +18,16 @@ class WordMatch:
     """Word matching result with occurrences across media
 
     Attributes:
-        word (str | Unset): The word that was searched for Example: 彼女.
-        is_match (bool | Unset): Indicates whether the word was found in any segment Example: True.
-        match_count (int | Unset): Total number of times this word appears across all media Example: 1523.
-        media (list[WordMatchMedia] | Unset): List of media containing this word
+        word (str): The word that was searched for Example: 彼女.
+        is_match (bool): Indicates whether the word was found in any segment Example: True.
+        match_count (int): Total number of times this word appears across all media Example: 1523.
+        media (list[WordMatchMedia]): List of media containing this word
     """
 
-    word: str | Unset = UNSET
-    is_match: bool | Unset = UNSET
-    match_count: int | Unset = UNSET
-    media: list[WordMatchMedia] | Unset = UNSET
+    word: str
+    is_match: bool
+    match_count: int
+    media: list[WordMatchMedia]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,24 +37,21 @@ class WordMatch:
 
         match_count = self.match_count
 
-        media: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.media, Unset):
-            media = []
-            for media_item_data in self.media:
-                media_item = media_item_data.to_dict()
-                media.append(media_item)
+        media = []
+        for media_item_data in self.media:
+            media_item = media_item_data.to_dict()
+            media.append(media_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if word is not UNSET:
-            field_dict["word"] = word
-        if is_match is not UNSET:
-            field_dict["isMatch"] = is_match
-        if match_count is not UNSET:
-            field_dict["matchCount"] = match_count
-        if media is not UNSET:
-            field_dict["media"] = media
+        field_dict.update(
+            {
+                "word": word,
+                "isMatch": is_match,
+                "matchCount": match_count,
+                "media": media,
+            }
+        )
 
         return field_dict
 
@@ -65,20 +60,18 @@ class WordMatch:
         from ..models.word_match_media import WordMatchMedia
 
         d = dict(src_dict)
-        word = d.pop("word", UNSET)
+        word = d.pop("word")
 
-        is_match = d.pop("isMatch", UNSET)
+        is_match = d.pop("isMatch")
 
-        match_count = d.pop("matchCount", UNSET)
+        match_count = d.pop("matchCount")
 
-        _media = d.pop("media", UNSET)
-        media: list[WordMatchMedia] | Unset = UNSET
-        if _media is not UNSET:
-            media = []
-            for media_item_data in _media:
-                media_item = WordMatchMedia.from_dict(media_item_data)
+        media = []
+        _media = d.pop("media")
+        for media_item_data in _media:
+            media_item = WordMatchMedia.from_dict(media_item_data)
 
-                media.append(media_item)
+            media.append(media_item)
 
         word_match = cls(
             word=word,

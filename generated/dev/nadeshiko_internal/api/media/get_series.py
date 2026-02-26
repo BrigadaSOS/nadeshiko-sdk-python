@@ -112,6 +112,8 @@ def sync_detailed(
 
      Returns a series with all media entries sorted by position.
 
+    **Permissions:** `READ_MEDIA`
+
     Args:
         id (int):  Example: 1.
         include (list[MediaIncludeExpansion] | Unset):
@@ -146,6 +148,8 @@ def sync(
 
      Returns a series with all media entries sorted by position.
 
+    **Permissions:** `READ_MEDIA`
+
     Args:
         id (int):  Example: 1.
         include (list[MediaIncludeExpansion] | Unset):
@@ -174,6 +178,8 @@ async def asyncio_detailed(
     """Get series details
 
      Returns a series with all media entries sorted by position.
+
+    **Permissions:** `READ_MEDIA`
 
     Args:
         id (int):  Example: 1.
@@ -206,6 +212,8 @@ async def asyncio(
     """Get series details
 
      Returns a series with all media entries sorted by position.
+
+    **Permissions:** `READ_MEDIA`
 
     Args:
         id (int):  Example: 1.

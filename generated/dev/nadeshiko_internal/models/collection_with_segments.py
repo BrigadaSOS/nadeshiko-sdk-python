@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
 from ..models.collection_with_segments_visibility import CollectionWithSegmentsVisibility
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.collection_with_segments_includes import CollectionWithSegmentsIncludes
@@ -25,22 +26,26 @@ class CollectionWithSegments:
     Attributes:
         id (int): Collection ID Example: 123.
         name (str): Name of the collection Example: Study Favorites.
-        user_id (int): User ID who owns the collection Example: 1.
         visibility (CollectionWithSegmentsVisibility): Visibility of the collection Example: PRIVATE.
+        segment_count (int): Number of segments in the collection Example: 42.
+        created_at (datetime.datetime): When the collection was created
+        updated_at (datetime.datetime | None): When the collection was last updated
         segments (list[CollectionWithSegmentsSegmentsItem]): Saved segments with their search result data
+        includes (CollectionWithSegmentsIncludes):
         total_count (int): Total number of segments in the collection Example: 42.
         pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
-        includes (CollectionWithSegmentsIncludes | Unset):
     """
 
     id: int
     name: str
-    user_id: int
     visibility: CollectionWithSegmentsVisibility
+    segment_count: int
+    created_at: datetime.datetime
+    updated_at: datetime.datetime | None
     segments: list[CollectionWithSegmentsSegmentsItem]
+    includes: CollectionWithSegmentsIncludes
     total_count: int
     pagination: OpaqueCursorPagination
-    includes: CollectionWithSegmentsIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,22 +53,28 @@ class CollectionWithSegments:
 
         name = self.name
 
-        user_id = self.user_id
-
         visibility = self.visibility.value
+
+        segment_count = self.segment_count
+
+        created_at = self.created_at.isoformat()
+
+        updated_at: None | str
+        if isinstance(self.updated_at, datetime.datetime):
+            updated_at = self.updated_at.isoformat()
+        else:
+            updated_at = self.updated_at
 
         segments = []
         for segments_item_data in self.segments:
             segments_item = segments_item_data.to_dict()
             segments.append(segments_item)
 
+        includes = self.includes.to_dict()
+
         total_count = self.total_count
 
         pagination = self.pagination.to_dict()
-
-        includes: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.includes, Unset):
-            includes = self.includes.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -71,15 +82,16 @@ class CollectionWithSegments:
             {
                 "id": id,
                 "name": name,
-                "userId": user_id,
                 "visibility": visibility,
+                "segmentCount": segment_count,
+                "createdAt": created_at,
+                "updatedAt": updated_at,
                 "segments": segments,
+                "includes": includes,
                 "totalCount": total_count,
                 "pagination": pagination,
             }
         )
-        if includes is not UNSET:
-            field_dict["includes"] = includes
 
         return field_dict
 
@@ -96,9 +108,26 @@ class CollectionWithSegments:
 
         name = d.pop("name")
 
-        user_id = d.pop("userId")
-
         visibility = CollectionWithSegmentsVisibility(d.pop("visibility"))
+
+        segment_count = d.pop("segmentCount")
+
+        created_at = isoparse(d.pop("createdAt"))
+
+        def _parse_updated_at(data: object) -> datetime.datetime | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                updated_at_type_0 = isoparse(data)
+
+                return updated_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None, data)
+
+        updated_at = _parse_updated_at(d.pop("updatedAt"))
 
         segments = []
         _segments = d.pop("segments")
@@ -107,26 +136,23 @@ class CollectionWithSegments:
 
             segments.append(segments_item)
 
+        includes = CollectionWithSegmentsIncludes.from_dict(d.pop("includes"))
+
         total_count = d.pop("totalCount")
 
         pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
-        _includes = d.pop("includes", UNSET)
-        includes: CollectionWithSegmentsIncludes | Unset
-        if isinstance(_includes, Unset):
-            includes = UNSET
-        else:
-            includes = CollectionWithSegmentsIncludes.from_dict(_includes)
-
         collection_with_segments = cls(
             id=id,
             name=name,
-            user_id=user_id,
             visibility=visibility,
+            segment_count=segment_count,
+            created_at=created_at,
+            updated_at=updated_at,
             segments=segments,
+            includes=includes,
             total_count=total_count,
             pagination=pagination,
-            includes=includes,
         )
 
         collection_with_segments.additional_properties = d

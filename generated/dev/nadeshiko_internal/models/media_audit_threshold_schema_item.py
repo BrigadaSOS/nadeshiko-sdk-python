@@ -16,18 +16,18 @@ T = TypeVar("T", bound="MediaAuditThresholdSchemaItem")
 class MediaAuditThresholdSchemaItem:
     """
     Attributes:
-        key (str | Unset):
-        label (str | Unset):
-        type_ (MediaAuditThresholdSchemaItemType | Unset):
-        default (bool | float | Unset):
+        key (str):
+        label (str):
+        type_ (MediaAuditThresholdSchemaItemType):
+        default (bool | float):
         min_ (float | Unset):
         max_ (float | Unset):
     """
 
-    key: str | Unset = UNSET
-    label: str | Unset = UNSET
-    type_: MediaAuditThresholdSchemaItemType | Unset = UNSET
-    default: bool | float | Unset = UNSET
+    key: str
+    label: str
+    type_: MediaAuditThresholdSchemaItemType
+    default: bool | float
     min_: float | Unset = UNSET
     max_: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -37,15 +37,10 @@ class MediaAuditThresholdSchemaItem:
 
         label = self.label
 
-        type_: str | Unset = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        type_ = self.type_.value
 
-        default: bool | float | Unset
-        if isinstance(self.default, Unset):
-            default = UNSET
-        else:
-            default = self.default
+        default: bool | float
+        default = self.default
 
         min_ = self.min_
 
@@ -53,15 +48,14 @@ class MediaAuditThresholdSchemaItem:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if key is not UNSET:
-            field_dict["key"] = key
-        if label is not UNSET:
-            field_dict["label"] = label
-        if type_ is not UNSET:
-            field_dict["type"] = type_
-        if default is not UNSET:
-            field_dict["default"] = default
+        field_dict.update(
+            {
+                "key": key,
+                "label": label,
+                "type": type_,
+                "default": default,
+            }
+        )
         if min_ is not UNSET:
             field_dict["min"] = min_
         if max_ is not UNSET:
@@ -72,23 +66,16 @@ class MediaAuditThresholdSchemaItem:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        key = d.pop("key", UNSET)
+        key = d.pop("key")
 
-        label = d.pop("label", UNSET)
+        label = d.pop("label")
 
-        _type_ = d.pop("type", UNSET)
-        type_: MediaAuditThresholdSchemaItemType | Unset
-        if isinstance(_type_, Unset):
-            type_ = UNSET
-        else:
-            type_ = MediaAuditThresholdSchemaItemType(_type_)
+        type_ = MediaAuditThresholdSchemaItemType(d.pop("type"))
 
-        def _parse_default(data: object) -> bool | float | Unset:
-            if isinstance(data, Unset):
-                return data
-            return cast(bool | float | Unset, data)
+        def _parse_default(data: object) -> bool | float:
+            return cast(bool | float, data)
 
-        default = _parse_default(d.pop("default", UNSET))
+        default = _parse_default(d.pop("default"))
 
         min_ = d.pop("min", UNSET)
 

@@ -95,6 +95,8 @@ def sync_detailed(
 
      Removes a media entry from a series.
 
+    **Permissions:** `REMOVE_MEDIA`
+
     Args:
         id (int):  Example: 1.
         media_id (int):  Example: 42.
@@ -129,6 +131,8 @@ def sync(
 
      Removes a media entry from a series.
 
+    **Permissions:** `REMOVE_MEDIA`
+
     Args:
         id (int):  Example: 1.
         media_id (int):  Example: 42.
@@ -157,6 +161,8 @@ async def asyncio_detailed(
     """Remove media from series
 
      Removes a media entry from a series.
+
+    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (int):  Example: 1.
@@ -189,6 +195,8 @@ async def asyncio(
     """Remove media from series
 
      Removes a media entry from a series.
+
+    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (int):  Example: 1.

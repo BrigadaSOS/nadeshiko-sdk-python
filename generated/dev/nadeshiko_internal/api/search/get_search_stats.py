@@ -87,7 +87,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchStatsRequest | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
     """Get search statistics
@@ -127,7 +127,7 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchStatsRequest | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
     """Get search statistics
@@ -162,7 +162,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchStatsRequest | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
     """Get search statistics
@@ -200,7 +200,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchStatsRequest | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
     """Get search statistics

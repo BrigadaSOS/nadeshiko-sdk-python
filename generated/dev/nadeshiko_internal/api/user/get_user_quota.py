@@ -75,9 +75,8 @@ def sync_detailed(
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
-    Accepts both session cookie and API key authentication.
 
-    **Permissions:** Session authentication (cookie-based) or API key (`READ_MEDIA`).
+    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -103,9 +102,8 @@ def sync(
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
-    Accepts both session cookie and API key authentication.
 
-    **Permissions:** Session authentication (cookie-based) or API key (`READ_MEDIA`).
+    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -127,9 +125,8 @@ async def asyncio_detailed(
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
-    Accepts both session cookie and API key authentication.
 
-    **Permissions:** Session authentication (cookie-based) or API key (`READ_MEDIA`).
+    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,9 +150,8 @@ async def asyncio(
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
-    Accepts both session cookie and API key authentication.
 
-    **Permissions:** Session authentication (cookie-based) or API key (`READ_MEDIA`).
+    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

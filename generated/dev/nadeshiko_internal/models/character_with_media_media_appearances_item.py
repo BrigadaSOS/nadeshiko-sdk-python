@@ -9,7 +9,6 @@ from attrs import field as _attrs_field
 from ..models.character_with_media_media_appearances_item_role import (
     CharacterWithMediaMediaAppearancesItemRole,
 )
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.media import Media
@@ -22,30 +21,27 @@ T = TypeVar("T", bound="CharacterWithMediaMediaAppearancesItem")
 class CharacterWithMediaMediaAppearancesItem:
     """
     Attributes:
-        media (Media | Unset): Media entry with full metadata
-        role (CharacterWithMediaMediaAppearancesItemRole | Unset): Character role in this media Example: MAIN.
+        media (Media): Media entry with full metadata
+        role (CharacterWithMediaMediaAppearancesItemRole): Character role in this media Example: MAIN.
     """
 
-    media: Media | Unset = UNSET
-    role: CharacterWithMediaMediaAppearancesItemRole | Unset = UNSET
+    media: Media
+    role: CharacterWithMediaMediaAppearancesItemRole
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.media, Unset):
-            media = self.media.to_dict()
+        media = self.media.to_dict()
 
-        role: str | Unset = UNSET
-        if not isinstance(self.role, Unset):
-            role = self.role.value
+        role = self.role.value
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if media is not UNSET:
-            field_dict["media"] = media
-        if role is not UNSET:
-            field_dict["role"] = role
+        field_dict.update(
+            {
+                "media": media,
+                "role": role,
+            }
+        )
 
         return field_dict
 
@@ -54,19 +50,9 @@ class CharacterWithMediaMediaAppearancesItem:
         from ..models.media import Media
 
         d = dict(src_dict)
-        _media = d.pop("media", UNSET)
-        media: Media | Unset
-        if isinstance(_media, Unset):
-            media = UNSET
-        else:
-            media = Media.from_dict(_media)
+        media = Media.from_dict(d.pop("media"))
 
-        _role = d.pop("role", UNSET)
-        role: CharacterWithMediaMediaAppearancesItemRole | Unset
-        if isinstance(_role, Unset):
-            role = UNSET
-        else:
-            role = CharacterWithMediaMediaAppearancesItemRole(_role)
+        role = CharacterWithMediaMediaAppearancesItemRole(d.pop("role"))
 
         character_with_media_media_appearances_item = cls(
             media=media,

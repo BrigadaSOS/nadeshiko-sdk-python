@@ -19,7 +19,6 @@ def _get_kwargs(
     *,
     visibility: ListCollectionsVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> dict[str, Any]:
 
@@ -32,8 +31,6 @@ def _get_kwargs(
     params["visibility"] = json_visibility
 
     params["cursor"] = cursor
-
-    params["page"] = page
 
     params["take"] = take
 
@@ -103,7 +100,6 @@ def sync_detailed(
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> Response[CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """List user's collections
@@ -112,8 +108,7 @@ def sync_detailed(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -127,7 +122,6 @@ def sync_detailed(
     kwargs = _get_kwargs(
         visibility=visibility,
         cursor=cursor,
-        page=page,
         take=take,
     )
 
@@ -143,7 +137,6 @@ def sync(
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """List user's collections
@@ -152,8 +145,7 @@ def sync(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -168,7 +160,6 @@ def sync(
         client=client,
         visibility=visibility,
         cursor=cursor,
-        page=page,
         take=take,
     ).parsed
 
@@ -178,7 +169,6 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> Response[CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """List user's collections
@@ -187,8 +177,7 @@ async def asyncio_detailed(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -202,7 +191,6 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         visibility=visibility,
         cursor=cursor,
-        page=page,
         take=take,
     )
 
@@ -216,7 +204,6 @@ async def asyncio(
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    page: int | Unset = 1,
     take: int | Unset = 20,
 ) -> CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """List user's collections
@@ -225,8 +212,7 @@ async def asyncio(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (str | Unset):
-        page (int | Unset):  Default: 1. Example: 1.
+        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
@@ -242,7 +228,6 @@ async def asyncio(
             client=client,
             visibility=visibility,
             cursor=cursor,
-            page=page,
             take=take,
         )
     ).parsed

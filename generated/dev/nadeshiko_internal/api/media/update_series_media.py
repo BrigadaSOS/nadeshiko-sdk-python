@@ -105,6 +105,8 @@ def sync_detailed(
 
      Updates the position of a media entry in a series.
 
+    **Permissions:** `UPDATE_MEDIA`
+
     Args:
         id (int):  Example: 1.
         media_id (int):  Example: 42.
@@ -142,6 +144,8 @@ def sync(
 
      Updates the position of a media entry in a series.
 
+    **Permissions:** `UPDATE_MEDIA`
+
     Args:
         id (int):  Example: 1.
         media_id (int):  Example: 42.
@@ -173,6 +177,8 @@ async def asyncio_detailed(
     """Update media position in series
 
      Updates the position of a media entry in a series.
+
+    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (int):  Example: 1.
@@ -208,6 +214,8 @@ async def asyncio(
     """Update media position in series
 
      Updates the position of a media entry in a series.
+
+    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (int):  Example: 1.
