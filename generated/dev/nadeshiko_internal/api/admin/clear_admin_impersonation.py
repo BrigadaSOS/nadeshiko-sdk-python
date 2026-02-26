@@ -6,7 +6,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.clear_admin_impersonation_response_200 import ClearAdminImpersonationResponse200
-from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
@@ -25,16 +24,11 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500 | None:
+) -> ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500 | None:
     if response.status_code == 200:
         response_200 = ClearAdminImpersonationResponse200.from_dict(response.json())
 
         return response_200
-
-    if response.status_code == 401:
-        response_401 = Error401.from_dict(response.json())
-
-        return response_401
 
     if response.status_code == 403:
         response_403 = Error403.from_dict(response.json())
@@ -59,7 +53,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500]:
+) -> Response[ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,19 +64,19 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient,
-) -> Response[ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500]:
+    client: AuthenticatedClient | Client,
+) -> Response[ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500]:
     """Clear admin impersonation
 
      Clears the current impersonation session and related cookies.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500]
+        Response[ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs()
@@ -96,19 +90,19 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient,
-) -> ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500 | None:
+    client: AuthenticatedClient | Client,
+) -> ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500 | None:
     """Clear admin impersonation
 
      Clears the current impersonation session and related cookies.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500
+        ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -118,19 +112,19 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient,
-) -> Response[ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500]:
+    client: AuthenticatedClient | Client,
+) -> Response[ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500]:
     """Clear admin impersonation
 
      Clears the current impersonation session and related cookies.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500]
+        Response[ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs()
@@ -142,19 +136,19 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient,
-) -> ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500 | None:
+    client: AuthenticatedClient | Client,
+) -> ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500 | None:
     """Clear admin impersonation
 
      Clears the current impersonation session and related cookies.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ClearAdminImpersonationResponse200 | Error401 | Error403 | Error429 | Error500
+        ClearAdminImpersonationResponse200 | Error403 | Error429 | Error500
     """
 
     return (

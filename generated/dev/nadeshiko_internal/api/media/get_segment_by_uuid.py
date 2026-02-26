@@ -95,7 +95,7 @@ def sync_detailed(
      Returns a specific segment by its UUID. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -129,7 +129,7 @@ def sync(
      Returns a specific segment by its UUID. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -158,7 +158,7 @@ async def asyncio_detailed(
      Returns a specific segment by its UUID. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -190,7 +190,7 @@ async def asyncio(
      Returns a specific segment by its UUID. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):

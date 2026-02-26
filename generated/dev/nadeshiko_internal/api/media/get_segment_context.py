@@ -124,7 +124,7 @@ def sync_detailed(
     Returns segments both before and after the target, providing dialogue context for how a sentence is
     used.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -167,7 +167,7 @@ def sync(
     Returns segments both before and after the target, providing dialogue context for how a sentence is
     used.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -205,7 +205,7 @@ async def asyncio_detailed(
     Returns segments both before and after the target, providing dialogue context for how a sentence is
     used.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -246,7 +246,7 @@ async def asyncio(
     Returns segments both before and after the target, providing dialogue context for how a sentence is
     used.
 
-    **Permissions:** `READ_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):

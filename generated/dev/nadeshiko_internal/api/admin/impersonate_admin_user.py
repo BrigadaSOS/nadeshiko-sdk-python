@@ -6,7 +6,6 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error_400 import Error400
-from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
@@ -37,16 +36,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    Error400
-    | Error401
-    | Error403
-    | Error404
-    | Error429
-    | Error500
-    | ImpersonateAdminUserResponse200
-    | None
-):
+) -> Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200 | None:
     if response.status_code == 200:
         response_200 = ImpersonateAdminUserResponse200.from_dict(response.json())
 
@@ -56,11 +46,6 @@ def _parse_response(
         response_400 = Error400.from_dict(response.json())
 
         return response_400
-
-    if response.status_code == 401:
-        response_401 = Error401.from_dict(response.json())
-
-        return response_401
 
     if response.status_code == 403:
         response_403 = Error403.from_dict(response.json())
@@ -91,13 +76,7 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    Error400
-    | Error401
-    | Error403
-    | Error404
-    | Error429
-    | Error500
-    | ImpersonateAdminUserResponse200
+    Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -109,21 +88,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
     body: ImpersonateAdminUserBody,
 ) -> Response[
-    Error400
-    | Error401
-    | Error403
-    | Error404
-    | Error429
-    | Error500
-    | ImpersonateAdminUserResponse200
+    Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
 ]:
     """Start admin impersonation
 
      Creates an impersonation session for the target user.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Args:
         body (ImpersonateAdminUserBody):
@@ -133,7 +106,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200]
+        Response[Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -149,22 +122,13 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
     body: ImpersonateAdminUserBody,
-) -> (
-    Error400
-    | Error401
-    | Error403
-    | Error404
-    | Error429
-    | Error500
-    | ImpersonateAdminUserResponse200
-    | None
-):
+) -> Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200 | None:
     """Start admin impersonation
 
      Creates an impersonation session for the target user.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Args:
         body (ImpersonateAdminUserBody):
@@ -174,7 +138,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
+        Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
     """
 
     return sync_detailed(
@@ -185,21 +149,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
     body: ImpersonateAdminUserBody,
 ) -> Response[
-    Error400
-    | Error401
-    | Error403
-    | Error404
-    | Error429
-    | Error500
-    | ImpersonateAdminUserResponse200
+    Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
 ]:
     """Start admin impersonation
 
      Creates an impersonation session for the target user.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Args:
         body (ImpersonateAdminUserBody):
@@ -209,7 +167,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200]
+        Response[Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -223,22 +181,13 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
     body: ImpersonateAdminUserBody,
-) -> (
-    Error400
-    | Error401
-    | Error403
-    | Error404
-    | Error429
-    | Error500
-    | ImpersonateAdminUserResponse200
-    | None
-):
+) -> Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200 | None:
     """Start admin impersonation
 
      Creates an impersonation session for the target user.
-    This endpoint is restricted to admin sessions and only available in local environment.
+    This endpoint is only available in local environment.
 
     Args:
         body (ImpersonateAdminUserBody):
@@ -248,7 +197,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
+        Error400 | Error403 | Error404 | Error429 | Error500 | ImpersonateAdminUserResponse200
     """
 
     return (
