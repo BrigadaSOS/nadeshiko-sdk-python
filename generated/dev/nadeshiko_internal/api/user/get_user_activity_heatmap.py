@@ -82,7 +82,7 @@ def sync_detailed(
 ) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     """Get activity heatmap data
 
-     Returns daily activity counts for the authenticated user, grouped by date.
+     Returns daily activity activityByDay for the authenticated user, grouped by date.
     Designed for rendering a GitHub-style contribution heatmap.
 
     **Permissions:** Session authentication (cookie-based).
@@ -119,7 +119,7 @@ def sync(
 ) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     """Get activity heatmap data
 
-     Returns daily activity counts for the authenticated user, grouped by date.
+     Returns daily activity activityByDay for the authenticated user, grouped by date.
     Designed for rendering a GitHub-style contribution heatmap.
 
     **Permissions:** Session authentication (cookie-based).
@@ -151,7 +151,7 @@ async def asyncio_detailed(
 ) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     """Get activity heatmap data
 
-     Returns daily activity counts for the authenticated user, grouped by date.
+     Returns daily activity activityByDay for the authenticated user, grouped by date.
     Designed for rendering a GitHub-style contribution heatmap.
 
     **Permissions:** Session authentication (cookie-based).
@@ -186,7 +186,7 @@ async def asyncio(
 ) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     """Get activity heatmap data
 
-     Returns daily activity counts for the authenticated user, grouped by date.
+     Returns daily activity activityByDay for the authenticated user, grouped by date.
     Designed for rendering a GitHub-style contribution heatmap.
 
     **Permissions:** Session authentication (cookie-based).

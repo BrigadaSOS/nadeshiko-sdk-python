@@ -97,7 +97,7 @@ def sync_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 14545.
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -130,7 +130,7 @@ def sync(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 14545.
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,7 +158,7 @@ async def asyncio_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 14545.
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,7 +189,7 @@ async def asyncio(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 14545.
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

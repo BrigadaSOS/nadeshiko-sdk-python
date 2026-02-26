@@ -78,7 +78,7 @@ def sync_detailed(
     """Get user activity statistics
 
      Returns aggregate statistics about the authenticated user's activity:
-    total searches, exports, plays, and study streak.
+    total searches, exports, plays, and top media.
 
     **Permissions:** Session authentication (cookie-based).
 
@@ -112,7 +112,7 @@ def sync(
     """Get user activity statistics
 
      Returns aggregate statistics about the authenticated user's activity:
-    total searches, exports, plays, and study streak.
+    total searches, exports, plays, and top media.
 
     **Permissions:** Session authentication (cookie-based).
 
@@ -141,7 +141,7 @@ async def asyncio_detailed(
     """Get user activity statistics
 
      Returns aggregate statistics about the authenticated user's activity:
-    total searches, exports, plays, and study streak.
+    total searches, exports, plays, and top media.
 
     **Permissions:** Session authentication (cookie-based).
 
@@ -173,7 +173,7 @@ async def asyncio(
     """Get user activity statistics
 
      Returns aggregate statistics about the authenticated user's activity:
-    total searches, exports, plays, and study streak.
+    total searches, exports, plays, and top media.
 
     **Permissions:** Session authentication (cookie-based).
 

@@ -33,7 +33,7 @@ class Report:
         reason (ReportReason): Reason for the report Example: WRONG_TRANSLATION.
         status (ReportStatus): Current status of the report Example: PENDING.
         created_at (datetime.datetime): When the report was created
-        review_check_run_id (int | None | Unset): ID of the auto-check run that created this report (AUTO only)
+        audit_run_id (int | None | Unset): ID of the audit run that created this report (AUTO only)
         description (None | str | Unset): Optional description with additional details
         data (None | ReportDataType0 | Unset): Check-specific metrics (AUTO reports) or null (USER reports)
         admin_notes (None | str | Unset): Notes from the admin who reviewed the report
@@ -47,7 +47,7 @@ class Report:
     reason: ReportReason
     status: ReportStatus
     created_at: datetime.datetime
-    review_check_run_id: int | None | Unset = UNSET
+    audit_run_id: int | None | Unset = UNSET
     description: None | str | Unset = UNSET
     data: None | ReportDataType0 | Unset = UNSET
     admin_notes: None | str | Unset = UNSET
@@ -78,11 +78,11 @@ class Report:
 
         created_at = self.created_at.isoformat()
 
-        review_check_run_id: int | None | Unset
-        if isinstance(self.review_check_run_id, Unset):
-            review_check_run_id = UNSET
+        audit_run_id: int | None | Unset
+        if isinstance(self.audit_run_id, Unset):
+            audit_run_id = UNSET
         else:
-            review_check_run_id = self.review_check_run_id
+            audit_run_id = self.audit_run_id
 
         description: None | str | Unset
         if isinstance(self.description, Unset):
@@ -130,8 +130,8 @@ class Report:
                 "createdAt": created_at,
             }
         )
-        if review_check_run_id is not UNSET:
-            field_dict["reviewCheckRunId"] = review_check_run_id
+        if audit_run_id is not UNSET:
+            field_dict["auditRunId"] = audit_run_id
         if description is not UNSET:
             field_dict["description"] = description
         if data is not UNSET:
@@ -190,14 +190,14 @@ class Report:
 
         created_at = isoparse(d.pop("createdAt"))
 
-        def _parse_review_check_run_id(data: object) -> int | None | Unset:
+        def _parse_audit_run_id(data: object) -> int | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
             return cast(int | None | Unset, data)
 
-        review_check_run_id = _parse_review_check_run_id(d.pop("reviewCheckRunId", UNSET))
+        audit_run_id = _parse_audit_run_id(d.pop("auditRunId", UNSET))
 
         def _parse_description(data: object) -> None | str | Unset:
             if data is None:
@@ -267,7 +267,7 @@ class Report:
             reason=reason,
             status=status,
             created_at=created_at,
-            review_check_run_id=review_check_run_id,
+            audit_run_id=audit_run_id,
             description=description,
             data=data,
             admin_notes=admin_notes,

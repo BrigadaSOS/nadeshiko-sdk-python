@@ -11,11 +11,13 @@ from .category_count import CategoryCount
 from .character import Character
 from .character_input import CharacterInput
 from .character_input_role import CharacterInputRole
+from .character_input_seiyuu import CharacterInputSeiyuu
 from .character_with_media import CharacterWithMedia
 from .character_with_media_media_appearances_item import CharacterWithMediaMediaAppearancesItem
 from .character_with_media_media_appearances_item_role import (
     CharacterWithMediaMediaAppearancesItemRole,
 )
+from .clear_admin_impersonation_response_200 import ClearAdminImpersonationResponse200
 from .collection import Collection
 from .collection_list_response import CollectionListResponse
 from .collection_requests import CollectionRequests
@@ -27,11 +29,11 @@ from .collection_with_segments_includes_media import CollectionWithSegmentsInclu
 from .collection_with_segments_segments_item import CollectionWithSegmentsSegmentsItem
 from .collection_with_segments_visibility import CollectionWithSegmentsVisibility
 from .content_rating import ContentRating
-from .create_admin_review_allowlist_entry_body import CreateAdminReviewAllowlistEntryBody
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
 from .create_series_body import CreateSeriesBody
-from .cursor_pagination import CursorPagination
+from .delete_user_activity_by_date_response_200 import DeleteUserActivityByDateResponse200
+from .delete_user_activity_by_id_response_404 import DeleteUserActivityByIdResponse404
 from .delete_user_activity_response_200 import DeleteUserActivityResponse200
 from .episode import Episode
 from .episode_create_request import EpisodeCreateRequest
@@ -103,32 +105,43 @@ from .get_admin_health_response_200_elasticsearch_status import (
     GetAdminHealthResponse200ElasticsearchStatus,
 )
 from .get_admin_health_response_200_status import GetAdminHealthResponse200Status
+from .get_admin_media_audit_run_response_200 import GetAdminMediaAuditRunResponse200
 from .get_admin_queue_queue_name import GetAdminQueueQueueName
 from .get_admin_queue_response_200 import GetAdminQueueResponse200
 from .get_admin_queue_response_200_metadata import GetAdminQueueResponse200Metadata
 from .get_admin_queue_response_200_stats import GetAdminQueueResponse200Stats
-from .get_admin_review_run_response_200 import GetAdminReviewRunResponse200
-from .get_seiyuu_include_item import GetSeiyuuIncludeItem
 from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
-from .get_user_activity_heatmap_response_200_counts import GetUserActivityHeatmapResponse200Counts
+from .get_user_activity_heatmap_response_200_activity_by_day import (
+    GetUserActivityHeatmapResponse200ActivityByDay,
+)
 from .get_user_activity_stats_response_200 import GetUserActivityStatsResponse200
 from .get_user_activity_stats_response_200_top_media_item import (
     GetUserActivityStatsResponse200TopMediaItem,
 )
+from .impersonate_admin_user_body import ImpersonateAdminUserBody
+from .impersonate_admin_user_response_200 import ImpersonateAdminUserResponse200
+from .impersonate_admin_user_response_200_user import ImpersonateAdminUserResponse200User
 from .include_expansion import IncludeExpansion
+from .list_admin_media_audit_runs_response_200 import ListAdminMediaAuditRunsResponse200
 from .list_admin_queue_failed_queue_name import ListAdminQueueFailedQueueName
 from .list_admin_queue_failed_response_200_item import ListAdminQueueFailedResponse200Item
 from .list_admin_queue_stats_response_200_item import ListAdminQueueStatsResponse200Item
 from .list_admin_reports_source import ListAdminReportsSource
 from .list_admin_reports_status import ListAdminReportsStatus
 from .list_admin_reports_target_type import ListAdminReportsTargetType
-from .list_admin_review_runs_response_200 import ListAdminReviewRunsResponse200
 from .list_collections_visibility import ListCollectionsVisibility
 from .list_media_category import ListMediaCategory
 from .list_segments_response_200 import ListSegmentsResponse200
 from .list_user_activity_response_200 import ListUserActivityResponse200
-from .list_user_reports_status import ListUserReportsStatus
 from .media import Media
+from .media_audit import MediaAudit
+from .media_audit_latest_run_type_0 import MediaAuditLatestRunType0
+from .media_audit_run import MediaAuditRun
+from .media_audit_run_threshold_used import MediaAuditRunThresholdUsed
+from .media_audit_target_type import MediaAuditTargetType
+from .media_audit_threshold import MediaAuditThreshold
+from .media_audit_threshold_schema_item import MediaAuditThresholdSchemaItem
+from .media_audit_threshold_schema_item_type import MediaAuditThresholdSchemaItemType
 from .media_autocomplete_response import MediaAutocompleteResponse
 from .media_character import MediaCharacter
 from .media_character_role import MediaCharacterRole
@@ -143,6 +156,7 @@ from .media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
 from .media_update_request import MediaUpdateRequest
 from .media_update_request_category import MediaUpdateRequestCategory
 from .media_update_request_storage import MediaUpdateRequestStorage
+from .opaque_cursor_pagination import OpaqueCursorPagination
 from .pagination_info import PaginationInfo
 from .pagination_info_estimated_total_hits_relation import PaginationInfoEstimatedTotalHitsRelation
 from .purge_admin_queue_failed_queue_name import PurgeAdminQueueFailedQueueName
@@ -154,7 +168,6 @@ from .reindex_response_errors_item import ReindexResponseErrorsItem
 from .reindex_response_stats import ReindexResponseStats
 from .report import Report
 from .report_data_type_0 import ReportDataType0
-from .report_list_response import ReportListResponse
 from .report_reason import ReportReason
 from .report_source import ReportSource
 from .report_status import ReportStatus
@@ -166,18 +179,9 @@ from .report_target_segment import ReportTargetSegment
 from .report_target_segment_type import ReportTargetSegmentType
 from .retry_admin_queue_failed_queue_name import RetryAdminQueueFailedQueueName
 from .retry_admin_queue_failed_response_200 import RetryAdminQueueFailedResponse200
-from .review_allowlist import ReviewAllowlist
-from .review_check import ReviewCheck
-from .review_check_latest_run_type_0 import ReviewCheckLatestRunType0
-from .review_check_run import ReviewCheckRun
-from .review_check_run_threshold_used import ReviewCheckRunThresholdUsed
-from .review_check_target_type import ReviewCheckTargetType
-from .review_check_threshold import ReviewCheckThreshold
-from .review_check_threshold_schema_item import ReviewCheckThresholdSchemaItem
-from .review_check_threshold_schema_item_type import ReviewCheckThresholdSchemaItemType
-from .run_admin_review_category import RunAdminReviewCategory
-from .run_review_response import RunReviewResponse
-from .run_review_response_checks_run_item import RunReviewResponseChecksRunItem
+from .run_admin_media_audit_category import RunAdminMediaAuditCategory
+from .run_audit_response import RunAuditResponse
+from .run_audit_response_checks_run_item import RunAuditResponseChecksRunItem
 from .search_filters import SearchFilters
 from .search_filters_languages import SearchFiltersLanguages
 from .search_filters_languages_exclude_item import SearchFiltersLanguagesExcludeItem
@@ -239,8 +243,10 @@ from .series import Series
 from .series_list_response import SeriesListResponse
 from .series_with_media import SeriesWithMedia
 from .series_with_media_media_item import SeriesWithMediaMediaItem
-from .update_admin_review_check_body import UpdateAdminReviewCheckBody
-from .update_admin_review_check_body_threshold import UpdateAdminReviewCheckBodyThreshold
+from .track_user_activity_body import TrackUserActivityBody
+from .track_user_activity_body_activity_type import TrackUserActivityBodyActivityType
+from .update_admin_media_audit_body import UpdateAdminMediaAuditBody
+from .update_admin_media_audit_body_threshold import UpdateAdminMediaAuditBodyThreshold
 from .update_collection_body import UpdateCollectionBody
 from .update_collection_body_visibility import UpdateCollectionBodyVisibility
 from .update_collection_segment_body import UpdateCollectionSegmentBody
@@ -266,7 +272,6 @@ from .user_preferences_content_rating_preferences_suggestive import (
     UserPreferencesContentRatingPreferencesSuggestive,
 )
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
-from .user_preferences_labs import UserPreferencesLabs
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
 from .user_quota_response import UserQuotaResponse
@@ -285,9 +290,11 @@ __all__ = (
     "Character",
     "CharacterInput",
     "CharacterInputRole",
+    "CharacterInputSeiyuu",
     "CharacterWithMedia",
     "CharacterWithMediaMediaAppearancesItem",
     "CharacterWithMediaMediaAppearancesItemRole",
+    "ClearAdminImpersonationResponse200",
     "Collection",
     "CollectionListResponse",
     "CollectionRequests",
@@ -299,11 +306,11 @@ __all__ = (
     "CollectionWithSegmentsSegmentsItem",
     "CollectionWithSegmentsVisibility",
     "ContentRating",
-    "CreateAdminReviewAllowlistEntryBody",
     "CreateReportRequest",
     "CreateReportRequestReason",
     "CreateSeriesBody",
-    "CursorPagination",
+    "DeleteUserActivityByDateResponse200",
+    "DeleteUserActivityByIdResponse404",
     "DeleteUserActivityResponse200",
     "Episode",
     "EpisodeCreateRequest",
@@ -359,30 +366,39 @@ __all__ = (
     "GetAdminHealthResponse200Elasticsearch",
     "GetAdminHealthResponse200ElasticsearchStatus",
     "GetAdminHealthResponse200Status",
+    "GetAdminMediaAuditRunResponse200",
     "GetAdminQueueQueueName",
     "GetAdminQueueResponse200",
     "GetAdminQueueResponse200Metadata",
     "GetAdminQueueResponse200Stats",
-    "GetAdminReviewRunResponse200",
-    "GetSeiyuuIncludeItem",
     "GetUserActivityHeatmapResponse200",
-    "GetUserActivityHeatmapResponse200Counts",
+    "GetUserActivityHeatmapResponse200ActivityByDay",
     "GetUserActivityStatsResponse200",
     "GetUserActivityStatsResponse200TopMediaItem",
+    "ImpersonateAdminUserBody",
+    "ImpersonateAdminUserResponse200",
+    "ImpersonateAdminUserResponse200User",
     "IncludeExpansion",
+    "ListAdminMediaAuditRunsResponse200",
     "ListAdminQueueFailedQueueName",
     "ListAdminQueueFailedResponse200Item",
     "ListAdminQueueStatsResponse200Item",
     "ListAdminReportsSource",
     "ListAdminReportsStatus",
     "ListAdminReportsTargetType",
-    "ListAdminReviewRunsResponse200",
     "ListCollectionsVisibility",
     "ListMediaCategory",
     "ListSegmentsResponse200",
     "ListUserActivityResponse200",
-    "ListUserReportsStatus",
     "Media",
+    "MediaAudit",
+    "MediaAuditLatestRunType0",
+    "MediaAuditRun",
+    "MediaAuditRunThresholdUsed",
+    "MediaAuditTargetType",
+    "MediaAuditThreshold",
+    "MediaAuditThresholdSchemaItem",
+    "MediaAuditThresholdSchemaItemType",
     "MediaAutocompleteResponse",
     "MediaCharacter",
     "MediaCharacterRole",
@@ -397,6 +413,7 @@ __all__ = (
     "MediaUpdateRequest",
     "MediaUpdateRequestCategory",
     "MediaUpdateRequestStorage",
+    "OpaqueCursorPagination",
     "PaginationInfo",
     "PaginationInfoEstimatedTotalHitsRelation",
     "PurgeAdminQueueFailedQueueName",
@@ -408,7 +425,6 @@ __all__ = (
     "ReindexResponseStats",
     "Report",
     "ReportDataType0",
-    "ReportListResponse",
     "ReportReason",
     "ReportSource",
     "ReportStatus",
@@ -420,18 +436,9 @@ __all__ = (
     "ReportTargetSegmentType",
     "RetryAdminQueueFailedQueueName",
     "RetryAdminQueueFailedResponse200",
-    "ReviewAllowlist",
-    "ReviewCheck",
-    "ReviewCheckLatestRunType0",
-    "ReviewCheckRun",
-    "ReviewCheckRunThresholdUsed",
-    "ReviewCheckTargetType",
-    "ReviewCheckThreshold",
-    "ReviewCheckThresholdSchemaItem",
-    "ReviewCheckThresholdSchemaItemType",
-    "RunAdminReviewCategory",
-    "RunReviewResponse",
-    "RunReviewResponseChecksRunItem",
+    "RunAdminMediaAuditCategory",
+    "RunAuditResponse",
+    "RunAuditResponseChecksRunItem",
     "SearchFilters",
     "SearchFiltersLanguages",
     "SearchFiltersLanguagesExcludeItem",
@@ -493,8 +500,10 @@ __all__ = (
     "SeriesListResponse",
     "SeriesWithMedia",
     "SeriesWithMediaMediaItem",
-    "UpdateAdminReviewCheckBody",
-    "UpdateAdminReviewCheckBodyThreshold",
+    "TrackUserActivityBody",
+    "TrackUserActivityBodyActivityType",
+    "UpdateAdminMediaAuditBody",
+    "UpdateAdminMediaAuditBodyThreshold",
     "UpdateCollectionBody",
     "UpdateCollectionBodyVisibility",
     "UpdateCollectionSegmentBody",
@@ -514,7 +523,6 @@ __all__ = (
     "UserPreferencesContentRatingPreferencesExplicit",
     "UserPreferencesContentRatingPreferencesSuggestive",
     "UserPreferencesHiddenMediaItem",
-    "UserPreferencesLabs",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
     "UserQuotaResponse",

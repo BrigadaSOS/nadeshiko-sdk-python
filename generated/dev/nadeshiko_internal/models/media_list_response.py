@@ -7,8 +7,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.cursor_pagination import CursorPagination
     from ..models.media import Media
+    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
 T = TypeVar("T", bound="MediaListResponse")
@@ -19,11 +19,11 @@ class MediaListResponse:
     """
     Attributes:
         media (list[Media]):
-        pagination (CursorPagination): Cursor pagination metadata
+        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
     """
 
     media: list[Media]
-    pagination: CursorPagination
+    pagination: OpaqueCursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,8 +47,8 @@ class MediaListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cursor_pagination import CursorPagination
         from ..models.media import Media
+        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
         d = dict(src_dict)
         media = []
@@ -58,7 +58,7 @@ class MediaListResponse:
 
             media.append(media_item)
 
-        pagination = CursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
         media_list_response = cls(
             media=media,

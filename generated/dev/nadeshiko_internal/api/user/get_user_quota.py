@@ -6,6 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error_401 import Error401
+from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.user_quota_response import UserQuotaResponse
@@ -24,7 +25,7 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error401 | Error429 | Error500 | UserQuotaResponse | None:
+) -> Error401 | Error403 | Error429 | Error500 | UserQuotaResponse | None:
     if response.status_code == 200:
         response_200 = UserQuotaResponse.from_dict(response.json())
 
@@ -34,6 +35,11 @@ def _parse_response(
         response_401 = Error401.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
 
     if response.status_code == 429:
         response_429 = Error429.from_dict(response.json())
@@ -53,7 +59,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error401 | Error429 | Error500 | UserQuotaResponse]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | UserQuotaResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,7 +71,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[Error401 | Error429 | Error500 | UserQuotaResponse]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | UserQuotaResponse]:
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
@@ -78,7 +84,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error429 | Error500 | UserQuotaResponse]
+        Response[Error401 | Error403 | Error429 | Error500 | UserQuotaResponse]
     """
 
     kwargs = _get_kwargs()
@@ -93,7 +99,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-) -> Error401 | Error429 | Error500 | UserQuotaResponse | None:
+) -> Error401 | Error403 | Error429 | Error500 | UserQuotaResponse | None:
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
@@ -106,7 +112,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error429 | Error500 | UserQuotaResponse
+        Error401 | Error403 | Error429 | Error500 | UserQuotaResponse
     """
 
     return sync_detailed(
@@ -117,7 +123,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[Error401 | Error429 | Error500 | UserQuotaResponse]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | UserQuotaResponse]:
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
@@ -130,7 +136,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error429 | Error500 | UserQuotaResponse]
+        Response[Error401 | Error403 | Error429 | Error500 | UserQuotaResponse]
     """
 
     kwargs = _get_kwargs()
@@ -143,7 +149,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-) -> Error401 | Error429 | Error500 | UserQuotaResponse | None:
+) -> Error401 | Error403 | Error429 | Error500 | UserQuotaResponse | None:
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
@@ -156,7 +162,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error429 | Error500 | UserQuotaResponse
+        Error401 | Error403 | Error429 | Error500 | UserQuotaResponse
     """
 
     return (

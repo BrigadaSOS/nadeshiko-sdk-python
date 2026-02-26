@@ -17,7 +17,6 @@ if TYPE_CHECKING:
         UserPreferencesContentRatingPreferences,
     )
     from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
-    from ..models.user_preferences_labs import UserPreferencesLabs
     from ..models.user_preferences_search_history import UserPreferencesSearchHistory
 
 
@@ -28,7 +27,6 @@ T = TypeVar("T", bound="UserPreferences")
 class UserPreferences:
     """
     Attributes:
-        labs (UserPreferencesLabs | Unset): Lab feature opt-in flags keyed by feature key
         media_name_language (UserPreferencesMediaNameLanguage | Unset): Preferred language for media names display
         content_rating_preferences (UserPreferencesContentRatingPreferences | Unset): Per-category content rating
             display preferences
@@ -38,7 +36,6 @@ class UserPreferences:
         hidden_media (list[UserPreferencesHiddenMediaItem] | Unset): Media hidden from search results by the user
     """
 
-    labs: UserPreferencesLabs | Unset = UNSET
     media_name_language: UserPreferencesMediaNameLanguage | Unset = UNSET
     content_rating_preferences: UserPreferencesContentRatingPreferences | Unset = UNSET
     search_history: UserPreferencesSearchHistory | Unset = UNSET
@@ -48,10 +45,6 @@ class UserPreferences:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        labs: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.labs, Unset):
-            labs = self.labs.to_dict()
-
         media_name_language: str | Unset = UNSET
         if not isinstance(self.media_name_language, Unset):
             media_name_language = self.media_name_language.value
@@ -85,8 +78,6 @@ class UserPreferences:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if labs is not UNSET:
-            field_dict["labs"] = labs
         if media_name_language is not UNSET:
             field_dict["mediaNameLanguage"] = media_name_language
         if content_rating_preferences is not UNSET:
@@ -109,17 +100,9 @@ class UserPreferences:
             UserPreferencesContentRatingPreferences,
         )
         from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
-        from ..models.user_preferences_labs import UserPreferencesLabs
         from ..models.user_preferences_search_history import UserPreferencesSearchHistory
 
         d = dict(src_dict)
-        _labs = d.pop("labs", UNSET)
-        labs: UserPreferencesLabs | Unset
-        if isinstance(_labs, Unset):
-            labs = UNSET
-        else:
-            labs = UserPreferencesLabs.from_dict(_labs)
-
         _media_name_language = d.pop("mediaNameLanguage", UNSET)
         media_name_language: UserPreferencesMediaNameLanguage | Unset
         if isinstance(_media_name_language, Unset):
@@ -171,7 +154,6 @@ class UserPreferences:
                 hidden_media.append(hidden_media_item)
 
         user_preferences = cls(
-            labs=labs,
             media_name_language=media_name_language,
             content_rating_preferences=content_rating_preferences,
             search_history=search_history,

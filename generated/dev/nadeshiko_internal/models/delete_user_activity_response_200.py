@@ -13,24 +13,19 @@ T = TypeVar("T", bound="DeleteUserActivityResponse200")
 class DeleteUserActivityResponse200:
     """
     Attributes:
-        message (str):
         deleted_count (int):
     """
 
-    message: str
     deleted_count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        message = self.message
-
         deleted_count = self.deleted_count
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "message": message,
                 "deletedCount": deleted_count,
             }
         )
@@ -40,12 +35,9 @@ class DeleteUserActivityResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        message = d.pop("message")
-
         deleted_count = d.pop("deletedCount")
 
         delete_user_activity_response_200 = cls(
-            message=message,
             deleted_count=deleted_count,
         )
 

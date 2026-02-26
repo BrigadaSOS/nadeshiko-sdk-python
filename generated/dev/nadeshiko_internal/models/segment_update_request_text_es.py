@@ -16,11 +16,11 @@ class SegmentUpdateRequestTextEs:
     """
     Attributes:
         content (str | Unset): Spanish translation of the segment content Example: Yo soy yo, y tú eres tú..
-        is_machine_translated (bool | Unset): Whether the Spanish translation was machine-translated Default: False.
+        is_machine_translated (bool | Unset): Whether the Spanish translation was machine-translated
     """
 
     content: str | Unset = UNSET
-    is_machine_translated: bool | Unset = False
+    is_machine_translated: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -7,8 +7,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.get_user_activity_heatmap_response_200_counts import (
-        GetUserActivityHeatmapResponse200Counts,
+    from ..models.get_user_activity_heatmap_response_200_activity_by_day import (
+        GetUserActivityHeatmapResponse200ActivityByDay,
     )
 
 
@@ -19,20 +19,21 @@ T = TypeVar("T", bound="GetUserActivityHeatmapResponse200")
 class GetUserActivityHeatmapResponse200:
     """
     Attributes:
-        counts (GetUserActivityHeatmapResponse200Counts): Map of YYYY-MM-DD date strings to activity counts
+        activity_by_day (GetUserActivityHeatmapResponse200ActivityByDay): Map of YYYY-MM-DD date strings to activity
+            activityByDay
     """
 
-    counts: GetUserActivityHeatmapResponse200Counts
+    activity_by_day: GetUserActivityHeatmapResponse200ActivityByDay
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        counts = self.counts.to_dict()
+        activity_by_day = self.activity_by_day.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "counts": counts,
+                "activityByDay": activity_by_day,
             }
         )
 
@@ -40,15 +41,17 @@ class GetUserActivityHeatmapResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.get_user_activity_heatmap_response_200_counts import (
-            GetUserActivityHeatmapResponse200Counts,
+        from ..models.get_user_activity_heatmap_response_200_activity_by_day import (
+            GetUserActivityHeatmapResponse200ActivityByDay,
         )
 
         d = dict(src_dict)
-        counts = GetUserActivityHeatmapResponse200Counts.from_dict(d.pop("counts"))
+        activity_by_day = GetUserActivityHeatmapResponse200ActivityByDay.from_dict(
+            d.pop("activityByDay")
+        )
 
         get_user_activity_heatmap_response_200 = cls(
-            counts=counts,
+            activity_by_day=activity_by_day,
         )
 
         get_user_activity_heatmap_response_200.additional_properties = d

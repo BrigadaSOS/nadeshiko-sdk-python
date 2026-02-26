@@ -18,9 +18,9 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     visibility: ListCollectionsVisibility | Unset = UNSET,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -35,7 +35,7 @@ def _get_kwargs(
 
     params["page"] = page
 
-    params["limit"] = limit
+    params["take"] = take
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -102,9 +102,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> Response[CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """List user's collections
 
@@ -112,9 +112,9 @@ def sync_detailed(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -128,7 +128,7 @@ def sync_detailed(
         visibility=visibility,
         cursor=cursor,
         page=page,
-        limit=limit,
+        take=take,
     )
 
     response = client.get_httpx_client().request(
@@ -142,9 +142,9 @@ def sync(
     *,
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """List user's collections
 
@@ -152,9 +152,9 @@ def sync(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -169,7 +169,7 @@ def sync(
         visibility=visibility,
         cursor=cursor,
         page=page,
-        limit=limit,
+        take=take,
     ).parsed
 
 
@@ -177,9 +177,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> Response[CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """List user's collections
 
@@ -187,9 +187,9 @@ async def asyncio_detailed(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -203,7 +203,7 @@ async def asyncio_detailed(
         visibility=visibility,
         cursor=cursor,
         page=page,
-        limit=limit,
+        take=take,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -215,9 +215,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     visibility: ListCollectionsVisibility | Unset = UNSET,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """List user's collections
 
@@ -225,9 +225,9 @@ async def asyncio(
 
     Args:
         visibility (ListCollectionsVisibility | Unset):  Example: private.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -243,6 +243,6 @@ async def asyncio(
             visibility=visibility,
             cursor=cursor,
             page=page,
-            limit=limit,
+            take=take,
         )
     ).parsed

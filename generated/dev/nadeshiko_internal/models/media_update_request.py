@@ -34,8 +34,7 @@ class MediaUpdateRequest:
             FINISHED.
         genres (list[str] | Unset): List of genres associated with the media Example: ['Comedy', 'Drama', 'Romance',
             'Slice of Life'].
-        storage (MediaUpdateRequestStorage | Unset): Storage backend for media assets Default:
-            MediaUpdateRequestStorage.R2. Example: R2.
+        storage (MediaUpdateRequestStorage | Unset): Storage backend for media assets Example: R2.
         start_date (datetime.date | Unset): Start date of the media (first airing/release) Example: 2010-10-02.
         end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
         category (MediaUpdateRequestCategory | Unset): Media category Example: ANIME.
@@ -57,7 +56,7 @@ class MediaUpdateRequest:
     airing_format: str | Unset = UNSET
     airing_status: str | Unset = UNSET
     genres: list[str] | Unset = UNSET
-    storage: MediaUpdateRequestStorage | Unset = MediaUpdateRequestStorage.R2
+    storage: MediaUpdateRequestStorage | Unset = UNSET
     start_date: datetime.date | Unset = UNSET
     end_date: datetime.date | Unset = UNSET
     category: MediaUpdateRequestCategory | Unset = UNSET

@@ -16,14 +16,14 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
-    params["limit"] = limit
+    params["take"] = take
 
     params["cursor"] = cursor
 
@@ -93,8 +93,8 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SeriesListResponse]:
     """List all series
@@ -102,8 +102,8 @@ def sync_detailed(
      Returns a paginated list of media series groupings.
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         query (str | Unset):  Example: bakuman.
 
     Raises:
@@ -115,7 +115,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        limit=limit,
+        take=take,
         cursor=cursor,
         query=query,
     )
@@ -130,8 +130,8 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SeriesListResponse | None:
     """List all series
@@ -139,8 +139,8 @@ def sync(
      Returns a paginated list of media series groupings.
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         query (str | Unset):  Example: bakuman.
 
     Raises:
@@ -153,7 +153,7 @@ def sync(
 
     return sync_detailed(
         client=client,
-        limit=limit,
+        take=take,
         cursor=cursor,
         query=query,
     ).parsed
@@ -162,8 +162,8 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SeriesListResponse]:
     """List all series
@@ -171,8 +171,8 @@ async def asyncio_detailed(
      Returns a paginated list of media series groupings.
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         query (str | Unset):  Example: bakuman.
 
     Raises:
@@ -184,7 +184,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        limit=limit,
+        take=take,
         cursor=cursor,
         query=query,
     )
@@ -197,8 +197,8 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     query: str | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SeriesListResponse | None:
     """List all series
@@ -206,8 +206,8 @@ async def asyncio(
      Returns a paginated list of media series groupings.
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         query (str | Unset):  Example: bakuman.
 
     Raises:
@@ -221,7 +221,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            limit=limit,
+            take=take,
             cursor=cursor,
             query=query,
         )

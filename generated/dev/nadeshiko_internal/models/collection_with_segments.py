@@ -12,7 +12,7 @@ from ..types import UNSET, Unset
 if TYPE_CHECKING:
     from ..models.collection_with_segments_includes import CollectionWithSegmentsIncludes
     from ..models.collection_with_segments_segments_item import CollectionWithSegmentsSegmentsItem
-    from ..models.cursor_pagination import CursorPagination
+    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
 T = TypeVar("T", bound="CollectionWithSegments")
@@ -29,7 +29,7 @@ class CollectionWithSegments:
         visibility (CollectionWithSegmentsVisibility): Visibility of the collection Example: PRIVATE.
         segments (list[CollectionWithSegmentsSegmentsItem]): Saved segments with their search result data
         total_count (int): Total number of segments in the collection Example: 42.
-        pagination (CursorPagination): Cursor pagination metadata
+        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
         includes (CollectionWithSegmentsIncludes | Unset):
     """
 
@@ -39,7 +39,7 @@ class CollectionWithSegments:
     visibility: CollectionWithSegmentsVisibility
     segments: list[CollectionWithSegmentsSegmentsItem]
     total_count: int
-    pagination: CursorPagination
+    pagination: OpaqueCursorPagination
     includes: CollectionWithSegmentsIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -89,7 +89,7 @@ class CollectionWithSegments:
         from ..models.collection_with_segments_segments_item import (
             CollectionWithSegmentsSegmentsItem,
         )
-        from ..models.cursor_pagination import CursorPagination
+        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
         d = dict(src_dict)
         id = d.pop("id")
@@ -109,7 +109,7 @@ class CollectionWithSegments:
 
         total_count = d.pop("totalCount")
 
-        pagination = CursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
         _includes = d.pop("includes", UNSET)
         includes: CollectionWithSegmentsIncludes | Unset

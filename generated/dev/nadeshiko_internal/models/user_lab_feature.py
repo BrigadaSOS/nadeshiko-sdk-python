@@ -6,6 +6,8 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 T = TypeVar("T", bound="UserLabFeature")
 
 
@@ -13,42 +15,44 @@ T = TypeVar("T", bound="UserLabFeature")
 class UserLabFeature:
     """
     Attributes:
-        key (str): Unique identifier for the lab feature
-        name (str): Human-readable feature name
-        description (str): Description of what the feature does
-        enabled (bool): Whether the feature is globally available
-        user_enabled (bool): Whether the user has opted in to this feature
+        key (str): Unique identifier for the feature
+        active (bool): Whether this feature is currently active for the user
+        user_controllable (bool): Whether the user can toggle this feature (lab=true, flag=false)
+        name (str | Unset): Human-readable feature name (only present for labs)
+        description (str | Unset): Description of what the feature does (only present for labs)
     """
 
     key: str
-    name: str
-    description: str
-    enabled: bool
-    user_enabled: bool
+    active: bool
+    user_controllable: bool
+    name: str | Unset = UNSET
+    description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         key = self.key
 
+        active = self.active
+
+        user_controllable = self.user_controllable
+
         name = self.name
 
         description = self.description
-
-        enabled = self.enabled
-
-        user_enabled = self.user_enabled
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "key": key,
-                "name": name,
-                "description": description,
-                "enabled": enabled,
-                "userEnabled": user_enabled,
+                "active": active,
+                "userControllable": user_controllable,
             }
         )
+        if name is not UNSET:
+            field_dict["name"] = name
+        if description is not UNSET:
+            field_dict["description"] = description
 
         return field_dict
 
@@ -57,20 +61,20 @@ class UserLabFeature:
         d = dict(src_dict)
         key = d.pop("key")
 
-        name = d.pop("name")
+        active = d.pop("active")
 
-        description = d.pop("description")
+        user_controllable = d.pop("userControllable")
 
-        enabled = d.pop("enabled")
+        name = d.pop("name", UNSET)
 
-        user_enabled = d.pop("userEnabled")
+        description = d.pop("description", UNSET)
 
         user_lab_feature = cls(
             key=key,
+            active=active,
+            user_controllable=user_controllable,
             name=name,
             description=description,
-            enabled=enabled,
-            user_enabled=user_enabled,
         )
 
         user_lab_feature.additional_properties = d

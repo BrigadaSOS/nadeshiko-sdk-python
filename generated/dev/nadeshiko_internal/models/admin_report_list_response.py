@@ -8,7 +8,7 @@ from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
     from ..models.admin_report import AdminReport
-    from ..models.cursor_pagination import CursorPagination
+    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
 T = TypeVar("T", bound="AdminReportListResponse")
@@ -19,11 +19,11 @@ class AdminReportListResponse:
     """
     Attributes:
         reports (list[AdminReport]):
-        pagination (CursorPagination): Cursor pagination metadata
+        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
     """
 
     reports: list[AdminReport]
-    pagination: CursorPagination
+    pagination: OpaqueCursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,7 +48,7 @@ class AdminReportListResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.admin_report import AdminReport
-        from ..models.cursor_pagination import CursorPagination
+        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
         d = dict(src_dict)
         reports = []
@@ -58,7 +58,7 @@ class AdminReportListResponse:
 
             reports.append(reports_item)
 
-        pagination = CursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
         admin_report_list_response = cls(
             reports=reports,

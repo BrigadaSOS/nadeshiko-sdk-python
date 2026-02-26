@@ -19,13 +19,13 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     media_id: int,
     *,
-    limit: int | Unset = 50,
-    cursor: int | Unset = 0,
+    take: int | Unset = 50,
+    cursor: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
-    params["limit"] = limit
+    params["take"] = take
 
     params["cursor"] = cursor
 
@@ -103,8 +103,8 @@ def sync_detailed(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 50,
-    cursor: int | Unset = 0,
+    take: int | Unset = 50,
+    cursor: str | Unset = UNSET,
 ) -> Response[
     EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
 ]:
@@ -116,8 +116,8 @@ def sync_detailed(
 
     Args:
         media_id (int):
-        limit (int | Unset):  Default: 50.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 50.
+        cursor (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -129,7 +129,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         media_id=media_id,
-        limit=limit,
+        take=take,
         cursor=cursor,
     )
 
@@ -144,8 +144,8 @@ def sync(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 50,
-    cursor: int | Unset = 0,
+    take: int | Unset = 50,
+    cursor: str | Unset = UNSET,
 ) -> EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """List episodes for a media
 
@@ -155,8 +155,8 @@ def sync(
 
     Args:
         media_id (int):
-        limit (int | Unset):  Default: 50.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 50.
+        cursor (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -169,7 +169,7 @@ def sync(
     return sync_detailed(
         media_id=media_id,
         client=client,
-        limit=limit,
+        take=take,
         cursor=cursor,
     ).parsed
 
@@ -178,8 +178,8 @@ async def asyncio_detailed(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 50,
-    cursor: int | Unset = 0,
+    take: int | Unset = 50,
+    cursor: str | Unset = UNSET,
 ) -> Response[
     EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
 ]:
@@ -191,8 +191,8 @@ async def asyncio_detailed(
 
     Args:
         media_id (int):
-        limit (int | Unset):  Default: 50.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 50.
+        cursor (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,7 +204,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         media_id=media_id,
-        limit=limit,
+        take=take,
         cursor=cursor,
     )
 
@@ -217,8 +217,8 @@ async def asyncio(
     media_id: int,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 50,
-    cursor: int | Unset = 0,
+    take: int | Unset = 50,
+    cursor: str | Unset = UNSET,
 ) -> EpisodeListResponse | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """List episodes for a media
 
@@ -228,8 +228,8 @@ async def asyncio(
 
     Args:
         media_id (int):
-        limit (int | Unset):  Default: 50.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 50.
+        cursor (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -243,7 +243,7 @@ async def asyncio(
         await asyncio_detailed(
             media_id=media_id,
             client=client,
-            limit=limit,
+            take=take,
             cursor=cursor,
         )
     ).parsed

@@ -12,36 +12,19 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.get_seiyuu_include_item import GetSeiyuuIncludeItem
 from ...models.seiyuu_with_roles import SeiyuuWithRoles
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
     id: int,
-    *,
-    include: list[GetSeiyuuIncludeItem] | Unset = UNSET,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    json_include: list[str] | Unset = UNSET
-    if not isinstance(include, Unset):
-        json_include = []
-        for include_item_data in include:
-            include_item = include_item_data.value
-            json_include.append(include_item)
-
-    params["include"] = json_include
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/media/seiyuu/{id}".format(
             id=quote(str(id), safe=""),
         ),
-        "params": params,
     }
 
     return _kwargs
@@ -106,7 +89,6 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    include: list[GetSeiyuuIncludeItem] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SeiyuuWithRoles]:
     """Get seiyuu details
 
@@ -115,8 +97,7 @@ def sync_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 95991.
-        include (list[GetSeiyuuIncludeItem] | Unset):
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -128,7 +109,6 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
-        include=include,
     )
 
     response = client.get_httpx_client().request(
@@ -142,7 +122,6 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    include: list[GetSeiyuuIncludeItem] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SeiyuuWithRoles | None:
     """Get seiyuu details
 
@@ -151,8 +130,7 @@ def sync(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 95991.
-        include (list[GetSeiyuuIncludeItem] | Unset):
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,7 +143,6 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
-        include=include,
     ).parsed
 
 
@@ -173,7 +150,6 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    include: list[GetSeiyuuIncludeItem] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SeiyuuWithRoles]:
     """Get seiyuu details
 
@@ -182,8 +158,7 @@ async def asyncio_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 95991.
-        include (list[GetSeiyuuIncludeItem] | Unset):
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -195,7 +170,6 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
-        include=include,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -207,7 +181,6 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    include: list[GetSeiyuuIncludeItem] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SeiyuuWithRoles | None:
     """Get seiyuu details
 
@@ -216,8 +189,7 @@ async def asyncio(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 95991.
-        include (list[GetSeiyuuIncludeItem] | Unset):
+        id (int):  Example: 1.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -231,6 +203,5 @@ async def asyncio(
         await asyncio_detailed(
             id=id,
             client=client,
-            include=include,
         )
     ).parsed

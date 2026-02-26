@@ -32,8 +32,7 @@ class SegmentUpdateRequest:
 
     Attributes:
         position (int | Unset): Position of the segment within the episode Example: 1133.
-        status (SegmentUpdateRequestStatus | Unset): Segment status Default: SegmentUpdateRequestStatus.ACTIVE. Example:
-            ACTIVE.
+        status (SegmentUpdateRequestStatus | Unset): Segment status Example: ACTIVE.
         start_time_ms (int | Unset): Start time of the segment in milliseconds from the beginning of the episode
             Example: 2007255.
         end_time_ms (int | Unset): End time of the segment in milliseconds from the beginning of the episode Example:
@@ -46,13 +45,12 @@ class SegmentUpdateRequest:
             used to derive content rating
         pos_analysis (None | SegmentUpdateRequestPosAnalysisType0 | Unset): POS tokenization results keyed by engine
             (sudachi, unidic)
-        storage (SegmentUpdateRequestStorage | Unset): Storage backend for segment assets Default:
-            SegmentUpdateRequestStorage.R2. Example: R2.
+        storage (SegmentUpdateRequestStorage | Unset): Storage backend for segment assets Example: R2.
         hashed_id (str | Unset): Hash identifier for the segment (from segment JSON) Example: 0d39e46b14.
     """
 
     position: int | Unset = UNSET
-    status: SegmentUpdateRequestStatus | Unset = SegmentUpdateRequestStatus.ACTIVE
+    status: SegmentUpdateRequestStatus | Unset = UNSET
     start_time_ms: int | Unset = UNSET
     end_time_ms: int | Unset = UNSET
     text_ja: SegmentUpdateRequestTextJa | Unset = UNSET
@@ -61,7 +59,7 @@ class SegmentUpdateRequest:
     content_rating: ContentRating | Unset = UNSET
     rating_analysis: None | SegmentUpdateRequestRatingAnalysisType0 | Unset = UNSET
     pos_analysis: None | SegmentUpdateRequestPosAnalysisType0 | Unset = UNSET
-    storage: SegmentUpdateRequestStorage | Unset = SegmentUpdateRequestStorage.R2
+    storage: SegmentUpdateRequestStorage | Unset = UNSET
     hashed_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

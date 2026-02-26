@@ -18,22 +18,22 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     status: ListAdminReportsStatus | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_uuid: str | Unset = UNSET,
-    review_check_run_id: int | Unset = UNSET,
+    audit_run_id: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
     params["cursor"] = cursor
 
-    params["limit"] = limit
+    params["take"] = take
 
     json_status: str | Unset = UNSET
     if not isinstance(status, Unset):
@@ -59,7 +59,7 @@ def _get_kwargs(
 
     params["target.segmentUuid"] = target_segment_uuid
 
-    params["reviewCheckRunId"] = review_check_run_id
+    params["auditRunId"] = audit_run_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -120,15 +120,15 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     status: ListAdminReportsStatus | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_uuid: str | Unset = UNSET,
-    review_check_run_id: int | Unset = UNSET,
+    audit_run_id: int | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
 
@@ -138,15 +138,15 @@ def sync_detailed(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         status (ListAdminReportsStatus | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_uuid (str | Unset):
-        review_check_run_id (int | Unset):
+        audit_run_id (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,14 +158,14 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        limit=limit,
+        take=take,
         status=status,
         source=source,
         target_type=target_type,
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
         target_segment_uuid=target_segment_uuid,
-        review_check_run_id=review_check_run_id,
+        audit_run_id=audit_run_id,
     )
 
     response = client.get_httpx_client().request(
@@ -178,15 +178,15 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     status: ListAdminReportsStatus | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_uuid: str | Unset = UNSET,
-    review_check_run_id: int | Unset = UNSET,
+    audit_run_id: int | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
 
@@ -196,15 +196,15 @@ def sync(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         status (ListAdminReportsStatus | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_uuid (str | Unset):
-        review_check_run_id (int | Unset):
+        audit_run_id (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -217,29 +217,29 @@ def sync(
     return sync_detailed(
         client=client,
         cursor=cursor,
-        limit=limit,
+        take=take,
         status=status,
         source=source,
         target_type=target_type,
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
         target_segment_uuid=target_segment_uuid,
-        review_check_run_id=review_check_run_id,
+        audit_run_id=audit_run_id,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     status: ListAdminReportsStatus | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_uuid: str | Unset = UNSET,
-    review_check_run_id: int | Unset = UNSET,
+    audit_run_id: int | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
 
@@ -249,15 +249,15 @@ async def asyncio_detailed(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         status (ListAdminReportsStatus | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_uuid (str | Unset):
-        review_check_run_id (int | Unset):
+        audit_run_id (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -269,14 +269,14 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        limit=limit,
+        take=take,
         status=status,
         source=source,
         target_type=target_type,
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
         target_segment_uuid=target_segment_uuid,
-        review_check_run_id=review_check_run_id,
+        audit_run_id=audit_run_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -287,15 +287,15 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     status: ListAdminReportsStatus | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_uuid: str | Unset = UNSET,
-    review_check_run_id: int | Unset = UNSET,
+    audit_run_id: int | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
 
@@ -305,15 +305,15 @@ async def asyncio(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         status (ListAdminReportsStatus | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_uuid (str | Unset):
-        review_check_run_id (int | Unset):
+        audit_run_id (int | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -327,13 +327,13 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             cursor=cursor,
-            limit=limit,
+            take=take,
             status=status,
             source=source,
             target_type=target_type,
             target_media_id=target_media_id,
             target_episode_number=target_episode_number,
             target_segment_uuid=target_segment_uuid,
-            review_check_run_id=review_check_run_id,
+            audit_run_id=audit_run_id,
         )
     ).parsed

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,16 +23,17 @@ class SearchRequest:
     """
     Attributes:
         query (SearchRequestQuery | Unset): What to search for (omit for queryless browse)
-        limit (int | Unset): Max amount of entries by response Default: 10.
-        cursor (list[float] | Unset): Current page of search Example: [23.31727, 7].
+        take (int | Unset): Max amount of entries by response Default: 10.
+        cursor (str | Unset): Opaque cursor token returned from the previous search page Example:
+            eyJraW5kIjoia2V5c2V0IiwiY3Vyc29yIjpbMjMuMzE3MjcsN119.
         sort (SearchRequestSort | Unset): Sort configuration
         filters (SearchFilters | Unset): Search filters for narrowing segment results
         include (list[IncludeExpansion] | Unset): Resources to expand in the response includes block
     """
 
     query: SearchRequestQuery | Unset = UNSET
-    limit: int | Unset = 10
-    cursor: list[float] | Unset = UNSET
+    take: int | Unset = 10
+    cursor: str | Unset = UNSET
     sort: SearchRequestSort | Unset = UNSET
     filters: SearchFilters | Unset = UNSET
     include: list[IncludeExpansion] | Unset = UNSET
@@ -43,11 +44,9 @@ class SearchRequest:
         if not isinstance(self.query, Unset):
             query = self.query.to_dict()
 
-        limit = self.limit
+        take = self.take
 
-        cursor: list[float] | Unset = UNSET
-        if not isinstance(self.cursor, Unset):
-            cursor = self.cursor
+        cursor = self.cursor
 
         sort: dict[str, Any] | Unset = UNSET
         if not isinstance(self.sort, Unset):
@@ -69,8 +68,8 @@ class SearchRequest:
         field_dict.update({})
         if query is not UNSET:
             field_dict["query"] = query
-        if limit is not UNSET:
-            field_dict["limit"] = limit
+        if take is not UNSET:
+            field_dict["take"] = take
         if cursor is not UNSET:
             field_dict["cursor"] = cursor
         if sort is not UNSET:
@@ -96,9 +95,9 @@ class SearchRequest:
         else:
             query = SearchRequestQuery.from_dict(_query)
 
-        limit = d.pop("limit", UNSET)
+        take = d.pop("take", UNSET)
 
-        cursor = cast(list[float], d.pop("cursor", UNSET))
+        cursor = d.pop("cursor", UNSET)
 
         _sort = d.pop("sort", UNSET)
         sort: SearchRequestSort | Unset
@@ -125,7 +124,7 @@ class SearchRequest:
 
         search_request = cls(
             query=query,
-            limit=limit,
+            take=take,
             cursor=cursor,
             sort=sort,
             filters=filters,

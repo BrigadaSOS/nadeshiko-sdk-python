@@ -23,13 +23,13 @@ class PaginationInfo:
         estimated_total_hits (int | Unset): Estimated total number of matching segments Example: 12456.
         estimated_total_hits_relation (PaginationInfoEstimatedTotalHitsRelation | Unset): Whether estimatedTotalHits is
             exact or a lower bound Example: LOWER_BOUND.
-        cursor (list[float] | Unset): Cursor for fetching the next page (undefined when hasMore is false)
+        cursor (None | str | Unset): Opaque cursor token for fetching the next page (`null` when hasMore is false)
     """
 
     has_more: bool | Unset = UNSET
     estimated_total_hits: int | Unset = UNSET
     estimated_total_hits_relation: PaginationInfoEstimatedTotalHitsRelation | Unset = UNSET
-    cursor: list[float] | Unset = UNSET
+    cursor: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,8 +41,10 @@ class PaginationInfo:
         if not isinstance(self.estimated_total_hits_relation, Unset):
             estimated_total_hits_relation = self.estimated_total_hits_relation.value
 
-        cursor: list[float] | Unset = UNSET
-        if not isinstance(self.cursor, Unset):
+        cursor: None | str | Unset
+        if isinstance(self.cursor, Unset):
+            cursor = UNSET
+        else:
             cursor = self.cursor
 
         field_dict: dict[str, Any] = {}
@@ -75,7 +77,14 @@ class PaginationInfo:
                 _estimated_total_hits_relation
             )
 
-        cursor = cast(list[float], d.pop("cursor", UNSET))
+        def _parse_cursor(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        cursor = _parse_cursor(d.pop("cursor", UNSET))
 
         pagination_info = cls(
             has_more=has_more,

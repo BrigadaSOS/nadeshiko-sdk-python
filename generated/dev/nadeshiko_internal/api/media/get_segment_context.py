@@ -21,14 +21,14 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     uuid: str,
     *,
-    limit: int | Unset = 3,
+    take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
-    params["limit"] = limit
+    params["take"] = take
 
     json_content_rating: list[str] | Unset = UNSET
     if not isinstance(content_rating, Unset):
@@ -124,7 +124,7 @@ def sync_detailed(
     uuid: str,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 3,
+    take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> Response[
@@ -140,7 +140,7 @@ def sync_detailed(
 
     Args:
         uuid (str):
-        limit (int | Unset):  Default: 3.
+        take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
         include (list[IncludeExpansion] | Unset):
 
@@ -154,7 +154,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         uuid=uuid,
-        limit=limit,
+        take=take,
         content_rating=content_rating,
         include=include,
     )
@@ -170,7 +170,7 @@ def sync(
     uuid: str,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 3,
+    take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> (
@@ -186,7 +186,7 @@ def sync(
 
     Args:
         uuid (str):
-        limit (int | Unset):  Default: 3.
+        take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
         include (list[IncludeExpansion] | Unset):
 
@@ -201,7 +201,7 @@ def sync(
     return sync_detailed(
         uuid=uuid,
         client=client,
-        limit=limit,
+        take=take,
         content_rating=content_rating,
         include=include,
     ).parsed
@@ -211,7 +211,7 @@ async def asyncio_detailed(
     uuid: str,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 3,
+    take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> Response[
@@ -227,7 +227,7 @@ async def asyncio_detailed(
 
     Args:
         uuid (str):
-        limit (int | Unset):  Default: 3.
+        take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
         include (list[IncludeExpansion] | Unset):
 
@@ -241,7 +241,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         uuid=uuid,
-        limit=limit,
+        take=take,
         content_rating=content_rating,
         include=include,
     )
@@ -255,7 +255,7 @@ async def asyncio(
     uuid: str,
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 3,
+    take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> (
@@ -271,7 +271,7 @@ async def asyncio(
 
     Args:
         uuid (str):
-        limit (int | Unset):  Default: 3.
+        take (int | Unset):  Default: 3.
         content_rating (list[ContentRating] | Unset):
         include (list[IncludeExpansion] | Unset):
 
@@ -287,7 +287,7 @@ async def asyncio(
         await asyncio_detailed(
             uuid=uuid,
             client=client,
-            limit=limit,
+            take=take,
             content_rating=content_rating,
             include=include,
         )

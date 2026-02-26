@@ -15,8 +15,8 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -25,7 +25,7 @@ def _get_kwargs(
 
     params["cursor"] = cursor
 
-    params["limit"] = limit
+    params["take"] = take
 
     json_activity_type: str | Unset = UNSET
     if not isinstance(activity_type, Unset):
@@ -87,8 +87,8 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
@@ -99,8 +99,8 @@ def sync_detailed(
     **Permissions:** Session authentication (cookie-based).
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
         date (datetime.date | Unset):
 
@@ -114,7 +114,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        limit=limit,
+        take=take,
         activity_type=activity_type,
         date=date,
     )
@@ -129,8 +129,8 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | ListUserActivityResponse200 | None:
@@ -141,8 +141,8 @@ def sync(
     **Permissions:** Session authentication (cookie-based).
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
         date (datetime.date | Unset):
 
@@ -157,7 +157,7 @@ def sync(
     return sync_detailed(
         client=client,
         cursor=cursor,
-        limit=limit,
+        take=take,
         activity_type=activity_type,
         date=date,
     ).parsed
@@ -166,8 +166,8 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
@@ -178,8 +178,8 @@ async def asyncio_detailed(
     **Permissions:** Session authentication (cookie-based).
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
         date (datetime.date | Unset):
 
@@ -193,7 +193,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         cursor=cursor,
-        limit=limit,
+        take=take,
         activity_type=activity_type,
         date=date,
     )
@@ -206,8 +206,8 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
-    limit: int | Unset = 20,
+    cursor: str | Unset = UNSET,
+    take: int | Unset = 20,
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | ListUserActivityResponse200 | None:
@@ -218,8 +218,8 @@ async def asyncio(
     **Permissions:** Session authentication (cookie-based).
 
     Args:
-        cursor (int | Unset):
-        limit (int | Unset):  Default: 20.
+        cursor (str | Unset):
+        take (int | Unset):  Default: 20.
         activity_type (ActivityType | Unset): Type of user activity
         date (datetime.date | Unset):
 
@@ -235,7 +235,7 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             cursor=cursor,
-            limit=limit,
+            take=take,
             activity_type=activity_type,
             date=date,
         )

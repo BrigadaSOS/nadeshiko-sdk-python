@@ -16,11 +16,11 @@ class SegmentUpdateRequestTextEn:
     """
     Attributes:
         content (str | Unset): English translation of the segment content Example: I am me, and you are you..
-        is_machine_translated (bool | Unset): Whether the English translation was machine-translated Default: False.
+        is_machine_translated (bool | Unset): Whether the English translation was machine-translated
     """
 
     content: str | Unset = UNSET
-    is_machine_translated: bool | Unset = False
+    is_machine_translated: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

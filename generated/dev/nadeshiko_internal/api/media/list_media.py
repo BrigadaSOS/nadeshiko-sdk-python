@@ -18,8 +18,8 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -27,7 +27,7 @@ def _get_kwargs(
 
     params: dict[str, Any] = {}
 
-    params["limit"] = limit
+    params["take"] = take
 
     params["cursor"] = cursor
 
@@ -112,8 +112,8 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -127,8 +127,8 @@ def sync_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
         include (list[MediaIncludeExpansion] | Unset):
@@ -142,7 +142,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        limit=limit,
+        take=take,
         cursor=cursor,
         category=category,
         query=query,
@@ -159,8 +159,8 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -174,8 +174,8 @@ def sync(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
         include (list[MediaIncludeExpansion] | Unset):
@@ -190,7 +190,7 @@ def sync(
 
     return sync_detailed(
         client=client,
-        limit=limit,
+        take=take,
         cursor=cursor,
         category=category,
         query=query,
@@ -201,8 +201,8 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -216,8 +216,8 @@ async def asyncio_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
         include (list[MediaIncludeExpansion] | Unset):
@@ -231,7 +231,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        limit=limit,
+        take=take,
         cursor=cursor,
         category=category,
         query=query,
@@ -246,8 +246,8 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    limit: int | Unset = 20,
-    cursor: int | Unset = 0,
+    take: int | Unset = 20,
+    cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -261,8 +261,8 @@ async def asyncio(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        limit (int | Unset):  Default: 20.
-        cursor (int | Unset):  Default: 0.
+        take (int | Unset):  Default: 20.
+        cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
         include (list[MediaIncludeExpansion] | Unset):
@@ -278,7 +278,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            limit=limit,
+            take=take,
             cursor=cursor,
             category=category,
             query=query,

@@ -18,7 +18,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     query: str,
-    limit: int | Unset = 10,
+    take: int | Unset = 10,
     category: AutocompleteMediaCategory | Unset = UNSET,
 ) -> dict[str, Any]:
 
@@ -26,7 +26,7 @@ def _get_kwargs(
 
     params["query"] = query
 
-    params["limit"] = limit
+    params["take"] = take
 
     json_category: str | Unset = UNSET
     if not isinstance(category, Unset):
@@ -99,7 +99,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     query: str,
-    limit: int | Unset = 10,
+    take: int | Unset = 10,
     category: AutocompleteMediaCategory | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | MediaAutocompleteResponse]:
     """Autocomplete media by name
@@ -112,7 +112,7 @@ def sync_detailed(
 
     Args:
         query (str):  Example: steins.
-        limit (int | Unset):  Default: 10.
+        take (int | Unset):  Default: 10.
         category (AutocompleteMediaCategory | Unset):  Example: ANIME.
 
     Raises:
@@ -125,7 +125,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         query=query,
-        limit=limit,
+        take=take,
         category=category,
     )
 
@@ -140,7 +140,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     query: str,
-    limit: int | Unset = 10,
+    take: int | Unset = 10,
     category: AutocompleteMediaCategory | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | MediaAutocompleteResponse | None:
     """Autocomplete media by name
@@ -153,7 +153,7 @@ def sync(
 
     Args:
         query (str):  Example: steins.
-        limit (int | Unset):  Default: 10.
+        take (int | Unset):  Default: 10.
         category (AutocompleteMediaCategory | Unset):  Example: ANIME.
 
     Raises:
@@ -167,7 +167,7 @@ def sync(
     return sync_detailed(
         client=client,
         query=query,
-        limit=limit,
+        take=take,
         category=category,
     ).parsed
 
@@ -176,7 +176,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     query: str,
-    limit: int | Unset = 10,
+    take: int | Unset = 10,
     category: AutocompleteMediaCategory | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | MediaAutocompleteResponse]:
     """Autocomplete media by name
@@ -189,7 +189,7 @@ async def asyncio_detailed(
 
     Args:
         query (str):  Example: steins.
-        limit (int | Unset):  Default: 10.
+        take (int | Unset):  Default: 10.
         category (AutocompleteMediaCategory | Unset):  Example: ANIME.
 
     Raises:
@@ -202,7 +202,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         query=query,
-        limit=limit,
+        take=take,
         category=category,
     )
 
@@ -215,7 +215,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     query: str,
-    limit: int | Unset = 10,
+    take: int | Unset = 10,
     category: AutocompleteMediaCategory | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | MediaAutocompleteResponse | None:
     """Autocomplete media by name
@@ -228,7 +228,7 @@ async def asyncio(
 
     Args:
         query (str):  Example: steins.
-        limit (int | Unset):  Default: 10.
+        take (int | Unset):  Default: 10.
         category (AutocompleteMediaCategory | Unset):  Example: ANIME.
 
     Raises:
@@ -243,7 +243,7 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             query=query,
-            limit=limit,
+            take=take,
             category=category,
         )
     ).parsed

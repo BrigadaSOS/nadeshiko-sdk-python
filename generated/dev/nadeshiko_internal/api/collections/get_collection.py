@@ -19,9 +19,9 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: int,
     *,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -30,7 +30,7 @@ def _get_kwargs(
 
     params["page"] = page
 
-    params["limit"] = limit
+    params["take"] = take
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -108,9 +108,9 @@ def sync_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> Response[
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
 ]:
@@ -120,9 +120,9 @@ def sync_detailed(
 
     Args:
         id (int):  Example: 123.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -136,7 +136,7 @@ def sync_detailed(
         id=id,
         cursor=cursor,
         page=page,
-        limit=limit,
+        take=take,
     )
 
     response = client.get_httpx_client().request(
@@ -150,9 +150,9 @@ def sync(
     id: int,
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> (
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
 ):
@@ -162,9 +162,9 @@ def sync(
 
     Args:
         id (int):  Example: 123.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -179,7 +179,7 @@ def sync(
         client=client,
         cursor=cursor,
         page=page,
-        limit=limit,
+        take=take,
     ).parsed
 
 
@@ -187,9 +187,9 @@ async def asyncio_detailed(
     id: int,
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> Response[
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
 ]:
@@ -199,9 +199,9 @@ async def asyncio_detailed(
 
     Args:
         id (int):  Example: 123.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -215,7 +215,7 @@ async def asyncio_detailed(
         id=id,
         cursor=cursor,
         page=page,
-        limit=limit,
+        take=take,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -227,9 +227,9 @@ async def asyncio(
     id: int,
     *,
     client: AuthenticatedClient,
-    cursor: int | Unset = UNSET,
+    cursor: str | Unset = UNSET,
     page: int | Unset = 1,
-    limit: int | Unset = 20,
+    take: int | Unset = 20,
 ) -> (
     CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
 ):
@@ -239,9 +239,9 @@ async def asyncio(
 
     Args:
         id (int):  Example: 123.
-        cursor (int | Unset):
+        cursor (str | Unset):
         page (int | Unset):  Default: 1. Example: 1.
-        limit (int | Unset):  Default: 20. Example: 20.
+        take (int | Unset):  Default: 20. Example: 20.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -257,6 +257,6 @@ async def asyncio(
             client=client,
             cursor=cursor,
             page=page,
-            limit=limit,
+            take=take,
         )
     ).parsed
