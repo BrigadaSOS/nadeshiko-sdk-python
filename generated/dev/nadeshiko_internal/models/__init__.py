@@ -31,6 +31,7 @@ from .collection_with_segments_visibility import CollectionWithSegmentsVisibilit
 from .content_rating import ContentRating
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
+from .create_segments_batch_response_201 import CreateSegmentsBatchResponse201
 from .create_series_body import CreateSeriesBody
 from .delete_user_activity_by_date_response_200 import DeleteUserActivityByDateResponse200
 from .delete_user_activity_response_200 import DeleteUserActivityResponse200
@@ -208,6 +209,7 @@ from .search_stats_response import SearchStatsResponse
 from .search_stats_response_includes import SearchStatsResponseIncludes
 from .search_stats_response_includes_media import SearchStatsResponseIncludesMedia
 from .segment import Segment
+from .segment_batch_create_request import SegmentBatchCreateRequest
 from .segment_context_response import SegmentContextResponse
 from .segment_context_response_includes import SegmentContextResponseIncludes
 from .segment_context_response_includes_media import SegmentContextResponseIncludesMedia
@@ -309,6 +311,7 @@ __all__ = (
     "ContentRating",
     "CreateReportRequest",
     "CreateReportRequestReason",
+    "CreateSegmentsBatchResponse201",
     "CreateSeriesBody",
     "DeleteUserActivityByDateResponse200",
     "DeleteUserActivityResponse200",
@@ -466,6 +469,7 @@ __all__ = (
     "SearchStatsResponseIncludes",
     "SearchStatsResponseIncludesMedia",
     "Segment",
+    "SegmentBatchCreateRequest",
     "SegmentContextResponse",
     "SegmentContextResponseIncludes",
     "SegmentContextResponseIncludesMedia",
