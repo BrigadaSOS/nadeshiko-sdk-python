@@ -22,6 +22,7 @@ from .collection import Collection
 from .collection_list_response import CollectionListResponse
 from .collection_requests import CollectionRequests
 from .collection_requests_visibility import CollectionRequestsVisibility
+from .collection_type import CollectionType
 from .collection_visibility import CollectionVisibility
 from .collection_with_segments import CollectionWithSegments
 from .collection_with_segments_includes import CollectionWithSegmentsIncludes
@@ -133,6 +134,7 @@ from .list_admin_reports_status import ListAdminReportsStatus
 from .list_admin_reports_target_type import ListAdminReportsTargetType
 from .list_collections_visibility import ListCollectionsVisibility
 from .list_media_category import ListMediaCategory
+from .list_segment_revisions_response_200 import ListSegmentRevisionsResponse200
 from .list_segments_response_200 import ListSegmentsResponse200
 from .list_user_activity_response_200 import ListUserActivityResponse200
 from .media import Media
@@ -144,6 +146,7 @@ from .media_audit_target_type import MediaAuditTargetType
 from .media_audit_threshold import MediaAuditThreshold
 from .media_audit_threshold_schema_item import MediaAuditThresholdSchemaItem
 from .media_audit_threshold_schema_item_type import MediaAuditThresholdSchemaItemType
+from .media_autocomplete_item import MediaAutocompleteItem
 from .media_autocomplete_response import MediaAutocompleteResponse
 from .media_character import MediaCharacter
 from .media_character_role import MediaCharacterRole
@@ -225,6 +228,8 @@ from .segment_internal import SegmentInternal
 from .segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
 from .segment_internal_rating_analysis_type_0 import SegmentInternalRatingAnalysisType0
 from .segment_internal_storage import SegmentInternalStorage
+from .segment_revision import SegmentRevision
+from .segment_revision_snapshot import SegmentRevisionSnapshot
 from .segment_status import SegmentStatus
 from .segment_text_en import SegmentTextEn
 from .segment_text_es import SegmentTextEs
@@ -302,6 +307,7 @@ __all__ = (
     "CollectionListResponse",
     "CollectionRequests",
     "CollectionRequestsVisibility",
+    "CollectionType",
     "CollectionVisibility",
     "CollectionWithSegments",
     "CollectionWithSegmentsIncludes",
@@ -393,6 +399,7 @@ __all__ = (
     "ListAdminReportsTargetType",
     "ListCollectionsVisibility",
     "ListMediaCategory",
+    "ListSegmentRevisionsResponse200",
     "ListSegmentsResponse200",
     "ListUserActivityResponse200",
     "Media",
@@ -404,6 +411,7 @@ __all__ = (
     "MediaAuditThreshold",
     "MediaAuditThresholdSchemaItem",
     "MediaAuditThresholdSchemaItemType",
+    "MediaAutocompleteItem",
     "MediaAutocompleteResponse",
     "MediaCharacter",
     "MediaCharacterRole",
@@ -485,6 +493,8 @@ __all__ = (
     "SegmentInternalPosAnalysisType0",
     "SegmentInternalRatingAnalysisType0",
     "SegmentInternalStorage",
+    "SegmentRevision",
+    "SegmentRevisionSnapshot",
     "SegmentStatus",
     "SegmentTextEn",
     "SegmentTextEs",

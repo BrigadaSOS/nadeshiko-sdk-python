@@ -7,33 +7,33 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.media_autocomplete_item import MediaAutocompleteItem
+    from ..models.segment_revision import SegmentRevision
 
 
-T = TypeVar("T", bound="MediaAutocompleteResponse")
+T = TypeVar("T", bound="ListSegmentRevisionsResponse200")
 
 
 @_attrs_define
-class MediaAutocompleteResponse:
+class ListSegmentRevisionsResponse200:
     """
     Attributes:
-        media (list[MediaAutocompleteItem]):
+        revisions (list[SegmentRevision]):
     """
 
-    media: list[MediaAutocompleteItem]
+    revisions: list[SegmentRevision]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media = []
-        for media_item_data in self.media:
-            media_item = media_item_data.to_dict()
-            media.append(media_item)
+        revisions = []
+        for revisions_item_data in self.revisions:
+            revisions_item = revisions_item_data.to_dict()
+            revisions.append(revisions_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "media": media,
+                "revisions": revisions,
             }
         )
 
@@ -41,22 +41,22 @@ class MediaAutocompleteResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.media_autocomplete_item import MediaAutocompleteItem
+        from ..models.segment_revision import SegmentRevision
 
         d = dict(src_dict)
-        media = []
-        _media = d.pop("media")
-        for media_item_data in _media:
-            media_item = MediaAutocompleteItem.from_dict(media_item_data)
+        revisions = []
+        _revisions = d.pop("revisions")
+        for revisions_item_data in _revisions:
+            revisions_item = SegmentRevision.from_dict(revisions_item_data)
 
-            media.append(media_item)
+            revisions.append(revisions_item)
 
-        media_autocomplete_response = cls(
-            media=media,
+        list_segment_revisions_response_200 = cls(
+            revisions=revisions,
         )
 
-        media_autocomplete_response.additional_properties = d
-        return media_autocomplete_response
+        list_segment_revisions_response_200.additional_properties = d
+        return list_segment_revisions_response_200
 
     @property
     def additional_keys(self) -> list[str]:

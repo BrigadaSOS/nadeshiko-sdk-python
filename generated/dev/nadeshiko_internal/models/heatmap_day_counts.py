@@ -19,14 +19,12 @@ class HeatmapDayCounts:
         search (int | Unset):
         segment_play (int | Unset):
         anki_export (int | Unset):
-        list_add_segment (int | Unset):
         share (int | Unset):
     """
 
     search: int | Unset = UNSET
     segment_play: int | Unset = UNSET
     anki_export: int | Unset = UNSET
-    list_add_segment: int | Unset = UNSET
     share: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -36,8 +34,6 @@ class HeatmapDayCounts:
         segment_play = self.segment_play
 
         anki_export = self.anki_export
-
-        list_add_segment = self.list_add_segment
 
         share = self.share
 
@@ -50,8 +46,6 @@ class HeatmapDayCounts:
             field_dict["SEGMENT_PLAY"] = segment_play
         if anki_export is not UNSET:
             field_dict["ANKI_EXPORT"] = anki_export
-        if list_add_segment is not UNSET:
-            field_dict["LIST_ADD_SEGMENT"] = list_add_segment
         if share is not UNSET:
             field_dict["SHARE"] = share
 
@@ -66,15 +60,12 @@ class HeatmapDayCounts:
 
         anki_export = d.pop("ANKI_EXPORT", UNSET)
 
-        list_add_segment = d.pop("LIST_ADD_SEGMENT", UNSET)
-
         share = d.pop("SHARE", UNSET)
 
         heatmap_day_counts = cls(
             search=search,
             segment_play=segment_play,
             anki_export=anki_export,
-            list_add_segment=list_add_segment,
             share=share,
         )
 

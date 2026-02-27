@@ -8,6 +8,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.collection_type import CollectionType
 from ..models.collection_visibility import CollectionVisibility
 
 T = TypeVar("T", bound="Collection")
@@ -20,6 +21,7 @@ class Collection:
     Attributes:
         id (int): Collection ID Example: 123.
         name (str): Name of the collection Example: Study Favorites.
+        type_ (CollectionType): Type of the collection Example: USER.
         visibility (CollectionVisibility): Visibility of the collection Example: PRIVATE.
         segment_count (int): Number of segments in the collection Example: 42.
         created_at (datetime.datetime): When the collection was created
@@ -28,6 +30,7 @@ class Collection:
 
     id: int
     name: str
+    type_: CollectionType
     visibility: CollectionVisibility
     segment_count: int
     created_at: datetime.datetime
@@ -38,6 +41,8 @@ class Collection:
         id = self.id
 
         name = self.name
+
+        type_ = self.type_.value
 
         visibility = self.visibility.value
 
@@ -57,6 +62,7 @@ class Collection:
             {
                 "id": id,
                 "name": name,
+                "type": type_,
                 "visibility": visibility,
                 "segmentCount": segment_count,
                 "createdAt": created_at,
@@ -72,6 +78,8 @@ class Collection:
         id = d.pop("id")
 
         name = d.pop("name")
+
+        type_ = CollectionType(d.pop("type"))
 
         visibility = CollectionVisibility(d.pop("visibility"))
 
@@ -97,6 +105,7 @@ class Collection:
         collection = cls(
             id=id,
             name=name,
+            type_=type_,
             visibility=visibility,
             segment_count=segment_count,
             created_at=created_at,

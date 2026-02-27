@@ -1,11 +1,9 @@
 from enum import Enum
 
 
-class ActivityType(str, Enum):
+class CollectionType(str, Enum):
     ANKI_EXPORT = "ANKI_EXPORT"
-    SEARCH = "SEARCH"
-    SEGMENT_PLAY = "SEGMENT_PLAY"
-    SHARE = "SHARE"
+    USER = "USER"
 
     def __str__(self) -> str:
         return str(self.value)

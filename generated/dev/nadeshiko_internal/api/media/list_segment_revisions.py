@@ -6,57 +6,46 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_segments_batch_response_201 import CreateSegmentsBatchResponse201
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.segment_batch_create_request import SegmentBatchCreateRequest
+from ...models.list_segment_revisions_response_200 import ListSegmentRevisionsResponse200
 from ...types import Response
 
 
 def _get_kwargs(
-    media_id: int,
-    episode_number: int,
-    *,
-    body: SegmentBatchCreateRequest,
+    uuid: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/v1/media/{media_id}/episodes/{episode_number}/segments/batch".format(
-            media_id=quote(str(media_id), safe=""),
-            episode_number=quote(str(episode_number), safe=""),
+        "method": "get",
+        "url": "/v1/media/segments/{uuid}/revisions".format(
+            uuid=quote(str(uuid), safe=""),
         ),
     }
 
-    _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
-    CreateSegmentsBatchResponse201
-    | Error400
+    Error400
     | Error401
     | Error403
     | Error404
     | Error429
     | Error500
+    | ListSegmentRevisionsResponse200
     | None
 ):
-    if response.status_code == 201:
-        response_201 = CreateSegmentsBatchResponse201.from_dict(response.json())
+    if response.status_code == 200:
+        response_200 = ListSegmentRevisionsResponse200.from_dict(response.json())
 
-        return response_201
+        return response_200
 
     if response.status_code == 400:
         response_400 = Error400.from_dict(response.json())
@@ -97,7 +86,13 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+    Error400
+    | Error401
+    | Error403
+    | Error404
+    | Error429
+    | Error500
+    | ListSegmentRevisionsResponse200
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -108,38 +103,37 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: int,
-    episode_number: int,
+    uuid: str,
     *,
     client: AuthenticatedClient,
-    body: SegmentBatchCreateRequest,
 ) -> Response[
-    CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+    Error400
+    | Error401
+    | Error403
+    | Error404
+    | Error429
+    | Error500
+    | ListSegmentRevisionsResponse200
 ]:
-    """Batch create segments for an episode
+    """List segment revision history
 
-     Creates multiple segments for a specific episode in a single request.
-    Duplicate UUIDs are silently skipped.
+     Returns the revision history for a segment identified by UUID, ordered by most recent first.
 
-    **Permissions:** `ADD_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
-        media_id (int):
-        episode_number (int):
-        body (SegmentBatchCreateRequest):
+        uuid (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
+        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentRevisionsResponse200]
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
-        episode_number=episode_number,
-        body=body,
+        uuid=uuid,
     )
 
     response = client.get_httpx_client().request(
@@ -150,82 +144,74 @@ def sync_detailed(
 
 
 def sync(
-    media_id: int,
-    episode_number: int,
+    uuid: str,
     *,
     client: AuthenticatedClient,
-    body: SegmentBatchCreateRequest,
 ) -> (
-    CreateSegmentsBatchResponse201
-    | Error400
+    Error400
     | Error401
     | Error403
     | Error404
     | Error429
     | Error500
+    | ListSegmentRevisionsResponse200
     | None
 ):
-    """Batch create segments for an episode
+    """List segment revision history
 
-     Creates multiple segments for a specific episode in a single request.
-    Duplicate UUIDs are silently skipped.
+     Returns the revision history for a segment identified by UUID, ordered by most recent first.
 
-    **Permissions:** `ADD_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
-        media_id (int):
-        episode_number (int):
-        body (SegmentBatchCreateRequest):
+        uuid (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentRevisionsResponse200
     """
 
     return sync_detailed(
-        media_id=media_id,
-        episode_number=episode_number,
+        uuid=uuid,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    media_id: int,
-    episode_number: int,
+    uuid: str,
     *,
     client: AuthenticatedClient,
-    body: SegmentBatchCreateRequest,
 ) -> Response[
-    CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+    Error400
+    | Error401
+    | Error403
+    | Error404
+    | Error429
+    | Error500
+    | ListSegmentRevisionsResponse200
 ]:
-    """Batch create segments for an episode
+    """List segment revision history
 
-     Creates multiple segments for a specific episode in a single request.
-    Duplicate UUIDs are silently skipped.
+     Returns the revision history for a segment identified by UUID, ordered by most recent first.
 
-    **Permissions:** `ADD_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
-        media_id (int):
-        episode_number (int):
-        body (SegmentBatchCreateRequest):
+        uuid (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
+        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentRevisionsResponse200]
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
-        episode_number=episode_number,
-        body=body,
+        uuid=uuid,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -234,46 +220,39 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: int,
-    episode_number: int,
+    uuid: str,
     *,
     client: AuthenticatedClient,
-    body: SegmentBatchCreateRequest,
 ) -> (
-    CreateSegmentsBatchResponse201
-    | Error400
+    Error400
     | Error401
     | Error403
     | Error404
     | Error429
     | Error500
+    | ListSegmentRevisionsResponse200
     | None
 ):
-    """Batch create segments for an episode
+    """List segment revision history
 
-     Creates multiple segments for a specific episode in a single request.
-    Duplicate UUIDs are silently skipped.
+     Returns the revision history for a segment identified by UUID, ordered by most recent first.
 
-    **Permissions:** `ADD_MEDIA`
+    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
-        media_id (int):
-        episode_number (int):
-        body (SegmentBatchCreateRequest):
+        uuid (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentRevisionsResponse200
     """
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
-            episode_number=episode_number,
+            uuid=uuid,
             client=client,
-            body=body,
         )
     ).parsed
