@@ -6,6 +6,7 @@ class ActivityType(str, Enum):
     LIST_ADD_SEGMENT = "LIST_ADD_SEGMENT"
     SEARCH = "SEARCH"
     SEGMENT_PLAY = "SEGMENT_PLAY"
+    SHARE = "SHARE"
 
     def __str__(self) -> str:
         return str(self.value)

@@ -109,6 +109,7 @@ from .get_admin_queue_queue_name import GetAdminQueueQueueName
 from .get_admin_queue_response_200 import GetAdminQueueResponse200
 from .get_admin_queue_response_200_metadata import GetAdminQueueResponse200Metadata
 from .get_admin_queue_response_200_stats import GetAdminQueueResponse200Stats
+from .get_segment_by_uuid_include_item import GetSegmentByUuidIncludeItem
 from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
 from .get_user_activity_heatmap_response_200_activity_by_day import (
     GetUserActivityHeatmapResponse200ActivityByDay,
@@ -117,6 +118,7 @@ from .get_user_activity_stats_response_200 import GetUserActivityStatsResponse20
 from .get_user_activity_stats_response_200_top_media_item import (
     GetUserActivityStatsResponse200TopMediaItem,
 )
+from .heatmap_day_counts import HeatmapDayCounts
 from .impersonate_admin_user_body import ImpersonateAdminUserBody
 from .impersonate_admin_user_response_200 import ImpersonateAdminUserResponse200
 from .impersonate_admin_user_response_200_user import ImpersonateAdminUserResponse200User
@@ -369,10 +371,12 @@ __all__ = (
     "GetAdminQueueResponse200",
     "GetAdminQueueResponse200Metadata",
     "GetAdminQueueResponse200Stats",
+    "GetSegmentByUuidIncludeItem",
     "GetUserActivityHeatmapResponse200",
     "GetUserActivityHeatmapResponse200ActivityByDay",
     "GetUserActivityStatsResponse200",
     "GetUserActivityStatsResponse200TopMediaItem",
+    "HeatmapDayCounts",
     "ImpersonateAdminUserBody",
     "ImpersonateAdminUserResponse200",
     "ImpersonateAdminUserResponse200User",

@@ -5,7 +5,6 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.activity_type import ActivityType
 from ...models.error_401 import Error401
 from ...models.error_500 import Error500
 from ...models.get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
@@ -15,18 +14,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     days: int | Unset = 365,
-    activity_type: ActivityType | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
     params["days"] = days
-
-    json_activity_type: str | Unset = UNSET
-    if not isinstance(activity_type, Unset):
-        json_activity_type = activity_type.value
-
-    params["activityType"] = json_activity_type
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -78,18 +70,16 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     days: int | Unset = 365,
-    activity_type: ActivityType | Unset = UNSET,
 ) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     """Get activity heatmap data
 
-     Returns daily activity activityByDay for the authenticated user, grouped by date.
-    Designed for rendering a GitHub-style contribution heatmap.
+     Returns daily activity counts for the authenticated user, grouped by date and activity type.
+    Each day contains per-type counts that can be summed or filtered client-side.
 
     **Permissions:** Session authentication (cookie-based).
 
     Args:
         days (int | Unset):  Default: 365.
-        activity_type (ActivityType | Unset): Type of user activity
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -101,7 +91,6 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         days=days,
-        activity_type=activity_type,
     )
 
     response = client.get_httpx_client().request(
@@ -115,18 +104,16 @@ def sync(
     *,
     client: AuthenticatedClient,
     days: int | Unset = 365,
-    activity_type: ActivityType | Unset = UNSET,
 ) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     """Get activity heatmap data
 
-     Returns daily activity activityByDay for the authenticated user, grouped by date.
-    Designed for rendering a GitHub-style contribution heatmap.
+     Returns daily activity counts for the authenticated user, grouped by date and activity type.
+    Each day contains per-type counts that can be summed or filtered client-side.
 
     **Permissions:** Session authentication (cookie-based).
 
     Args:
         days (int | Unset):  Default: 365.
-        activity_type (ActivityType | Unset): Type of user activity
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -139,7 +126,6 @@ def sync(
     return sync_detailed(
         client=client,
         days=days,
-        activity_type=activity_type,
     ).parsed
 
 
@@ -147,18 +133,16 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     days: int | Unset = 365,
-    activity_type: ActivityType | Unset = UNSET,
 ) -> Response[Error401 | Error500 | GetUserActivityHeatmapResponse200]:
     """Get activity heatmap data
 
-     Returns daily activity activityByDay for the authenticated user, grouped by date.
-    Designed for rendering a GitHub-style contribution heatmap.
+     Returns daily activity counts for the authenticated user, grouped by date and activity type.
+    Each day contains per-type counts that can be summed or filtered client-side.
 
     **Permissions:** Session authentication (cookie-based).
 
     Args:
         days (int | Unset):  Default: 365.
-        activity_type (ActivityType | Unset): Type of user activity
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -170,7 +154,6 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         days=days,
-        activity_type=activity_type,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -182,18 +165,16 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     days: int | Unset = 365,
-    activity_type: ActivityType | Unset = UNSET,
 ) -> Error401 | Error500 | GetUserActivityHeatmapResponse200 | None:
     """Get activity heatmap data
 
-     Returns daily activity activityByDay for the authenticated user, grouped by date.
-    Designed for rendering a GitHub-style contribution heatmap.
+     Returns daily activity counts for the authenticated user, grouped by date and activity type.
+    Each day contains per-type counts that can be summed or filtered client-side.
 
     **Permissions:** Session authentication (cookie-based).
 
     Args:
         days (int | Unset):  Default: 365.
-        activity_type (ActivityType | Unset): Type of user activity
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -207,6 +188,5 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             days=days,
-            activity_type=activity_type,
         )
     ).parsed

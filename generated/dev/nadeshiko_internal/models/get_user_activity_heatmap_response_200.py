@@ -19,8 +19,8 @@ T = TypeVar("T", bound="GetUserActivityHeatmapResponse200")
 class GetUserActivityHeatmapResponse200:
     """
     Attributes:
-        activity_by_day (GetUserActivityHeatmapResponse200ActivityByDay): Map of YYYY-MM-DD date strings to activity
-            activityByDay
+        activity_by_day (GetUserActivityHeatmapResponse200ActivityByDay): Map of YYYY-MM-DD date strings to per-type
+            activity counts
     """
 
     activity_by_day: GetUserActivityHeatmapResponse200ActivityByDay

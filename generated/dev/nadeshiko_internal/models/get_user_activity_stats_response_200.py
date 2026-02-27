@@ -23,6 +23,7 @@ class GetUserActivityStatsResponse200:
         total_exports (int):
         total_plays (int):
         total_list_adds (int):
+        total_shares (int):
         top_media (list[GetUserActivityStatsResponse200TopMediaItem]):
     """
 
@@ -30,6 +31,7 @@ class GetUserActivityStatsResponse200:
     total_exports: int
     total_plays: int
     total_list_adds: int
+    total_shares: int
     top_media: list[GetUserActivityStatsResponse200TopMediaItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -41,6 +43,8 @@ class GetUserActivityStatsResponse200:
         total_plays = self.total_plays
 
         total_list_adds = self.total_list_adds
+
+        total_shares = self.total_shares
 
         top_media = []
         for top_media_item_data in self.top_media:
@@ -55,6 +59,7 @@ class GetUserActivityStatsResponse200:
                 "totalExports": total_exports,
                 "totalPlays": total_plays,
                 "totalListAdds": total_list_adds,
+                "totalShares": total_shares,
                 "topMedia": top_media,
             }
         )
@@ -76,6 +81,8 @@ class GetUserActivityStatsResponse200:
 
         total_list_adds = d.pop("totalListAdds")
 
+        total_shares = d.pop("totalShares")
+
         top_media = []
         _top_media = d.pop("topMedia")
         for top_media_item_data in _top_media:
@@ -90,6 +97,7 @@ class GetUserActivityStatsResponse200:
             total_exports=total_exports,
             total_plays=total_plays,
             total_list_adds=total_list_adds,
+            total_shares=total_shares,
             top_media=top_media,
         )
 
