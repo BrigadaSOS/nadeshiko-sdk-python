@@ -19,6 +19,7 @@ class Character:
 
     Attributes:
         id (int): Internal character ID Example: 1.
+        public_id (str): Public identifier for the character (use this in public URLs) Example: V1StGXR8_Z5d.
         external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
         name_ja (str): Japanese name of the character Example: 真城最高.
         name_en (str): English name of the character Example: Moritaka Mashiro.
@@ -26,6 +27,7 @@ class Character:
     """
 
     id: int
+    public_id: str
     external_ids: ExternalId
     name_ja: str
     name_en: str
@@ -34,6 +36,8 @@ class Character:
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        public_id = self.public_id
 
         external_ids = self.external_ids.to_dict()
 
@@ -48,6 +52,7 @@ class Character:
         field_dict.update(
             {
                 "id": id,
+                "publicId": public_id,
                 "externalIds": external_ids,
                 "nameJa": name_ja,
                 "nameEn": name_en,
@@ -64,6 +69,8 @@ class Character:
         d = dict(src_dict)
         id = d.pop("id")
 
+        public_id = d.pop("publicId")
+
         external_ids = ExternalId.from_dict(d.pop("externalIds"))
 
         name_ja = d.pop("nameJa")
@@ -74,6 +81,7 @@ class Character:
 
         character = cls(
             id=id,
+            public_id=public_id,
             external_ids=external_ids,
             name_ja=name_ja,
             name_en=name_en,

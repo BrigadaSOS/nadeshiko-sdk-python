@@ -24,7 +24,8 @@ class Media:
     """Media entry with full metadata
 
     Attributes:
-        id (int): Unique identifier for the media Example: 7674.
+        id (int): Internal unique identifier for the media Example: 7674.
+        public_id (str): Public identifier for the media (use this in public URLs) Example: V1StGXR8_Z5d.
         external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
@@ -47,6 +48,7 @@ class Media:
     """
 
     id: int
+    public_id: str
     external_ids: ExternalId
     name_ja: str
     name_romaji: str
@@ -69,6 +71,8 @@ class Media:
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        public_id = self.public_id
 
         external_ids = self.external_ids.to_dict()
 
@@ -122,6 +126,7 @@ class Media:
         field_dict.update(
             {
                 "id": id,
+                "publicId": public_id,
                 "externalIds": external_ids,
                 "nameJa": name_ja,
                 "nameRomaji": name_romaji,
@@ -154,6 +159,8 @@ class Media:
 
         d = dict(src_dict)
         id = d.pop("id")
+
+        public_id = d.pop("publicId")
 
         external_ids = ExternalId.from_dict(d.pop("externalIds"))
 
@@ -215,6 +222,7 @@ class Media:
 
         media = cls(
             id=id,
+            public_id=public_id,
             external_ids=external_ids,
             name_ja=name_ja,
             name_romaji=name_romaji,

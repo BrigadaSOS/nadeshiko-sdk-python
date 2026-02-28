@@ -100,9 +100,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Update segment by UUID
+    """Update segment by UUID or publicId
 
-     Updates an existing segment identified by its UUID. Performs the UUID→segment lookup internally,
+     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
     then applies the update. Only provided fields will be updated.
 
     **Permissions:** `UPDATE_MEDIA`
@@ -137,9 +137,9 @@ def sync(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Update segment by UUID
+    """Update segment by UUID or publicId
 
-     Updates an existing segment identified by its UUID. Performs the UUID→segment lookup internally,
+     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
     then applies the update. Only provided fields will be updated.
 
     **Permissions:** `UPDATE_MEDIA`
@@ -169,9 +169,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Update segment by UUID
+    """Update segment by UUID or publicId
 
-     Updates an existing segment identified by its UUID. Performs the UUID→segment lookup internally,
+     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
     then applies the update. Only provided fields will be updated.
 
     **Permissions:** `UPDATE_MEDIA`
@@ -204,9 +204,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Update segment by UUID
+    """Update segment by UUID or publicId
 
-     Updates an existing segment identified by its UUID. Performs the UUID→segment lookup internally,
+     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
     then applies the update. Only provided fields will be updated.
 
     **Permissions:** `UPDATE_MEDIA`

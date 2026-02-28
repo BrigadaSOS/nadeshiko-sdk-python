@@ -108,9 +108,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Get segment by UUID
+    """Get segment by UUID or publicId
 
-     Returns a specific segment by its UUID. A shortcut alternative to the nested
+     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
@@ -148,9 +148,9 @@ def sync(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Get segment by UUID
+    """Get segment by UUID or publicId
 
-     Returns a specific segment by its UUID. A shortcut alternative to the nested
+     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
@@ -183,9 +183,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Get segment by UUID
+    """Get segment by UUID or publicId
 
-     Returns a specific segment by its UUID. A shortcut alternative to the nested
+     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
@@ -221,9 +221,9 @@ async def asyncio(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Get segment by UUID
+    """Get segment by UUID or publicId
 
-     Returns a specific segment by its UUID. A shortcut alternative to the nested
+     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields

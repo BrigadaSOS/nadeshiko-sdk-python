@@ -31,6 +31,8 @@ class SegmentInternal:
         Attributes:
             id (int): Numeric identifier for the segment Example: 120045.
             uuid (str): Unique identifier for the segment Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+            public_id (str): Public identifier for the segment (use this instead of uuid in public URLs) Example:
+                V1StGXR8_Z5d.
             position (int): Position of the segment within the episode Example: 1133.
             status (SegmentStatus): Segment status Example: ACTIVE.
             start_time_ms (int): Start time of the segment in milliseconds from the beginning of the episode Example:
@@ -54,6 +56,7 @@ class SegmentInternal:
 
     id: int
     uuid: str
+    public_id: str
     position: int
     status: SegmentStatus
     start_time_ms: int
@@ -81,6 +84,8 @@ class SegmentInternal:
         id = self.id
 
         uuid = self.uuid
+
+        public_id = self.public_id
 
         position = self.position
 
@@ -142,6 +147,7 @@ class SegmentInternal:
             {
                 "id": id,
                 "uuid": uuid,
+                "publicId": public_id,
                 "position": position,
                 "status": status,
                 "startTimeMs": start_time_ms,
@@ -183,6 +189,8 @@ class SegmentInternal:
         id = d.pop("id")
 
         uuid = d.pop("uuid")
+
+        public_id = d.pop("publicId")
 
         position = d.pop("position")
 
@@ -270,6 +278,7 @@ class SegmentInternal:
         segment_internal = cls(
             id=id,
             uuid=uuid,
+            public_id=public_id,
             position=position,
             status=status,
             start_time_ms=start_time_ms,
