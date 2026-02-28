@@ -16,11 +16,11 @@ class MediaFilterItem:
     """A media filter entry with optional episode restriction
 
     Attributes:
-        media_id (int): Media ID to filter Example: 123.
+        media_id (str): Media identifier (publicId or AniList external ID) Example: abc123xyz.
         episodes (list[int] | Unset): Specific episodes (omit for all episodes) Example: [1, 2].
     """
 
-    media_id: int
+    media_id: str
     episodes: list[int] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

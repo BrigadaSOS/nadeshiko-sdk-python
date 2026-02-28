@@ -3,7 +3,6 @@ from __future__ import annotations
 import datetime
 from collections.abc import Mapping
 from typing import Any, TypeVar, cast
-from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -26,7 +25,7 @@ class UserExportCollection:
         segment_count (int): Number of segments in the collection Example: 42.
         created_at (datetime.datetime): When the collection was created
         updated_at (datetime.datetime | None): When the collection was last updated
-        segment_uuids (list[UUID]): Segment UUIDs in saved order
+        segment_ids (list[int]): Segment IDs in saved order
     """
 
     id: int
@@ -36,7 +35,7 @@ class UserExportCollection:
     segment_count: int
     created_at: datetime.datetime
     updated_at: datetime.datetime | None
-    segment_uuids: list[UUID]
+    segment_ids: list[int]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -58,10 +57,7 @@ class UserExportCollection:
         else:
             updated_at = self.updated_at
 
-        segment_uuids = []
-        for segment_uuids_item_data in self.segment_uuids:
-            segment_uuids_item = str(segment_uuids_item_data)
-            segment_uuids.append(segment_uuids_item)
+        segment_ids = self.segment_ids
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -74,7 +70,7 @@ class UserExportCollection:
                 "segmentCount": segment_count,
                 "createdAt": created_at,
                 "updatedAt": updated_at,
-                "segmentUuids": segment_uuids,
+                "segmentIds": segment_ids,
             }
         )
 
@@ -110,12 +106,7 @@ class UserExportCollection:
 
         updated_at = _parse_updated_at(d.pop("updatedAt"))
 
-        segment_uuids = []
-        _segment_uuids = d.pop("segmentUuids")
-        for segment_uuids_item_data in _segment_uuids:
-            segment_uuids_item = UUID(segment_uuids_item_data)
-
-            segment_uuids.append(segment_uuids_item)
+        segment_ids = cast(list[int], d.pop("segmentIds"))
 
         user_export_collection = cls(
             id=id,
@@ -125,7 +116,7 @@ class UserExportCollection:
             segment_count=segment_count,
             created_at=created_at,
             updated_at=updated_at,
-            segment_uuids=segment_uuids,
+            segment_ids=segment_ids,
         )
 
         user_export_collection.additional_properties = d

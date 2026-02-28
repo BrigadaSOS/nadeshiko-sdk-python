@@ -19,18 +19,22 @@ class MediaSearchStats:
 
     Attributes:
         media_id (int): Media identifier (look up full details in includes.media) Example: 110316.
+        public_id (str): Public identifier for use in URLs and filters Example: abc123xyz.
         match_count (int): Number of matching segments found in this media Example: 42.
         episode_hits (MediaSearchStatsEpisodeHits): Mapping of episode numbers to segment hit counts Example: {'1': 5,
             '2': 8, '3': 3}.
     """
 
     media_id: int
+    public_id: str
     match_count: int
     episode_hits: MediaSearchStatsEpisodeHits
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         media_id = self.media_id
+
+        public_id = self.public_id
 
         match_count = self.match_count
 
@@ -41,6 +45,7 @@ class MediaSearchStats:
         field_dict.update(
             {
                 "mediaId": media_id,
+                "publicId": public_id,
                 "matchCount": match_count,
                 "episodeHits": episode_hits,
             }
@@ -55,12 +60,15 @@ class MediaSearchStats:
         d = dict(src_dict)
         media_id = d.pop("mediaId")
 
+        public_id = d.pop("publicId")
+
         match_count = d.pop("matchCount")
 
         episode_hits = MediaSearchStatsEpisodeHits.from_dict(d.pop("episodeHits"))
 
         media_search_stats = cls(
             media_id=media_id,
+            public_id=public_id,
             match_count=match_count,
             episode_hits=episode_hits,
         )

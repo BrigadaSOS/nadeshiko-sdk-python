@@ -17,14 +17,14 @@ class TrackUserActivityBody:
     """
     Attributes:
         activity_type (TrackUserActivityBodyActivityType):
-        segment_uuid (str | Unset):
+        segment_id (int | Unset):
         media_id (int | Unset):
         media_name (str | Unset):
         japanese_text (str | Unset):
     """
 
     activity_type: TrackUserActivityBodyActivityType
-    segment_uuid: str | Unset = UNSET
+    segment_id: int | Unset = UNSET
     media_id: int | Unset = UNSET
     media_name: str | Unset = UNSET
     japanese_text: str | Unset = UNSET
@@ -33,7 +33,7 @@ class TrackUserActivityBody:
     def to_dict(self) -> dict[str, Any]:
         activity_type = self.activity_type.value
 
-        segment_uuid = self.segment_uuid
+        segment_id = self.segment_id
 
         media_id = self.media_id
 
@@ -48,8 +48,8 @@ class TrackUserActivityBody:
                 "activityType": activity_type,
             }
         )
-        if segment_uuid is not UNSET:
-            field_dict["segmentUuid"] = segment_uuid
+        if segment_id is not UNSET:
+            field_dict["segmentId"] = segment_id
         if media_id is not UNSET:
             field_dict["mediaId"] = media_id
         if media_name is not UNSET:
@@ -64,7 +64,7 @@ class TrackUserActivityBody:
         d = dict(src_dict)
         activity_type = TrackUserActivityBodyActivityType(d.pop("activityType"))
 
-        segment_uuid = d.pop("segmentUuid", UNSET)
+        segment_id = d.pop("segmentId", UNSET)
 
         media_id = d.pop("mediaId", UNSET)
 
@@ -74,7 +74,7 @@ class TrackUserActivityBody:
 
         track_user_activity_body = cls(
             activity_type=activity_type,
-            segment_uuid=segment_uuid,
+            segment_id=segment_id,
             media_id=media_id,
             media_name=media_name,
             japanese_text=japanese_text,

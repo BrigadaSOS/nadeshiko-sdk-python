@@ -1,30 +1,30 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.report_target_segment_type import ReportTargetSegmentType
+from ..models.report_target_segment_input_type import ReportTargetSegmentInputType
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="ReportTargetSegment")
+T = TypeVar("T", bound="ReportTargetSegmentInput")
 
 
 @_attrs_define
-class ReportTargetSegment:
+class ReportTargetSegmentInput:
     """
     Attributes:
-        type_ (ReportTargetSegmentType): Report target type Example: SEGMENT.
+        type_ (ReportTargetSegmentInputType): Report target type Example: SEGMENT.
         media_id (int): Media ID this report targets Example: 42.
-        segment_id (int | None): Segment ID Example: 42.
+        segment_id (str): Segment public ID or UUID Example: abc123def456.
         episode_number (int | Unset): Episode number containing the segment Example: 5.
     """
 
-    type_: ReportTargetSegmentType
+    type_: ReportTargetSegmentInputType
     media_id: int
-    segment_id: int | None
+    segment_id: str
     episode_number: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -33,7 +33,6 @@ class ReportTargetSegment:
 
         media_id = self.media_id
 
-        segment_id: int | None
         segment_id = self.segment_id
 
         episode_number = self.episode_number
@@ -55,28 +54,23 @@ class ReportTargetSegment:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        type_ = ReportTargetSegmentType(d.pop("type"))
+        type_ = ReportTargetSegmentInputType(d.pop("type"))
 
         media_id = d.pop("mediaId")
 
-        def _parse_segment_id(data: object) -> int | None:
-            if data is None:
-                return data
-            return cast(int | None, data)
-
-        segment_id = _parse_segment_id(d.pop("segmentId"))
+        segment_id = d.pop("segmentId")
 
         episode_number = d.pop("episodeNumber", UNSET)
 
-        report_target_segment = cls(
+        report_target_segment_input = cls(
             type_=type_,
             media_id=media_id,
             segment_id=segment_id,
             episode_number=episode_number,
         )
 
-        report_target_segment.additional_properties = d
-        return report_target_segment
+        report_target_segment_input.additional_properties = d
+        return report_target_segment_input
 
     @property
     def additional_keys(self) -> list[str]:

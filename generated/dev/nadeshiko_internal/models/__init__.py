@@ -181,6 +181,8 @@ from .report_target_episode_type import ReportTargetEpisodeType
 from .report_target_media import ReportTargetMedia
 from .report_target_media_type import ReportTargetMediaType
 from .report_target_segment import ReportTargetSegment
+from .report_target_segment_input import ReportTargetSegmentInput
+from .report_target_segment_input_type import ReportTargetSegmentInputType
 from .report_target_segment_type import ReportTargetSegmentType
 from .retry_admin_queue_failed_queue_name import RetryAdminQueueFailedQueueName
 from .retry_admin_queue_failed_response_200 import RetryAdminQueueFailedResponse200
@@ -446,6 +448,8 @@ __all__ = (
     "ReportTargetMedia",
     "ReportTargetMediaType",
     "ReportTargetSegment",
+    "ReportTargetSegmentInput",
+    "ReportTargetSegmentInputType",
     "ReportTargetSegmentType",
     "RetryAdminQueueFailedQueueName",
     "RetryAdminQueueFailedResponse200",

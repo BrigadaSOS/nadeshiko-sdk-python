@@ -18,7 +18,7 @@ from ...types import Response
 
 def _get_kwargs(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     body: UpdateCollectionSegmentBody,
 ) -> dict[str, Any]:
@@ -26,9 +26,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/collections/{id}/segments/{uuid}".format(
+        "url": "/v1/collections/{id}/segments/{segment_id}".format(
             id=quote(str(id), safe=""),
-            uuid=quote(str(uuid), safe=""),
+            segment_id=quote(str(segment_id), safe=""),
         ),
     }
 
@@ -96,7 +96,7 @@ def _build_response(
 
 def sync_detailed(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionSegmentBody,
@@ -107,7 +107,7 @@ def sync_detailed(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
     Raises:
@@ -120,7 +120,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
-        uuid=uuid,
+        segment_id=segment_id,
         body=body,
     )
 
@@ -133,7 +133,7 @@ def sync_detailed(
 
 def sync(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionSegmentBody,
@@ -144,7 +144,7 @@ def sync(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
     Raises:
@@ -157,7 +157,7 @@ def sync(
 
     return sync_detailed(
         id=id,
-        uuid=uuid,
+        segment_id=segment_id,
         client=client,
         body=body,
     ).parsed
@@ -165,7 +165,7 @@ def sync(
 
 async def asyncio_detailed(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionSegmentBody,
@@ -176,7 +176,7 @@ async def asyncio_detailed(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
     Raises:
@@ -189,7 +189,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
-        uuid=uuid,
+        segment_id=segment_id,
         body=body,
     )
 
@@ -200,7 +200,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionSegmentBody,
@@ -211,7 +211,7 @@ async def asyncio(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
     Raises:
@@ -225,7 +225,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             id=id,
-            uuid=uuid,
+            segment_id=segment_id,
             client=client,
             body=body,
         )

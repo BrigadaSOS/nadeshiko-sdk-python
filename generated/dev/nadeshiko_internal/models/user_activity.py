@@ -19,7 +19,7 @@ class UserActivity:
     Attributes:
         id (int):
         activity_type (ActivityType): Type of user activity
-        segment_uuid (None | str):
+        segment_id (int | None):
         media_id (int | None):
         search_query (None | str):
         media_name (None | str):
@@ -29,7 +29,7 @@ class UserActivity:
 
     id: int
     activity_type: ActivityType
-    segment_uuid: None | str
+    segment_id: int | None
     media_id: int | None
     search_query: None | str
     media_name: None | str
@@ -42,8 +42,8 @@ class UserActivity:
 
         activity_type = self.activity_type.value
 
-        segment_uuid: None | str
-        segment_uuid = self.segment_uuid
+        segment_id: int | None
+        segment_id = self.segment_id
 
         media_id: int | None
         media_id = self.media_id
@@ -65,7 +65,7 @@ class UserActivity:
             {
                 "id": id,
                 "activityType": activity_type,
-                "segmentUuid": segment_uuid,
+                "segmentId": segment_id,
                 "mediaId": media_id,
                 "searchQuery": search_query,
                 "mediaName": media_name,
@@ -83,12 +83,12 @@ class UserActivity:
 
         activity_type = ActivityType(d.pop("activityType"))
 
-        def _parse_segment_uuid(data: object) -> None | str:
+        def _parse_segment_id(data: object) -> int | None:
             if data is None:
                 return data
-            return cast(None | str, data)
+            return cast(int | None, data)
 
-        segment_uuid = _parse_segment_uuid(d.pop("segmentUuid"))
+        segment_id = _parse_segment_id(d.pop("segmentId"))
 
         def _parse_media_id(data: object) -> int | None:
             if data is None:
@@ -123,7 +123,7 @@ class UserActivity:
         user_activity = cls(
             id=id,
             activity_type=activity_type,
-            segment_uuid=segment_uuid,
+            segment_id=segment_id,
             media_id=media_id,
             search_query=search_query,
             media_name=media_name,

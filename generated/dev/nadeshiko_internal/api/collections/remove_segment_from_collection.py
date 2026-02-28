@@ -17,14 +17,14 @@ from ...types import Response
 
 def _get_kwargs(
     id: int,
-    uuid: str,
+    segment_id: int,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/collections/{id}/segments/{uuid}".format(
+        "url": "/v1/collections/{id}/segments/{segment_id}".format(
             id=quote(str(id), safe=""),
-            uuid=quote(str(uuid), safe=""),
+            segment_id=quote(str(segment_id), safe=""),
         ),
     }
 
@@ -87,7 +87,7 @@ def _build_response(
 
 def sync_detailed(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -97,7 +97,7 @@ def sync_detailed(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,7 +109,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
-        uuid=uuid,
+        segment_id=segment_id,
     )
 
     response = client.get_httpx_client().request(
@@ -121,7 +121,7 @@ def sync_detailed(
 
 def sync(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -131,7 +131,7 @@ def sync(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,14 +143,14 @@ def sync(
 
     return sync_detailed(
         id=id,
-        uuid=uuid,
+        segment_id=segment_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -160,7 +160,7 @@ async def asyncio_detailed(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -172,7 +172,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
-        uuid=uuid,
+        segment_id=segment_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -182,7 +182,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     id: int,
-    uuid: str,
+    segment_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -192,7 +192,7 @@ async def asyncio(
 
     Args:
         id (int):  Example: 123.
-        uuid (str):  Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (int):  Example: 456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -205,7 +205,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             id=id,
-            uuid=uuid,
+            segment_id=segment_id,
             client=client,
         )
     ).parsed

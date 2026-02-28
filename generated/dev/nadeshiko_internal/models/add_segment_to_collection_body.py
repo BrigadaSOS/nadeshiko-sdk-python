@@ -15,16 +15,16 @@ T = TypeVar("T", bound="AddSegmentToCollectionBody")
 class AddSegmentToCollectionBody:
     """
     Attributes:
-        segment_uuid (str): UUID of the segment to add Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
+        segment_id (str): Public ID or UUID of the segment to add Example: abc123def456.
         note (str | Unset): Optional annotation
     """
 
-    segment_uuid: str
+    segment_id: str
     note: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        segment_uuid = self.segment_uuid
+        segment_id = self.segment_id
 
         note = self.note
 
@@ -32,7 +32,7 @@ class AddSegmentToCollectionBody:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "segmentUuid": segment_uuid,
+                "segmentId": segment_id,
             }
         )
         if note is not UNSET:
@@ -43,12 +43,12 @@ class AddSegmentToCollectionBody:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        segment_uuid = d.pop("segmentUuid")
+        segment_id = d.pop("segmentId")
 
         note = d.pop("note", UNSET)
 
         add_segment_to_collection_body = cls(
-            segment_uuid=segment_uuid,
+            segment_id=segment_id,
             note=note,
         )
 

@@ -11,7 +11,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.report_target_media import ReportTargetMedia
-    from ..models.report_target_segment import ReportTargetSegment
+    from ..models.report_target_segment_input import ReportTargetSegmentInput
 
 
 T = TypeVar("T", bound="CreateReportRequest")
@@ -21,13 +21,13 @@ T = TypeVar("T", bound="CreateReportRequest")
 class CreateReportRequest:
     """
     Attributes:
-        target (ReportTargetMedia | ReportTargetSegment):
+        target (ReportTargetMedia | ReportTargetSegmentInput):
         reason (CreateReportRequestReason): Reason for the report Example: WRONG_TRANSLATION.
         description (str | Unset): Optional description with additional details Example: The translation doesn't match
             the spoken Japanese.
     """
 
-    target: ReportTargetMedia | ReportTargetSegment
+    target: ReportTargetMedia | ReportTargetSegmentInput
     reason: CreateReportRequestReason
     description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -61,11 +61,11 @@ class CreateReportRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.report_target_media import ReportTargetMedia
-        from ..models.report_target_segment import ReportTargetSegment
+        from ..models.report_target_segment_input import ReportTargetSegmentInput
 
         d = dict(src_dict)
 
-        def _parse_target(data: object) -> ReportTargetMedia | ReportTargetSegment:
+        def _parse_target(data: object) -> ReportTargetMedia | ReportTargetSegmentInput:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
@@ -76,7 +76,7 @@ class CreateReportRequest:
                 pass
             if not isinstance(data, dict):
                 raise TypeError()
-            componentsschemas_user_report_target_type_1 = ReportTargetSegment.from_dict(data)
+            componentsschemas_user_report_target_type_1 = ReportTargetSegmentInput.from_dict(data)
 
             return componentsschemas_user_report_target_type_1
 

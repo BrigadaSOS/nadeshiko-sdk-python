@@ -25,7 +25,7 @@ def _get_kwargs(
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
-    target_segment_uuid: str | Unset = UNSET,
+    target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
@@ -57,7 +57,7 @@ def _get_kwargs(
 
     params["target.episodeNumber"] = target_episode_number
 
-    params["target.segmentUuid"] = target_segment_uuid
+    params["target.segmentId"] = target_segment_id
 
     params["auditRunId"] = audit_run_id
 
@@ -127,7 +127,7 @@ def sync_detailed(
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
-    target_segment_uuid: str | Unset = UNSET,
+    target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
@@ -145,7 +145,7 @@ def sync_detailed(
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
-        target_segment_uuid (str | Unset):
+        target_segment_id (int | Unset):
         audit_run_id (int | Unset):
 
     Raises:
@@ -164,7 +164,7 @@ def sync_detailed(
         target_type=target_type,
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
-        target_segment_uuid=target_segment_uuid,
+        target_segment_id=target_segment_id,
         audit_run_id=audit_run_id,
     )
 
@@ -185,7 +185,7 @@ def sync(
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
-    target_segment_uuid: str | Unset = UNSET,
+    target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
@@ -203,7 +203,7 @@ def sync(
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
-        target_segment_uuid (str | Unset):
+        target_segment_id (int | Unset):
         audit_run_id (int | Unset):
 
     Raises:
@@ -223,7 +223,7 @@ def sync(
         target_type=target_type,
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
-        target_segment_uuid=target_segment_uuid,
+        target_segment_id=target_segment_id,
         audit_run_id=audit_run_id,
     ).parsed
 
@@ -238,7 +238,7 @@ async def asyncio_detailed(
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
-    target_segment_uuid: str | Unset = UNSET,
+    target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
@@ -256,7 +256,7 @@ async def asyncio_detailed(
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
-        target_segment_uuid (str | Unset):
+        target_segment_id (int | Unset):
         audit_run_id (int | Unset):
 
     Raises:
@@ -275,7 +275,7 @@ async def asyncio_detailed(
         target_type=target_type,
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
-        target_segment_uuid=target_segment_uuid,
+        target_segment_id=target_segment_id,
         audit_run_id=audit_run_id,
     )
 
@@ -294,7 +294,7 @@ async def asyncio(
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
-    target_segment_uuid: str | Unset = UNSET,
+    target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
@@ -312,7 +312,7 @@ async def asyncio(
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
-        target_segment_uuid (str | Unset):
+        target_segment_id (int | Unset):
         audit_run_id (int | Unset):
 
     Raises:
@@ -333,7 +333,7 @@ async def asyncio(
             target_type=target_type,
             target_media_id=target_media_id,
             target_episode_number=target_episode_number,
-            target_segment_uuid=target_segment_uuid,
+            target_segment_id=target_segment_id,
             audit_run_id=audit_run_id,
         )
     ).parsed
