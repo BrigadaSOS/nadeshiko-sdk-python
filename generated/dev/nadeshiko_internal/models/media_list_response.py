@@ -8,6 +8,7 @@ from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
     from ..models.media import Media
+    from ..models.media_list_response_stats import MediaListResponseStats
     from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
@@ -20,10 +21,12 @@ class MediaListResponse:
     Attributes:
         media (list[Media]):
         pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+        stats (MediaListResponseStats):
     """
 
     media: list[Media]
     pagination: OpaqueCursorPagination
+    stats: MediaListResponseStats
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,12 +37,15 @@ class MediaListResponse:
 
         pagination = self.pagination.to_dict()
 
+        stats = self.stats.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "media": media,
                 "pagination": pagination,
+                "stats": stats,
             }
         )
 
@@ -48,6 +54,7 @@ class MediaListResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media import Media
+        from ..models.media_list_response_stats import MediaListResponseStats
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
         d = dict(src_dict)
@@ -60,9 +67,12 @@ class MediaListResponse:
 
         pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
+        stats = MediaListResponseStats.from_dict(d.pop("stats"))
+
         media_list_response = cls(
             media=media,
             pagination=pagination,
+            stats=stats,
         )
 
         media_list_response.additional_properties = d

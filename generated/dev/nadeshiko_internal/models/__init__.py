@@ -156,6 +156,7 @@ from .media_create_request_storage import MediaCreateRequestStorage
 from .media_filter_item import MediaFilterItem
 from .media_include_expansion import MediaIncludeExpansion
 from .media_list_response import MediaListResponse
+from .media_list_response_stats import MediaListResponseStats
 from .media_search_stats import MediaSearchStats
 from .media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
 from .media_update_request import MediaUpdateRequest
@@ -423,6 +424,7 @@ __all__ = (
     "MediaFilterItem",
     "MediaIncludeExpansion",
     "MediaListResponse",
+    "MediaListResponseStats",
     "MediaSearchStats",
     "MediaSearchStatsEpisodeHits",
     "MediaUpdateRequest",
