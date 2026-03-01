@@ -17,8 +17,8 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     body: UpdateSeriesMediaBody,
 ) -> dict[str, Any]:
@@ -95,8 +95,8 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesMediaBody,
@@ -108,8 +108,8 @@ def sync_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
         body (UpdateSeriesMediaBody):
 
     Raises:
@@ -134,8 +134,8 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesMediaBody,
@@ -147,8 +147,8 @@ def sync(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
         body (UpdateSeriesMediaBody):
 
     Raises:
@@ -168,8 +168,8 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesMediaBody,
@@ -181,8 +181,8 @@ async def asyncio_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
         body (UpdateSeriesMediaBody):
 
     Raises:
@@ -205,8 +205,8 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesMediaBody,
@@ -218,8 +218,8 @@ async def asyncio(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
         body (UpdateSeriesMediaBody):
 
     Raises:

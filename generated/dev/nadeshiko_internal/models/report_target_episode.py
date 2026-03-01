@@ -16,12 +16,12 @@ class ReportTargetEpisode:
     """
     Attributes:
         type_ (ReportTargetEpisodeType): Report target type Example: EPISODE.
-        media_id (int): Media ID this report targets Example: 42.
+        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
         episode_number (int): Episode number this report targets Example: 5.
     """
 
     type_: ReportTargetEpisodeType
-    media_id: int
+    media_id: str
     episode_number: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

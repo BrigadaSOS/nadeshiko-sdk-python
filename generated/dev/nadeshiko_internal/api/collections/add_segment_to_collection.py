@@ -17,7 +17,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     *,
     body: AddSegmentToCollectionBody,
 ) -> dict[str, Any]:
@@ -93,7 +93,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: AddSegmentToCollectionBody,
@@ -103,7 +103,7 @@ def sync_detailed(
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (AddSegmentToCollectionBody):
 
     Raises:
@@ -127,7 +127,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: AddSegmentToCollectionBody,
@@ -137,7 +137,7 @@ def sync(
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (AddSegmentToCollectionBody):
 
     Raises:
@@ -156,7 +156,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: AddSegmentToCollectionBody,
@@ -166,7 +166,7 @@ async def asyncio_detailed(
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (AddSegmentToCollectionBody):
 
     Raises:
@@ -188,7 +188,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: AddSegmentToCollectionBody,
@@ -198,7 +198,7 @@ async def asyncio(
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (AddSegmentToCollectionBody):
 
     Raises:

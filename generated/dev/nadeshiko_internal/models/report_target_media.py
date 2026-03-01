@@ -16,11 +16,11 @@ class ReportTargetMedia:
     """
     Attributes:
         type_ (ReportTargetMediaType): Report target type Example: MEDIA.
-        media_id (int): Media ID this report targets Example: 42.
+        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
     """
 
     type_: ReportTargetMediaType
-    media_id: int
+    media_id: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

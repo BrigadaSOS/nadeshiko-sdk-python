@@ -17,7 +17,7 @@ from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    media_id: int,
+    media_id: str,
     *,
     take: int | Unset = 50,
     cursor: str | Unset = UNSET,
@@ -100,7 +100,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -115,7 +115,7 @@ def sync_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -141,7 +141,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -154,7 +154,7 @@ def sync(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -175,7 +175,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -190,7 +190,7 @@ async def asyncio_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -214,7 +214,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -227,7 +227,7 @@ async def asyncio(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 

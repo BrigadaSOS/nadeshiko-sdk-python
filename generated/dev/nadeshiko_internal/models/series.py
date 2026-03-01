@@ -15,12 +15,14 @@ class Series:
 
     Attributes:
         id (int): Series ID Example: 1.
+        public_id (str): Public identifier for the series Example: V1StGXR8_Z5d.
         name_ja (str): Japanese name of the series Example: バクマン。シリーズ.
         name_romaji (str): Romaji name of the series Example: Bakuman. Series.
         name_en (str): English name of the series Example: Bakuman Series.
     """
 
     id: int
+    public_id: str
     name_ja: str
     name_romaji: str
     name_en: str
@@ -28,6 +30,8 @@ class Series:
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        public_id = self.public_id
 
         name_ja = self.name_ja
 
@@ -40,6 +44,7 @@ class Series:
         field_dict.update(
             {
                 "id": id,
+                "publicId": public_id,
                 "nameJa": name_ja,
                 "nameRomaji": name_romaji,
                 "nameEn": name_en,
@@ -53,6 +58,8 @@ class Series:
         d = dict(src_dict)
         id = d.pop("id")
 
+        public_id = d.pop("publicId")
+
         name_ja = d.pop("nameJa")
 
         name_romaji = d.pop("nameRomaji")
@@ -61,6 +68,7 @@ class Series:
 
         series = cls(
             id=id,
+            public_id=public_id,
             name_ja=name_ja,
             name_romaji=name_romaji,
             name_en=name_en,

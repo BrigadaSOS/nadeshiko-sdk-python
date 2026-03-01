@@ -17,7 +17,7 @@ from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     *,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
@@ -102,7 +102,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
@@ -115,7 +115,7 @@ def sync_detailed(
      Returns a collection with paginated segments and their search result data.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
@@ -141,7 +141,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
@@ -154,7 +154,7 @@ def sync(
      Returns a collection with paginated segments and their search result data.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
@@ -175,7 +175,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
@@ -188,7 +188,7 @@ async def asyncio_detailed(
      Returns a collection with paginated segments and their search result data.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
@@ -212,7 +212,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
@@ -225,7 +225,7 @@ async def asyncio(
      Returns a collection with paginated segments and their search result data.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 

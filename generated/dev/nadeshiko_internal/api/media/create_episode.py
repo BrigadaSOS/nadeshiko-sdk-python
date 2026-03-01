@@ -19,7 +19,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: int,
+    media_id: str,
     *,
     body: EpisodeCreateRequest,
 ) -> dict[str, Any]:
@@ -101,7 +101,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -113,7 +113,7 @@ def sync_detailed(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -137,7 +137,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -149,7 +149,7 @@ def sync(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -168,7 +168,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -180,7 +180,7 @@ async def asyncio_detailed(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -202,7 +202,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: int,
+    media_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -214,7 +214,7 @@ async def asyncio(
     **Permissions:** `ADD_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         body (EpisodeCreateRequest):
 
     Raises:

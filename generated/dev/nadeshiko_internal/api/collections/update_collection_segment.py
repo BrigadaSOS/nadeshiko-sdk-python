@@ -17,7 +17,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     body: UpdateCollectionSegmentBody,
@@ -95,7 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -106,7 +106,7 @@ def sync_detailed(
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
@@ -132,7 +132,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -143,7 +143,7 @@ def sync(
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
@@ -164,7 +164,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -175,7 +175,7 @@ async def asyncio_detailed(
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 
@@ -199,7 +199,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -210,7 +210,7 @@ async def asyncio(
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
         body (UpdateCollectionSegmentBody):
 

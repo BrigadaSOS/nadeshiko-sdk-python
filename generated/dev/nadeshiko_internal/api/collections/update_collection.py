@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     *,
     body: UpdateCollectionBody,
 ) -> dict[str, Any]:
@@ -95,7 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionBody,
@@ -105,7 +105,7 @@ def sync_detailed(
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateCollectionBody):
 
     Raises:
@@ -129,7 +129,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionBody,
@@ -139,7 +139,7 @@ def sync(
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateCollectionBody):
 
     Raises:
@@ -158,7 +158,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionBody,
@@ -168,7 +168,7 @@ async def asyncio_detailed(
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateCollectionBody):
 
     Raises:
@@ -190,7 +190,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateCollectionBody,
@@ -200,7 +200,7 @@ async def asyncio(
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateCollectionBody):
 
     Raises:

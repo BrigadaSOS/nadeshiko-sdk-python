@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -99,7 +99,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -113,7 +113,7 @@ def sync_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
         body (SegmentUpdateRequest): All fields are optional for partial updates
@@ -141,7 +141,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -155,7 +155,7 @@ def sync(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
         body (SegmentUpdateRequest): All fields are optional for partial updates
@@ -178,7 +178,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -192,7 +192,7 @@ async def asyncio_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
         body (SegmentUpdateRequest): All fields are optional for partial updates
@@ -218,7 +218,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -232,7 +232,7 @@ async def asyncio(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
         body (SegmentUpdateRequest): All fields are optional for partial updates

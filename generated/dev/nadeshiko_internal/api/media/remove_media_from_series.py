@@ -16,8 +16,8 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
@@ -86,8 +86,8 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -98,8 +98,8 @@ def sync_detailed(
     **Permissions:** `REMOVE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -122,8 +122,8 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -134,8 +134,8 @@ def sync(
     **Permissions:** `REMOVE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,8 +153,8 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -165,8 +165,8 @@ async def asyncio_detailed(
     **Permissions:** `REMOVE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -187,8 +187,8 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
-    media_id: int,
+    id: str,
+    media_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -199,8 +199,8 @@ async def asyncio(
     **Permissions:** `REMOVE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
-        media_id (int):  Example: 42.
+        id (str):  Example: V1StGXR8_Z5d.
+        media_id (str):  Example: abc123def456.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -41,6 +41,7 @@ class SegmentInternal:
             content_rating (ContentRating): Content rating level for the segment Example: SAFE.
             episode (int): Episode number this segment belongs to Example: 1.
             media_id (int): Media ID this segment belongs to Example: 7674.
+            media_public_id (str): Public ID of the media this segment belongs to Example: V1StGXR8_Z5d.
             text_ja (SegmentTextJa):
             text_en (SegmentTextEn):
             text_es (SegmentTextEs):
@@ -64,6 +65,7 @@ class SegmentInternal:
     content_rating: ContentRating
     episode: int
     media_id: int
+    media_public_id: str
     text_ja: SegmentTextJa
     text_en: SegmentTextEn
     text_es: SegmentTextEs
@@ -100,6 +102,8 @@ class SegmentInternal:
         episode = self.episode
 
         media_id = self.media_id
+
+        media_public_id = self.media_public_id
 
         text_ja = self.text_ja.to_dict()
 
@@ -155,6 +159,7 @@ class SegmentInternal:
                 "contentRating": content_rating,
                 "episode": episode,
                 "mediaId": media_id,
+                "mediaPublicId": media_public_id,
                 "textJa": text_ja,
                 "textEn": text_en,
                 "textEs": text_es,
@@ -205,6 +210,8 @@ class SegmentInternal:
         episode = d.pop("episode")
 
         media_id = d.pop("mediaId")
+
+        media_public_id = d.pop("mediaPublicId")
 
         text_ja = SegmentTextJa.from_dict(d.pop("textJa"))
 
@@ -286,6 +293,7 @@ class SegmentInternal:
             content_rating=content_rating,
             episode=episode,
             media_id=media_id,
+            media_public_id=media_public_id,
             text_ja=text_ja,
             text_en=text_en,
             text_es=text_es,

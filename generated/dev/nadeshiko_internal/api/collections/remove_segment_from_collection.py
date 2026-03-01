@@ -16,7 +16,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     segment_id: int,
 ) -> dict[str, Any]:
 
@@ -86,7 +86,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -96,7 +96,7 @@ def sync_detailed(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
 
     Raises:
@@ -120,7 +120,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -130,7 +130,7 @@ def sync(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
 
     Raises:
@@ -149,7 +149,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -159,7 +159,7 @@ async def asyncio_detailed(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
 
     Raises:
@@ -181,7 +181,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     segment_id: int,
     *,
     client: AuthenticatedClient,
@@ -191,7 +191,7 @@ async def asyncio(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
         segment_id (int):  Example: 456.
 
     Raises:

@@ -17,7 +17,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
@@ -88,7 +88,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[
@@ -100,7 +100,7 @@ def sync_detailed(
     Pages through all collection segments internally to compute statistics.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -122,7 +122,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SearchStatsResponse | None:
@@ -132,7 +132,7 @@ def sync(
     Pages through all collection segments internally to compute statistics.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,7 +149,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[
@@ -161,7 +161,7 @@ async def asyncio_detailed(
     Pages through all collection segments internally to compute statistics.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -181,7 +181,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SearchStatsResponse | None:
@@ -191,7 +191,7 @@ async def asyncio(
     Pages through all collection segments internally to compute statistics.
 
     Args:
-        id (int):  Example: 123.
+        id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

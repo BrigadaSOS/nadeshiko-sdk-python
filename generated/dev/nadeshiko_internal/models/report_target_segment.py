@@ -17,14 +17,14 @@ class ReportTargetSegment:
     """
     Attributes:
         type_ (ReportTargetSegmentType): Report target type Example: SEGMENT.
-        media_id (int): Media ID this report targets Example: 42.
-        segment_id (int | None): Segment ID Example: 42.
+        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
+        segment_id (None | str): Segment public ID or UUID Example: abc123xyz.
         episode_number (int | Unset): Episode number containing the segment Example: 5.
     """
 
     type_: ReportTargetSegmentType
-    media_id: int
-    segment_id: int | None
+    media_id: str
+    segment_id: None | str
     episode_number: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -33,7 +33,7 @@ class ReportTargetSegment:
 
         media_id = self.media_id
 
-        segment_id: int | None
+        segment_id: None | str
         segment_id = self.segment_id
 
         episode_number = self.episode_number
@@ -59,10 +59,10 @@ class ReportTargetSegment:
 
         media_id = d.pop("mediaId")
 
-        def _parse_segment_id(data: object) -> int | None:
+        def _parse_segment_id(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(int | None, data)
+            return cast(None | str, data)
 
         segment_id = _parse_segment_id(d.pop("segmentId"))
 

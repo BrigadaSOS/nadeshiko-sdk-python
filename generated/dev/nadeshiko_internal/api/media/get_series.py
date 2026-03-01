@@ -18,7 +18,7 @@ from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     *,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -103,7 +103,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -115,7 +115,7 @@ def sync_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
@@ -139,7 +139,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -151,7 +151,7 @@ def sync(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
@@ -170,7 +170,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -182,7 +182,7 @@ async def asyncio_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
@@ -204,7 +204,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
@@ -216,7 +216,7 @@ async def asyncio(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         include (list[MediaIncludeExpansion] | Unset):
 
     Raises:

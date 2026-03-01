@@ -17,13 +17,13 @@ class ReportTargetSegmentInput:
     """
     Attributes:
         type_ (ReportTargetSegmentInputType): Report target type Example: SEGMENT.
-        media_id (int): Media ID this report targets Example: 42.
+        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
         segment_id (str): Segment public ID or UUID Example: abc123def456.
         episode_number (int | Unset): Episode number containing the segment Example: 5.
     """
 
     type_: ReportTargetSegmentInputType
-    media_id: int
+    media_id: str
     segment_id: str
     episode_number: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)

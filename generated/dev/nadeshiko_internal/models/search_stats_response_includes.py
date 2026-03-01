@@ -17,7 +17,7 @@ T = TypeVar("T", bound="SearchStatsResponseIncludes")
 class SearchStatsResponseIncludes:
     """
     Attributes:
-        media (SearchStatsResponseIncludesMedia): Media objects keyed by mediaId
+        media (SearchStatsResponseIncludesMedia): Media objects keyed by media publicId
     """
 
     media: SearchStatsResponseIncludesMedia

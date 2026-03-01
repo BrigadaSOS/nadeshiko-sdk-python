@@ -20,6 +20,7 @@ class Collection:
 
     Attributes:
         id (int): Collection ID Example: 123.
+        public_id (str): Public identifier for the collection Example: V1StGXR8_Z5d.
         name (str): Name of the collection Example: Study Favorites.
         type_ (CollectionType): Type of the collection Example: USER.
         visibility (CollectionVisibility): Visibility of the collection Example: PRIVATE.
@@ -29,6 +30,7 @@ class Collection:
     """
 
     id: int
+    public_id: str
     name: str
     type_: CollectionType
     visibility: CollectionVisibility
@@ -39,6 +41,8 @@ class Collection:
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        public_id = self.public_id
 
         name = self.name
 
@@ -61,6 +65,7 @@ class Collection:
         field_dict.update(
             {
                 "id": id,
+                "publicId": public_id,
                 "name": name,
                 "type": type_,
                 "visibility": visibility,
@@ -76,6 +81,8 @@ class Collection:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         id = d.pop("id")
+
+        public_id = d.pop("publicId")
 
         name = d.pop("name")
 
@@ -104,6 +111,7 @@ class Collection:
 
         collection = cls(
             id=id,
+            public_id=public_id,
             name=name,
             type_=type_,
             visibility=visibility,

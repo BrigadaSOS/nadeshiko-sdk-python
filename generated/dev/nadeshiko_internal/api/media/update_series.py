@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     *,
     body: UpdateSeriesBody,
 ) -> dict[str, Any]:
@@ -95,7 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesBody,
@@ -107,7 +107,7 @@ def sync_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateSeriesBody):
 
     Raises:
@@ -131,7 +131,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesBody,
@@ -143,7 +143,7 @@ def sync(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateSeriesBody):
 
     Raises:
@@ -162,7 +162,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesBody,
@@ -174,7 +174,7 @@ async def asyncio_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateSeriesBody):
 
     Raises:
@@ -196,7 +196,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: UpdateSeriesBody,
@@ -208,7 +208,7 @@ async def asyncio(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 1.
+        id (str):  Example: V1StGXR8_Z5d.
         body (UpdateSeriesBody):
 
     Raises:

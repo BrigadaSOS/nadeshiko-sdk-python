@@ -13,11 +13,11 @@ T = TypeVar("T", bound="AddMediaToSeriesBody")
 class AddMediaToSeriesBody:
     """
     Attributes:
-        media_id (int): Media ID to add Example: 42.
+        media_id (str): Media public ID to add Example: abc123def456.
         position (int): Position in the series (1-indexed) Example: 1.
     """
 
-    media_id: int
+    media_id: str
     position: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

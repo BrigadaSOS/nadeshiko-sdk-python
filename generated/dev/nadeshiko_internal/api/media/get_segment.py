@@ -17,7 +17,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
 ) -> dict[str, Any]:
@@ -90,7 +90,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -103,7 +103,7 @@ def sync_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
 
@@ -129,7 +129,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -142,7 +142,7 @@ def sync(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
 
@@ -163,7 +163,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -176,7 +176,7 @@ async def asyncio_detailed(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
 
@@ -200,7 +200,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     id: int,
     *,
@@ -213,7 +213,7 @@ async def asyncio(
     **Permissions:** `READ_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         id (int):
 

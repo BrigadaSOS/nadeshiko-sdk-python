@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    id: str,
     *,
     body: MediaUpdateRequest,
 ) -> dict[str, Any]:
@@ -95,7 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -107,7 +107,7 @@ def sync_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 7674.
+        id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -132,7 +132,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -144,7 +144,7 @@ def sync(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 7674.
+        id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -164,7 +164,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -176,7 +176,7 @@ async def asyncio_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 7674.
+        id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -199,7 +199,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -211,7 +211,7 @@ async def asyncio(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        id (int):  Example: 7674.
+        id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 

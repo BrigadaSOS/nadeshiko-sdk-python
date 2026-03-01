@@ -19,7 +19,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     *,
     body: SegmentCreateRequest,
@@ -115,7 +115,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -130,7 +130,7 @@ def sync_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         body (SegmentCreateRequest):
 
@@ -156,7 +156,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -179,7 +179,7 @@ def sync(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         body (SegmentCreateRequest):
 
@@ -200,7 +200,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -215,7 +215,7 @@ async def asyncio_detailed(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         body (SegmentCreateRequest):
 
@@ -239,7 +239,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: int,
+    media_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -262,7 +262,7 @@ async def asyncio(
     **Permissions:** `UPDATE_MEDIA`
 
     Args:
-        media_id (int):
+        media_id (str):
         episode_number (int):
         body (SegmentCreateRequest):
 
