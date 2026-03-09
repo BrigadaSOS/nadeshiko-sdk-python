@@ -19,7 +19,7 @@ class UserActivity:
     Attributes:
         id (int):
         activity_type (ActivityType): Type of user activity
-        segment_id (int | None):
+        segment_id (None | str):
         media_id (int | None):
         search_query (None | str):
         media_name (None | str):
@@ -29,7 +29,7 @@ class UserActivity:
 
     id: int
     activity_type: ActivityType
-    segment_id: int | None
+    segment_id: None | str
     media_id: int | None
     search_query: None | str
     media_name: None | str
@@ -42,7 +42,7 @@ class UserActivity:
 
         activity_type = self.activity_type.value
 
-        segment_id: int | None
+        segment_id: None | str
         segment_id = self.segment_id
 
         media_id: int | None
@@ -83,10 +83,10 @@ class UserActivity:
 
         activity_type = ActivityType(d.pop("activityType"))
 
-        def _parse_segment_id(data: object) -> int | None:
+        def _parse_segment_id(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(int | None, data)
+            return cast(None | str, data)
 
         segment_id = _parse_segment_id(d.pop("segmentId"))
 
