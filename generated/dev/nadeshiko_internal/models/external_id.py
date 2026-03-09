@@ -19,11 +19,13 @@ class ExternalId:
         anilist (str | Unset): AniList ID Example: 21459.
         imdb (str | Unset): IMDB ID Example: tt1234567.
         tvdb (str | Unset): TVDB ID Example: 12345.
+        tmdb (str | Unset): TMDB ID Example: 90955.
     """
 
     anilist: str | Unset = UNSET
     imdb: str | Unset = UNSET
     tvdb: str | Unset = UNSET
+    tmdb: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,6 +34,8 @@ class ExternalId:
         imdb = self.imdb
 
         tvdb = self.tvdb
+
+        tmdb = self.tmdb
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -42,6 +46,8 @@ class ExternalId:
             field_dict["imdb"] = imdb
         if tvdb is not UNSET:
             field_dict["tvdb"] = tvdb
+        if tmdb is not UNSET:
+            field_dict["tmdb"] = tmdb
 
         return field_dict
 
@@ -54,10 +60,13 @@ class ExternalId:
 
         tvdb = d.pop("tvdb", UNSET)
 
+        tmdb = d.pop("tmdb", UNSET)
+
         external_id = cls(
             anilist=anilist,
             imdb=imdb,
             tvdb=tvdb,
+            tmdb=tmdb,
         )
 
         external_id.additional_properties = d

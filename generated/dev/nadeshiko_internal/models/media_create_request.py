@@ -39,11 +39,11 @@ class MediaCreateRequest:
         version (str): Version of the media-sub-splitter used Example: 6.
         hash_salt (str): Hash salt used when generating the hash for the related media assets Example:
             ba0cbe173ed310528f16130273662a60.
-        studio (str): Animation studio that produced the media Example: J.C.STAFF.
         season_name (str): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
         external_ids (ExternalId | Unset): Map of external IDs keyed by source. Only sources with values are included.
         end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
+        studio (str | Unset): Animation studio that produced the media Example: J.C.STAFF.
         storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
         characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
     """
@@ -58,12 +58,12 @@ class MediaCreateRequest:
     category: MediaCreateRequestCategory
     version: str
     hash_salt: str
-    studio: str
     season_name: str
     season_year: int
     storage: MediaCreateRequestStorage = MediaCreateRequestStorage.R2
     external_ids: ExternalId | Unset = UNSET
     end_date: datetime.date | Unset = UNSET
+    studio: str | Unset = UNSET
     storage_base_path: str | Unset = UNSET
     characters: list[CharacterInput] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -91,8 +91,6 @@ class MediaCreateRequest:
 
         hash_salt = self.hash_salt
 
-        studio = self.studio
-
         season_name = self.season_name
 
         season_year = self.season_year
@@ -104,6 +102,8 @@ class MediaCreateRequest:
         end_date: str | Unset = UNSET
         if not isinstance(self.end_date, Unset):
             end_date = self.end_date.isoformat()
+
+        studio = self.studio
 
         storage_base_path = self.storage_base_path
 
@@ -129,7 +129,6 @@ class MediaCreateRequest:
                 "category": category,
                 "version": version,
                 "hashSalt": hash_salt,
-                "studio": studio,
                 "seasonName": season_name,
                 "seasonYear": season_year,
             }
@@ -138,6 +137,8 @@ class MediaCreateRequest:
             field_dict["externalIds"] = external_ids
         if end_date is not UNSET:
             field_dict["endDate"] = end_date
+        if studio is not UNSET:
+            field_dict["studio"] = studio
         if storage_base_path is not UNSET:
             field_dict["storageBasePath"] = storage_base_path
         if characters is not UNSET:
@@ -173,8 +174,6 @@ class MediaCreateRequest:
 
         hash_salt = d.pop("hashSalt")
 
-        studio = d.pop("studio")
-
         season_name = d.pop("seasonName")
 
         season_year = d.pop("seasonYear")
@@ -192,6 +191,8 @@ class MediaCreateRequest:
             end_date = UNSET
         else:
             end_date = isoparse(_end_date).date()
+
+        studio = d.pop("studio", UNSET)
 
         storage_base_path = d.pop("storageBasePath", UNSET)
 
@@ -216,11 +217,11 @@ class MediaCreateRequest:
             category=category,
             version=version,
             hash_salt=hash_salt,
-            studio=studio,
             season_name=season_name,
             season_year=season_year,
             external_ids=external_ids,
             end_date=end_date,
+            studio=studio,
             storage_base_path=storage_base_path,
             characters=characters,
         )

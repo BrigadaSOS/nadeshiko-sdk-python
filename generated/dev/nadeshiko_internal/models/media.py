@@ -40,10 +40,10 @@ class Media:
         category (Category): Media category type Example: ANIME.
         segment_count (int): Total number of subtitle segments available
         episode_count (int): Total number of episodes available Example: 25.
-        studio (str): Animation studio that produced the media Example: J.C.STAFF.
         season_name (str): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
         end_date (datetime.date | None | Unset): End date of the media (last airing/release) Example: 2011-04-02.
+        studio (None | str | Unset): Animation studio that produced the media Example: J.C.STAFF.
         characters (list[MediaCharacter] | Unset): Characters appearing in the media with their voice actors
     """
 
@@ -62,10 +62,10 @@ class Media:
     category: Category
     segment_count: int
     episode_count: int
-    studio: str
     season_name: str
     season_year: int
     end_date: datetime.date | None | Unset = UNSET
+    studio: None | str | Unset = UNSET
     characters: list[MediaCharacter] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -100,8 +100,6 @@ class Media:
 
         episode_count = self.episode_count
 
-        studio = self.studio
-
         season_name = self.season_name
 
         season_year = self.season_year
@@ -113,6 +111,12 @@ class Media:
             end_date = self.end_date.isoformat()
         else:
             end_date = self.end_date
+
+        studio: None | str | Unset
+        if isinstance(self.studio, Unset):
+            studio = UNSET
+        else:
+            studio = self.studio
 
         characters: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.characters, Unset):
@@ -140,13 +144,14 @@ class Media:
                 "category": category,
                 "segmentCount": segment_count,
                 "episodeCount": episode_count,
-                "studio": studio,
                 "seasonName": season_name,
                 "seasonYear": season_year,
             }
         )
         if end_date is not UNSET:
             field_dict["endDate"] = end_date
+        if studio is not UNSET:
+            field_dict["studio"] = studio
         if characters is not UNSET:
             field_dict["characters"] = characters
 
@@ -188,8 +193,6 @@ class Media:
 
         episode_count = d.pop("episodeCount")
 
-        studio = d.pop("studio")
-
         season_name = d.pop("seasonName")
 
         season_year = d.pop("seasonYear")
@@ -210,6 +213,15 @@ class Media:
             return cast(datetime.date | None | Unset, data)
 
         end_date = _parse_end_date(d.pop("endDate", UNSET))
+
+        def _parse_studio(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        studio = _parse_studio(d.pop("studio", UNSET))
 
         _characters = d.pop("characters", UNSET)
         characters: list[MediaCharacter] | Unset = UNSET
@@ -236,10 +248,10 @@ class Media:
             category=category,
             segment_count=segment_count,
             episode_count=episode_count,
-            studio=studio,
             season_name=season_name,
             season_year=season_year,
             end_date=end_date,
+            studio=studio,
             characters=characters,
         )
 
