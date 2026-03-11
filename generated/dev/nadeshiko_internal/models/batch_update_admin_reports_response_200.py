@@ -6,71 +6,43 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-T = TypeVar("T", bound="UserLabFeature")
+T = TypeVar("T", bound="BatchUpdateAdminReportsResponse200")
 
 
 @_attrs_define
-class UserLabFeature:
+class BatchUpdateAdminReportsResponse200:
     """
     Attributes:
-        key (str): Unique identifier for the feature
-        active (bool): Whether this feature is currently active for the user
-        name (str | Unset): Human-readable feature name
-        description (str | Unset): Description of what the feature does
+        updated (int): Number of reports updated
     """
 
-    key: str
-    active: bool
-    name: str | Unset = UNSET
-    description: str | Unset = UNSET
+    updated: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        key = self.key
-
-        active = self.active
-
-        name = self.name
-
-        description = self.description
+        updated = self.updated
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "key": key,
-                "active": active,
+                "updated": updated,
             }
         )
-        if name is not UNSET:
-            field_dict["name"] = name
-        if description is not UNSET:
-            field_dict["description"] = description
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        key = d.pop("key")
+        updated = d.pop("updated")
 
-        active = d.pop("active")
-
-        name = d.pop("name", UNSET)
-
-        description = d.pop("description", UNSET)
-
-        user_lab_feature = cls(
-            key=key,
-            active=active,
-            name=name,
-            description=description,
+        batch_update_admin_reports_response_200 = cls(
+            updated=updated,
         )
 
-        user_lab_feature.additional_properties = d
-        return user_lab_feature
+        batch_update_admin_reports_response_200.additional_properties = d
+        return batch_update_admin_reports_response_200
 
     @property
     def additional_keys(self) -> list[str]:

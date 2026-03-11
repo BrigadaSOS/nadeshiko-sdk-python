@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ListAdminReportsStatus(str, Enum):
+class BatchUpdateReportsRequestStatus(str, Enum):
     ACCEPTED = "ACCEPTED"
     CONCERN = "CONCERN"
     IGNORED = "IGNORED"

@@ -6,6 +6,9 @@ from .add_segment_to_collection_body import AddSegmentToCollectionBody
 from .admin_report import AdminReport
 from .admin_report_list_response import AdminReportListResponse
 from .autocomplete_media_category import AutocompleteMediaCategory
+from .batch_update_admin_reports_response_200 import BatchUpdateAdminReportsResponse200
+from .batch_update_reports_request import BatchUpdateReportsRequest
+from .batch_update_reports_request_status import BatchUpdateReportsRequestStatus
 from .category import Category
 from .category_count import CategoryCount
 from .character import Character
@@ -132,7 +135,6 @@ from .list_admin_queue_failed_queue_name import ListAdminQueueFailedQueueName
 from .list_admin_queue_failed_response_200_item import ListAdminQueueFailedResponse200Item
 from .list_admin_queue_stats_response_200_item import ListAdminQueueStatsResponse200Item
 from .list_admin_reports_source import ListAdminReportsSource
-from .list_admin_reports_status import ListAdminReportsStatus
 from .list_admin_reports_target_type import ListAdminReportsTargetType
 from .list_collections_visibility import ListCollectionsVisibility
 from .list_media_category import ListMediaCategory
@@ -303,6 +305,9 @@ __all__ = (
     "AdminReport",
     "AdminReportListResponse",
     "AutocompleteMediaCategory",
+    "BatchUpdateAdminReportsResponse200",
+    "BatchUpdateReportsRequest",
+    "BatchUpdateReportsRequestStatus",
     "Category",
     "CategoryCount",
     "Character",
@@ -407,7 +412,6 @@ __all__ = (
     "ListAdminQueueFailedResponse200Item",
     "ListAdminQueueStatsResponse200Item",
     "ListAdminReportsSource",
-    "ListAdminReportsStatus",
     "ListAdminReportsTargetType",
     "ListCollectionsVisibility",
     "ListMediaCategory",

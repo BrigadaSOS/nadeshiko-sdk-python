@@ -11,7 +11,6 @@ from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.list_admin_reports_source import ListAdminReportsSource
-from ...models.list_admin_reports_status import ListAdminReportsStatus
 from ...models.list_admin_reports_target_type import ListAdminReportsTargetType
 from ...types import UNSET, Response, Unset
 
@@ -20,7 +19,7 @@ def _get_kwargs(
     *,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
-    status: ListAdminReportsStatus | Unset = UNSET,
+    status: str | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
@@ -35,11 +34,7 @@ def _get_kwargs(
 
     params["take"] = take
 
-    json_status: str | Unset = UNSET
-    if not isinstance(status, Unset):
-        json_status = status.value
-
-    params["status"] = json_status
+    params["status"] = status
 
     json_source: str | Unset = UNSET
     if not isinstance(source, Unset):
@@ -122,7 +117,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
-    status: ListAdminReportsStatus | Unset = UNSET,
+    status: str | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
@@ -140,7 +135,7 @@ def sync_detailed(
     Args:
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
-        status (ListAdminReportsStatus | Unset):
+        status (str | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
@@ -180,7 +175,7 @@ def sync(
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
-    status: ListAdminReportsStatus | Unset = UNSET,
+    status: str | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
@@ -198,7 +193,7 @@ def sync(
     Args:
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
-        status (ListAdminReportsStatus | Unset):
+        status (str | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
@@ -233,7 +228,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
-    status: ListAdminReportsStatus | Unset = UNSET,
+    status: str | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
@@ -251,7 +246,7 @@ async def asyncio_detailed(
     Args:
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
-        status (ListAdminReportsStatus | Unset):
+        status (str | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
@@ -289,7 +284,7 @@ async def asyncio(
     client: AuthenticatedClient,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
-    status: ListAdminReportsStatus | Unset = UNSET,
+    status: str | Unset = UNSET,
     source: ListAdminReportsSource | Unset = UNSET,
     target_type: ListAdminReportsTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
@@ -307,7 +302,7 @@ async def asyncio(
     Args:
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
-        status (ListAdminReportsStatus | Unset):
+        status (str | Unset):
         source (ListAdminReportsSource | Unset):
         target_type (ListAdminReportsTargetType | Unset):
         target_media_id (int | Unset):
