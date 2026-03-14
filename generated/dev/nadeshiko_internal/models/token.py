@@ -6,6 +6,8 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 T = TypeVar("T", bound="Token")
 
 
@@ -20,6 +22,10 @@ class Token:
         b (int): Begin character offset in textJa.content Example: 3.
         e (int): End character offset in textJa.content Example: 5.
         p (str): Primary part-of-speech tag Example: 動詞.
+        p1 (str | Unset): POS subtype 1 (UniDic pos[1]) Example: 固有名詞.
+        p2 (str | Unset): POS subtype 2 (UniDic pos[2]) Example: 人名.
+        p4 (str | Unset): Conjugation type (UniDic pos[4]) Example: 五段-カ行.
+        cf (str | Unset): Conjugation form (UniDic pos[5]) Example: 連用形-一般.
     """
 
     s: str
@@ -28,6 +34,10 @@ class Token:
     b: int
     e: int
     p: str
+    p1: str | Unset = UNSET
+    p2: str | Unset = UNSET
+    p4: str | Unset = UNSET
+    cf: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,6 +53,14 @@ class Token:
 
         p = self.p
 
+        p1 = self.p1
+
+        p2 = self.p2
+
+        p4 = self.p4
+
+        cf = self.cf
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -55,6 +73,14 @@ class Token:
                 "p": p,
             }
         )
+        if p1 is not UNSET:
+            field_dict["p1"] = p1
+        if p2 is not UNSET:
+            field_dict["p2"] = p2
+        if p4 is not UNSET:
+            field_dict["p4"] = p4
+        if cf is not UNSET:
+            field_dict["cf"] = cf
 
         return field_dict
 
@@ -73,6 +99,14 @@ class Token:
 
         p = d.pop("p")
 
+        p1 = d.pop("p1", UNSET)
+
+        p2 = d.pop("p2", UNSET)
+
+        p4 = d.pop("p4", UNSET)
+
+        cf = d.pop("cf", UNSET)
+
         token = cls(
             s=s,
             d=d,
@@ -80,6 +114,10 @@ class Token:
             b=b,
             e=e,
             p=p,
+            p1=p1,
+            p2=p2,
+            p4=p4,
+            cf=cf,
         )
 
         token.additional_properties = d
