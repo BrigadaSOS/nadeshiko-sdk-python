@@ -1,84 +1,69 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.word_match import WordMatch
-
-
-
+    from ..models.search_multiple_response_includes import SearchMultipleResponseIncludes
+    from ..models.word_match import WordMatch
 
 
 T = TypeVar("T", bound="SearchMultipleResponse")
 
 
-
 @_attrs_define
 class SearchMultipleResponse:
-    """ 
-        Attributes:
-            results (list[WordMatch] | Unset):
-     """
+    """
+    Attributes:
+        results (list[WordMatch]):
+        includes (SearchMultipleResponseIncludes):
+    """
 
-    results: list[WordMatch] | Unset = UNSET
+    results: list[WordMatch]
+    includes: SearchMultipleResponseIncludes
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.word_match import WordMatch
-        results: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.results, Unset):
-            results = []
-            for results_item_data in self.results:
-                results_item = results_item_data.to_dict()
-                results.append(results_item)
+        results = []
+        for results_item_data in self.results:
+            results_item = results_item_data.to_dict()
+            results.append(results_item)
 
-
-
+        includes = self.includes.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
-        if results is not UNSET:
-            field_dict["results"] = results
+        field_dict.update(
+            {
+                "results": results,
+                "includes": includes,
+            }
+        )
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.search_multiple_response_includes import SearchMultipleResponseIncludes
         from ..models.word_match import WordMatch
+
         d = dict(src_dict)
-        _results = d.pop("results", UNSET)
-        results: list[WordMatch] | Unset = UNSET
-        if _results is not UNSET:
-            results = []
-            for results_item_data in _results:
-                results_item = WordMatch.from_dict(results_item_data)
+        results = []
+        _results = d.pop("results")
+        for results_item_data in _results:
+            results_item = WordMatch.from_dict(results_item_data)
 
+            results.append(results_item)
 
-
-                results.append(results_item)
-
+        includes = SearchMultipleResponseIncludes.from_dict(d.pop("includes"))
 
         search_multiple_response = cls(
             results=results,
+            includes=includes,
         )
-
 
         search_multiple_response.additional_properties = d
         return search_multiple_response

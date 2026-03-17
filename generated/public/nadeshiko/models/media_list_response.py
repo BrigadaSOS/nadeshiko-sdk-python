@@ -1,96 +1,79 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.media import Media
-
-
-
+    from ..models.media import Media
+    from ..models.media_list_response_stats import MediaListResponseStats
+    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
 T = TypeVar("T", bound="MediaListResponse")
 
 
-
 @_attrs_define
 class MediaListResponse:
-    """ 
-        Attributes:
-            data (list[Media]):
-            has_more_results (bool): Whether more results are available
-            cursor (int | Unset): Next cursor for pagination (undefined if no more results)
-     """
+    """
+    Attributes:
+        media (list[Media]):
+        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+        stats (MediaListResponseStats):
+    """
 
-    data: list[Media]
-    has_more_results: bool
-    cursor: int | Unset = UNSET
+    media: list[Media]
+    pagination: OpaqueCursorPagination
+    stats: MediaListResponseStats
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.media import Media
-        data = []
-        for data_item_data in self.data:
-            data_item = data_item_data.to_dict()
-            data.append(data_item)
+        media = []
+        for media_item_data in self.media:
+            media_item = media_item_data.to_dict()
+            media.append(media_item)
 
+        pagination = self.pagination.to_dict()
 
-
-        has_more_results = self.has_more_results
-
-        cursor = self.cursor
-
+        stats = self.stats.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "data": data,
-            "hasMoreResults": has_more_results,
-        })
-        if cursor is not UNSET:
-            field_dict["cursor"] = cursor
+        field_dict.update(
+            {
+                "media": media,
+                "pagination": pagination,
+                "stats": stats,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media import Media
+        from ..models.media_list_response_stats import MediaListResponseStats
+        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+
         d = dict(src_dict)
-        data = []
-        _data = d.pop("data")
-        for data_item_data in (_data):
-            data_item = Media.from_dict(data_item_data)
+        media = []
+        _media = d.pop("media")
+        for media_item_data in _media:
+            media_item = Media.from_dict(media_item_data)
 
+            media.append(media_item)
 
+        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
-            data.append(data_item)
-
-
-        has_more_results = d.pop("hasMoreResults")
-
-        cursor = d.pop("cursor", UNSET)
+        stats = MediaListResponseStats.from_dict(d.pop("stats"))
 
         media_list_response = cls(
-            data=data,
-            has_more_results=has_more_results,
-            cursor=cursor,
+            media=media,
+            pagination=pagination,
+            stats=stats,
         )
-
 
         media_list_response.additional_properties = d
         return media_list_response

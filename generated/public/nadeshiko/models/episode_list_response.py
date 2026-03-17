@@ -1,96 +1,69 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.episode import Episode
-
-
-
+    from ..models.episode import Episode
+    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
 T = TypeVar("T", bound="EpisodeListResponse")
 
 
-
 @_attrs_define
 class EpisodeListResponse:
-    """ 
-        Attributes:
-            data (list[Episode]): Array of episode objects
-            has_more_results (bool): Whether more results are available Example: True.
-            cursor (int | Unset): Cursor for pagination (last episode number in current page) Example: 12.
-     """
+    """
+    Attributes:
+        episodes (list[Episode]): Array of episode objects
+        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+    """
 
-    data: list[Episode]
-    has_more_results: bool
-    cursor: int | Unset = UNSET
+    episodes: list[Episode]
+    pagination: OpaqueCursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.episode import Episode
-        data = []
-        for data_item_data in self.data:
-            data_item = data_item_data.to_dict()
-            data.append(data_item)
+        episodes = []
+        for episodes_item_data in self.episodes:
+            episodes_item = episodes_item_data.to_dict()
+            episodes.append(episodes_item)
 
-
-
-        has_more_results = self.has_more_results
-
-        cursor = self.cursor
-
+        pagination = self.pagination.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "data": data,
-            "hasMoreResults": has_more_results,
-        })
-        if cursor is not UNSET:
-            field_dict["cursor"] = cursor
+        field_dict.update(
+            {
+                "episodes": episodes,
+                "pagination": pagination,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.episode import Episode
+        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+
         d = dict(src_dict)
-        data = []
-        _data = d.pop("data")
-        for data_item_data in (_data):
-            data_item = Episode.from_dict(data_item_data)
+        episodes = []
+        _episodes = d.pop("episodes")
+        for episodes_item_data in _episodes:
+            episodes_item = Episode.from_dict(episodes_item_data)
 
+            episodes.append(episodes_item)
 
-
-            data.append(data_item)
-
-
-        has_more_results = d.pop("hasMoreResults")
-
-        cursor = d.pop("cursor", UNSET)
+        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
 
         episode_list_response = cls(
-            data=data,
-            has_more_results=has_more_results,
-            cursor=cursor,
+            episodes=episodes,
+            pagination=pagination,
         )
-
 
         episode_list_response.additional_properties = d
         return episode_list_response

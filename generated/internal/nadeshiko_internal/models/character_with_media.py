@@ -1,60 +1,57 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.character_with_media_media_appearances_item import CharacterWithMediaMediaAppearancesItem
-  from ..models.seiyuu import Seiyuu
-
-
-
+    from ..models.character_with_media_media_appearances_item import (
+        CharacterWithMediaMediaAppearancesItem,
+    )
+    from ..models.external_id import ExternalId
+    from ..models.seiyuu import Seiyuu
 
 
 T = TypeVar("T", bound="CharacterWithMedia")
 
 
-
 @_attrs_define
 class CharacterWithMedia:
-    """ Character with all media appearances
+    """Character with voice actor and all media appearances
 
-        Attributes:
-            id (int): AniList character ID Example: 14545.
-            name_japanese (str): Japanese name of the character Example: 真城最高.
-            name_english (str): English name of the character Example: Moritaka Mashiro.
-            image_url (str): Character image URL Example: https://s4.anilist.co/file/anilistcdn/character/large/b14545.jpg.
-            seiyuu (Seiyuu): Japanese voice actor (seiyuu)
-            media_appearances (list[CharacterWithMediaMediaAppearancesItem]): All media this character appears in
-     """
+    Attributes:
+        id (int): Internal character ID Example: 1.
+        public_id (str): Public identifier for the character (use this in public URLs) Example: V1StGXR8_Z5d.
+        external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
+        name_ja (str): Japanese name of the character Example: 真城最高.
+        name_en (str): English name of the character Example: Moritaka Mashiro.
+        image_url (str): Character image URL Example: https://s4.anilist.co/file/anilistcdn/character/large/b14545.jpg.
+        seiyuu (Seiyuu): Japanese voice actor (seiyuu)
+        media_appearances (list[CharacterWithMediaMediaAppearancesItem]): All media this character appears in
+    """
 
     id: int
-    name_japanese: str
-    name_english: str
+    public_id: str
+    external_ids: ExternalId
+    name_ja: str
+    name_en: str
     image_url: str
     seiyuu: Seiyuu
     media_appearances: list[CharacterWithMediaMediaAppearancesItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.character_with_media_media_appearances_item import CharacterWithMediaMediaAppearancesItem
-        from ..models.seiyuu import Seiyuu
         id = self.id
 
-        name_japanese = self.name_japanese
+        public_id = self.public_id
 
-        name_english = self.name_english
+        external_ids = self.external_ids.to_dict()
+
+        name_ja = self.name_ja
+
+        name_en = self.name_en
 
         image_url = self.image_url
 
@@ -65,61 +62,65 @@ class CharacterWithMedia:
             media_appearances_item = media_appearances_item_data.to_dict()
             media_appearances.append(media_appearances_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "id": id,
-            "nameJapanese": name_japanese,
-            "nameEnglish": name_english,
-            "imageUrl": image_url,
-            "seiyuu": seiyuu,
-            "mediaAppearances": media_appearances,
-        })
+        field_dict.update(
+            {
+                "id": id,
+                "publicId": public_id,
+                "externalIds": external_ids,
+                "nameJa": name_ja,
+                "nameEn": name_en,
+                "imageUrl": image_url,
+                "seiyuu": seiyuu,
+                "mediaAppearances": media_appearances,
+            }
+        )
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.character_with_media_media_appearances_item import CharacterWithMediaMediaAppearancesItem
+        from ..models.character_with_media_media_appearances_item import (
+            CharacterWithMediaMediaAppearancesItem,
+        )
+        from ..models.external_id import ExternalId
         from ..models.seiyuu import Seiyuu
+
         d = dict(src_dict)
         id = d.pop("id")
 
-        name_japanese = d.pop("nameJapanese")
+        public_id = d.pop("publicId")
 
-        name_english = d.pop("nameEnglish")
+        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+
+        name_ja = d.pop("nameJa")
+
+        name_en = d.pop("nameEn")
 
         image_url = d.pop("imageUrl")
 
         seiyuu = Seiyuu.from_dict(d.pop("seiyuu"))
 
-
-
-
         media_appearances = []
         _media_appearances = d.pop("mediaAppearances")
-        for media_appearances_item_data in (_media_appearances):
-            media_appearances_item = CharacterWithMediaMediaAppearancesItem.from_dict(media_appearances_item_data)
-
-
+        for media_appearances_item_data in _media_appearances:
+            media_appearances_item = CharacterWithMediaMediaAppearancesItem.from_dict(
+                media_appearances_item_data
+            )
 
             media_appearances.append(media_appearances_item)
 
-
         character_with_media = cls(
             id=id,
-            name_japanese=name_japanese,
-            name_english=name_english,
+            public_id=public_id,
+            external_ids=external_ids,
+            name_ja=name_ja,
+            name_en=name_en,
             image_url=image_url,
             seiyuu=seiyuu,
             media_appearances=media_appearances,
         )
-
 
         character_with_media.additional_properties = d
         return character_with_media

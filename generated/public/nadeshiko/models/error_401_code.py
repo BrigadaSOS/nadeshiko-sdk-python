@@ -1,0 +1,11 @@
+from enum import Enum
+
+
+class Error401Code(str, Enum):
+    AUTH_CREDENTIALS_EXPIRED = "AUTH_CREDENTIALS_EXPIRED"
+    AUTH_CREDENTIALS_INVALID = "AUTH_CREDENTIALS_INVALID"
+    AUTH_CREDENTIALS_REQUIRED = "AUTH_CREDENTIALS_REQUIRED"
+    EMAIL_NOT_VERIFIED = "EMAIL_NOT_VERIFIED"
+
+    def __str__(self) -> str:
+        return str(self.value)

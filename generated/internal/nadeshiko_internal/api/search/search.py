@@ -1,42 +1,33 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.error import Error
+from ...client import AuthenticatedClient, Client
+from ...models.error_400 import Error400
+from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
+from ...models.error_500 import Error500
 from ...models.search_request import SearchRequest
 from ...models.search_response import SearchResponse
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     body: SearchRequest | Unset = UNSET,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/search/media/sentence",
+        "url": "/v1/search",
     }
 
-    
     if not isinstance(body, Unset):
         _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
@@ -44,47 +35,36 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SearchResponse | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
     if response.status_code == 200:
         response_200 = SearchResponse.from_dict(response.json())
-
-
 
         return response_200
 
     if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-
+        response_400 = Error400.from_dict(response.json())
 
         return response_400
 
     if response.status_code == 401:
-        response_401 = Error.from_dict(response.json())
-
-
+        response_401 = Error401.from_dict(response.json())
 
         return response_401
 
     if response.status_code == 403:
-        response_403 = Error.from_dict(response.json())
-
-
+        response_403 = Error403.from_dict(response.json())
 
         return response_403
 
     if response.status_code == 429:
-        response_429 = Error.from_dict(response.json())
-
-
+        response_429 = Error429.from_dict(response.json())
 
         return response_429
 
     if response.status_code == 500:
-        response_500 = Error.from_dict(response.json())
-
-
+        response_500 = Error500.from_dict(response.json())
 
         return response_500
 
@@ -94,7 +74,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | SearchResponse]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -105,14 +87,13 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
+) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
+    r"""Search segments by query
 
-) -> Response[Error | SearchResponse]:
-    r""" Search by query
-
-     The primary search endpoint for finding Japanese sentences and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+     The primary search endpoint for finding Japanese segments and their translations across indexed
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -120,8 +101,8 @@ def sync_detailed(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -135,8 +116,7 @@ def sync_detailed(
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
 
-    **Requirements**
-    - API Key with `READ_MEDIA` permission
+    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchRequest | Unset):
@@ -146,13 +126,11 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | SearchResponse]
-     """
-
+        Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -161,16 +139,16 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
+    r"""Search segments by query
 
-) -> Error | SearchResponse | None:
-    r""" Search by query
-
-     The primary search endpoint for finding Japanese sentences and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+     The primary search endpoint for finding Japanese segments and their translations across indexed
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -178,8 +156,8 @@ def sync(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -193,8 +171,7 @@ def sync(
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
 
-    **Requirements**
-    - API Key with `READ_MEDIA` permission
+    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchRequest | Unset):
@@ -204,26 +181,24 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | SearchResponse
-     """
-
+        Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
+) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
+    r"""Search segments by query
 
-) -> Response[Error | SearchResponse]:
-    r""" Search by query
-
-     The primary search endpoint for finding Japanese sentences and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+     The primary search endpoint for finding Japanese segments and their translations across indexed
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -231,8 +206,8 @@ async def asyncio_detailed(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -246,8 +221,7 @@ async def asyncio_detailed(
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
 
-    **Requirements**
-    - API Key with `READ_MEDIA` permission
+    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchRequest | Unset):
@@ -257,31 +231,27 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | SearchResponse]
-     """
-
+        Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
 
+
 async def asyncio(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
     body: SearchRequest | Unset = UNSET,
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
+    r"""Search segments by query
 
-) -> Error | SearchResponse | None:
-    r""" Search by query
-
-     The primary search endpoint for finding Japanese sentences and their translations across indexed
-    media (anime, J-Drama, audiobooks).
+     The primary search endpoint for finding Japanese segments and their translations across indexed
+    media (anime, J-Drama).
 
     This endpoint uses Elasticsearch with advanced Japanese text analysis supporting multiple input
     types (romaji, kanji, kana) and providing intelligent field-based boosting.
@@ -289,8 +259,8 @@ async def asyncio(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass
-    `exact_match: true` to the request body
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
 
@@ -304,8 +274,7 @@ async def asyncio(
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
 
-    **Requirements**
-    - API Key with `READ_MEDIA` permission
+    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchRequest | Unset):
@@ -315,12 +284,12 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | SearchResponse
-     """
+        Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

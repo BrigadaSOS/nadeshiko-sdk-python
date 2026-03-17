@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CharacterWithMediaMediaAppearancesItemRole(str, Enum):
     BACKGROUND = "BACKGROUND"
     MAIN = "MAIN"

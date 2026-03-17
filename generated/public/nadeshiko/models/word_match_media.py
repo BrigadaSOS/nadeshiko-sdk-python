@@ -1,99 +1,54 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from ..types import UNSET, Unset
-
-
-
-
-
-
 T = TypeVar("T", bound="WordMatchMedia")
-
 
 
 @_attrs_define
 class WordMatchMedia:
-    """ Media entry containing word matches
+    """Media match count entry
 
-        Attributes:
-            media_id (int | Unset): Unique identifier for the media Example: 110316.
-            english_name (str | Unset): English translation of the media name Example: Steins;Gate.
-            japanese_name (str | Unset): Original Japanese name of the media Example: シュタインズ・ゲート.
-            romaji_name (str | Unset): Romaji transliteration of the media name Example: Steins;Gate.
-            matches (int | Unset): Number of times the word appears in this media Example: 234.
-     """
+    Attributes:
+        media_id (int): Media identifier (look up full details in includes.media) Example: 110316.
+        match_count (int): Number of times the word appears in this media Example: 234.
+    """
 
-    media_id: int | Unset = UNSET
-    english_name: str | Unset = UNSET
-    japanese_name: str | Unset = UNSET
-    romaji_name: str | Unset = UNSET
-    matches: int | Unset = UNSET
+    media_id: int
+    match_count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         media_id = self.media_id
 
-        english_name = self.english_name
-
-        japanese_name = self.japanese_name
-
-        romaji_name = self.romaji_name
-
-        matches = self.matches
-
+        match_count = self.match_count
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
-        if media_id is not UNSET:
-            field_dict["media_id"] = media_id
-        if english_name is not UNSET:
-            field_dict["english_name"] = english_name
-        if japanese_name is not UNSET:
-            field_dict["japanese_name"] = japanese_name
-        if romaji_name is not UNSET:
-            field_dict["romaji_name"] = romaji_name
-        if matches is not UNSET:
-            field_dict["matches"] = matches
+        field_dict.update(
+            {
+                "mediaId": media_id,
+                "matchCount": match_count,
+            }
+        )
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        media_id = d.pop("media_id", UNSET)
+        media_id = d.pop("mediaId")
 
-        english_name = d.pop("english_name", UNSET)
-
-        japanese_name = d.pop("japanese_name", UNSET)
-
-        romaji_name = d.pop("romaji_name", UNSET)
-
-        matches = d.pop("matches", UNSET)
+        match_count = d.pop("matchCount")
 
         word_match_media = cls(
             media_id=media_id,
-            english_name=english_name,
-            japanese_name=japanese_name,
-            romaji_name=romaji_name,
-            matches=matches,
+            match_count=match_count,
         )
-
 
         word_match_media.additional_properties = d
         return word_match_media

@@ -1,111 +1,102 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
-
-
-
+    from ..models.external_id import ExternalId
+    from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
 
 
 T = TypeVar("T", bound="SeiyuuWithRoles")
 
 
-
 @_attrs_define
 class SeiyuuWithRoles:
-    """ Seiyuu with all voice acting roles
+    """Seiyuu details with optional character appearances
 
-        Attributes:
-            id (int): AniList staff ID Example: 95991.
-            name_japanese (str): Japanese name of the voice actor Example: 阿部敦.
-            name_english (str): English name of the voice actor Example: Atsushi Abe.
-            image_url (str): Profile image URL Example: https://s4.anilist.co/file/anilistcdn/staff/large/n95991.jpg.
-            roles (list[SeiyuuWithRolesRolesItem]): All characters voiced by this seiyuu with their media appearances
-     """
+    Attributes:
+        id (int): AniList staff ID Example: 95991.
+        external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
+        name_ja (str): Japanese name of the voice actor Example: 阿部敦.
+        name_en (str): English name of the voice actor Example: Atsushi Abe.
+        image_url (str): Profile image URL Example: https://s4.anilist.co/file/anilistcdn/staff/large/n95991.jpg.
+        characters (list[SeiyuuWithRolesCharactersItem]): Characters voiced by this seiyuu with their media appearances
+    """
 
     id: int
-    name_japanese: str
-    name_english: str
+    external_ids: ExternalId
+    name_ja: str
+    name_en: str
     image_url: str
-    roles: list[SeiyuuWithRolesRolesItem]
+    characters: list[SeiyuuWithRolesCharactersItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
         id = self.id
 
-        name_japanese = self.name_japanese
+        external_ids = self.external_ids.to_dict()
 
-        name_english = self.name_english
+        name_ja = self.name_ja
+
+        name_en = self.name_en
 
         image_url = self.image_url
 
-        roles = []
-        for roles_item_data in self.roles:
-            roles_item = roles_item_data.to_dict()
-            roles.append(roles_item)
-
-
-
+        characters = []
+        for characters_item_data in self.characters:
+            characters_item = characters_item_data.to_dict()
+            characters.append(characters_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "id": id,
-            "nameJapanese": name_japanese,
-            "nameEnglish": name_english,
-            "imageUrl": image_url,
-            "roles": roles,
-        })
+        field_dict.update(
+            {
+                "id": id,
+                "externalIds": external_ids,
+                "nameJa": name_ja,
+                "nameEn": name_en,
+                "imageUrl": image_url,
+                "characters": characters,
+            }
+        )
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.seiyuu_with_roles_roles_item import SeiyuuWithRolesRolesItem
+        from ..models.external_id import ExternalId
+        from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
+
         d = dict(src_dict)
         id = d.pop("id")
 
-        name_japanese = d.pop("nameJapanese")
+        external_ids = ExternalId.from_dict(d.pop("externalIds"))
 
-        name_english = d.pop("nameEnglish")
+        name_ja = d.pop("nameJa")
+
+        name_en = d.pop("nameEn")
 
         image_url = d.pop("imageUrl")
 
-        roles = []
-        _roles = d.pop("roles")
-        for roles_item_data in (_roles):
-            roles_item = SeiyuuWithRolesRolesItem.from_dict(roles_item_data)
+        characters = []
+        _characters = d.pop("characters")
+        for characters_item_data in _characters:
+            characters_item = SeiyuuWithRolesCharactersItem.from_dict(characters_item_data)
 
-
-
-            roles.append(roles_item)
-
+            characters.append(characters_item)
 
         seiyuu_with_roles = cls(
             id=id,
-            name_japanese=name_japanese,
-            name_english=name_english,
+            external_ids=external_ids,
+            name_ja=name_ja,
+            name_en=name_en,
             image_url=image_url,
-            roles=roles,
+            characters=characters,
         )
-
 
         seiyuu_with_roles.additional_properties = d
         return seiyuu_with_roles
