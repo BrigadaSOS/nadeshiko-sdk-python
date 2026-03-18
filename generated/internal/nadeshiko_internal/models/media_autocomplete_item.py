@@ -17,6 +17,7 @@ class MediaAutocompleteItem:
 
     Attributes:
         id (int): Unique identifier for the media Example: 7674.
+        public_id (str): Public identifier for the media Example: abc123xyz.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
         name_en (str): English name of the media Example: Bakuman..
@@ -25,6 +26,7 @@ class MediaAutocompleteItem:
     """
 
     id: int
+    public_id: str
     name_ja: str
     name_romaji: str
     name_en: str
@@ -34,6 +36,8 @@ class MediaAutocompleteItem:
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
+
+        public_id = self.public_id
 
         name_ja = self.name_ja
 
@@ -50,6 +54,7 @@ class MediaAutocompleteItem:
         field_dict.update(
             {
                 "id": id,
+                "publicId": public_id,
                 "nameJa": name_ja,
                 "nameRomaji": name_romaji,
                 "nameEn": name_en,
@@ -65,6 +70,8 @@ class MediaAutocompleteItem:
         d = dict(src_dict)
         id = d.pop("id")
 
+        public_id = d.pop("publicId")
+
         name_ja = d.pop("nameJa")
 
         name_romaji = d.pop("nameRomaji")
@@ -77,6 +84,7 @@ class MediaAutocompleteItem:
 
         media_autocomplete_item = cls(
             id=id,
+            public_id=public_id,
             name_ja=name_ja,
             name_romaji=name_romaji,
             name_en=name_en,
