@@ -81,8 +81,6 @@ def sync_detailed(
 
      Returns all audit definitions with current config, threshold schema, and latest run info.
 
-    **Permissions:** `ADD_MEDIA`
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -108,8 +106,6 @@ def sync(
 
      Returns all audit definitions with current config, threshold schema, and latest run info.
 
-    **Permissions:** `ADD_MEDIA`
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -130,8 +126,6 @@ async def asyncio_detailed(
     """List all media audits
 
      Returns all audit definitions with current config, threshold schema, and latest run info.
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -155,8 +149,6 @@ async def asyncio(
     """List all media audits
 
      Returns all audit definitions with current config, threshold schema, and latest run info.
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

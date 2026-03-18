@@ -96,8 +96,6 @@ def sync_detailed(
      Returns past media audit runs with summary stats. Supports filtering by audit name and cursor
     pagination.
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         audit_name (str | Unset):
         cursor (str | Unset):
@@ -136,8 +134,6 @@ def sync(
      Returns past media audit runs with summary stats. Supports filtering by audit name and cursor
     pagination.
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         audit_name (str | Unset):
         cursor (str | Unset):
@@ -170,8 +166,6 @@ async def asyncio_detailed(
 
      Returns past media audit runs with summary stats. Supports filtering by audit name and cursor
     pagination.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         audit_name (str | Unset):
@@ -208,8 +202,6 @@ async def asyncio(
 
      Returns past media audit runs with summary stats. Supports filtering by audit name and cursor
     pagination.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         audit_name (str | Unset):

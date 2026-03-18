@@ -64,7 +64,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
 ) -> Response[Any | Error429 | Error500 | GetAnnouncementResponse200]:
-    """Get the current announcement
+    """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
 
@@ -89,7 +89,7 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
 ) -> Any | Error429 | Error500 | GetAnnouncementResponse200 | None:
-    """Get the current announcement
+    """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
 
@@ -110,7 +110,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
 ) -> Response[Any | Error429 | Error500 | GetAnnouncementResponse200]:
-    """Get the current announcement
+    """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
 
@@ -133,7 +133,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
 ) -> Any | Error429 | Error500 | GetAnnouncementResponse200 | None:
-    """Get the current announcement
+    """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
 

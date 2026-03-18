@@ -72,12 +72,10 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Error401 | Error403 | Error429 | Error500 | GetAdminDashboardResponse200]:
-    """Admin dashboard statistics
+    """Get dashboard statistics
 
      Returns at-a-glance statistics for the admin dashboard including media counts,
     user counts, and system health information.
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,12 +98,10 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error429 | Error500 | GetAdminDashboardResponse200 | None:
-    """Admin dashboard statistics
+    """Get dashboard statistics
 
      Returns at-a-glance statistics for the admin dashboard including media counts,
     user counts, and system health information.
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,12 +120,10 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Error401 | Error403 | Error429 | Error500 | GetAdminDashboardResponse200]:
-    """Admin dashboard statistics
+    """Get dashboard statistics
 
      Returns at-a-glance statistics for the admin dashboard including media counts,
     user counts, and system health information.
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,12 +144,10 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error429 | Error500 | GetAdminDashboardResponse200 | None:
-    """Admin dashboard statistics
+    """Get dashboard statistics
 
      Returns at-a-glance statistics for the admin dashboard including media counts,
     user counts, and system health information.
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

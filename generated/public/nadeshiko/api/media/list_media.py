@@ -124,8 +124,6 @@ def sync_detailed(
     and genres.
     Supports filtering by category and text search.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         take (int | Unset):  Default: 20.
         cursor (str | Unset):
@@ -171,8 +169,6 @@ def sync(
     and genres.
     Supports filtering by category and text search.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         take (int | Unset):  Default: 20.
         cursor (str | Unset):
@@ -212,8 +208,6 @@ async def asyncio_detailed(
      Returns a paginated list of media with full metadata, including cover/banner images, episode counts,
     and genres.
     Supports filtering by category and text search.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         take (int | Unset):  Default: 20.
@@ -257,8 +251,6 @@ async def asyncio(
      Returns a paginated list of media with full metadata, including cover/banner images, episode counts,
     and genres.
     Supports filtering by category and text search.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         take (int | Unset):  Default: 20.

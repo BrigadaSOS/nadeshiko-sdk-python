@@ -112,8 +112,6 @@ def sync_detailed(
 
      Returns a paginated list of episodes for a specific media.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         take (int | Unset):  Default: 50.
@@ -151,8 +149,6 @@ def sync(
 
      Returns a paginated list of episodes for a specific media.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         take (int | Unset):  Default: 50.
@@ -186,8 +182,6 @@ async def asyncio_detailed(
     """List episodes for a media
 
      Returns a paginated list of episodes for a specific media.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):
@@ -223,8 +217,6 @@ async def asyncio(
     """List episodes for a media
 
      Returns a paginated list of episodes for a specific media.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):

@@ -116,8 +116,6 @@ def sync_detailed(
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         body (SearchRequest | Unset):
 
@@ -171,8 +169,6 @@ def sync(
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         body (SearchRequest | Unset):
 
@@ -220,8 +216,6 @@ async def asyncio_detailed(
     reading (homophones). |
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchRequest | Unset):
@@ -273,8 +267,6 @@ async def asyncio(
     reading (homophones). |
     | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
     | **English/Spanish** | Direct translation search |
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchRequest | Unset):

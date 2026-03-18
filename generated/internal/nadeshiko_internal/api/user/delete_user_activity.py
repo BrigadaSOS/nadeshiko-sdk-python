@@ -76,11 +76,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     activity_type: ActivityType | Unset = UNSET,
 ) -> Response[DeleteUserActivityResponse200 | Error401 | Error500]:
-    """Clear user activity history
+    """Clear user activity
 
      Deletes the authenticated user's activity history. Optionally filter by activity type.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         activity_type (ActivityType | Unset): Type of user activity
@@ -109,11 +107,9 @@ def sync(
     client: AuthenticatedClient,
     activity_type: ActivityType | Unset = UNSET,
 ) -> DeleteUserActivityResponse200 | Error401 | Error500 | None:
-    """Clear user activity history
+    """Clear user activity
 
      Deletes the authenticated user's activity history. Optionally filter by activity type.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         activity_type (ActivityType | Unset): Type of user activity
@@ -137,11 +133,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     activity_type: ActivityType | Unset = UNSET,
 ) -> Response[DeleteUserActivityResponse200 | Error401 | Error500]:
-    """Clear user activity history
+    """Clear user activity
 
      Deletes the authenticated user's activity history. Optionally filter by activity type.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         activity_type (ActivityType | Unset): Type of user activity
@@ -168,11 +162,9 @@ async def asyncio(
     client: AuthenticatedClient,
     activity_type: ActivityType | Unset = UNSET,
 ) -> DeleteUserActivityResponse200 | Error401 | Error500 | None:
-    """Clear user activity history
+    """Clear user activity
 
      Deletes the authenticated user's activity history. Optionally filter by activity type.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         activity_type (ActivityType | Unset): Type of user activity

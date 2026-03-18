@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class TrackUserActivityBodyActivityType(str, Enum):
+    ANKI_EXPORT = "ANKI_EXPORT"
     SEARCH = "SEARCH"
     SEGMENT_PLAY = "SEGMENT_PLAY"
     SHARE = "SHARE"

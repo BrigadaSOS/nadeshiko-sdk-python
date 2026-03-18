@@ -117,9 +117,7 @@ def sync_detailed(
 ]:
     """List segment revision history
 
-     Returns the revision history for a segment identified by UUID, ordered by most recent first.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
+     Returns the revision history for a segment, ordered by most recent first.
 
     Args:
         uuid (str):
@@ -159,9 +157,7 @@ def sync(
 ):
     """List segment revision history
 
-     Returns the revision history for a segment identified by UUID, ordered by most recent first.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
+     Returns the revision history for a segment, ordered by most recent first.
 
     Args:
         uuid (str):
@@ -195,9 +191,7 @@ async def asyncio_detailed(
 ]:
     """List segment revision history
 
-     Returns the revision history for a segment identified by UUID, ordered by most recent first.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
+     Returns the revision history for a segment, ordered by most recent first.
 
     Args:
         uuid (str):
@@ -235,9 +229,7 @@ async def asyncio(
 ):
     """List segment revision history
 
-     Returns the revision history for a segment identified by UUID, ordered by most recent first.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
+     Returns the revision history for a segment, ordered by most recent first.
 
     Args:
         uuid (str):

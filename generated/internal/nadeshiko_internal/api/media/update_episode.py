@@ -107,8 +107,6 @@ def sync_detailed(
 
      Updates an existing episode. Only provided fields will be updated.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -146,8 +144,6 @@ def sync(
 
      Updates an existing episode. Only provided fields will be updated.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -179,8 +175,6 @@ async def asyncio_detailed(
     """Update episode
 
      Updates an existing episode. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         media_id (str):
@@ -216,8 +210,6 @@ async def asyncio(
     """Update episode
 
      Updates an existing episode. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         media_id (str):

@@ -88,11 +88,9 @@ def sync_detailed(
 ) -> Response[
     Error401 | Error403 | Error404 | Error429 | Error500 | GetAdminMediaAuditRunResponse200
 ]:
-    """Get a specific audit run's details
+    """Get audit run details
 
      Returns a specific media audit run record with its linked reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):
@@ -121,11 +119,9 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error404 | Error429 | Error500 | GetAdminMediaAuditRunResponse200 | None:
-    """Get a specific audit run's details
+    """Get audit run details
 
      Returns a specific media audit run record with its linked reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):
@@ -151,11 +147,9 @@ async def asyncio_detailed(
 ) -> Response[
     Error401 | Error403 | Error404 | Error429 | Error500 | GetAdminMediaAuditRunResponse200
 ]:
-    """Get a specific audit run's details
+    """Get audit run details
 
      Returns a specific media audit run record with its linked reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):
@@ -182,11 +176,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error404 | Error429 | Error500 | GetAdminMediaAuditRunResponse200 | None:
-    """Get a specific audit run's details
+    """Get audit run details
 
      Returns a specific media audit run record with its linked reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):

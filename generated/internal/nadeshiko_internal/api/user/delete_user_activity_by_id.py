@@ -70,11 +70,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error401 | Error404 | Error500]:
-    """Delete a single activity record
+    """Delete activity record
 
      Deletes a single activity record by ID for the authenticated user.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         id (int):
@@ -103,11 +101,9 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error401 | Error404 | Error500 | None:
-    """Delete a single activity record
+    """Delete activity record
 
      Deletes a single activity record by ID for the authenticated user.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         id (int):
@@ -131,11 +127,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error401 | Error404 | Error500]:
-    """Delete a single activity record
+    """Delete activity record
 
      Deletes a single activity record by ID for the authenticated user.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         id (int):
@@ -162,11 +156,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error401 | Error404 | Error500 | None:
-    """Delete a single activity record
+    """Delete activity record
 
      Deletes a single activity record by ID for the authenticated user.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         id (int):

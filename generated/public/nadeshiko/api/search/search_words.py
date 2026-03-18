@@ -96,13 +96,6 @@ def sync_detailed(
     Unlike the main search endpoint, this returns a summary of matches per media rather than individual
     segments.
 
-    **Use Cases**
-    - Vocabulary discovery across media library
-    - Finding anime/dramas that use specific words
-    - Comparing word usage across different titles
-
-    **Permissions:** `READ_MEDIA`
-
     Args:
         body (SearchMultipleRequest):
 
@@ -137,13 +130,6 @@ def sync(
     Unlike the main search endpoint, this returns a summary of matches per media rather than individual
     segments.
 
-    **Use Cases**
-    - Vocabulary discovery across media library
-    - Finding anime/dramas that use specific words
-    - Comparing word usage across different titles
-
-    **Permissions:** `READ_MEDIA`
-
     Args:
         body (SearchMultipleRequest):
 
@@ -172,13 +158,6 @@ async def asyncio_detailed(
 
     Unlike the main search endpoint, this returns a summary of matches per media rather than individual
     segments.
-
-    **Use Cases**
-    - Vocabulary discovery across media library
-    - Finding anime/dramas that use specific words
-    - Comparing word usage across different titles
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchMultipleRequest):
@@ -211,13 +190,6 @@ async def asyncio(
 
     Unlike the main search endpoint, this returns a summary of matches per media rather than individual
     segments.
-
-    **Use Cases**
-    - Vocabulary discovery across media library
-    - Finding anime/dramas that use specific words
-    - Comparing word usage across different titles
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchMultipleRequest):

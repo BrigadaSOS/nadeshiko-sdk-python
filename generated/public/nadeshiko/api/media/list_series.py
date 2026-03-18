@@ -101,8 +101,6 @@ def sync_detailed(
 
      Returns a paginated list of media series groupings.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         take (int | Unset):  Default: 20.
         cursor (str | Unset):
@@ -140,8 +138,6 @@ def sync(
 
      Returns a paginated list of media series groupings.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         take (int | Unset):  Default: 20.
         cursor (str | Unset):
@@ -173,8 +169,6 @@ async def asyncio_detailed(
     """List all series
 
      Returns a paginated list of media series groupings.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         take (int | Unset):  Default: 20.
@@ -210,8 +204,6 @@ async def asyncio(
     """List all series
 
      Returns a paginated list of media series groupings.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         take (int | Unset):  Default: 20.

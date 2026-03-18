@@ -106,11 +106,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
 ) -> Response[Episode | Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500]:
-    """Create new episode
+    """Create episode
 
      Creates a new episode for a specific media.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):
@@ -142,11 +140,9 @@ def sync(
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
 ) -> Episode | Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | None:
-    """Create new episode
+    """Create episode
 
      Creates a new episode for a specific media.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):
@@ -173,11 +169,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
 ) -> Response[Episode | Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500]:
-    """Create new episode
+    """Create episode
 
      Creates a new episode for a specific media.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):
@@ -207,11 +201,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
 ) -> Episode | Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | None:
-    """Create new episode
+    """Create episode
 
      Creates a new episode for a specific media.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):

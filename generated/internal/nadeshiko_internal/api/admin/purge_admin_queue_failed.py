@@ -92,13 +92,7 @@ def sync_detailed(
     """Purge failed jobs from a queue
 
      Permanently deletes all failed jobs from a queue.
-    This does **not** re-sync the affected segments — use the reindex endpoint for that.
-
-    **Use cases:**
-    - Clean up old failed jobs after investigating
-    - Reset a queue after fixing the underlying issue
-
-    **Permissions:** `ADD_MEDIA`
+    This does **not** re-sync the affected segments -- use the reindex endpoint for that.
 
     Args:
         queue_name (PurgeAdminQueueFailedQueueName):
@@ -130,13 +124,7 @@ def sync(
     """Purge failed jobs from a queue
 
      Permanently deletes all failed jobs from a queue.
-    This does **not** re-sync the affected segments — use the reindex endpoint for that.
-
-    **Use cases:**
-    - Clean up old failed jobs after investigating
-    - Reset a queue after fixing the underlying issue
-
-    **Permissions:** `ADD_MEDIA`
+    This does **not** re-sync the affected segments -- use the reindex endpoint for that.
 
     Args:
         queue_name (PurgeAdminQueueFailedQueueName):
@@ -165,13 +153,7 @@ async def asyncio_detailed(
     """Purge failed jobs from a queue
 
      Permanently deletes all failed jobs from a queue.
-    This does **not** re-sync the affected segments — use the reindex endpoint for that.
-
-    **Use cases:**
-    - Clean up old failed jobs after investigating
-    - Reset a queue after fixing the underlying issue
-
-    **Permissions:** `ADD_MEDIA`
+    This does **not** re-sync the affected segments -- use the reindex endpoint for that.
 
     Args:
         queue_name (PurgeAdminQueueFailedQueueName):
@@ -201,13 +183,7 @@ async def asyncio(
     """Purge failed jobs from a queue
 
      Permanently deletes all failed jobs from a queue.
-    This does **not** re-sync the affected segments — use the reindex endpoint for that.
-
-    **Use cases:**
-    - Clean up old failed jobs after investigating
-    - Reset a queue after fixing the underlying issue
-
-    **Permissions:** `ADD_MEDIA`
+    This does **not** re-sync the affected segments -- use the reindex endpoint for that.
 
     Args:
         queue_name (PurgeAdminQueueFailedQueueName):

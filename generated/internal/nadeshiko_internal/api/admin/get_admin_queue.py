@@ -113,8 +113,6 @@ def sync_detailed(
     - `es-sync-update` - Jobs to update existing segments
     - `es-sync-delete` - Jobs to delete segments
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         queue_name (GetAdminQueueQueueName):
 
@@ -160,8 +158,6 @@ def sync(
     - `es-sync-update` - Jobs to update existing segments
     - `es-sync-delete` - Jobs to delete segments
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         queue_name (GetAdminQueueQueueName):
 
@@ -194,8 +190,6 @@ async def asyncio_detailed(
     - `es-sync-create` - Jobs to create new segments in Elasticsearch
     - `es-sync-update` - Jobs to update existing segments
     - `es-sync-delete` - Jobs to delete segments
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         queue_name (GetAdminQueueQueueName):
@@ -239,8 +233,6 @@ async def asyncio(
     - `es-sync-create` - Jobs to create new segments in Elasticsearch
     - `es-sync-update` - Jobs to update existing segments
     - `es-sync-delete` - Jobs to delete segments
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         queue_name (GetAdminQueueQueueName):

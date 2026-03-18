@@ -16,8 +16,8 @@ class UserQuotaResponse:
     """
     Attributes:
         quota_used (int): Number of API requests used in the current billing period. Example: 342.
-        quota_limit (int): Maximum number of API requests allowed in the current billing period. Example: 2500.
-        quota_remaining (int): Number of API requests remaining in the current billing period. Example: 2158.
+        quota_limit (int): Maximum number of API requests allowed in the current billing period. Example: 5000.
+        quota_remaining (int): Number of API requests remaining in the current billing period. Example: 4658.
         period_yyyymm (int): Current billing period in YYYYMM format. Example: 202602.
         period_start (datetime.datetime): Start of the current billing period (UTC). Example: 2026-02-01T00:00:00.000Z.
         period_end (datetime.datetime): End of the current billing period (UTC). Example: 2026-02-28T23:59:59.999Z.

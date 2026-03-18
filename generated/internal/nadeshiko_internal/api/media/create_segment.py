@@ -123,11 +123,9 @@ def sync_detailed(
 ) -> Response[
     Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
 ]:
-    """Create new segment
+    """Create segment
 
      Creates a new segment for a specific episode.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         media_id (str):
@@ -172,11 +170,9 @@ def sync(
     | SegmentInternal
     | None
 ):
-    """Create new segment
+    """Create segment
 
      Creates a new segment for a specific episode.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         media_id (str):
@@ -208,11 +204,9 @@ async def asyncio_detailed(
 ) -> Response[
     Error400 | Error401 | Error403 | Error404 | Error409 | Error429 | Error500 | SegmentInternal
 ]:
-    """Create new segment
+    """Create segment
 
      Creates a new segment for a specific episode.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         media_id (str):
@@ -255,11 +249,9 @@ async def asyncio(
     | SegmentInternal
     | None
 ):
-    """Create new segment
+    """Create segment
 
      Creates a new segment for a specific episode.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         media_id (str):

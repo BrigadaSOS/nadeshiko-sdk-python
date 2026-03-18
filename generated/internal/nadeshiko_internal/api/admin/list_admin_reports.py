@@ -130,8 +130,6 @@ def sync_detailed(
      Returns all reports with filtering and cursor pagination.
     Supports filtering by source (USER/AUTO) to separate user reports from auto-check findings.
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
@@ -188,8 +186,6 @@ def sync(
      Returns all reports with filtering and cursor pagination.
     Supports filtering by source (USER/AUTO) to separate user reports from auto-check findings.
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
@@ -240,8 +236,6 @@ async def asyncio_detailed(
 
      Returns all reports with filtering and cursor pagination.
     Supports filtering by source (USER/AUTO) to separate user reports from auto-check findings.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         cursor (str | Unset):
@@ -296,8 +290,6 @@ async def asyncio(
 
      Returns all reports with filtering and cursor pagination.
     Supports filtering by source (USER/AUTO) to separate user reports from auto-check findings.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         cursor (str | Unset):

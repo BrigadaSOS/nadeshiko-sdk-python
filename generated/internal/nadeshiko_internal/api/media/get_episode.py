@@ -97,8 +97,6 @@ def sync_detailed(
 
      Returns a specific episode by media ID and episode number.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -133,8 +131,6 @@ def sync(
 
      Returns a specific episode by media ID and episode number.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -163,8 +159,6 @@ async def asyncio_detailed(
     """Get single episode
 
      Returns a specific episode by media ID and episode number.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):
@@ -197,8 +191,6 @@ async def asyncio(
     """Get single episode
 
      Returns a specific episode by media ID and episode number.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):

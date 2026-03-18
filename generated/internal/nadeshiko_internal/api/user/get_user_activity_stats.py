@@ -80,8 +80,6 @@ def sync_detailed(
      Returns aggregate statistics about the authenticated user's activity:
     total searches, exports, plays, and top media.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         since (datetime.date | Unset):
 
@@ -114,8 +112,6 @@ def sync(
      Returns aggregate statistics about the authenticated user's activity:
     total searches, exports, plays, and top media.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         since (datetime.date | Unset):
 
@@ -142,8 +138,6 @@ async def asyncio_detailed(
 
      Returns aggregate statistics about the authenticated user's activity:
     total searches, exports, plays, and top media.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         since (datetime.date | Unset):
@@ -174,8 +168,6 @@ async def asyncio(
 
      Returns aggregate statistics about the authenticated user's activity:
     total searches, exports, plays, and top media.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         since (datetime.date | Unset):

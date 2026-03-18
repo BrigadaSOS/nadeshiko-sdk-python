@@ -88,12 +88,10 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
-    """Delete media (soft delete)
+    """Delete media
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
     but is excluded from query results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -122,12 +120,10 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
-    """Delete media (soft delete)
+    """Delete media
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
     but is excluded from query results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -151,12 +147,10 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
-    """Delete media (soft delete)
+    """Delete media
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
     but is excluded from query results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -183,12 +177,10 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
-    """Delete media (soft delete)
+    """Delete media
 
      Soft-deletes a media entry by setting the `deletedAt` timestamp. The media remains in the database
     but is excluded from query results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.

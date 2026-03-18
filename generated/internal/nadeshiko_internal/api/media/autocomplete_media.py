@@ -108,8 +108,6 @@ def sync_detailed(
     Results are ranked by exact match, then prefix match, then contains match,
     and further sorted by name length.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         query (str):  Example: steins.
         take (int | Unset):  Default: 10.
@@ -149,8 +147,6 @@ def sync(
     Results are ranked by exact match, then prefix match, then contains match,
     and further sorted by name length.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         query (str):  Example: steins.
         take (int | Unset):  Default: 10.
@@ -184,8 +180,6 @@ async def asyncio_detailed(
      Returns a short list of media matching a name prefix or substring.
     Results are ranked by exact match, then prefix match, then contains match,
     and further sorted by name length.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         query (str):  Example: steins.
@@ -223,8 +217,6 @@ async def asyncio(
      Returns a short list of media matching a name prefix or substring.
     Results are ranked by exact match, then prefix match, then contains match,
     and further sorted by name length.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         query (str):  Example: steins.

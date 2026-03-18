@@ -101,8 +101,6 @@ def sync_detailed(
     The stats are scoped by query and category filters, but are not narrowed by a selected
     media/episode.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         body (SearchStatsRequest | Unset):
 
@@ -141,8 +139,6 @@ def sync(
     The stats are scoped by query and category filters, but are not narrowed by a selected
     media/episode.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         body (SearchStatsRequest | Unset):
 
@@ -175,8 +171,6 @@ async def asyncio_detailed(
 
     The stats are scoped by query and category filters, but are not narrowed by a selected
     media/episode.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchStatsRequest | Unset):
@@ -213,8 +207,6 @@ async def asyncio(
 
     The stats are scoped by query and category filters, but are not narrowed by a selected
     media/episode.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         body (SearchStatsRequest | Unset):

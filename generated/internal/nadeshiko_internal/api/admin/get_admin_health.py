@@ -72,12 +72,10 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Error401 | Error403 | Error429 | Error500 | GetAdminHealthResponse200]:
-    """System health check
+    """Check system health
 
      Returns connectivity status and version information for all backend subsystems
     (Elasticsearch, PostgreSQL, application).
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,12 +98,10 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error429 | Error500 | GetAdminHealthResponse200 | None:
-    """System health check
+    """Check system health
 
      Returns connectivity status and version information for all backend subsystems
     (Elasticsearch, PostgreSQL, application).
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,12 +120,10 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Error401 | Error403 | Error429 | Error500 | GetAdminHealthResponse200]:
-    """System health check
+    """Check system health
 
      Returns connectivity status and version information for all backend subsystems
     (Elasticsearch, PostgreSQL, application).
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,12 +144,10 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error429 | Error500 | GetAdminHealthResponse200 | None:
-    """System health check
+    """Check system health
 
      Returns connectivity status and version information for all backend subsystems
     (Elasticsearch, PostgreSQL, application).
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

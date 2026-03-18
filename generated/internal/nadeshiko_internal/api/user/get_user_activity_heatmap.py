@@ -76,8 +76,6 @@ def sync_detailed(
      Returns daily activity counts for the authenticated user, grouped by date and activity type.
     Each day contains per-type counts that can be summed or filtered client-side.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         days (int | Unset):  Default: 365.
 
@@ -110,8 +108,6 @@ def sync(
      Returns daily activity counts for the authenticated user, grouped by date and activity type.
     Each day contains per-type counts that can be summed or filtered client-side.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         days (int | Unset):  Default: 365.
 
@@ -138,8 +134,6 @@ async def asyncio_detailed(
 
      Returns daily activity counts for the authenticated user, grouped by date and activity type.
     Each day contains per-type counts that can be summed or filtered client-side.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         days (int | Unset):  Default: 365.
@@ -170,8 +164,6 @@ async def asyncio(
 
      Returns daily activity counts for the authenticated user, grouped by date and activity type.
     Each day contains per-type counts that can be summed or filtered client-side.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         days (int | Unset):  Default: 365.
