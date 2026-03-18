@@ -95,11 +95,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: MediaCreateRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error409 | Error429 | Error500 | Media]:
-    """Create new media
+    """Create media
 
      Creates a new media entry in the database.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (MediaCreateRequest): Request body for creating a new media entry
@@ -128,11 +126,9 @@ def sync(
     client: AuthenticatedClient,
     body: MediaCreateRequest,
 ) -> Error400 | Error401 | Error403 | Error409 | Error429 | Error500 | Media | None:
-    """Create new media
+    """Create media
 
      Creates a new media entry in the database.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (MediaCreateRequest): Request body for creating a new media entry
@@ -156,11 +152,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: MediaCreateRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error409 | Error429 | Error500 | Media]:
-    """Create new media
+    """Create media
 
      Creates a new media entry in the database.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (MediaCreateRequest): Request body for creating a new media entry
@@ -187,11 +181,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: MediaCreateRequest,
 ) -> Error400 | Error401 | Error403 | Error409 | Error429 | Error500 | Media | None:
-    """Create new media
+    """Create media
 
      Creates a new media entry in the database.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (MediaCreateRequest): Request body for creating a new media entry

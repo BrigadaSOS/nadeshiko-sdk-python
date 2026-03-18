@@ -99,12 +99,10 @@ def sync_detailed(
     client: AuthenticatedClient,
     category: RunAdminMediaAuditCategory | Unset = UNSET,
 ) -> Response[Error401 | Error403 | Error404 | Error429 | Error500 | RunAuditResponse]:
-    """Run a media audit
+    """Run media audit
 
      Triggers all enabled audits (or a specific one). Creates MediaAuditRun records and AUTO reports for
     any findings.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):
@@ -136,12 +134,10 @@ def sync(
     client: AuthenticatedClient,
     category: RunAdminMediaAuditCategory | Unset = UNSET,
 ) -> Error401 | Error403 | Error404 | Error429 | Error500 | RunAuditResponse | None:
-    """Run a media audit
+    """Run media audit
 
      Triggers all enabled audits (or a specific one). Creates MediaAuditRun records and AUTO reports for
     any findings.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):
@@ -168,12 +164,10 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     category: RunAdminMediaAuditCategory | Unset = UNSET,
 ) -> Response[Error401 | Error403 | Error404 | Error429 | Error500 | RunAuditResponse]:
-    """Run a media audit
+    """Run media audit
 
      Triggers all enabled audits (or a specific one). Creates MediaAuditRun records and AUTO reports for
     any findings.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):
@@ -203,12 +197,10 @@ async def asyncio(
     client: AuthenticatedClient,
     category: RunAdminMediaAuditCategory | Unset = UNSET,
 ) -> Error401 | Error403 | Error404 | Error429 | Error500 | RunAuditResponse | None:
-    """Run a media audit
+    """Run media audit
 
      Triggers all enabled audits (or a specific one). Creates MediaAuditRun records and AUTO reports for
     any findings.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):

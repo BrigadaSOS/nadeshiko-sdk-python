@@ -79,8 +79,6 @@ def sync_detailed(
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         body (TrackUserActivityBody):
 
@@ -112,8 +110,6 @@ def sync(
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         body (TrackUserActivityBody):
 
@@ -139,8 +135,6 @@ async def asyncio_detailed(
     """Track user activity
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         body (TrackUserActivityBody):
@@ -170,8 +164,6 @@ async def asyncio(
     """Track user activity
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         body (TrackUserActivityBody):

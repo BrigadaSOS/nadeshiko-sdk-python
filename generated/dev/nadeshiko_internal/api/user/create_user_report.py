@@ -83,11 +83,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: CreateReportRequest,
 ) -> Response[Error400 | Error401 | Error404 | Error500 | Report]:
-    """Create a new report
+    """Create report
 
-     Submit a report for a segment or media entry.
-
-    **Permissions:** Session authentication (cookie-based).
+     Submits a report for a segment or media entry.
 
     Args:
         body (CreateReportRequest):
@@ -116,11 +114,9 @@ def sync(
     client: AuthenticatedClient,
     body: CreateReportRequest,
 ) -> Error400 | Error401 | Error404 | Error500 | Report | None:
-    """Create a new report
+    """Create report
 
-     Submit a report for a segment or media entry.
-
-    **Permissions:** Session authentication (cookie-based).
+     Submits a report for a segment or media entry.
 
     Args:
         body (CreateReportRequest):
@@ -144,11 +140,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: CreateReportRequest,
 ) -> Response[Error400 | Error401 | Error404 | Error500 | Report]:
-    """Create a new report
+    """Create report
 
-     Submit a report for a segment or media entry.
-
-    **Permissions:** Session authentication (cookie-based).
+     Submits a report for a segment or media entry.
 
     Args:
         body (CreateReportRequest):
@@ -175,11 +169,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: CreateReportRequest,
 ) -> Error400 | Error401 | Error404 | Error500 | Report | None:
-    """Create a new report
+    """Create report
 
-     Submit a report for a segment or media entry.
-
-    **Permissions:** Session authentication (cookie-based).
+     Submits a report for a segment or media entry.
 
     Args:
         body (CreateReportRequest):

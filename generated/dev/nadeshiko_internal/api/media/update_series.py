@@ -104,8 +104,6 @@ def sync_detailed(
 
      Updates series localized names.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         body (UpdateSeriesBody):
@@ -140,8 +138,6 @@ def sync(
 
      Updates series localized names.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         body (UpdateSeriesBody):
@@ -170,8 +166,6 @@ async def asyncio_detailed(
     """Update series metadata
 
      Updates series localized names.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -204,8 +198,6 @@ async def asyncio(
     """Update series metadata
 
      Updates series localized names.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.

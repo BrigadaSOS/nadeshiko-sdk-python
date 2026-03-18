@@ -92,11 +92,9 @@ def sync_detailed(
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
-    """Get user activity history
+    """List user activity
 
      Returns the authenticated user's activity history with cursor-based pagination.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         cursor (str | Unset):
@@ -134,11 +132,9 @@ def sync(
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | ListUserActivityResponse200 | None:
-    """Get user activity history
+    """List user activity
 
      Returns the authenticated user's activity history with cursor-based pagination.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         cursor (str | Unset):
@@ -171,11 +167,9 @@ async def asyncio_detailed(
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Response[Error401 | Error500 | ListUserActivityResponse200]:
-    """Get user activity history
+    """List user activity
 
      Returns the authenticated user's activity history with cursor-based pagination.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         cursor (str | Unset):
@@ -211,11 +205,9 @@ async def asyncio(
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> Error401 | Error500 | ListUserActivityResponse200 | None:
-    """Get user activity history
+    """List user activity
 
      Returns the authenticated user's activity history with cursor-based pagination.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         cursor (str | Unset):

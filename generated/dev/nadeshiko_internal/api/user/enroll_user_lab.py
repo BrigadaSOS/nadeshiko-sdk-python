@@ -75,8 +75,6 @@ def sync_detailed(
      Opts the authenticated user into a lab feature. The user must be eligible
     for the lab (correct role, in allowlist or rollout percentage).
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         key (str):
 
@@ -109,8 +107,6 @@ def sync(
      Opts the authenticated user into a lab feature. The user must be eligible
     for the lab (correct role, in allowlist or rollout percentage).
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         key (str):
 
@@ -137,8 +133,6 @@ async def asyncio_detailed(
 
      Opts the authenticated user into a lab feature. The user must be eligible
     for the lab (correct role, in allowlist or rollout percentage).
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         key (str):
@@ -169,8 +163,6 @@ async def asyncio(
 
      Opts the authenticated user into a lab feature. The user must be eligible
     for the lab (correct role, in allowlist or rollout percentage).
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         key (str):

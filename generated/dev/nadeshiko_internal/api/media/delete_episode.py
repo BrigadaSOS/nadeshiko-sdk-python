@@ -91,12 +91,10 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
-    """Delete an episode
+    """Delete episode
 
      Soft-deletes an episode. Segments are not cascade deleted — this only hides the episode from
     results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         media_id (str):
@@ -128,12 +126,10 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
-    """Delete an episode
+    """Delete episode
 
      Soft-deletes an episode. Segments are not cascade deleted — this only hides the episode from
     results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         media_id (str):
@@ -160,12 +156,10 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
-    """Delete an episode
+    """Delete episode
 
      Soft-deletes an episode. Segments are not cascade deleted — this only hides the episode from
     results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         media_id (str):
@@ -195,12 +189,10 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
-    """Delete an episode
+    """Delete episode
 
      Soft-deletes an episode. Segments are not cascade deleted — this only hides the episode from
     results.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         media_id (str):

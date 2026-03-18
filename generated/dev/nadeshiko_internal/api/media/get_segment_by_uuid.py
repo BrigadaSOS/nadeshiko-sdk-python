@@ -108,15 +108,13 @@ def sync_detailed(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Get segment by UUID or publicId
+    """Get segment by publicId
 
-     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
+     Returns a specific segment by its publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
     alongside the standard segment data.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -148,15 +146,13 @@ def sync(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Get segment by UUID or publicId
+    """Get segment by publicId
 
-     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
+     Returns a specific segment by its publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
     alongside the standard segment data.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -183,15 +179,13 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Get segment by UUID or publicId
+    """Get segment by publicId
 
-     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
+     Returns a specific segment by its publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
     alongside the standard segment data.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):
@@ -221,15 +215,13 @@ async def asyncio(
     client: AuthenticatedClient,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Get segment by UUID or publicId
+    """Get segment by publicId
 
-     Returns a specific segment by its UUID or publicId. A shortcut alternative to the nested
+     Returns a specific segment by its publicId. A shortcut alternative to the nested
     `/media/{mediaId}/episodes/{episodeNumber}/segments/{id}` path.
 
     Pass `include[]=ratingAnalysis` and/or `include[]=posAnalysis` to receive raw analysis fields
     alongside the standard segment data.
-
-    **Permissions:** `UPDATE_MEDIA` (API key) or admin session
 
     Args:
         uuid (str):

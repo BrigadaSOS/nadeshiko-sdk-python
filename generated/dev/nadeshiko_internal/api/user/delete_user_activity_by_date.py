@@ -71,8 +71,6 @@ def sync_detailed(
 
      Deletes all activity records for the authenticated user on the given date.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         date (datetime.date):
 
@@ -104,8 +102,6 @@ def sync(
 
      Deletes all activity records for the authenticated user on the given date.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         date (datetime.date):
 
@@ -131,8 +127,6 @@ async def asyncio_detailed(
     """Delete all activity for a specific date
 
      Deletes all activity records for the authenticated user on the given date.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         date (datetime.date):
@@ -162,8 +156,6 @@ async def asyncio(
     """Delete all activity for a specific date
 
      Deletes all activity records for the authenticated user on the given date.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         date (datetime.date):

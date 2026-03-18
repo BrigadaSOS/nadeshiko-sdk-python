@@ -74,8 +74,6 @@ def sync_detailed(
 
      Opts the authenticated user out of a lab feature.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         key (str):
 
@@ -107,8 +105,6 @@ def sync(
 
      Opts the authenticated user out of a lab feature.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         key (str):
 
@@ -134,8 +130,6 @@ async def asyncio_detailed(
     """Unenroll from a lab feature
 
      Opts the authenticated user out of a lab feature.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         key (str):
@@ -165,8 +159,6 @@ async def asyncio(
     """Unenroll from a lab feature
 
      Opts the authenticated user out of a lab feature.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         key (str):

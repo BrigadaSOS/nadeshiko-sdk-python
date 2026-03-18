@@ -117,8 +117,6 @@ def sync_detailed(
 
      Returns a paginated list of segments for a specific episode.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -161,8 +159,6 @@ def sync(
 
      Returns a paginated list of segments for a specific episode.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -199,8 +195,6 @@ async def asyncio_detailed(
     """List segments for an episode
 
      Returns a paginated list of segments for a specific episode.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):
@@ -241,8 +235,6 @@ async def asyncio(
     """List segments for an episode
 
      Returns a paginated list of segments for a specific episode.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):

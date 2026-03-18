@@ -108,13 +108,6 @@ def sync_detailed(
 
      Returns jobs that have exceeded their retry limit and permanently failed.
 
-    **Use cases:**
-    - Identify segments that failed to sync to Elasticsearch
-    - Debug persistent sync issues
-    - Decide whether to retry or purge failed jobs
-
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         queue_name (ListAdminQueueFailedQueueName):
 
@@ -154,13 +147,6 @@ def sync(
 
      Returns jobs that have exceeded their retry limit and permanently failed.
 
-    **Use cases:**
-    - Identify segments that failed to sync to Elasticsearch
-    - Debug persistent sync issues
-    - Decide whether to retry or purge failed jobs
-
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         queue_name (ListAdminQueueFailedQueueName):
 
@@ -188,13 +174,6 @@ async def asyncio_detailed(
     """Get failed jobs from a queue
 
      Returns jobs that have exceeded their retry limit and permanently failed.
-
-    **Use cases:**
-    - Identify segments that failed to sync to Elasticsearch
-    - Debug persistent sync issues
-    - Decide whether to retry or purge failed jobs
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         queue_name (ListAdminQueueFailedQueueName):
@@ -232,13 +211,6 @@ async def asyncio(
     """Get failed jobs from a queue
 
      Returns jobs that have exceeded their retry limit and permanently failed.
-
-    **Use cases:**
-    - Identify segments that failed to sync to Elasticsearch
-    - Debug persistent sync issues
-    - Decide whether to retry or purge failed jobs
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         queue_name (ListAdminQueueFailedQueueName):

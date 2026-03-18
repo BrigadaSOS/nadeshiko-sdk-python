@@ -100,11 +100,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: UpdateAdminMediaAuditBody,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaAudit]:
-    """Update a media audit config
+    """Update media audit config
 
      Updates the threshold values or enabled status of an audit.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):
@@ -136,11 +134,9 @@ def sync(
     client: AuthenticatedClient,
     body: UpdateAdminMediaAuditBody,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaAudit | None:
-    """Update a media audit config
+    """Update media audit config
 
      Updates the threshold values or enabled status of an audit.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):
@@ -167,11 +163,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: UpdateAdminMediaAuditBody,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaAudit]:
-    """Update a media audit config
+    """Update media audit config
 
      Updates the threshold values or enabled status of an audit.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):
@@ -201,11 +195,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: UpdateAdminMediaAuditBody,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | MediaAudit | None:
-    """Update a media audit config
+    """Update media audit config
 
      Updates the threshold values or enabled status of an audit.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         name (str):

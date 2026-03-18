@@ -71,8 +71,6 @@ def sync_detailed(
     opt-in status. Features gated by role are excluded if the user lacks
     the required role.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -100,8 +98,6 @@ def sync(
     opt-in status. Features gated by role are excluded if the user lacks
     the required role.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -124,8 +120,6 @@ async def asyncio_detailed(
      Returns all available lab features merged with the authenticated user's
     opt-in status. Features gated by role are excluded if the user lacks
     the required role.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,8 +145,6 @@ async def asyncio(
      Returns all available lab features merged with the authenticated user's
     opt-in status. Features gated by role are excluded if the user lacks
     the required role.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

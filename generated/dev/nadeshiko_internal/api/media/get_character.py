@@ -94,8 +94,6 @@ def sync_detailed(
 
      Returns a character with their voice actors (seiyuu) and all media appearances.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         id (int):  Example: 1.
 
@@ -127,8 +125,6 @@ def sync(
 
      Returns a character with their voice actors (seiyuu) and all media appearances.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         id (int):  Example: 1.
 
@@ -154,8 +150,6 @@ async def asyncio_detailed(
     """Get character details
 
      Returns a character with their voice actors (seiyuu) and all media appearances.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         id (int):  Example: 1.
@@ -185,8 +179,6 @@ async def asyncio(
     """Get character details
 
      Returns a character with their voice actors (seiyuu) and all media appearances.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         id (int):  Example: 1.

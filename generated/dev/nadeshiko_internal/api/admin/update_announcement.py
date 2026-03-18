@@ -89,7 +89,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: UpdateAnnouncementBody,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | UpdateAnnouncementResponse200]:
-    """Create or update the announcement
+    """Create or update announcement
 
      Upserts the site-wide announcement. Only one announcement exists at a time.
 
@@ -120,7 +120,7 @@ def sync(
     client: AuthenticatedClient,
     body: UpdateAnnouncementBody,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | UpdateAnnouncementResponse200 | None:
-    """Create or update the announcement
+    """Create or update announcement
 
      Upserts the site-wide announcement. Only one announcement exists at a time.
 
@@ -146,7 +146,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: UpdateAnnouncementBody,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | UpdateAnnouncementResponse200]:
-    """Create or update the announcement
+    """Create or update announcement
 
      Upserts the site-wide announcement. Only one announcement exists at a time.
 
@@ -175,7 +175,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: UpdateAnnouncementBody,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | UpdateAnnouncementResponse200 | None:
-    """Create or update the announcement
+    """Create or update announcement
 
      Upserts the site-wide announcement. Only one announcement exists at a time.
 

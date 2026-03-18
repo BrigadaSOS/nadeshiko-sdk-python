@@ -116,12 +116,10 @@ def sync_detailed(
 ) -> Response[
     CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
 ]:
-    """Batch create segments for an episode
+    """Batch create segments
 
      Creates multiple segments for a specific episode in a single request.
     Duplicate UUIDs are silently skipped.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):
@@ -165,12 +163,10 @@ def sync(
     | Error500
     | None
 ):
-    """Batch create segments for an episode
+    """Batch create segments
 
      Creates multiple segments for a specific episode in a single request.
     Duplicate UUIDs are silently skipped.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):
@@ -202,12 +198,10 @@ async def asyncio_detailed(
 ) -> Response[
     CreateSegmentsBatchResponse201 | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
 ]:
-    """Batch create segments for an episode
+    """Batch create segments
 
      Creates multiple segments for a specific episode in a single request.
     Duplicate UUIDs are silently skipped.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):
@@ -249,12 +243,10 @@ async def asyncio(
     | Error500
     | None
 ):
-    """Batch create segments for an episode
+    """Batch create segments
 
      Creates multiple segments for a specific episode in a single request.
     Duplicate UUIDs are silently skipped.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         media_id (str):

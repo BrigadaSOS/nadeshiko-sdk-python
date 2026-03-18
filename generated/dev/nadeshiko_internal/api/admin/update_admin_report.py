@@ -100,12 +100,10 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: UpdateReportRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Report]:
-    """Update a report
+    """Update report
 
      Updates the status and/or admin notes of a report.
     Works for both USER and AUTO reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):
@@ -137,12 +135,10 @@ def sync(
     client: AuthenticatedClient,
     body: UpdateReportRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Report | None:
-    """Update a report
+    """Update report
 
      Updates the status and/or admin notes of a report.
     Works for both USER and AUTO reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):
@@ -169,12 +165,10 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: UpdateReportRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Report]:
-    """Update a report
+    """Update report
 
      Updates the status and/or admin notes of a report.
     Works for both USER and AUTO reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):
@@ -204,12 +198,10 @@ async def asyncio(
     client: AuthenticatedClient,
     body: UpdateReportRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Report | None:
-    """Update a report
+    """Update report
 
      Updates the status and/or admin notes of a report.
     Works for both USER and AUTO reports.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         id (int):

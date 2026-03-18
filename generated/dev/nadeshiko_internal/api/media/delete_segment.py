@@ -98,8 +98,6 @@ def sync_detailed(
 
      Soft-deletes a segment by setting its status to DELETED.
 
-    **Permissions:** `REMOVE_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -137,8 +135,6 @@ def sync(
 
      Soft-deletes a segment by setting its status to DELETED.
 
-    **Permissions:** `REMOVE_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -170,8 +166,6 @@ async def asyncio_detailed(
     """Delete segment
 
      Soft-deletes a segment by setting its status to DELETED.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         media_id (str):
@@ -207,8 +201,6 @@ async def asyncio(
     """Delete segment
 
      Soft-deletes a segment by setting its status to DELETED.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         media_id (str):

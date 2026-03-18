@@ -93,12 +93,6 @@ def sync_detailed(
 
      Re-enqueues all failed jobs from a specific queue for another attempt.
 
-    **Use cases:**
-    - Retry jobs that failed due to temporary Elasticsearch issues
-    - Recover from network blips
-
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         queue_name (RetryAdminQueueFailedQueueName):
 
@@ -130,12 +124,6 @@ def sync(
 
      Re-enqueues all failed jobs from a specific queue for another attempt.
 
-    **Use cases:**
-    - Retry jobs that failed due to temporary Elasticsearch issues
-    - Recover from network blips
-
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         queue_name (RetryAdminQueueFailedQueueName):
 
@@ -163,12 +151,6 @@ async def asyncio_detailed(
     """Retry failed jobs from a queue
 
      Re-enqueues all failed jobs from a specific queue for another attempt.
-
-    **Use cases:**
-    - Retry jobs that failed due to temporary Elasticsearch issues
-    - Recover from network blips
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         queue_name (RetryAdminQueueFailedQueueName):
@@ -198,12 +180,6 @@ async def asyncio(
     """Retry failed jobs from a queue
 
      Re-enqueues all failed jobs from a specific queue for another attempt.
-
-    **Use cases:**
-    - Retry jobs that failed due to temporary Elasticsearch issues
-    - Recover from network blips
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         queue_name (RetryAdminQueueFailedQueueName):

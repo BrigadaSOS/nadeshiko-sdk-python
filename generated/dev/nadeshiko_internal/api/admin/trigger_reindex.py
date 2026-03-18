@@ -90,7 +90,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: ReindexRequest | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | ReindexResponse]:
-    """Reindex database into Elasticsearch
+    """Reindex segments into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
     Allows filtering by specific media entries and episodes.
@@ -99,8 +99,6 @@ def sync_detailed(
     - If no filters provided, reindexes all segments
     - If `media` is provided, reindexes segments from those media entries
     - If a media item includes `episodes`, only those episodes are reindexed for that media
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (ReindexRequest | Unset): Request to reindex segments from the database into
@@ -130,7 +128,7 @@ def sync(
     client: AuthenticatedClient,
     body: ReindexRequest | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | ReindexResponse | None:
-    """Reindex database into Elasticsearch
+    """Reindex segments into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
     Allows filtering by specific media entries and episodes.
@@ -139,8 +137,6 @@ def sync(
     - If no filters provided, reindexes all segments
     - If `media` is provided, reindexes segments from those media entries
     - If a media item includes `episodes`, only those episodes are reindexed for that media
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (ReindexRequest | Unset): Request to reindex segments from the database into
@@ -165,7 +161,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: ReindexRequest | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | ReindexResponse]:
-    """Reindex database into Elasticsearch
+    """Reindex segments into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
     Allows filtering by specific media entries and episodes.
@@ -174,8 +170,6 @@ async def asyncio_detailed(
     - If no filters provided, reindexes all segments
     - If `media` is provided, reindexes segments from those media entries
     - If a media item includes `episodes`, only those episodes are reindexed for that media
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (ReindexRequest | Unset): Request to reindex segments from the database into
@@ -203,7 +197,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: ReindexRequest | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | ReindexResponse | None:
-    """Reindex database into Elasticsearch
+    """Reindex segments into Elasticsearch
 
      Reindexes segments from the PostgreSQL database into Elasticsearch.
     Allows filtering by specific media entries and episodes.
@@ -212,8 +206,6 @@ async def asyncio(
     - If no filters provided, reindexes all segments
     - If `media` is provided, reindexes segments from those media entries
     - If a media item includes `episodes`, only those episodes are reindexed for that media
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (ReindexRequest | Unset): Request to reindex segments from the database into

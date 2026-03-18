@@ -99,8 +99,6 @@ def sync_detailed(
 
      Updates the status (and optionally admin notes) of multiple reports at once.
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         body (BatchUpdateReportsRequest):
 
@@ -134,8 +132,6 @@ def sync(
 
      Updates the status (and optionally admin notes) of multiple reports at once.
 
-    **Permissions:** `ADD_MEDIA`
-
     Args:
         body (BatchUpdateReportsRequest):
 
@@ -163,8 +159,6 @@ async def asyncio_detailed(
     """Batch update reports
 
      Updates the status (and optionally admin notes) of multiple reports at once.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (BatchUpdateReportsRequest):
@@ -196,8 +190,6 @@ async def asyncio(
     """Batch update reports
 
      Updates the status (and optionally admin notes) of multiple reports at once.
-
-    **Permissions:** `ADD_MEDIA`
 
     Args:
         body (BatchUpdateReportsRequest):

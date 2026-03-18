@@ -75,8 +75,6 @@ def sync_detailed(
      Deep-merges a partial preferences update into the user's existing preferences.
     Only the provided keys are updated; all other keys are preserved.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         body (UserPreferences):
 
@@ -109,8 +107,6 @@ def sync(
      Deep-merges a partial preferences update into the user's existing preferences.
     Only the provided keys are updated; all other keys are preserved.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Args:
         body (UserPreferences):
 
@@ -137,8 +133,6 @@ async def asyncio_detailed(
 
      Deep-merges a partial preferences update into the user's existing preferences.
     Only the provided keys are updated; all other keys are preserved.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         body (UserPreferences):
@@ -169,8 +163,6 @@ async def asyncio(
 
      Deep-merges a partial preferences update into the user's existing preferences.
     Only the provided keys are updated; all other keys are preserved.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Args:
         body (UserPreferences):

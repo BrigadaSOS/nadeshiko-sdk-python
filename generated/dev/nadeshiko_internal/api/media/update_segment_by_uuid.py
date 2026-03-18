@@ -100,12 +100,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Update segment by UUID or publicId
+    """Update segment by publicId
 
-     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
-    then applies the update. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
+     Updates an existing segment identified by its publicId. Only provided fields will be updated.
 
     Args:
         uuid (str):
@@ -137,12 +134,9 @@ def sync(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Update segment by UUID or publicId
+    """Update segment by publicId
 
-     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
-    then applies the update. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
+     Updates an existing segment identified by its publicId. Only provided fields will be updated.
 
     Args:
         uuid (str):
@@ -169,12 +163,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal]:
-    """Update segment by UUID or publicId
+    """Update segment by publicId
 
-     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
-    then applies the update. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
+     Updates an existing segment identified by its publicId. Only provided fields will be updated.
 
     Args:
         uuid (str):
@@ -204,12 +195,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentInternal | None:
-    """Update segment by UUID or publicId
+    """Update segment by publicId
 
-     Updates an existing segment identified by its UUID or publicId. Performs the lookup internally,
-    then applies the update. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
+     Updates an existing segment identified by its publicId. Only provided fields will be updated.
 
     Args:
         uuid (str):

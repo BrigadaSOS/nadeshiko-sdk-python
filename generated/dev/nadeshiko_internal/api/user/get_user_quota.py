@@ -76,8 +76,6 @@ def sync_detailed(
 
      Returns the API quota usage for the current billing period.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -103,8 +101,6 @@ def sync(
 
      Returns the API quota usage for the current billing period.
 
-    **Permissions:** Session authentication (cookie-based).
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -125,8 +121,6 @@ async def asyncio_detailed(
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,8 +144,6 @@ async def asyncio(
     """Get current monthly API quota
 
      Returns the API quota usage for the current billing period.
-
-    **Permissions:** Session authentication (cookie-based).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

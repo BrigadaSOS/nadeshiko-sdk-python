@@ -99,13 +99,6 @@ def sync_detailed(
 
      Returns statistics for all ES sync queues including pending and failed job counts.
 
-    **Use cases:**
-    - Monitor queue health
-    - Detect stuck jobs
-    - Check backlog size
-
-    **Permissions:** `ADD_MEDIA`
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -139,13 +132,6 @@ def sync(
 
      Returns statistics for all ES sync queues including pending and failed job counts.
 
-    **Use cases:**
-    - Monitor queue health
-    - Detect stuck jobs
-    - Check backlog size
-
-    **Permissions:** `ADD_MEDIA`
-
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -168,13 +154,6 @@ async def asyncio_detailed(
     """Get queue statistics
 
      Returns statistics for all ES sync queues including pending and failed job counts.
-
-    **Use cases:**
-    - Monitor queue health
-    - Detect stuck jobs
-    - Check backlog size
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -206,13 +185,6 @@ async def asyncio(
     """Get queue statistics
 
      Returns statistics for all ES sync queues including pending and failed job counts.
-
-    **Use cases:**
-    - Monitor queue health
-    - Detect stuck jobs
-    - Check backlog size
-
-    **Permissions:** `ADD_MEDIA`
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

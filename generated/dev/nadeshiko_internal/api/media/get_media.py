@@ -112,8 +112,6 @@ def sync_detailed(
 
      Returns a single media entry by its ID with full metadata.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         include (list[MediaIncludeExpansion] | Unset):
@@ -148,8 +146,6 @@ def sync(
 
      Returns a single media entry by its ID with full metadata.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         include (list[MediaIncludeExpansion] | Unset):
@@ -178,8 +174,6 @@ async def asyncio_detailed(
     """Get single media
 
      Returns a single media entry by its ID with full metadata.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -212,8 +206,6 @@ async def asyncio(
     """Get single media
 
      Returns a single media entry by its ID with full metadata.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.

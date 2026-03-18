@@ -104,8 +104,6 @@ def sync_detailed(
 
      Updates an existing media entry. Only provided fields will be updated.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
@@ -141,8 +139,6 @@ def sync(
 
      Updates an existing media entry. Only provided fields will be updated.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
@@ -172,8 +168,6 @@ async def asyncio_detailed(
     """Update media
 
      Updates an existing media entry. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -207,8 +201,6 @@ async def asyncio(
     """Update media
 
      Updates an existing media entry. Only provided fields will be updated.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.

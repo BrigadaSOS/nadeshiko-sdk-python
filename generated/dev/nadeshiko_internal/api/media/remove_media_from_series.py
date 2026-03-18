@@ -95,8 +95,6 @@ def sync_detailed(
 
      Removes a media entry from a series.
 
-    **Permissions:** `REMOVE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         media_id (str):  Example: abc123def456.
@@ -131,8 +129,6 @@ def sync(
 
      Removes a media entry from a series.
 
-    **Permissions:** `REMOVE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         media_id (str):  Example: abc123def456.
@@ -161,8 +157,6 @@ async def asyncio_detailed(
     """Remove media from series
 
      Removes a media entry from a series.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -195,8 +189,6 @@ async def asyncio(
     """Remove media from series
 
      Removes a media entry from a series.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.

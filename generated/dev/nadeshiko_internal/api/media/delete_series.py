@@ -92,8 +92,6 @@ def sync_detailed(
 
      Deletes a series and all its media associations.
 
-    **Permissions:** `REMOVE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
 
@@ -125,8 +123,6 @@ def sync(
 
      Deletes a series and all its media associations.
 
-    **Permissions:** `REMOVE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
 
@@ -152,8 +148,6 @@ async def asyncio_detailed(
     """Delete series
 
      Deletes a series and all its media associations.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -183,8 +177,6 @@ async def asyncio(
     """Delete series
 
      Deletes a series and all its media associations.
-
-    **Permissions:** `REMOVE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.

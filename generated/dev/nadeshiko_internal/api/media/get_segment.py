@@ -100,8 +100,6 @@ def sync_detailed(
 
      Returns a specific segment by its ID within the media/episode hierarchy.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -139,8 +137,6 @@ def sync(
 
      Returns a specific segment by its ID within the media/episode hierarchy.
 
-    **Permissions:** `READ_MEDIA`
-
     Args:
         media_id (str):
         episode_number (int):
@@ -172,8 +168,6 @@ async def asyncio_detailed(
     """Get single segment
 
      Returns a specific segment by its ID within the media/episode hierarchy.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):
@@ -209,8 +203,6 @@ async def asyncio(
     """Get single segment
 
      Returns a specific segment by its ID within the media/episode hierarchy.
-
-    **Permissions:** `READ_MEDIA`
 
     Args:
         media_id (str):

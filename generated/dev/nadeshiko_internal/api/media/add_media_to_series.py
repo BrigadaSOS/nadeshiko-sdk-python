@@ -102,8 +102,6 @@ def sync_detailed(
 
      Adds a media entry to a series at a specific position.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         body (AddMediaToSeriesBody):
@@ -138,8 +136,6 @@ def sync(
 
      Adds a media entry to a series at a specific position.
 
-    **Permissions:** `UPDATE_MEDIA`
-
     Args:
         id (str):  Example: V1StGXR8_Z5d.
         body (AddMediaToSeriesBody):
@@ -168,8 +164,6 @@ async def asyncio_detailed(
     """Add media to series
 
      Adds a media entry to a series at a specific position.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
@@ -202,8 +196,6 @@ async def asyncio(
     """Add media to series
 
      Adds a media entry to a series at a specific position.
-
-    **Permissions:** `UPDATE_MEDIA`
 
     Args:
         id (str):  Example: V1StGXR8_Z5d.
