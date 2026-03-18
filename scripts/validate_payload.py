@@ -74,11 +74,11 @@ def parse_event_payload() -> dict[str, object]:
 
 def resolve_channel(raw: object) -> str:
     value = to_string(raw).lower()
-    if value == "dev":
-        return "dev"
+    if value in ("internal", "dev"):
+        return "internal"
     if value == "stable" or not value:
         return "stable"
-    fail(f'`release_channel` must be "dev" or "stable". Received: "{value}"')
+    fail(f'`release_channel` must be "internal" or "stable". Received: "{value}"')
     return "stable"  # unreachable, satisfies type checker
 
 
@@ -120,9 +120,9 @@ def derive_versions(
 
     base_version = f"{semver_match.group(1)}.{semver_match.group(2)}.{semver_match.group(3)}"
 
-    if channel == "dev":
+    if channel == "internal":
         # PEP 440 requires .devN where N is numeric-only.
-        # Use a UTC timestamp so dev versions sort chronologically.
+        # Use a UTC timestamp so internal versions sort chronologically.
         dev_number = int(time.time())
         return DerivedVersions(
             spec_version=spec_version,
@@ -167,7 +167,7 @@ def main() -> int:
     derived = derive_versions(spec_version, channel, backend_sha)
 
     release_tag = f"v{derived.spec_version}" if channel == "stable" else ""
-    prerelease = channel == "dev"
+    prerelease = channel == "internal"
 
     if args.print_json:
         print(

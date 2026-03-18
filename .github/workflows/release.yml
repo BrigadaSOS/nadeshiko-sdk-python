@@ -7,12 +7,12 @@ on:
   workflow_dispatch:
     inputs:
       release_channel:
-        description: "Release channel: dev or stable"
+        description: "Release channel: internal or stable"
         required: true
         type: choice
         options:
           - stable
-          - dev
+          - internal
         default: stable
       backend_sha:
         description: "Backend commit SHA used for this release"
@@ -84,10 +84,10 @@ jobs:
           SKIP_REASON=""
           CHANNEL="${{ steps.payload.outputs.release_channel }}"
 
-          if [[ "${CHANNEL}" == "dev" ]]; then
+          if [[ "${CHANNEL}" == "internal" ]]; then
             if [[ "${{ steps.pypi_check.outputs.internal_exists }}" == "true" ]]; then
               SKIP="true"
-              SKIP_REASON="dev version already exists on PyPI"
+              SKIP_REASON="internal version already exists on PyPI"
             fi
           else
             if [[ "${{ steps.pypi_check.outputs.public_exists }}" == "true" && "${{ steps.pypi_check.outputs.internal_exists }}" == "true" ]]; then
@@ -117,8 +117,8 @@ jobs:
         env:
           OPENAPI_SPEC_PATH: ${{ steps.payload.outputs.spec_url }}
         run: |
-          if [[ "${{ steps.payload.outputs.release_channel }}" == "dev" ]]; then
-            python scripts/generate.py --sdk-type dev
+          if [[ "${{ steps.payload.outputs.release_channel }}" == "internal" ]]; then
+            python scripts/generate.py --sdk-type internal
           else
             python scripts/generate.py --sdk-type all
           fi
@@ -129,8 +129,8 @@ jobs:
           PUBLIC_VERSION: ${{ steps.payload.outputs.public_version }}
           INTERNAL_VERSION: ${{ steps.payload.outputs.internal_version }}
         run: |
-          if [[ "${{ steps.payload.outputs.release_channel }}" == "dev" ]]; then
-            echo "__version__ = \"${INTERNAL_VERSION}\"" > generated/dev/nadeshiko_internal/_version.py
+          if [[ "${{ steps.payload.outputs.release_channel }}" == "internal" ]]; then
+            echo "__version__ = \"${INTERNAL_VERSION}\"" > generated/internal/nadeshiko_internal/_version.py
           else
             echo "__version__ = \"${PUBLIC_VERSION}\"" > generated/public/nadeshiko/_version.py
             echo "__version__ = \"${INTERNAL_VERSION}\"" > generated/internal/nadeshiko_internal/_version.py
@@ -142,8 +142,8 @@ jobs:
           SDK_VERSION: ${{ steps.payload.outputs.public_version }}
           INTERNAL_VERSION: ${{ steps.payload.outputs.internal_version }}
         run: |
-          if [[ "${{ steps.payload.outputs.release_channel }}" == "dev" ]]; then
-            python scripts/build_package.py dev
+          if [[ "${{ steps.payload.outputs.release_channel }}" == "internal" ]]; then
+            python scripts/build_package.py internal
           else
             python scripts/build_package.py public
             python scripts/build_package.py internal
@@ -157,8 +157,8 @@ jobs:
           source /tmp/nadeshiko-release-smoke/bin/activate
           python -m pip install --upgrade pip
           CHANNEL="${{ steps.payload.outputs.release_channel }}"
-          if [[ "${CHANNEL}" == "dev" ]]; then
-            python -m pip install build/dev/dist/*.whl
+          if [[ "${CHANNEL}" == "internal" ]]; then
+            python -m pip install build/internal/dist/*.whl
             python -c "import nadeshiko_internal; print('nadeshiko_internal:', nadeshiko_internal.__version__)"
           else
             python -m pip install build/public/dist/*.whl
@@ -179,8 +179,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if [[ "${CHANNEL}" == "dev" ]]; then
-            git add generated/dev
+          if [[ "${CHANNEL}" == "internal" ]]; then
+            git add generated/internal
           else
             git add \
               generated/public \
@@ -204,7 +204,7 @@ jobs:
         if: steps.skip.outputs.skip != 'true' && steps.pypi_check.outputs.internal_exists != 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: ${{ steps.payload.outputs.release_channel == 'dev' && 'build/dev/dist/' || 'build/internal/dist/' }}
+          packages-dir: build/internal/dist/
 
       - name: Create tag
         if: steps.skip.outputs.skip != 'true' && steps.payload.outputs.release_channel == 'stable'
