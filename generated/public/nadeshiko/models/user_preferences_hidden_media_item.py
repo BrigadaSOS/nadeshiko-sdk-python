@@ -15,20 +15,20 @@ T = TypeVar("T", bound="UserPreferencesHiddenMediaItem")
 class UserPreferencesHiddenMediaItem:
     """
     Attributes:
-        media_id (int):
+        media_public_id (str): Public identifier of the hidden media
         name_en (str | Unset):
         name_ja (str | Unset):
         name_romaji (str | Unset):
     """
 
-    media_id: int
+    media_public_id: str
     name_en: str | Unset = UNSET
     name_ja: str | Unset = UNSET
     name_romaji: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
         name_en = self.name_en
 
@@ -40,7 +40,7 @@ class UserPreferencesHiddenMediaItem:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "mediaId": media_id,
+                "mediaPublicId": media_public_id,
             }
         )
         if name_en is not UNSET:
@@ -55,7 +55,7 @@ class UserPreferencesHiddenMediaItem:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        media_public_id = d.pop("mediaPublicId")
 
         name_en = d.pop("nameEn", UNSET)
 
@@ -64,7 +64,7 @@ class UserPreferencesHiddenMediaItem:
         name_romaji = d.pop("nameRomaji", UNSET)
 
         user_preferences_hidden_media_item = cls(
-            media_id=media_id,
+            media_public_id=media_public_id,
             name_en=name_en,
             name_ja=name_ja,
             name_romaji=name_romaji,
