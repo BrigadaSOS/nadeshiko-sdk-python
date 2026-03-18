@@ -20,7 +20,7 @@ import yaml
 ROOT_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = ROOT_DIR / "templates"
 DEFAULT_SPEC_URL = (
-    "https://raw.githubusercontent.com/BrigadaSOS/Nadeshiko/main-v2/"
+    "https://raw.githubusercontent.com/BrigadaSOS/Nadeshiko/main/"
     "backend/docs/generated/openapi.yaml"
 )
 DEFAULT_LOCAL_SPEC = (
@@ -66,7 +66,7 @@ def parse_args() -> argparse.Namespace:
         "--spec",
         default=os.environ.get("OPENAPI_SPEC_PATH", "").strip() or None,
         help="OpenAPI spec source: URL or local file path. "
-        "Falls back to GitHub main-v2, then local sibling repo.",
+        "Falls back to GitHub main, then local sibling repo.",
     )
     parser.add_argument(
         "--keep-build",
