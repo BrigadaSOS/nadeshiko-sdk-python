@@ -34,14 +34,14 @@ class GetAdminDashboardResponse200SystemApp:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        version = d.pop("version")
+        _src = dict(src_dict)
+        version = _src.pop("version")
 
         get_admin_dashboard_response_200_system_app = cls(
             version=version,
         )
 
-        get_admin_dashboard_response_200_system_app.additional_properties = d
+        get_admin_dashboard_response_200_system_app.additional_properties = _src
         return get_admin_dashboard_response_200_system_app
 
     @property

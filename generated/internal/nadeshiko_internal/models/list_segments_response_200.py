@@ -50,22 +50,22 @@ class ListSegmentsResponse200:
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
         from ..models.segment import Segment
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         segments = []
-        _segments = d.pop("segments")
+        _segments = _src.pop("segments")
         for segments_item_data in _segments:
             segments_item = Segment.from_dict(segments_item_data)
 
             segments.append(segments_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         list_segments_response_200 = cls(
             segments=segments,
             pagination=pagination,
         )
 
-        list_segments_response_200.additional_properties = d
+        list_segments_response_200.additional_properties = _src
         return list_segments_response_200
 
     @property

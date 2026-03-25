@@ -46,12 +46,12 @@ class UpdateAnnouncementResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        message = d.pop("message")
+        _src = dict(src_dict)
+        message = _src.pop("message")
 
-        type_ = UpdateAnnouncementResponse200Type(d.pop("type"))
+        type_ = UpdateAnnouncementResponse200Type(_src.pop("type"))
 
-        active = d.pop("active")
+        active = _src.pop("active")
 
         update_announcement_response_200 = cls(
             message=message,
@@ -59,7 +59,7 @@ class UpdateAnnouncementResponse200:
             active=active,
         )
 
-        update_announcement_response_200.additional_properties = d
+        update_announcement_response_200.additional_properties = _src
         return update_announcement_response_200
 
     @property

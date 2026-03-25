@@ -64,17 +64,17 @@ class SearchMultipleRequest:
         from ..models.search_filters import SearchFilters
         from ..models.search_multiple_request_query import SearchMultipleRequestQuery
 
-        d = dict(src_dict)
-        query = SearchMultipleRequestQuery.from_dict(d.pop("query"))
+        _src = dict(src_dict)
+        query = SearchMultipleRequestQuery.from_dict(_src.pop("query"))
 
-        _filters = d.pop("filters", UNSET)
+        _filters = _src.pop("filters", UNSET)
         filters: SearchFilters | Unset
         if isinstance(_filters, Unset):
             filters = UNSET
         else:
             filters = SearchFilters.from_dict(_filters)
 
-        _include = d.pop("include", UNSET)
+        _include = _src.pop("include", UNSET)
         include: list[IncludeExpansion] | Unset = UNSET
         if _include is not UNSET:
             include = []
@@ -89,7 +89,7 @@ class SearchMultipleRequest:
             include=include,
         )
 
-        search_multiple_request.additional_properties = d
+        search_multiple_request.additional_properties = _src
         return search_multiple_request
 
     @property

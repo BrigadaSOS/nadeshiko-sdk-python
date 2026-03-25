@@ -52,19 +52,19 @@ class ListAdminQueueFailedResponse200Item:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        segment_id = d.pop("segmentId")
+        segment_id = _src.pop("segmentId")
 
         def _parse_error(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        error = _parse_error(d.pop("error"))
+        error = _parse_error(_src.pop("error"))
 
-        created_on = isoparse(d.pop("createdOn"))
+        created_on = isoparse(_src.pop("createdOn"))
 
         list_admin_queue_failed_response_200_item = cls(
             id=id,
@@ -73,7 +73,7 @@ class ListAdminQueueFailedResponse200Item:
             created_on=created_on,
         )
 
-        list_admin_queue_failed_response_200_item.additional_properties = d
+        list_admin_queue_failed_response_200_item.additional_properties = _src
         return list_admin_queue_failed_response_200_item
 
     @property

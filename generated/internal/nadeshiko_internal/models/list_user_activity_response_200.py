@@ -50,22 +50,22 @@ class ListUserActivityResponse200:
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
         from ..models.user_activity import UserActivity
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         activities = []
-        _activities = d.pop("activities")
+        _activities = _src.pop("activities")
         for activities_item_data in _activities:
             activities_item = UserActivity.from_dict(activities_item_data)
 
             activities.append(activities_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         list_user_activity_response_200 = cls(
             activities=activities,
             pagination=pagination,
         )
 
-        list_user_activity_response_200.additional_properties = d
+        list_user_activity_response_200.additional_properties = _src
         return list_user_activity_response_200
 
     @property

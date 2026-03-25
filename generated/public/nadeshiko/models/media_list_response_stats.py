@@ -44,12 +44,12 @@ class MediaListResponseStats:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        total_media = d.pop("totalMedia")
+        _src = dict(src_dict)
+        total_media = _src.pop("totalMedia")
 
-        total_segments = d.pop("totalSegments")
+        total_segments = _src.pop("totalSegments")
 
-        total_episodes = d.pop("totalEpisodes")
+        total_episodes = _src.pop("totalEpisodes")
 
         media_list_response_stats = cls(
             total_media=total_media,
@@ -57,7 +57,7 @@ class MediaListResponseStats:
             total_episodes=total_episodes,
         )
 
-        media_list_response_stats.additional_properties = d
+        media_list_response_stats.additional_properties = _src
         return media_list_response_stats
 
     @property

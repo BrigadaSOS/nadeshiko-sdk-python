@@ -34,14 +34,14 @@ class BatchUpdateAdminReportsResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        updated = d.pop("updated")
+        _src = dict(src_dict)
+        updated = _src.pop("updated")
 
         batch_update_admin_reports_response_200 = cls(
             updated=updated,
         )
 
-        batch_update_admin_reports_response_200.additional_properties = d
+        batch_update_admin_reports_response_200.additional_properties = _src
         return batch_update_admin_reports_response_200
 
     @property

@@ -79,20 +79,20 @@ class Collection:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        name = d.pop("name")
+        name = _src.pop("name")
 
-        type_ = CollectionType(d.pop("type"))
+        type_ = CollectionType(_src.pop("type"))
 
-        visibility = CollectionVisibility(d.pop("visibility"))
+        visibility = CollectionVisibility(_src.pop("visibility"))
 
-        segment_count = d.pop("segmentCount")
+        segment_count = _src.pop("segmentCount")
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -107,7 +107,7 @@ class Collection:
                 pass
             return cast(datetime.datetime | None, data)
 
-        updated_at = _parse_updated_at(d.pop("updatedAt"))
+        updated_at = _parse_updated_at(_src.pop("updatedAt"))
 
         collection = cls(
             id=id,
@@ -120,7 +120,7 @@ class Collection:
             updated_at=updated_at,
         )
 
-        collection.additional_properties = d
+        collection.additional_properties = _src
         return collection
 
     @property

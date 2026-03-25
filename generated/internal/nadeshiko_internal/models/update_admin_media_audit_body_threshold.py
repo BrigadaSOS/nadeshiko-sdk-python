@@ -16,7 +16,6 @@ class UpdateAdminMediaAuditBodyThreshold:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
 
@@ -24,10 +23,10 @@ class UpdateAdminMediaAuditBodyThreshold:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+        _src = dict(src_dict)
         update_admin_media_audit_body_threshold = cls()
 
-        update_admin_media_audit_body_threshold.additional_properties = d
+        update_admin_media_audit_body_threshold.additional_properties = _src
         return update_admin_media_audit_body_threshold
 
     @property

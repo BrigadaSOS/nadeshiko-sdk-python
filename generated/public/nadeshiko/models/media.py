@@ -162,40 +162,40 @@ class Media:
         from ..models.external_id import ExternalId
         from ..models.media_character import MediaCharacter
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_romaji = d.pop("nameRomaji")
+        name_romaji = _src.pop("nameRomaji")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        airing_format = d.pop("airingFormat")
+        airing_format = _src.pop("airingFormat")
 
-        airing_status = d.pop("airingStatus")
+        airing_status = _src.pop("airingStatus")
 
-        genres = cast(list[str], d.pop("genres"))
+        genres = cast(list[str], _src.pop("genres"))
 
-        cover_url = d.pop("coverUrl")
+        cover_url = _src.pop("coverUrl")
 
-        banner_url = d.pop("bannerUrl")
+        banner_url = _src.pop("bannerUrl")
 
-        start_date = isoparse(d.pop("startDate")).date()
+        start_date = isoparse(_src.pop("startDate")).date()
 
-        category = Category(d.pop("category"))
+        category = Category(_src.pop("category"))
 
-        segment_count = d.pop("segmentCount")
+        segment_count = _src.pop("segmentCount")
 
-        episode_count = d.pop("episodeCount")
+        episode_count = _src.pop("episodeCount")
 
-        season_name = d.pop("seasonName")
+        season_name = _src.pop("seasonName")
 
-        season_year = d.pop("seasonYear")
+        season_year = _src.pop("seasonYear")
 
         def _parse_end_date(data: object) -> datetime.date | None | Unset:
             if data is None:
@@ -212,7 +212,7 @@ class Media:
                 pass
             return cast(datetime.date | None | Unset, data)
 
-        end_date = _parse_end_date(d.pop("endDate", UNSET))
+        end_date = _parse_end_date(_src.pop("endDate", UNSET))
 
         def _parse_studio(data: object) -> None | str | Unset:
             if data is None:
@@ -221,9 +221,9 @@ class Media:
                 return data
             return cast(None | str | Unset, data)
 
-        studio = _parse_studio(d.pop("studio", UNSET))
+        studio = _parse_studio(_src.pop("studio", UNSET))
 
-        _characters = d.pop("characters", UNSET)
+        _characters = _src.pop("characters", UNSET)
         characters: list[MediaCharacter] | Unset = UNSET
         if _characters is not UNSET:
             characters = []
@@ -255,7 +255,7 @@ class Media:
             characters=characters,
         )
 
-        media.additional_properties = d
+        media.additional_properties = _src
         return media
 
     @property

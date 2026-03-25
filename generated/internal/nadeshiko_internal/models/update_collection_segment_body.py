@@ -44,8 +44,8 @@ class UpdateCollectionSegmentBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        position = d.pop("position", UNSET)
+        _src = dict(src_dict)
+        position = _src.pop("position", UNSET)
 
         def _parse_note(data: object) -> None | str | Unset:
             if data is None:
@@ -54,14 +54,14 @@ class UpdateCollectionSegmentBody:
                 return data
             return cast(None | str | Unset, data)
 
-        note = _parse_note(d.pop("note", UNSET))
+        note = _parse_note(_src.pop("note", UNSET))
 
         update_collection_segment_body = cls(
             position=position,
             note=note,
         )
 
-        update_collection_segment_body.additional_properties = d
+        update_collection_segment_body.additional_properties = _src
         return update_collection_segment_body
 
     @property

@@ -34,14 +34,14 @@ class ClearAdminImpersonationResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        message = d.pop("message")
+        _src = dict(src_dict)
+        message = _src.pop("message")
 
         clear_admin_impersonation_response_200 = cls(
             message=message,
         )
 
-        clear_admin_impersonation_response_200.additional_properties = d
+        clear_admin_impersonation_response_200.additional_properties = _src
         return clear_admin_impersonation_response_200
 
     @property

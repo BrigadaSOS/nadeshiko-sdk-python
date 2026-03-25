@@ -51,17 +51,17 @@ class CollectionWithSegmentsSegmentsItem:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment import Segment
 
-        d = dict(src_dict)
-        position = d.pop("position")
+        _src = dict(src_dict)
+        position = _src.pop("position")
 
         def _parse_note(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        note = _parse_note(d.pop("note"))
+        note = _parse_note(_src.pop("note"))
 
-        result = Segment.from_dict(d.pop("result"))
+        result = Segment.from_dict(_src.pop("result"))
 
         collection_with_segments_segments_item = cls(
             position=position,
@@ -69,7 +69,7 @@ class CollectionWithSegmentsSegmentsItem:
             result=result,
         )
 
-        collection_with_segments_segments_item.additional_properties = d
+        collection_with_segments_segments_item.additional_properties = _src
         return collection_with_segments_segments_item
 
     @property

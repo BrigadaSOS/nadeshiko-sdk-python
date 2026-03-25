@@ -53,14 +53,14 @@ class ReportTargetSegmentInput:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        type_ = ReportTargetSegmentInputType(d.pop("type"))
+        _src = dict(src_dict)
+        type_ = ReportTargetSegmentInputType(_src.pop("type"))
 
-        media_id = d.pop("mediaId")
+        media_id = _src.pop("mediaId")
 
-        segment_id = d.pop("segmentId")
+        segment_id = _src.pop("segmentId")
 
-        episode_number = d.pop("episodeNumber", UNSET)
+        episode_number = _src.pop("episodeNumber", UNSET)
 
         report_target_segment_input = cls(
             type_=type_,
@@ -69,7 +69,7 @@ class ReportTargetSegmentInput:
             episode_number=episode_number,
         )
 
-        report_target_segment_input.additional_properties = d
+        report_target_segment_input.additional_properties = _src
         return report_target_segment_input
 
     @property

@@ -40,14 +40,14 @@ class SearchResponseIncludes:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.search_response_includes_media import SearchResponseIncludesMedia
 
-        d = dict(src_dict)
-        media = SearchResponseIncludesMedia.from_dict(d.pop("media"))
+        _src = dict(src_dict)
+        media = SearchResponseIncludesMedia.from_dict(_src.pop("media"))
 
         search_response_includes = cls(
             media=media,
         )
 
-        search_response_includes.additional_properties = d
+        search_response_includes.additional_properties = _src
         return search_response_includes
 
     @property

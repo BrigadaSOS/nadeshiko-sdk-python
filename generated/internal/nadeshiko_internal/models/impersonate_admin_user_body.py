@@ -34,14 +34,14 @@ class ImpersonateAdminUserBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        user_id = d.pop("userId")
+        _src = dict(src_dict)
+        user_id = _src.pop("userId")
 
         impersonate_admin_user_body = cls(
             user_id=user_id,
         )
 
-        impersonate_admin_user_body.additional_properties = d
+        impersonate_admin_user_body.additional_properties = _src
         return impersonate_admin_user_body
 
     @property

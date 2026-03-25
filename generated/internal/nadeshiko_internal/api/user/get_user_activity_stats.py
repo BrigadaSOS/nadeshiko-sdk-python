@@ -16,7 +16,6 @@ def _get_kwargs(
     *,
     since: datetime.date | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     json_since: str | Unset = UNSET

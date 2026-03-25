@@ -19,7 +19,6 @@ def _get_kwargs(
     id: str,
     media_id: str,
 ) -> dict[str, Any]:
-
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/media/series/{id}/media/{media_id}".format(

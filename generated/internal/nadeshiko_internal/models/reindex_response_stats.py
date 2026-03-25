@@ -50,14 +50,14 @@ class ReindexResponseStats:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        total_segments = d.pop("totalSegments")
+        _src = dict(src_dict)
+        total_segments = _src.pop("totalSegments")
 
-        successful_indexes = d.pop("successfulIndexes")
+        successful_indexes = _src.pop("successfulIndexes")
 
-        failed_indexes = d.pop("failedIndexes")
+        failed_indexes = _src.pop("failedIndexes")
 
-        media_processed = d.pop("mediaProcessed")
+        media_processed = _src.pop("mediaProcessed")
 
         reindex_response_stats = cls(
             total_segments=total_segments,
@@ -66,7 +66,7 @@ class ReindexResponseStats:
             media_processed=media_processed,
         )
 
-        reindex_response_stats.additional_properties = d
+        reindex_response_stats.additional_properties = _src
         return reindex_response_stats
 
     @property

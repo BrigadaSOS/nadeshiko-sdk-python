@@ -53,14 +53,14 @@ class ExternalId:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        anilist = d.pop("anilist", UNSET)
+        _src = dict(src_dict)
+        anilist = _src.pop("anilist", UNSET)
 
-        imdb = d.pop("imdb", UNSET)
+        imdb = _src.pop("imdb", UNSET)
 
-        tvdb = d.pop("tvdb", UNSET)
+        tvdb = _src.pop("tvdb", UNSET)
 
-        tmdb = d.pop("tmdb", UNSET)
+        tmdb = _src.pop("tmdb", UNSET)
 
         external_id = cls(
             anilist=anilist,
@@ -69,7 +69,7 @@ class ExternalId:
             tmdb=tmdb,
         )
 
-        external_id.additional_properties = d
+        external_id.additional_properties = _src
         return external_id
 
     @property

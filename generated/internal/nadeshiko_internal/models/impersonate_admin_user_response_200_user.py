@@ -44,12 +44,12 @@ class ImpersonateAdminUserResponse200User:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        username = d.pop("username")
+        username = _src.pop("username")
 
-        email = d.pop("email")
+        email = _src.pop("email")
 
         impersonate_admin_user_response_200_user = cls(
             id=id,
@@ -57,7 +57,7 @@ class ImpersonateAdminUserResponse200User:
             email=email,
         )
 
-        impersonate_admin_user_response_200_user.additional_properties = d
+        impersonate_admin_user_response_200_user.additional_properties = _src
         return impersonate_admin_user_response_200_user
 
     @property

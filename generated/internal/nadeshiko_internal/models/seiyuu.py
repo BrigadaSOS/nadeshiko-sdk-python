@@ -66,18 +66,18 @@ class Seiyuu:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.external_id import ExternalId
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
         seiyuu = cls(
             id=id,
@@ -88,7 +88,7 @@ class Seiyuu:
             image_url=image_url,
         )
 
-        seiyuu.additional_properties = d
+        seiyuu.additional_properties = _src
         return seiyuu
 
     @property

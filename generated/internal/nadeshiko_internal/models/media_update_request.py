@@ -175,67 +175,67 @@ class MediaUpdateRequest:
         from ..models.character_input import CharacterInput
         from ..models.external_id import ExternalId
 
-        d = dict(src_dict)
-        _external_ids = d.pop("externalIds", UNSET)
+        _src = dict(src_dict)
+        _external_ids = _src.pop("externalIds", UNSET)
         external_ids: ExternalId | Unset
         if isinstance(_external_ids, Unset):
             external_ids = UNSET
         else:
             external_ids = ExternalId.from_dict(_external_ids)
 
-        name_ja = d.pop("nameJa", UNSET)
+        name_ja = _src.pop("nameJa", UNSET)
 
-        name_romaji = d.pop("nameRomaji", UNSET)
+        name_romaji = _src.pop("nameRomaji", UNSET)
 
-        name_en = d.pop("nameEn", UNSET)
+        name_en = _src.pop("nameEn", UNSET)
 
-        airing_format = d.pop("airingFormat", UNSET)
+        airing_format = _src.pop("airingFormat", UNSET)
 
-        airing_status = d.pop("airingStatus", UNSET)
+        airing_status = _src.pop("airingStatus", UNSET)
 
-        genres = cast(list[str], d.pop("genres", UNSET))
+        genres = cast(list[str], _src.pop("genres", UNSET))
 
-        _storage = d.pop("storage", UNSET)
+        _storage = _src.pop("storage", UNSET)
         storage: MediaUpdateRequestStorage | Unset
         if isinstance(_storage, Unset):
             storage = UNSET
         else:
             storage = MediaUpdateRequestStorage(_storage)
 
-        _start_date = d.pop("startDate", UNSET)
+        _start_date = _src.pop("startDate", UNSET)
         start_date: datetime.date | Unset
         if isinstance(_start_date, Unset):
             start_date = UNSET
         else:
             start_date = isoparse(_start_date).date()
 
-        _end_date = d.pop("endDate", UNSET)
+        _end_date = _src.pop("endDate", UNSET)
         end_date: datetime.date | Unset
         if isinstance(_end_date, Unset):
             end_date = UNSET
         else:
             end_date = isoparse(_end_date).date()
 
-        _category = d.pop("category", UNSET)
+        _category = _src.pop("category", UNSET)
         category: MediaUpdateRequestCategory | Unset
         if isinstance(_category, Unset):
             category = UNSET
         else:
             category = MediaUpdateRequestCategory(_category)
 
-        version = d.pop("version", UNSET)
+        version = _src.pop("version", UNSET)
 
-        hash_salt = d.pop("hashSalt", UNSET)
+        hash_salt = _src.pop("hashSalt", UNSET)
 
-        studio = d.pop("studio", UNSET)
+        studio = _src.pop("studio", UNSET)
 
-        season_name = d.pop("seasonName", UNSET)
+        season_name = _src.pop("seasonName", UNSET)
 
-        season_year = d.pop("seasonYear", UNSET)
+        season_year = _src.pop("seasonYear", UNSET)
 
-        storage_base_path = d.pop("storageBasePath", UNSET)
+        storage_base_path = _src.pop("storageBasePath", UNSET)
 
-        _characters = d.pop("characters", UNSET)
+        _characters = _src.pop("characters", UNSET)
         characters: list[CharacterInput] | Unset = UNSET
         if _characters is not UNSET:
             characters = []
@@ -244,7 +244,7 @@ class MediaUpdateRequest:
 
                 characters.append(characters_item)
 
-        segment_count = d.pop("segmentCount", UNSET)
+        segment_count = _src.pop("segmentCount", UNSET)
 
         media_update_request = cls(
             external_ids=external_ids,
@@ -268,7 +268,7 @@ class MediaUpdateRequest:
             segment_count=segment_count,
         )
 
-        media_update_request.additional_properties = d
+        media_update_request.additional_properties = _src
         return media_update_request
 
     @property

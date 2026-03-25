@@ -16,7 +16,6 @@ class Error403Errors:
     additional_properties: dict[str, str] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
 
@@ -24,10 +23,10 @@ class Error403Errors:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+        _src = dict(src_dict)
         error_403_errors = cls()
 
-        error_403_errors.additional_properties = d
+        error_403_errors.additional_properties = _src
         return error_403_errors
 
     @property

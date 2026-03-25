@@ -68,18 +68,18 @@ class MediaCharacter:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.seiyuu import Seiyuu
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
-        seiyuu = Seiyuu.from_dict(d.pop("seiyuu"))
+        seiyuu = Seiyuu.from_dict(_src.pop("seiyuu"))
 
-        role = MediaCharacterRole(d.pop("role"))
+        role = MediaCharacterRole(_src.pop("role"))
 
         media_character = cls(
             id=id,
@@ -90,7 +90,7 @@ class MediaCharacter:
             role=role,
         )
 
-        media_character.additional_properties = d
+        media_character.additional_properties = _src
         return media_character
 
     @property

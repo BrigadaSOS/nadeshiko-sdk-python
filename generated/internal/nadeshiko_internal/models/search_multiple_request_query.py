@@ -43,17 +43,17 @@ class SearchMultipleRequestQuery:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        words = cast(list[str], d.pop("words"))
+        _src = dict(src_dict)
+        words = cast(list[str], _src.pop("words"))
 
-        exact_match = d.pop("exactMatch", UNSET)
+        exact_match = _src.pop("exactMatch", UNSET)
 
         search_multiple_request_query = cls(
             words=words,
             exact_match=exact_match,
         )
 
-        search_multiple_request_query.additional_properties = d
+        search_multiple_request_query.additional_properties = _src
         return search_multiple_request_query
 
     @property

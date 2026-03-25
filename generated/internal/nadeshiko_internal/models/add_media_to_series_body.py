@@ -39,17 +39,17 @@ class AddMediaToSeriesBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        position = d.pop("position")
+        position = _src.pop("position")
 
         add_media_to_series_body = cls(
             media_id=media_id,
             position=position,
         )
 
-        add_media_to_series_body.additional_properties = d
+        add_media_to_series_body.additional_properties = _src
         return add_media_to_series_body
 
     @property

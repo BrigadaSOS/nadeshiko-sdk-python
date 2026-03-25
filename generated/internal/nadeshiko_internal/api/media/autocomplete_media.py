@@ -21,7 +21,6 @@ def _get_kwargs(
     take: int | Unset = 10,
     category: AutocompleteMediaCategory | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["query"] = query

@@ -87,23 +87,23 @@ class CharacterWithMedia:
         from ..models.external_id import ExternalId
         from ..models.seiyuu import Seiyuu
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
-        seiyuu = Seiyuu.from_dict(d.pop("seiyuu"))
+        seiyuu = Seiyuu.from_dict(_src.pop("seiyuu"))
 
         media_appearances = []
-        _media_appearances = d.pop("mediaAppearances")
+        _media_appearances = _src.pop("mediaAppearances")
         for media_appearances_item_data in _media_appearances:
             media_appearances_item = CharacterWithMediaMediaAppearancesItem.from_dict(
                 media_appearances_item_data
@@ -122,7 +122,7 @@ class CharacterWithMedia:
             media_appearances=media_appearances,
         )
 
-        character_with_media.additional_properties = d
+        character_with_media.additional_properties = _src
         return character_with_media
 
     @property

@@ -51,22 +51,22 @@ class CollectionListResponse:
         from ..models.collection import Collection
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         collections = []
-        _collections = d.pop("collections")
+        _collections = _src.pop("collections")
         for collections_item_data in _collections:
             collections_item = Collection.from_dict(collections_item_data)
 
             collections.append(collections_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         collection_list_response = cls(
             collections=collections,
             pagination=pagination,
         )
 
-        collection_list_response.additional_properties = d
+        collection_list_response.additional_properties = _src
         return collection_list_response
 
     @property

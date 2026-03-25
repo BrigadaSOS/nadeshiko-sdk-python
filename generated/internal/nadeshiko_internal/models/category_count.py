@@ -42,17 +42,17 @@ class CategoryCount:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        category = Category(d.pop("category"))
+        _src = dict(src_dict)
+        category = Category(_src.pop("category"))
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         category_count = cls(
             category=category,
             count=count,
         )
 
-        category_count.additional_properties = d
+        category_count.additional_properties = _src
         return category_count
 
     @property

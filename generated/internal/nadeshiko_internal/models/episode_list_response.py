@@ -50,22 +50,22 @@ class EpisodeListResponse:
         from ..models.episode import Episode
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         episodes = []
-        _episodes = d.pop("episodes")
+        _episodes = _src.pop("episodes")
         for episodes_item_data in _episodes:
             episodes_item = Episode.from_dict(episodes_item_data)
 
             episodes.append(episodes_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         episode_list_response = cls(
             episodes=episodes,
             pagination=pagination,
         )
 
-        episode_list_response.additional_properties = d
+        episode_list_response.additional_properties = _src
         return episode_list_response
 
     @property

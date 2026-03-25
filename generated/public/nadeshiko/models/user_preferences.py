@@ -102,15 +102,15 @@ class UserPreferences:
         from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
         from ..models.user_preferences_search_history import UserPreferencesSearchHistory
 
-        d = dict(src_dict)
-        _media_name_language = d.pop("mediaNameLanguage", UNSET)
+        _src = dict(src_dict)
+        _media_name_language = _src.pop("mediaNameLanguage", UNSET)
         media_name_language: UserPreferencesMediaNameLanguage | Unset
         if isinstance(_media_name_language, Unset):
             media_name_language = UNSET
         else:
             media_name_language = UserPreferencesMediaNameLanguage(_media_name_language)
 
-        _content_rating_preferences = d.pop("contentRatingPreferences", UNSET)
+        _content_rating_preferences = _src.pop("contentRatingPreferences", UNSET)
         content_rating_preferences: UserPreferencesContentRatingPreferences | Unset
         if isinstance(_content_rating_preferences, Unset):
             content_rating_preferences = UNSET
@@ -119,21 +119,21 @@ class UserPreferences:
                 _content_rating_preferences
             )
 
-        _search_history = d.pop("searchHistory", UNSET)
+        _search_history = _src.pop("searchHistory", UNSET)
         search_history: UserPreferencesSearchHistory | Unset
         if isinstance(_search_history, Unset):
             search_history = UNSET
         else:
             search_history = UserPreferencesSearchHistory.from_dict(_search_history)
 
-        _blog_last_visited = d.pop("blogLastVisited", UNSET)
+        _blog_last_visited = _src.pop("blogLastVisited", UNSET)
         blog_last_visited: datetime.datetime | Unset
         if isinstance(_blog_last_visited, Unset):
             blog_last_visited = UNSET
         else:
             blog_last_visited = isoparse(_blog_last_visited)
 
-        _anki_profiles = d.pop("ankiProfiles", UNSET)
+        _anki_profiles = _src.pop("ankiProfiles", UNSET)
         anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
         if _anki_profiles is not UNSET:
             anki_profiles = []
@@ -144,7 +144,7 @@ class UserPreferences:
 
                 anki_profiles.append(anki_profiles_item)
 
-        _hidden_media = d.pop("hiddenMedia", UNSET)
+        _hidden_media = _src.pop("hiddenMedia", UNSET)
         hidden_media: list[UserPreferencesHiddenMediaItem] | Unset = UNSET
         if _hidden_media is not UNSET:
             hidden_media = []
@@ -162,7 +162,7 @@ class UserPreferences:
             hidden_media=hidden_media,
         )
 
-        user_preferences.additional_properties = d
+        user_preferences.additional_properties = _src
         return user_preferences
 
     @property

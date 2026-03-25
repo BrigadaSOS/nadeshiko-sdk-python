@@ -53,14 +53,14 @@ class UserLabFeature:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        key = d.pop("key")
+        _src = dict(src_dict)
+        key = _src.pop("key")
 
-        active = d.pop("active")
+        active = _src.pop("active")
 
-        name = d.pop("name", UNSET)
+        name = _src.pop("name", UNSET)
 
-        description = d.pop("description", UNSET)
+        description = _src.pop("description", UNSET)
 
         user_lab_feature = cls(
             key=key,
@@ -69,7 +69,7 @@ class UserLabFeature:
             description=description,
         )
 
-        user_lab_feature.additional_properties = d
+        user_lab_feature.additional_properties = _src
         return user_lab_feature
 
     @property

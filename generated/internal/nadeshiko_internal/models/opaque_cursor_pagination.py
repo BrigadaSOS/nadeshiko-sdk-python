@@ -42,22 +42,22 @@ class OpaqueCursorPagination:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        has_more = d.pop("hasMore")
+        _src = dict(src_dict)
+        has_more = _src.pop("hasMore")
 
         def _parse_cursor(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        cursor = _parse_cursor(d.pop("cursor"))
+        cursor = _parse_cursor(_src.pop("cursor"))
 
         opaque_cursor_pagination = cls(
             has_more=has_more,
             cursor=cursor,
         )
 
-        opaque_cursor_pagination.additional_properties = d
+        opaque_cursor_pagination.additional_properties = _src
         return opaque_cursor_pagination
 
     @property

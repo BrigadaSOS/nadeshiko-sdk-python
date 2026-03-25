@@ -78,27 +78,27 @@ class UserExportResponse:
         from ..models.user_export_response_profile import UserExportResponseProfile
         from ..models.user_preferences import UserPreferences
 
-        d = dict(src_dict)
-        profile = UserExportResponseProfile.from_dict(d.pop("profile"))
+        _src = dict(src_dict)
+        profile = UserExportResponseProfile.from_dict(_src.pop("profile"))
 
-        preferences = UserPreferences.from_dict(d.pop("preferences"))
+        preferences = UserPreferences.from_dict(_src.pop("preferences"))
 
         activity = []
-        _activity = d.pop("activity")
+        _activity = _src.pop("activity")
         for activity_item_data in _activity:
             activity_item = UserActivity.from_dict(activity_item_data)
 
             activity.append(activity_item)
 
         collections = []
-        _collections = d.pop("collections")
+        _collections = _src.pop("collections")
         for collections_item_data in _collections:
             collections_item = UserExportCollection.from_dict(collections_item_data)
 
             collections.append(collections_item)
 
         reports = []
-        _reports = d.pop("reports")
+        _reports = _src.pop("reports")
         for reports_item_data in _reports:
             reports_item = Report.from_dict(reports_item_data)
 
@@ -112,7 +112,7 @@ class UserExportResponse:
             reports=reports,
         )
 
-        user_export_response.additional_properties = d
+        user_export_response.additional_properties = _src
         return user_export_response
 
     @property

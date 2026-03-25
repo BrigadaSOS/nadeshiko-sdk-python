@@ -56,14 +56,14 @@ class CharacterInputSeiyuu:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.external_id import ExternalId
 
-        d = dict(src_dict)
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        _src = dict(src_dict)
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
         character_input_seiyuu = cls(
             external_ids=external_ids,
@@ -72,7 +72,7 @@ class CharacterInputSeiyuu:
             image_url=image_url,
         )
 
-        character_input_seiyuu.additional_properties = d
+        character_input_seiyuu.additional_properties = _src
         return character_input_seiyuu
 
     @property

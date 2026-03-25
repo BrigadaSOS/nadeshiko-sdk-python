@@ -89,9 +89,9 @@ class GetAdminDashboardActivityResponse200:
             GetAdminDashboardActivityResponse200TopSearchesItem,
         )
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         daily_activity_by_type = []
-        _daily_activity_by_type = d.pop("dailyActivityByType")
+        _daily_activity_by_type = _src.pop("dailyActivityByType")
         for daily_activity_by_type_item_data in _daily_activity_by_type:
             daily_activity_by_type_item = (
                 GetAdminDashboardActivityResponse200DailyActivityByTypeItem.from_dict(
@@ -102,7 +102,7 @@ class GetAdminDashboardActivityResponse200:
             daily_activity_by_type.append(daily_activity_by_type_item)
 
         top_searches = []
-        _top_searches = d.pop("topSearches")
+        _top_searches = _src.pop("topSearches")
         for top_searches_item_data in _top_searches:
             top_searches_item = GetAdminDashboardActivityResponse200TopSearchesItem.from_dict(
                 top_searches_item_data
@@ -111,7 +111,7 @@ class GetAdminDashboardActivityResponse200:
             top_searches.append(top_searches_item)
 
         daily_exports = []
-        _daily_exports = d.pop("dailyExports")
+        _daily_exports = _src.pop("dailyExports")
         for daily_exports_item_data in _daily_exports:
             daily_exports_item = GetAdminDashboardActivityResponse200DailyExportsItem.from_dict(
                 daily_exports_item_data
@@ -120,7 +120,7 @@ class GetAdminDashboardActivityResponse200:
             daily_exports.append(daily_exports_item)
 
         top_exported_media = []
-        _top_exported_media = d.pop("topExportedMedia")
+        _top_exported_media = _src.pop("topExportedMedia")
         for top_exported_media_item_data in _top_exported_media:
             top_exported_media_item = (
                 GetAdminDashboardActivityResponse200TopExportedMediaItem.from_dict(
@@ -137,7 +137,7 @@ class GetAdminDashboardActivityResponse200:
             top_exported_media=top_exported_media,
         )
 
-        get_admin_dashboard_activity_response_200.additional_properties = d
+        get_admin_dashboard_activity_response_200.additional_properties = _src
         return get_admin_dashboard_activity_response_200
 
     @property

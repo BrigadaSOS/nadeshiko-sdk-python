@@ -34,14 +34,14 @@ class UpdateSeriesMediaBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        position = d.pop("position")
+        _src = dict(src_dict)
+        position = _src.pop("position")
 
         update_series_media_body = cls(
             position=position,
         )
 
-        update_series_media_body.additional_properties = d
+        update_series_media_body.additional_properties = _src
         return update_series_media_body
 
     @property

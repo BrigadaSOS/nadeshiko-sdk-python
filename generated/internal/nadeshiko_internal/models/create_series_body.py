@@ -44,12 +44,12 @@ class CreateSeriesBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        name_ja = d.pop("nameJa")
+        _src = dict(src_dict)
+        name_ja = _src.pop("nameJa")
 
-        name_romaji = d.pop("nameRomaji")
+        name_romaji = _src.pop("nameRomaji")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
         create_series_body = cls(
             name_ja=name_ja,
@@ -57,7 +57,7 @@ class CreateSeriesBody:
             name_en=name_en,
         )
 
-        create_series_body.additional_properties = d
+        create_series_body.additional_properties = _src
         return create_series_body
 
     @property

@@ -39,17 +39,17 @@ class GetAdminDashboardMediaResponse200SegmentsByContentRatingItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        label = d.pop("label")
+        _src = dict(src_dict)
+        label = _src.pop("label")
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         get_admin_dashboard_media_response_200_segments_by_content_rating_item = cls(
             label=label,
             count=count,
         )
 
-        get_admin_dashboard_media_response_200_segments_by_content_rating_item.additional_properties = d
+        get_admin_dashboard_media_response_200_segments_by_content_rating_item.additional_properties = _src
         return get_admin_dashboard_media_response_200_segments_by_content_rating_item
 
     @property

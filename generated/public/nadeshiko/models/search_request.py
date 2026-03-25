@@ -87,33 +87,33 @@ class SearchRequest:
         from ..models.search_request_query import SearchRequestQuery
         from ..models.search_request_sort import SearchRequestSort
 
-        d = dict(src_dict)
-        _query = d.pop("query", UNSET)
+        _src = dict(src_dict)
+        _query = _src.pop("query", UNSET)
         query: SearchRequestQuery | Unset
         if isinstance(_query, Unset):
             query = UNSET
         else:
             query = SearchRequestQuery.from_dict(_query)
 
-        take = d.pop("take", UNSET)
+        take = _src.pop("take", UNSET)
 
-        cursor = d.pop("cursor", UNSET)
+        cursor = _src.pop("cursor", UNSET)
 
-        _sort = d.pop("sort", UNSET)
+        _sort = _src.pop("sort", UNSET)
         sort: SearchRequestSort | Unset
         if isinstance(_sort, Unset):
             sort = UNSET
         else:
             sort = SearchRequestSort.from_dict(_sort)
 
-        _filters = d.pop("filters", UNSET)
+        _filters = _src.pop("filters", UNSET)
         filters: SearchFilters | Unset
         if isinstance(_filters, Unset):
             filters = UNSET
         else:
             filters = SearchFilters.from_dict(_filters)
 
-        _include = d.pop("include", UNSET)
+        _include = _src.pop("include", UNSET)
         include: list[IncludeExpansion] | Unset = UNSET
         if _include is not UNSET:
             include = []
@@ -131,7 +131,7 @@ class SearchRequest:
             include=include,
         )
 
-        search_request.additional_properties = d
+        search_request.additional_properties = _src
         return search_request
 
     @property

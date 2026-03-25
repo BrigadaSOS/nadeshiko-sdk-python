@@ -41,17 +41,17 @@ class SearchFiltersSegmentDurationMs:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        min_ = d.pop("min", UNSET)
+        _src = dict(src_dict)
+        min_ = _src.pop("min", UNSET)
 
-        max_ = d.pop("max", UNSET)
+        max_ = _src.pop("max", UNSET)
 
         search_filters_segment_duration_ms = cls(
             min_=min_,
             max_=max_,
         )
 
-        search_filters_segment_duration_ms.additional_properties = d
+        search_filters_segment_duration_ms.additional_properties = _src
         return search_filters_segment_duration_ms
 
     @property

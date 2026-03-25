@@ -49,17 +49,17 @@ class CharacterWithMediaMediaAppearancesItem:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media import Media
 
-        d = dict(src_dict)
-        media = Media.from_dict(d.pop("media"))
+        _src = dict(src_dict)
+        media = Media.from_dict(_src.pop("media"))
 
-        role = CharacterWithMediaMediaAppearancesItemRole(d.pop("role"))
+        role = CharacterWithMediaMediaAppearancesItemRole(_src.pop("role"))
 
         character_with_media_media_appearances_item = cls(
             media=media,
             role=role,
         )
 
-        character_with_media_media_appearances_item.additional_properties = d
+        character_with_media_media_appearances_item.additional_properties = _src
         return character_with_media_media_appearances_item
 
     @property

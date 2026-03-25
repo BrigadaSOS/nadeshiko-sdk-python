@@ -22,7 +22,6 @@ def _get_kwargs(
     *,
     include: list[GetSegmentByUuidIncludeItem] | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     json_include: list[str] | Unset = UNSET

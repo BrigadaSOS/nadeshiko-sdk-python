@@ -54,16 +54,16 @@ class GetAdminDashboardOverviewResponse200Media:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        total_media = d.pop("totalMedia")
+        _src = dict(src_dict)
+        total_media = _src.pop("totalMedia")
 
-        total_episodes = d.pop("totalEpisodes")
+        total_episodes = _src.pop("totalEpisodes")
 
-        total_segments = d.pop("totalSegments")
+        total_segments = _src.pop("totalSegments")
 
-        total_characters = d.pop("totalCharacters")
+        total_characters = _src.pop("totalCharacters")
 
-        total_seiyuu = d.pop("totalSeiyuu")
+        total_seiyuu = _src.pop("totalSeiyuu")
 
         get_admin_dashboard_overview_response_200_media = cls(
             total_media=total_media,
@@ -73,7 +73,7 @@ class GetAdminDashboardOverviewResponse200Media:
             total_seiyuu=total_seiyuu,
         )
 
-        get_admin_dashboard_overview_response_200_media.additional_properties = d
+        get_admin_dashboard_overview_response_200_media.additional_properties = _src
         return get_admin_dashboard_overview_response_200_media
 
     @property

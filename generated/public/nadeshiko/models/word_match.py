@@ -59,15 +59,15 @@ class WordMatch:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.word_match_media import WordMatchMedia
 
-        d = dict(src_dict)
-        word = d.pop("word")
+        _src = dict(src_dict)
+        word = _src.pop("word")
 
-        is_match = d.pop("isMatch")
+        is_match = _src.pop("isMatch")
 
-        match_count = d.pop("matchCount")
+        match_count = _src.pop("matchCount")
 
         media = []
-        _media = d.pop("media")
+        _media = _src.pop("media")
         for media_item_data in _media:
             media_item = WordMatchMedia.from_dict(media_item_data)
 
@@ -80,7 +80,7 @@ class WordMatch:
             media=media,
         )
 
-        word_match.additional_properties = d
+        word_match.additional_properties = _src
         return word_match
 
     @property

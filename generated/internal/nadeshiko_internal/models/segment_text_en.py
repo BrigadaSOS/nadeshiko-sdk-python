@@ -47,12 +47,12 @@ class SegmentTextEn:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        content = d.pop("content")
+        _src = dict(src_dict)
+        content = _src.pop("content")
 
-        is_machine_translated = d.pop("isMachineTranslated")
+        is_machine_translated = _src.pop("isMachineTranslated")
 
-        highlight = d.pop("highlight", UNSET)
+        highlight = _src.pop("highlight", UNSET)
 
         segment_text_en = cls(
             content=content,
@@ -60,7 +60,7 @@ class SegmentTextEn:
             highlight=highlight,
         )
 
-        segment_text_en.additional_properties = d
+        segment_text_en.additional_properties = _src
         return segment_text_en
 
     @property

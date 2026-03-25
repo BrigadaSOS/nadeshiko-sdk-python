@@ -43,9 +43,9 @@ class SegmentBatchCreateRequest:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_create_request import SegmentCreateRequest
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         segments = []
-        _segments = d.pop("segments")
+        _segments = _src.pop("segments")
         for segments_item_data in _segments:
             segments_item = SegmentCreateRequest.from_dict(segments_item_data)
 
@@ -55,7 +55,7 @@ class SegmentBatchCreateRequest:
             segments=segments,
         )
 
-        segment_batch_create_request.additional_properties = d
+        segment_batch_create_request.additional_properties = _src
         return segment_batch_create_request
 
     @property

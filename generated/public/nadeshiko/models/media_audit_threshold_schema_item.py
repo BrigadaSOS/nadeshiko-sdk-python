@@ -65,21 +65,21 @@ class MediaAuditThresholdSchemaItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        key = d.pop("key")
+        _src = dict(src_dict)
+        key = _src.pop("key")
 
-        label = d.pop("label")
+        label = _src.pop("label")
 
-        type_ = MediaAuditThresholdSchemaItemType(d.pop("type"))
+        type_ = MediaAuditThresholdSchemaItemType(_src.pop("type"))
 
         def _parse_default(data: object) -> bool | float:
             return cast(bool | float, data)
 
-        default = _parse_default(d.pop("default"))
+        default = _parse_default(_src.pop("default"))
 
-        min_ = d.pop("min", UNSET)
+        min_ = _src.pop("min", UNSET)
 
-        max_ = d.pop("max", UNSET)
+        max_ = _src.pop("max", UNSET)
 
         media_audit_threshold_schema_item = cls(
             key=key,
@@ -90,7 +90,7 @@ class MediaAuditThresholdSchemaItem:
             max_=max_,
         )
 
-        media_audit_threshold_schema_item.additional_properties = d
+        media_audit_threshold_schema_item.additional_properties = _src
         return media_audit_threshold_schema_item
 
     @property

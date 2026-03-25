@@ -79,22 +79,22 @@ class SeiyuuWithRolesCharactersItem:
         from ..models.external_id import ExternalId
         from ..models.media import Media
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
-        media = Media.from_dict(d.pop("media"))
+        media = Media.from_dict(_src.pop("media"))
 
-        role = SeiyuuWithRolesCharactersItemRole(d.pop("role"))
+        role = SeiyuuWithRolesCharactersItemRole(_src.pop("role"))
 
         seiyuu_with_roles_characters_item = cls(
             id=id,
@@ -107,7 +107,7 @@ class SeiyuuWithRolesCharactersItem:
             role=role,
         )
 
-        seiyuu_with_roles_characters_item.additional_properties = d
+        seiyuu_with_roles_characters_item.additional_properties = _src
         return seiyuu_with_roles_characters_item
 
     @property

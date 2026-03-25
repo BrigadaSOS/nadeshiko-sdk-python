@@ -78,47 +78,47 @@ class UserActivity:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        activity_type = ActivityType(d.pop("activityType"))
+        activity_type = ActivityType(_src.pop("activityType"))
 
         def _parse_segment_id(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        segment_id = _parse_segment_id(d.pop("segmentId"))
+        segment_id = _parse_segment_id(_src.pop("segmentId"))
 
         def _parse_media_id(data: object) -> int | None:
             if data is None:
                 return data
             return cast(int | None, data)
 
-        media_id = _parse_media_id(d.pop("mediaId"))
+        media_id = _parse_media_id(_src.pop("mediaId"))
 
         def _parse_search_query(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        search_query = _parse_search_query(d.pop("searchQuery"))
+        search_query = _parse_search_query(_src.pop("searchQuery"))
 
         def _parse_media_name(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        media_name = _parse_media_name(d.pop("mediaName"))
+        media_name = _parse_media_name(_src.pop("mediaName"))
 
         def _parse_japanese_text(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        japanese_text = _parse_japanese_text(d.pop("japaneseText"))
+        japanese_text = _parse_japanese_text(_src.pop("japaneseText"))
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         user_activity = cls(
             id=id,
@@ -131,7 +131,7 @@ class UserActivity:
             created_at=created_at,
         )
 
-        user_activity.additional_properties = d
+        user_activity.additional_properties = _src
         return user_activity
 
     @property

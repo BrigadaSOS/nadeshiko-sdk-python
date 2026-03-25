@@ -51,14 +51,14 @@ class UserExportResponseProfile:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        username = d.pop("username")
+        username = _src.pop("username")
 
-        email = d.pop("email")
+        email = _src.pop("email")
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         user_export_response_profile = cls(
             id=id,
@@ -67,7 +67,7 @@ class UserExportResponseProfile:
             created_at=created_at,
         )
 
-        user_export_response_profile.additional_properties = d
+        user_export_response_profile.additional_properties = _src
         return user_export_response_profile
 
     @property

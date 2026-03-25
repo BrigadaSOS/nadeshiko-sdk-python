@@ -63,7 +63,7 @@ class CreateReportRequest:
         from ..models.report_target_media import ReportTargetMedia
         from ..models.report_target_segment_input import ReportTargetSegmentInput
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
 
         def _parse_target(data: object) -> ReportTargetMedia | ReportTargetSegmentInput:
             try:
@@ -80,11 +80,11 @@ class CreateReportRequest:
 
             return componentsschemas_user_report_target_type_1
 
-        target = _parse_target(d.pop("target"))
+        target = _parse_target(_src.pop("target"))
 
-        reason = CreateReportRequestReason(d.pop("reason"))
+        reason = CreateReportRequestReason(_src.pop("reason"))
 
-        description = d.pop("description", UNSET)
+        description = _src.pop("description", UNSET)
 
         create_report_request = cls(
             target=target,
@@ -92,7 +92,7 @@ class CreateReportRequest:
             description=description,
         )
 
-        create_report_request.additional_properties = d
+        create_report_request.additional_properties = _src
         return create_report_request
 
     @property

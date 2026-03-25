@@ -45,12 +45,12 @@ class SegmentUrls:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        image_url = d.pop("imageUrl")
+        _src = dict(src_dict)
+        image_url = _src.pop("imageUrl")
 
-        audio_url = d.pop("audioUrl")
+        audio_url = _src.pop("audioUrl")
 
-        video_url = d.pop("videoUrl")
+        video_url = _src.pop("videoUrl")
 
         segment_urls = cls(
             image_url=image_url,
@@ -58,7 +58,7 @@ class SegmentUrls:
             video_url=video_url,
         )
 
-        segment_urls.additional_properties = d
+        segment_urls.additional_properties = _src
         return segment_urls
 
     @property

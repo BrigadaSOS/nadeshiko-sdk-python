@@ -71,11 +71,11 @@ class GetAdminDashboardCollectionsResponse200:
             GetAdminDashboardCollectionsResponse200TopCollectionsItem,
         )
 
-        d = dict(src_dict)
-        total_collections = d.pop("totalCollections")
+        _src = dict(src_dict)
+        total_collections = _src.pop("totalCollections")
 
         by_type_and_visibility = []
-        _by_type_and_visibility = d.pop("byTypeAndVisibility")
+        _by_type_and_visibility = _src.pop("byTypeAndVisibility")
         for by_type_and_visibility_item_data in _by_type_and_visibility:
             by_type_and_visibility_item = (
                 GetAdminDashboardCollectionsResponse200ByTypeAndVisibilityItem.from_dict(
@@ -85,10 +85,10 @@ class GetAdminDashboardCollectionsResponse200:
 
             by_type_and_visibility.append(by_type_and_visibility_item)
 
-        average_size = d.pop("averageSize")
+        average_size = _src.pop("averageSize")
 
         top_collections = []
-        _top_collections = d.pop("topCollections")
+        _top_collections = _src.pop("topCollections")
         for top_collections_item_data in _top_collections:
             top_collections_item = (
                 GetAdminDashboardCollectionsResponse200TopCollectionsItem.from_dict(
@@ -105,7 +105,7 @@ class GetAdminDashboardCollectionsResponse200:
             top_collections=top_collections,
         )
 
-        get_admin_dashboard_collections_response_200.additional_properties = d
+        get_admin_dashboard_collections_response_200.additional_properties = _src
         return get_admin_dashboard_collections_response_200
 
     @property

@@ -45,22 +45,22 @@ class SearchRequestSort:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        _mode = d.pop("mode", UNSET)
+        _src = dict(src_dict)
+        _mode = _src.pop("mode", UNSET)
         mode: SearchRequestSortMode | Unset
         if isinstance(_mode, Unset):
             mode = UNSET
         else:
             mode = SearchRequestSortMode(_mode)
 
-        seed = d.pop("seed", UNSET)
+        seed = _src.pop("seed", UNSET)
 
         search_request_sort = cls(
             mode=mode,
             seed=seed,
         )
 
-        search_request_sort.additional_properties = d
+        search_request_sort.additional_properties = _src
         return search_request_sort
 
     @property

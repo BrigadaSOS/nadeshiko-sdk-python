@@ -19,7 +19,6 @@ def _get_kwargs(
     id: str,
     segment_id: int,
 ) -> dict[str, Any]:
-
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/collections/{id}/segments/{segment_id}".format(

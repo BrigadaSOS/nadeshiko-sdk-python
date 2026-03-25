@@ -44,12 +44,12 @@ class GetAdminDashboardResponse200SystemQueuesItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        queue = d.pop("queue")
+        _src = dict(src_dict)
+        queue = _src.pop("queue")
 
-        stuck_count = d.pop("stuckCount")
+        stuck_count = _src.pop("stuckCount")
 
-        failed_count = d.pop("failedCount")
+        failed_count = _src.pop("failedCount")
 
         get_admin_dashboard_response_200_system_queues_item = cls(
             queue=queue,
@@ -57,7 +57,7 @@ class GetAdminDashboardResponse200SystemQueuesItem:
             failed_count=failed_count,
         )
 
-        get_admin_dashboard_response_200_system_queues_item.additional_properties = d
+        get_admin_dashboard_response_200_system_queues_item.additional_properties = _src
         return get_admin_dashboard_response_200_system_queues_item
 
     @property

@@ -72,19 +72,19 @@ class GetUserActivityStatsResponse200:
             GetUserActivityStatsResponse200TopMediaItem,
         )
 
-        d = dict(src_dict)
-        total_searches = d.pop("totalSearches")
+        _src = dict(src_dict)
+        total_searches = _src.pop("totalSearches")
 
-        total_exports = d.pop("totalExports")
+        total_exports = _src.pop("totalExports")
 
-        total_plays = d.pop("totalPlays")
+        total_plays = _src.pop("totalPlays")
 
-        total_list_adds = d.pop("totalListAdds")
+        total_list_adds = _src.pop("totalListAdds")
 
-        total_shares = d.pop("totalShares")
+        total_shares = _src.pop("totalShares")
 
         top_media = []
-        _top_media = d.pop("topMedia")
+        _top_media = _src.pop("topMedia")
         for top_media_item_data in _top_media:
             top_media_item = GetUserActivityStatsResponse200TopMediaItem.from_dict(
                 top_media_item_data
@@ -101,7 +101,7 @@ class GetUserActivityStatsResponse200:
             top_media=top_media,
         )
 
-        get_user_activity_stats_response_200.additional_properties = d
+        get_user_activity_stats_response_200.additional_properties = _src
         return get_user_activity_stats_response_200
 
     @property

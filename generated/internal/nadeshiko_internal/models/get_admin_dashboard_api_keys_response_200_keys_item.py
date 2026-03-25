@@ -86,12 +86,12 @@ class GetAdminDashboardApiKeysResponse200KeysItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        is_active = d.pop("isActive")
+        is_active = _src.pop("isActive")
 
-        request_count = d.pop("requestCount")
+        request_count = _src.pop("requestCount")
 
         def _parse_name(data: object) -> None | str | Unset:
             if data is None:
@@ -100,7 +100,7 @@ class GetAdminDashboardApiKeysResponse200KeysItem:
                 return data
             return cast(None | str | Unset, data)
 
-        name = _parse_name(d.pop("name", UNSET))
+        name = _parse_name(_src.pop("name", UNSET))
 
         def _parse_hint(data: object) -> None | str | Unset:
             if data is None:
@@ -109,7 +109,7 @@ class GetAdminDashboardApiKeysResponse200KeysItem:
                 return data
             return cast(None | str | Unset, data)
 
-        hint = _parse_hint(d.pop("hint", UNSET))
+        hint = _parse_hint(_src.pop("hint", UNSET))
 
         def _parse_username(data: object) -> None | str | Unset:
             if data is None:
@@ -118,7 +118,7 @@ class GetAdminDashboardApiKeysResponse200KeysItem:
                 return data
             return cast(None | str | Unset, data)
 
-        username = _parse_username(d.pop("username", UNSET))
+        username = _parse_username(_src.pop("username", UNSET))
 
         def _parse_email(data: object) -> None | str | Unset:
             if data is None:
@@ -127,7 +127,7 @@ class GetAdminDashboardApiKeysResponse200KeysItem:
                 return data
             return cast(None | str | Unset, data)
 
-        email = _parse_email(d.pop("email", UNSET))
+        email = _parse_email(_src.pop("email", UNSET))
 
         get_admin_dashboard_api_keys_response_200_keys_item = cls(
             id=id,
@@ -139,7 +139,7 @@ class GetAdminDashboardApiKeysResponse200KeysItem:
             email=email,
         )
 
-        get_admin_dashboard_api_keys_response_200_keys_item.additional_properties = d
+        get_admin_dashboard_api_keys_response_200_keys_item.additional_properties = _src
         return get_admin_dashboard_api_keys_response_200_keys_item
 
     @property

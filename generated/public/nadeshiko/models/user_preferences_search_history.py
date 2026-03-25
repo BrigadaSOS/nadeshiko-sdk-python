@@ -34,14 +34,14 @@ class UserPreferencesSearchHistory:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        enabled = d.pop("enabled", UNSET)
+        _src = dict(src_dict)
+        enabled = _src.pop("enabled", UNSET)
 
         user_preferences_search_history = cls(
             enabled=enabled,
         )
 
-        user_preferences_search_history.additional_properties = d
+        user_preferences_search_history.additional_properties = _src
         return user_preferences_search_history
 
     @property

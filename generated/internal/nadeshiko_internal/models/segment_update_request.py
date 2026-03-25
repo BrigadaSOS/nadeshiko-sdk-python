@@ -161,42 +161,42 @@ class SegmentUpdateRequest:
         from ..models.segment_update_request_text_es import SegmentUpdateRequestTextEs
         from ..models.segment_update_request_text_ja import SegmentUpdateRequestTextJa
 
-        d = dict(src_dict)
-        position = d.pop("position", UNSET)
+        _src = dict(src_dict)
+        position = _src.pop("position", UNSET)
 
-        _status = d.pop("status", UNSET)
+        _status = _src.pop("status", UNSET)
         status: SegmentUpdateRequestStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
             status = SegmentUpdateRequestStatus(_status)
 
-        start_time_ms = d.pop("startTimeMs", UNSET)
+        start_time_ms = _src.pop("startTimeMs", UNSET)
 
-        end_time_ms = d.pop("endTimeMs", UNSET)
+        end_time_ms = _src.pop("endTimeMs", UNSET)
 
-        _text_ja = d.pop("textJa", UNSET)
+        _text_ja = _src.pop("textJa", UNSET)
         text_ja: SegmentUpdateRequestTextJa | Unset
         if isinstance(_text_ja, Unset):
             text_ja = UNSET
         else:
             text_ja = SegmentUpdateRequestTextJa.from_dict(_text_ja)
 
-        _text_es = d.pop("textEs", UNSET)
+        _text_es = _src.pop("textEs", UNSET)
         text_es: SegmentUpdateRequestTextEs | Unset
         if isinstance(_text_es, Unset):
             text_es = UNSET
         else:
             text_es = SegmentUpdateRequestTextEs.from_dict(_text_es)
 
-        _text_en = d.pop("textEn", UNSET)
+        _text_en = _src.pop("textEn", UNSET)
         text_en: SegmentUpdateRequestTextEn | Unset
         if isinstance(_text_en, Unset):
             text_en = UNSET
         else:
             text_en = SegmentUpdateRequestTextEn.from_dict(_text_en)
 
-        _content_rating = d.pop("contentRating", UNSET)
+        _content_rating = _src.pop("contentRating", UNSET)
         content_rating: ContentRating | Unset
         if isinstance(_content_rating, Unset):
             content_rating = UNSET
@@ -220,7 +220,7 @@ class SegmentUpdateRequest:
                 pass
             return cast(None | SegmentUpdateRequestRatingAnalysisType0 | Unset, data)
 
-        rating_analysis = _parse_rating_analysis(d.pop("ratingAnalysis", UNSET))
+        rating_analysis = _parse_rating_analysis(_src.pop("ratingAnalysis", UNSET))
 
         def _parse_pos_analysis(
             data: object,
@@ -239,16 +239,16 @@ class SegmentUpdateRequest:
                 pass
             return cast(None | SegmentUpdateRequestPosAnalysisType0 | Unset, data)
 
-        pos_analysis = _parse_pos_analysis(d.pop("posAnalysis", UNSET))
+        pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
 
-        _storage = d.pop("storage", UNSET)
+        _storage = _src.pop("storage", UNSET)
         storage: SegmentUpdateRequestStorage | Unset
         if isinstance(_storage, Unset):
             storage = UNSET
         else:
             storage = SegmentUpdateRequestStorage(_storage)
 
-        hashed_id = d.pop("hashedId", UNSET)
+        hashed_id = _src.pop("hashedId", UNSET)
 
         segment_update_request = cls(
             position=position,
@@ -265,7 +265,7 @@ class SegmentUpdateRequest:
             hashed_id=hashed_id,
         )
 
-        segment_update_request.additional_properties = d
+        segment_update_request.additional_properties = _src
         return segment_update_request
 
     @property

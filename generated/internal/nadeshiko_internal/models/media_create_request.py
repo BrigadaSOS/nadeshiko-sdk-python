@@ -151,52 +151,52 @@ class MediaCreateRequest:
         from ..models.character_input import CharacterInput
         from ..models.external_id import ExternalId
 
-        d = dict(src_dict)
-        name_ja = d.pop("nameJa")
+        _src = dict(src_dict)
+        name_ja = _src.pop("nameJa")
 
-        name_romaji = d.pop("nameRomaji")
+        name_romaji = _src.pop("nameRomaji")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        airing_format = d.pop("airingFormat")
+        airing_format = _src.pop("airingFormat")
 
-        airing_status = d.pop("airingStatus")
+        airing_status = _src.pop("airingStatus")
 
-        genres = cast(list[str], d.pop("genres"))
+        genres = cast(list[str], _src.pop("genres"))
 
-        storage = MediaCreateRequestStorage(d.pop("storage"))
+        storage = MediaCreateRequestStorage(_src.pop("storage"))
 
-        start_date = isoparse(d.pop("startDate")).date()
+        start_date = isoparse(_src.pop("startDate")).date()
 
-        category = MediaCreateRequestCategory(d.pop("category"))
+        category = MediaCreateRequestCategory(_src.pop("category"))
 
-        version = d.pop("version")
+        version = _src.pop("version")
 
-        hash_salt = d.pop("hashSalt")
+        hash_salt = _src.pop("hashSalt")
 
-        season_name = d.pop("seasonName")
+        season_name = _src.pop("seasonName")
 
-        season_year = d.pop("seasonYear")
+        season_year = _src.pop("seasonYear")
 
-        _external_ids = d.pop("externalIds", UNSET)
+        _external_ids = _src.pop("externalIds", UNSET)
         external_ids: ExternalId | Unset
         if isinstance(_external_ids, Unset):
             external_ids = UNSET
         else:
             external_ids = ExternalId.from_dict(_external_ids)
 
-        _end_date = d.pop("endDate", UNSET)
+        _end_date = _src.pop("endDate", UNSET)
         end_date: datetime.date | Unset
         if isinstance(_end_date, Unset):
             end_date = UNSET
         else:
             end_date = isoparse(_end_date).date()
 
-        studio = d.pop("studio", UNSET)
+        studio = _src.pop("studio", UNSET)
 
-        storage_base_path = d.pop("storageBasePath", UNSET)
+        storage_base_path = _src.pop("storageBasePath", UNSET)
 
-        _characters = d.pop("characters", UNSET)
+        _characters = _src.pop("characters", UNSET)
         characters: list[CharacterInput] | Unset = UNSET
         if _characters is not UNSET:
             characters = []
@@ -226,7 +226,7 @@ class MediaCreateRequest:
             characters=characters,
         )
 
-        media_create_request.additional_properties = d
+        media_create_request.additional_properties = _src
         return media_create_request
 
     @property

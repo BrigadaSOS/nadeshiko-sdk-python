@@ -50,22 +50,22 @@ class UpdateAdminMediaAuditBody:
             UpdateAdminMediaAuditBodyThreshold,
         )
 
-        d = dict(src_dict)
-        _threshold = d.pop("threshold", UNSET)
+        _src = dict(src_dict)
+        _threshold = _src.pop("threshold", UNSET)
         threshold: UpdateAdminMediaAuditBodyThreshold | Unset
         if isinstance(_threshold, Unset):
             threshold = UNSET
         else:
             threshold = UpdateAdminMediaAuditBodyThreshold.from_dict(_threshold)
 
-        enabled = d.pop("enabled", UNSET)
+        enabled = _src.pop("enabled", UNSET)
 
         update_admin_media_audit_body = cls(
             threshold=threshold,
             enabled=enabled,
         )
 
-        update_admin_media_audit_body.additional_properties = d
+        update_admin_media_audit_body.additional_properties = _src
         return update_admin_media_audit_body
 
     @property

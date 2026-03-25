@@ -99,8 +99,8 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        status = GetAdminDashboardSystemResponse200ElasticsearchStatus(d.pop("status"))
+        _src = dict(src_dict)
+        status = GetAdminDashboardSystemResponse200ElasticsearchStatus(_src.pop("status"))
 
         def _parse_version(data: object) -> None | str | Unset:
             if data is None:
@@ -109,7 +109,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
                 return data
             return cast(None | str | Unset, data)
 
-        version = _parse_version(d.pop("version", UNSET))
+        version = _parse_version(_src.pop("version", UNSET))
 
         def _parse_cluster_name(data: object) -> None | str | Unset:
             if data is None:
@@ -118,7 +118,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
                 return data
             return cast(None | str | Unset, data)
 
-        cluster_name = _parse_cluster_name(d.pop("clusterName", UNSET))
+        cluster_name = _parse_cluster_name(_src.pop("clusterName", UNSET))
 
         def _parse_cluster_status(data: object) -> None | str | Unset:
             if data is None:
@@ -127,7 +127,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
                 return data
             return cast(None | str | Unset, data)
 
-        cluster_status = _parse_cluster_status(d.pop("clusterStatus", UNSET))
+        cluster_status = _parse_cluster_status(_src.pop("clusterStatus", UNSET))
 
         def _parse_index_name(data: object) -> None | str | Unset:
             if data is None:
@@ -136,7 +136,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
                 return data
             return cast(None | str | Unset, data)
 
-        index_name = _parse_index_name(d.pop("indexName", UNSET))
+        index_name = _parse_index_name(_src.pop("indexName", UNSET))
 
         def _parse_document_count(data: object) -> int | None | Unset:
             if data is None:
@@ -145,7 +145,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
                 return data
             return cast(int | None | Unset, data)
 
-        document_count = _parse_document_count(d.pop("documentCount", UNSET))
+        document_count = _parse_document_count(_src.pop("documentCount", UNSET))
 
         def _parse_index_size_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -154,7 +154,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
                 return data
             return cast(int | None | Unset, data)
 
-        index_size_bytes = _parse_index_size_bytes(d.pop("indexSizeBytes", UNSET))
+        index_size_bytes = _parse_index_size_bytes(_src.pop("indexSizeBytes", UNSET))
 
         get_admin_dashboard_system_response_200_elasticsearch = cls(
             status=status,
@@ -166,7 +166,7 @@ class GetAdminDashboardSystemResponse200Elasticsearch:
             index_size_bytes=index_size_bytes,
         )
 
-        get_admin_dashboard_system_response_200_elasticsearch.additional_properties = d
+        get_admin_dashboard_system_response_200_elasticsearch.additional_properties = _src
         return get_admin_dashboard_system_response_200_elasticsearch
 
     @property

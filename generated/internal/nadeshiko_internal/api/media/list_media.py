@@ -24,7 +24,6 @@ def _get_kwargs(
     query: str | Unset = UNSET,
     include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["take"] = take

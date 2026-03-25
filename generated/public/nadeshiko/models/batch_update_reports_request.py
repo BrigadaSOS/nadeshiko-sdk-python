@@ -48,12 +48,12 @@ class BatchUpdateReportsRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        ids = cast(list[int], d.pop("ids"))
+        _src = dict(src_dict)
+        ids = cast(list[int], _src.pop("ids"))
 
-        status = BatchUpdateReportsRequestStatus(d.pop("status"))
+        status = BatchUpdateReportsRequestStatus(_src.pop("status"))
 
-        admin_notes = d.pop("adminNotes", UNSET)
+        admin_notes = _src.pop("adminNotes", UNSET)
 
         batch_update_reports_request = cls(
             ids=ids,
@@ -61,7 +61,7 @@ class BatchUpdateReportsRequest:
             admin_notes=admin_notes,
         )
 
-        batch_update_reports_request.additional_properties = d
+        batch_update_reports_request.additional_properties = _src
         return batch_update_reports_request
 
     @property

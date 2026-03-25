@@ -50,22 +50,22 @@ class SearchMultipleResponse:
         from ..models.search_multiple_response_includes import SearchMultipleResponseIncludes
         from ..models.word_match import WordMatch
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         results = []
-        _results = d.pop("results")
+        _results = _src.pop("results")
         for results_item_data in _results:
             results_item = WordMatch.from_dict(results_item_data)
 
             results.append(results_item)
 
-        includes = SearchMultipleResponseIncludes.from_dict(d.pop("includes"))
+        includes = SearchMultipleResponseIncludes.from_dict(_src.pop("includes"))
 
         search_multiple_response = cls(
             results=results,
             includes=includes,
         )
 
-        search_multiple_response.additional_properties = d
+        search_multiple_response.additional_properties = _src
         return search_multiple_response
 
     @property

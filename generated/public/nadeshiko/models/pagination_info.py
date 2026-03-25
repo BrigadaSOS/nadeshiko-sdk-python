@@ -56,13 +56,13 @@ class PaginationInfo:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        has_more = d.pop("hasMore")
+        _src = dict(src_dict)
+        has_more = _src.pop("hasMore")
 
-        estimated_total_hits = d.pop("estimatedTotalHits")
+        estimated_total_hits = _src.pop("estimatedTotalHits")
 
         estimated_total_hits_relation = PaginationInfoEstimatedTotalHitsRelation(
-            d.pop("estimatedTotalHitsRelation")
+            _src.pop("estimatedTotalHitsRelation")
         )
 
         def _parse_cursor(data: object) -> None | str:
@@ -70,7 +70,7 @@ class PaginationInfo:
                 return data
             return cast(None | str, data)
 
-        cursor = _parse_cursor(d.pop("cursor"))
+        cursor = _parse_cursor(_src.pop("cursor"))
 
         pagination_info = cls(
             has_more=has_more,
@@ -79,7 +79,7 @@ class PaginationInfo:
             cursor=cursor,
         )
 
-        pagination_info.additional_properties = d
+        pagination_info.additional_properties = _src
         return pagination_info
 
     @property

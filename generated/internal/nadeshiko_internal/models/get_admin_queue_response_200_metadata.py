@@ -153,18 +153,18 @@ class GetAdminQueueResponse200Metadata:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        policy = d.pop("policy")
+        _src = dict(src_dict)
+        policy = _src.pop("policy")
 
-        partition = d.pop("partition")
+        partition = _src.pop("partition")
 
-        created_on = isoparse(d.pop("createdOn"))
+        created_on = isoparse(_src.pop("createdOn"))
 
-        updated_on = isoparse(d.pop("updatedOn"))
+        updated_on = isoparse(_src.pop("updatedOn"))
 
-        singletons_active = cast(list[str], d.pop("singletonsActive"))
+        singletons_active = cast(list[str], _src.pop("singletonsActive"))
 
-        table = d.pop("table")
+        table = _src.pop("table")
 
         def _parse_dead_letter(data: object) -> None | str | Unset:
             if data is None:
@@ -173,7 +173,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(None | str | Unset, data)
 
-        dead_letter = _parse_dead_letter(d.pop("deadLetter", UNSET))
+        dead_letter = _parse_dead_letter(_src.pop("deadLetter", UNSET))
 
         def _parse_warning_queue_size(data: object) -> int | None | Unset:
             if data is None:
@@ -182,7 +182,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        warning_queue_size = _parse_warning_queue_size(d.pop("warningQueueSize", UNSET))
+        warning_queue_size = _parse_warning_queue_size(_src.pop("warningQueueSize", UNSET))
 
         def _parse_retry_limit(data: object) -> int | None | Unset:
             if data is None:
@@ -191,7 +191,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        retry_limit = _parse_retry_limit(d.pop("retryLimit", UNSET))
+        retry_limit = _parse_retry_limit(_src.pop("retryLimit", UNSET))
 
         def _parse_retry_delay(data: object) -> int | None | Unset:
             if data is None:
@@ -200,7 +200,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        retry_delay = _parse_retry_delay(d.pop("retryDelay", UNSET))
+        retry_delay = _parse_retry_delay(_src.pop("retryDelay", UNSET))
 
         def _parse_retry_backoff(data: object) -> bool | None | Unset:
             if data is None:
@@ -209,7 +209,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(bool | None | Unset, data)
 
-        retry_backoff = _parse_retry_backoff(d.pop("retryBackoff", UNSET))
+        retry_backoff = _parse_retry_backoff(_src.pop("retryBackoff", UNSET))
 
         def _parse_retry_delay_max(data: object) -> int | None | Unset:
             if data is None:
@@ -218,7 +218,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        retry_delay_max = _parse_retry_delay_max(d.pop("retryDelayMax", UNSET))
+        retry_delay_max = _parse_retry_delay_max(_src.pop("retryDelayMax", UNSET))
 
         def _parse_expire_in_seconds(data: object) -> int | None | Unset:
             if data is None:
@@ -227,7 +227,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        expire_in_seconds = _parse_expire_in_seconds(d.pop("expireInSeconds", UNSET))
+        expire_in_seconds = _parse_expire_in_seconds(_src.pop("expireInSeconds", UNSET))
 
         def _parse_retention_seconds(data: object) -> int | None | Unset:
             if data is None:
@@ -236,7 +236,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        retention_seconds = _parse_retention_seconds(d.pop("retentionSeconds", UNSET))
+        retention_seconds = _parse_retention_seconds(_src.pop("retentionSeconds", UNSET))
 
         def _parse_delete_after_seconds(data: object) -> int | None | Unset:
             if data is None:
@@ -245,7 +245,7 @@ class GetAdminQueueResponse200Metadata:
                 return data
             return cast(int | None | Unset, data)
 
-        delete_after_seconds = _parse_delete_after_seconds(d.pop("deleteAfterSeconds", UNSET))
+        delete_after_seconds = _parse_delete_after_seconds(_src.pop("deleteAfterSeconds", UNSET))
 
         get_admin_queue_response_200_metadata = cls(
             policy=policy,
@@ -265,7 +265,7 @@ class GetAdminQueueResponse200Metadata:
             delete_after_seconds=delete_after_seconds,
         )
 
-        get_admin_queue_response_200_metadata.additional_properties = d
+        get_admin_queue_response_200_metadata.additional_properties = _src
         return get_admin_queue_response_200_metadata
 
     @property

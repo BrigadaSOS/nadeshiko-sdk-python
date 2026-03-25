@@ -20,7 +20,6 @@ class CollectionWithSegmentsIncludesMedia:
     additional_properties: dict[str, Media] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-
         field_dict: dict[str, Any] = {}
         for prop_name, prop in self.additional_properties.items():
             field_dict[prop_name] = prop.to_dict()
@@ -31,11 +30,11 @@ class CollectionWithSegmentsIncludesMedia:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media import Media
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         collection_with_segments_includes_media = cls()
 
         additional_properties = {}
-        for prop_name, prop_dict in d.items():
+        for prop_name, prop_dict in _src.items():
             additional_property = Media.from_dict(prop_dict)
 
             additional_properties[prop_name] = additional_property

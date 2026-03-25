@@ -39,17 +39,17 @@ class GetAdminDashboardOverviewResponse200ActivityDailyActivityItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        date = d.pop("date")
+        _src = dict(src_dict)
+        date = _src.pop("date")
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         get_admin_dashboard_overview_response_200_activity_daily_activity_item = cls(
             date=date,
             count=count,
         )
 
-        get_admin_dashboard_overview_response_200_activity_daily_activity_item.additional_properties = d
+        get_admin_dashboard_overview_response_200_activity_daily_activity_item.additional_properties = _src
         return get_admin_dashboard_overview_response_200_activity_daily_activity_item
 
     @property

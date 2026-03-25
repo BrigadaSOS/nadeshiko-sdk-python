@@ -50,22 +50,22 @@ class AdminReportListResponse:
         from ..models.admin_report import AdminReport
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         reports = []
-        _reports = d.pop("reports")
+        _reports = _src.pop("reports")
         for reports_item_data in _reports:
             reports_item = AdminReport.from_dict(reports_item_data)
 
             reports.append(reports_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         admin_report_list_response = cls(
             reports=reports,
             pagination=pagination,
         )
 
-        admin_report_list_response.additional_properties = d
+        admin_report_list_response.additional_properties = _src
         return admin_report_list_response
 
     @property

@@ -45,17 +45,17 @@ class ReindexRequestMediaItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        episodes = cast(list[int], d.pop("episodes", UNSET))
+        episodes = cast(list[int], _src.pop("episodes", UNSET))
 
         reindex_request_media_item = cls(
             media_id=media_id,
             episodes=episodes,
         )
 
-        reindex_request_media_item.additional_properties = d
+        reindex_request_media_item.additional_properties = _src
         return reindex_request_media_item
 
     @property

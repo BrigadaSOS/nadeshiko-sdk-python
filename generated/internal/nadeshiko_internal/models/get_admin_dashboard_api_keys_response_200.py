@@ -47,9 +47,9 @@ class GetAdminDashboardApiKeysResponse200:
             GetAdminDashboardApiKeysResponse200KeysItem,
         )
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         keys = []
-        _keys = d.pop("keys")
+        _keys = _src.pop("keys")
         for keys_item_data in _keys:
             keys_item = GetAdminDashboardApiKeysResponse200KeysItem.from_dict(keys_item_data)
 
@@ -59,7 +59,7 @@ class GetAdminDashboardApiKeysResponse200:
             keys=keys,
         )
 
-        get_admin_dashboard_api_keys_response_200.additional_properties = d
+        get_admin_dashboard_api_keys_response_200.additional_properties = _src
         return get_admin_dashboard_api_keys_response_200
 
     @property

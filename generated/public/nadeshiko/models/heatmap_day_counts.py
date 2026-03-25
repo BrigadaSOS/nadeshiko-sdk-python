@@ -53,14 +53,14 @@ class HeatmapDayCounts:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        search = d.pop("SEARCH", UNSET)
+        _src = dict(src_dict)
+        search = _src.pop("SEARCH", UNSET)
 
-        segment_play = d.pop("SEGMENT_PLAY", UNSET)
+        segment_play = _src.pop("SEGMENT_PLAY", UNSET)
 
-        anki_export = d.pop("ANKI_EXPORT", UNSET)
+        anki_export = _src.pop("ANKI_EXPORT", UNSET)
 
-        share = d.pop("SHARE", UNSET)
+        share = _src.pop("SHARE", UNSET)
 
         heatmap_day_counts = cls(
             search=search,
@@ -69,7 +69,7 @@ class HeatmapDayCounts:
             share=share,
         )
 
-        heatmap_day_counts.additional_properties = d
+        heatmap_day_counts.additional_properties = _src
         return heatmap_day_counts
 
     @property

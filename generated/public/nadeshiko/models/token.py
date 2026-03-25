@@ -86,26 +86,26 @@ class Token:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        s = d.pop("s")
+        _src = dict(src_dict)
+        s = _src.pop("s")
 
-        d = d.pop("d")
+        d = _src.pop("d")
 
-        r = d.pop("r")
+        r = _src.pop("r")
 
-        b = d.pop("b")
+        b = _src.pop("b")
 
-        e = d.pop("e")
+        e = _src.pop("e")
 
-        p = d.pop("p")
+        p = _src.pop("p")
 
-        p1 = d.pop("p1", UNSET)
+        p1 = _src.pop("p1", UNSET)
 
-        p2 = d.pop("p2", UNSET)
+        p2 = _src.pop("p2", UNSET)
 
-        p4 = d.pop("p4", UNSET)
+        p4 = _src.pop("p4", UNSET)
 
-        cf = d.pop("cf", UNSET)
+        cf = _src.pop("cf", UNSET)
 
         token = cls(
             s=s,
@@ -120,7 +120,7 @@ class Token:
             cf=cf,
         )
 
-        token.additional_properties = d
+        token.additional_properties = _src
         return token
 
     @property

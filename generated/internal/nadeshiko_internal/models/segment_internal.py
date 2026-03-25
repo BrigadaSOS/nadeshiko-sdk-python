@@ -190,38 +190,38 @@ class SegmentInternal:
         from ..models.segment_text_ja import SegmentTextJa
         from ..models.segment_urls import SegmentUrls
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        uuid = d.pop("uuid")
+        uuid = _src.pop("uuid")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        position = d.pop("position")
+        position = _src.pop("position")
 
-        status = SegmentStatus(d.pop("status"))
+        status = SegmentStatus(_src.pop("status"))
 
-        start_time_ms = d.pop("startTimeMs")
+        start_time_ms = _src.pop("startTimeMs")
 
-        end_time_ms = d.pop("endTimeMs")
+        end_time_ms = _src.pop("endTimeMs")
 
-        content_rating = ContentRating(d.pop("contentRating"))
+        content_rating = ContentRating(_src.pop("contentRating"))
 
-        episode = d.pop("episode")
+        episode = _src.pop("episode")
 
-        media_id = d.pop("mediaId")
+        media_id = _src.pop("mediaId")
 
-        media_public_id = d.pop("mediaPublicId")
+        media_public_id = _src.pop("mediaPublicId")
 
-        text_ja = SegmentTextJa.from_dict(d.pop("textJa"))
+        text_ja = SegmentTextJa.from_dict(_src.pop("textJa"))
 
-        text_en = SegmentTextEn.from_dict(d.pop("textEn"))
+        text_en = SegmentTextEn.from_dict(_src.pop("textEn"))
 
-        text_es = SegmentTextEs.from_dict(d.pop("textEs"))
+        text_es = SegmentTextEs.from_dict(_src.pop("textEs"))
 
-        urls = SegmentUrls.from_dict(d.pop("urls"))
+        urls = SegmentUrls.from_dict(_src.pop("urls"))
 
-        _storage = d.pop("storage", UNSET)
+        _storage = _src.pop("storage", UNSET)
         storage: SegmentInternalStorage | Unset
         if isinstance(_storage, Unset):
             storage = UNSET
@@ -235,7 +235,7 @@ class SegmentInternal:
                 return data
             return cast(None | str | Unset, data)
 
-        hashed_id = _parse_hashed_id(d.pop("hashedId", UNSET))
+        hashed_id = _parse_hashed_id(_src.pop("hashedId", UNSET))
 
         def _parse_storage_base_path(data: object) -> None | str | Unset:
             if data is None:
@@ -244,7 +244,7 @@ class SegmentInternal:
                 return data
             return cast(None | str | Unset, data)
 
-        storage_base_path = _parse_storage_base_path(d.pop("storageBasePath", UNSET))
+        storage_base_path = _parse_storage_base_path(_src.pop("storageBasePath", UNSET))
 
         def _parse_rating_analysis(
             data: object,
@@ -263,7 +263,7 @@ class SegmentInternal:
                 pass
             return cast(None | SegmentInternalRatingAnalysisType0 | Unset, data)
 
-        rating_analysis = _parse_rating_analysis(d.pop("ratingAnalysis", UNSET))
+        rating_analysis = _parse_rating_analysis(_src.pop("ratingAnalysis", UNSET))
 
         def _parse_pos_analysis(data: object) -> None | SegmentInternalPosAnalysisType0 | Unset:
             if data is None:
@@ -280,7 +280,7 @@ class SegmentInternal:
                 pass
             return cast(None | SegmentInternalPosAnalysisType0 | Unset, data)
 
-        pos_analysis = _parse_pos_analysis(d.pop("posAnalysis", UNSET))
+        pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
 
         segment_internal = cls(
             id=id,
@@ -305,7 +305,7 @@ class SegmentInternal:
             pos_analysis=pos_analysis,
         )
 
-        segment_internal.additional_properties = d
+        segment_internal.additional_properties = _src
         return segment_internal
 
     @property

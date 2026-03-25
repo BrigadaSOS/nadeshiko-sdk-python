@@ -115,23 +115,23 @@ class MediaAudit:
         from ..models.media_audit_threshold import MediaAuditThreshold
         from ..models.media_audit_threshold_schema_item import MediaAuditThresholdSchemaItem
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        name = d.pop("name")
+        name = _src.pop("name")
 
-        label = d.pop("label")
+        label = _src.pop("label")
 
-        description = d.pop("description")
+        description = _src.pop("description")
 
-        target_type = MediaAuditTargetType(d.pop("targetType"))
+        target_type = MediaAuditTargetType(_src.pop("targetType"))
 
-        threshold = MediaAuditThreshold.from_dict(d.pop("threshold"))
+        threshold = MediaAuditThreshold.from_dict(_src.pop("threshold"))
 
-        enabled = d.pop("enabled")
+        enabled = _src.pop("enabled")
 
         threshold_schema = []
-        _threshold_schema = d.pop("thresholdSchema")
+        _threshold_schema = _src.pop("thresholdSchema")
         for threshold_schema_item_data in _threshold_schema:
             threshold_schema_item = MediaAuditThresholdSchemaItem.from_dict(
                 threshold_schema_item_data
@@ -152,7 +152,7 @@ class MediaAudit:
                 pass
             return cast(MediaAuditLatestRunType0 | None, data)
 
-        latest_run = _parse_latest_run(d.pop("latestRun"))
+        latest_run = _parse_latest_run(_src.pop("latestRun"))
 
         def _parse_created_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -167,7 +167,7 @@ class MediaAudit:
                 pass
             return cast(datetime.datetime | None, data)
 
-        created_at = _parse_created_at(d.pop("createdAt"))
+        created_at = _parse_created_at(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -182,7 +182,7 @@ class MediaAudit:
                 pass
             return cast(datetime.datetime | None, data)
 
-        updated_at = _parse_updated_at(d.pop("updatedAt"))
+        updated_at = _parse_updated_at(_src.pop("updatedAt"))
 
         media_audit = cls(
             id=id,
@@ -198,7 +198,7 @@ class MediaAudit:
             updated_at=updated_at,
         )
 
-        media_audit.additional_properties = d
+        media_audit.additional_properties = _src
         return media_audit
 
     @property

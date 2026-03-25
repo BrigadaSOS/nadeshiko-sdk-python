@@ -67,18 +67,18 @@ class TrackUserActivityBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        activity_type = TrackUserActivityBodyActivityType(d.pop("activityType"))
+        _src = dict(src_dict)
+        activity_type = TrackUserActivityBodyActivityType(_src.pop("activityType"))
 
-        segment_id = d.pop("segmentId", UNSET)
+        segment_id = _src.pop("segmentId", UNSET)
 
-        media_id = d.pop("mediaId", UNSET)
+        media_id = _src.pop("mediaId", UNSET)
 
-        media_name = d.pop("mediaName", UNSET)
+        media_name = _src.pop("mediaName", UNSET)
 
-        japanese_text = d.pop("japaneseText", UNSET)
+        japanese_text = _src.pop("japaneseText", UNSET)
 
-        search_query = d.pop("searchQuery", UNSET)
+        search_query = _src.pop("searchQuery", UNSET)
 
         track_user_activity_body = cls(
             activity_type=activity_type,
@@ -89,7 +89,7 @@ class TrackUserActivityBody:
             search_query=search_query,
         )
 
-        track_user_activity_body.additional_properties = d
+        track_user_activity_body.additional_properties = _src
         return track_user_activity_body
 
     @property

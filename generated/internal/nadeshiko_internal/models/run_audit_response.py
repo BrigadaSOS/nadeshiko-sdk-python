@@ -54,23 +54,23 @@ class RunAuditResponse:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.run_audit_response_checks_run_item import RunAuditResponseChecksRunItem
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
 
         def _parse_category(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        category = _parse_category(d.pop("category"))
+        category = _parse_category(_src.pop("category"))
 
         checks_run = []
-        _checks_run = d.pop("checksRun")
+        _checks_run = _src.pop("checksRun")
         for checks_run_item_data in _checks_run:
             checks_run_item = RunAuditResponseChecksRunItem.from_dict(checks_run_item_data)
 
             checks_run.append(checks_run_item)
 
-        total_reports = d.pop("totalReports")
+        total_reports = _src.pop("totalReports")
 
         run_audit_response = cls(
             category=category,
@@ -78,7 +78,7 @@ class RunAuditResponse:
             total_reports=total_reports,
         )
 
-        run_audit_response.additional_properties = d
+        run_audit_response.additional_properties = _src
         return run_audit_response
 
     @property

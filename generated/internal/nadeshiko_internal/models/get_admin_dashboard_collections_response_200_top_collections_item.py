@@ -54,16 +54,16 @@ class GetAdminDashboardCollectionsResponse200TopCollectionsItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        name = d.pop("name")
+        name = _src.pop("name")
 
-        type_ = d.pop("type")
+        type_ = _src.pop("type")
 
-        visibility = d.pop("visibility")
+        visibility = _src.pop("visibility")
 
-        segment_count = d.pop("segmentCount")
+        segment_count = _src.pop("segmentCount")
 
         get_admin_dashboard_collections_response_200_top_collections_item = cls(
             id=id,
@@ -73,7 +73,9 @@ class GetAdminDashboardCollectionsResponse200TopCollectionsItem:
             segment_count=segment_count,
         )
 
-        get_admin_dashboard_collections_response_200_top_collections_item.additional_properties = d
+        get_admin_dashboard_collections_response_200_top_collections_item.additional_properties = (
+            _src
+        )
         return get_admin_dashboard_collections_response_200_top_collections_item
 
     @property

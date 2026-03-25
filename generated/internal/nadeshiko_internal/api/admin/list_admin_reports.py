@@ -27,7 +27,6 @@ def _get_kwargs(
     target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["cursor"] = cursor

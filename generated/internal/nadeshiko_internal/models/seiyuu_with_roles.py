@@ -71,19 +71,19 @@ class SeiyuuWithRoles:
         from ..models.external_id import ExternalId
         from ..models.seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
         characters = []
-        _characters = d.pop("characters")
+        _characters = _src.pop("characters")
         for characters_item_data in _characters:
             characters_item = SeiyuuWithRolesCharactersItem.from_dict(characters_item_data)
 
@@ -98,7 +98,7 @@ class SeiyuuWithRoles:
             characters=characters,
         )
 
-        seiyuu_with_roles.additional_properties = d
+        seiyuu_with_roles.additional_properties = _src
         return seiyuu_with_roles
 
     @property

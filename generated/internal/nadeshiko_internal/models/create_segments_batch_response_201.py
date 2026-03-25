@@ -39,17 +39,17 @@ class CreateSegmentsBatchResponse201:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        created = d.pop("created")
+        _src = dict(src_dict)
+        created = _src.pop("created")
 
-        skipped = d.pop("skipped")
+        skipped = _src.pop("skipped")
 
         create_segments_batch_response_201 = cls(
             created=created,
             skipped=skipped,
         )
 
-        create_segments_batch_response_201.additional_properties = d
+        create_segments_batch_response_201.additional_properties = _src
         return create_segments_batch_response_201
 
     @property

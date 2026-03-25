@@ -61,15 +61,15 @@ class ReindexResponse:
         from ..models.reindex_response_errors_item import ReindexResponseErrorsItem
         from ..models.reindex_response_stats import ReindexResponseStats
 
-        d = dict(src_dict)
-        success = d.pop("success")
+        _src = dict(src_dict)
+        success = _src.pop("success")
 
-        message = d.pop("message")
+        message = _src.pop("message")
 
-        stats = ReindexResponseStats.from_dict(d.pop("stats"))
+        stats = ReindexResponseStats.from_dict(_src.pop("stats"))
 
         errors = []
-        _errors = d.pop("errors")
+        _errors = _src.pop("errors")
         for errors_item_data in _errors:
             errors_item = ReindexResponseErrorsItem.from_dict(errors_item_data)
 
@@ -82,7 +82,7 @@ class ReindexResponse:
             errors=errors,
         )
 
-        reindex_response.additional_properties = d
+        reindex_response.additional_properties = _src
         return reindex_response
 
     @property

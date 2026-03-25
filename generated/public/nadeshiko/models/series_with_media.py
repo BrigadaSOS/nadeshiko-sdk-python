@@ -64,17 +64,17 @@ class SeriesWithMedia:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.series_with_media_media_item import SeriesWithMediaMediaItem
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_romaji = d.pop("nameRomaji")
+        name_romaji = _src.pop("nameRomaji")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
         media = []
-        _media = d.pop("media")
+        _media = _src.pop("media")
         for media_item_data in _media:
             media_item = SeriesWithMediaMediaItem.from_dict(media_item_data)
 
@@ -88,7 +88,7 @@ class SeriesWithMedia:
             media=media,
         )
 
-        series_with_media.additional_properties = d
+        series_with_media.additional_properties = _src
         return series_with_media
 
     @property

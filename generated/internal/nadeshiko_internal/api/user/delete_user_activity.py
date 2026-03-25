@@ -16,7 +16,6 @@ def _get_kwargs(
     *,
     activity_type: ActivityType | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     json_activity_type: str | Unset = UNSET

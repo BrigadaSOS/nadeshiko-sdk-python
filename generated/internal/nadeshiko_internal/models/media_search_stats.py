@@ -57,14 +57,14 @@ class MediaSearchStats:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
 
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        match_count = d.pop("matchCount")
+        match_count = _src.pop("matchCount")
 
-        episode_hits = MediaSearchStatsEpisodeHits.from_dict(d.pop("episodeHits"))
+        episode_hits = MediaSearchStatsEpisodeHits.from_dict(_src.pop("episodeHits"))
 
         media_search_stats = cls(
             media_id=media_id,
@@ -73,7 +73,7 @@ class MediaSearchStats:
             episode_hits=episode_hits,
         )
 
-        media_search_stats.additional_properties = d
+        media_search_stats.additional_properties = _src
         return media_search_stats
 
     @property

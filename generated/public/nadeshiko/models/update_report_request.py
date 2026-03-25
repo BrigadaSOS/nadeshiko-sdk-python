@@ -43,22 +43,22 @@ class UpdateReportRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        _status = d.pop("status", UNSET)
+        _src = dict(src_dict)
+        _status = _src.pop("status", UNSET)
         status: UpdateReportRequestStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
             status = UpdateReportRequestStatus(_status)
 
-        admin_notes = d.pop("adminNotes", UNSET)
+        admin_notes = _src.pop("adminNotes", UNSET)
 
         update_report_request = cls(
             status=status,
             admin_notes=admin_notes,
         )
 
-        update_report_request.additional_properties = d
+        update_report_request.additional_properties = _src
         return update_report_request
 
     @property

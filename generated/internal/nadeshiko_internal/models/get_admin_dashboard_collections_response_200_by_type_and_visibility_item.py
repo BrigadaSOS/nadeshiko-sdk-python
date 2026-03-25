@@ -44,12 +44,12 @@ class GetAdminDashboardCollectionsResponse200ByTypeAndVisibilityItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        type_ = d.pop("type")
+        _src = dict(src_dict)
+        type_ = _src.pop("type")
 
-        visibility = d.pop("visibility")
+        visibility = _src.pop("visibility")
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         get_admin_dashboard_collections_response_200_by_type_and_visibility_item = cls(
             type_=type_,
@@ -57,7 +57,7 @@ class GetAdminDashboardCollectionsResponse200ByTypeAndVisibilityItem:
             count=count,
         )
 
-        get_admin_dashboard_collections_response_200_by_type_and_visibility_item.additional_properties = d
+        get_admin_dashboard_collections_response_200_by_type_and_visibility_item.additional_properties = _src
         return get_admin_dashboard_collections_response_200_by_type_and_visibility_item
 
     @property

@@ -57,8 +57,8 @@ class SearchFiltersMedia:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media_filter_item import MediaFilterItem
 
-        d = dict(src_dict)
-        _include = d.pop("include", UNSET)
+        _src = dict(src_dict)
+        _include = _src.pop("include", UNSET)
         include: list[MediaFilterItem] | Unset = UNSET
         if _include is not UNSET:
             include = []
@@ -67,7 +67,7 @@ class SearchFiltersMedia:
 
                 include.append(include_item)
 
-        _exclude = d.pop("exclude", UNSET)
+        _exclude = _src.pop("exclude", UNSET)
         exclude: list[MediaFilterItem] | Unset = UNSET
         if _exclude is not UNSET:
             exclude = []
@@ -81,7 +81,7 @@ class SearchFiltersMedia:
             exclude=exclude,
         )
 
-        search_filters_media.additional_properties = d
+        search_filters_media.additional_properties = _src
         return search_filters_media
 
     @property

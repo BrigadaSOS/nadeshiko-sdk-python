@@ -139,10 +139,10 @@ class AdminReport:
         from ..models.report_target_media import ReportTargetMedia
         from ..models.report_target_segment import ReportTargetSegment
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        source = ReportSource(d.pop("source"))
+        source = ReportSource(_src.pop("source"))
 
         def _parse_target(
             data: object,
@@ -169,23 +169,23 @@ class AdminReport:
 
             return componentsschemas_report_target_type_2
 
-        target = _parse_target(d.pop("target"))
+        target = _parse_target(_src.pop("target"))
 
         def _parse_audit_run_id(data: object) -> int | None:
             if data is None:
                 return data
             return cast(int | None, data)
 
-        audit_run_id = _parse_audit_run_id(d.pop("auditRunId"))
+        audit_run_id = _parse_audit_run_id(_src.pop("auditRunId"))
 
-        reason = ReportReason(d.pop("reason"))
+        reason = ReportReason(_src.pop("reason"))
 
         def _parse_description(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        description = _parse_description(d.pop("description"))
+        description = _parse_description(_src.pop("description"))
 
         def _parse_data(data: object) -> None | ReportDataType0:
             if data is None:
@@ -200,25 +200,25 @@ class AdminReport:
                 pass
             return cast(None | ReportDataType0, data)
 
-        data = _parse_data(d.pop("data"))
+        data = _parse_data(_src.pop("data"))
 
-        status = ReportStatus(d.pop("status"))
+        status = ReportStatus(_src.pop("status"))
 
         def _parse_admin_notes(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        admin_notes = _parse_admin_notes(d.pop("adminNotes"))
+        admin_notes = _parse_admin_notes(_src.pop("adminNotes"))
 
         def _parse_user_id(data: object) -> int | None:
             if data is None:
                 return data
             return cast(int | None, data)
 
-        user_id = _parse_user_id(d.pop("userId"))
+        user_id = _parse_user_id(_src.pop("userId"))
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -233,11 +233,11 @@ class AdminReport:
                 pass
             return cast(datetime.datetime | None, data)
 
-        updated_at = _parse_updated_at(d.pop("updatedAt"))
+        updated_at = _parse_updated_at(_src.pop("updatedAt"))
 
-        report_count = d.pop("reportCount")
+        report_count = _src.pop("reportCount")
 
-        reporter_name = d.pop("reporterName")
+        reporter_name = _src.pop("reporterName")
 
         admin_report = cls(
             id=id,
@@ -256,7 +256,7 @@ class AdminReport:
             reporter_name=reporter_name,
         )
 
-        admin_report.additional_properties = d
+        admin_report.additional_properties = _src
         return admin_report
 
     @property

@@ -54,14 +54,14 @@ class UserPreferencesHiddenMediaItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_public_id = d.pop("mediaPublicId")
+        _src = dict(src_dict)
+        media_public_id = _src.pop("mediaPublicId")
 
-        name_en = d.pop("nameEn", UNSET)
+        name_en = _src.pop("nameEn", UNSET)
 
-        name_ja = d.pop("nameJa", UNSET)
+        name_ja = _src.pop("nameJa", UNSET)
 
-        name_romaji = d.pop("nameRomaji", UNSET)
+        name_romaji = _src.pop("nameRomaji", UNSET)
 
         user_preferences_hidden_media_item = cls(
             media_public_id=media_public_id,
@@ -70,7 +70,7 @@ class UserPreferencesHiddenMediaItem:
             name_romaji=name_romaji,
         )
 
-        user_preferences_hidden_media_item.additional_properties = d
+        user_preferences_hidden_media_item.additional_properties = _src
         return user_preferences_hidden_media_item
 
     @property

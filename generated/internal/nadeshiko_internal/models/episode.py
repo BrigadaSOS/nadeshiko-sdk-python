@@ -121,12 +121,12 @@ class Episode:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        episode_number = d.pop("episodeNumber")
+        episode_number = _src.pop("episodeNumber")
 
-        segment_count = d.pop("segmentCount")
+        segment_count = _src.pop("segmentCount")
 
         def _parse_title_en(data: object) -> None | str | Unset:
             if data is None:
@@ -135,7 +135,7 @@ class Episode:
                 return data
             return cast(None | str | Unset, data)
 
-        title_en = _parse_title_en(d.pop("titleEn", UNSET))
+        title_en = _parse_title_en(_src.pop("titleEn", UNSET))
 
         def _parse_title_romaji(data: object) -> None | str | Unset:
             if data is None:
@@ -144,7 +144,7 @@ class Episode:
                 return data
             return cast(None | str | Unset, data)
 
-        title_romaji = _parse_title_romaji(d.pop("titleRomaji", UNSET))
+        title_romaji = _parse_title_romaji(_src.pop("titleRomaji", UNSET))
 
         def _parse_title_ja(data: object) -> None | str | Unset:
             if data is None:
@@ -153,7 +153,7 @@ class Episode:
                 return data
             return cast(None | str | Unset, data)
 
-        title_ja = _parse_title_ja(d.pop("titleJa", UNSET))
+        title_ja = _parse_title_ja(_src.pop("titleJa", UNSET))
 
         def _parse_description(data: object) -> None | str | Unset:
             if data is None:
@@ -162,7 +162,7 @@ class Episode:
                 return data
             return cast(None | str | Unset, data)
 
-        description = _parse_description(d.pop("description", UNSET))
+        description = _parse_description(_src.pop("description", UNSET))
 
         def _parse_aired_at(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -179,7 +179,7 @@ class Episode:
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
-        aired_at = _parse_aired_at(d.pop("airedAt", UNSET))
+        aired_at = _parse_aired_at(_src.pop("airedAt", UNSET))
 
         def _parse_length_seconds(data: object) -> int | None | Unset:
             if data is None:
@@ -188,7 +188,7 @@ class Episode:
                 return data
             return cast(int | None | Unset, data)
 
-        length_seconds = _parse_length_seconds(d.pop("lengthSeconds", UNSET))
+        length_seconds = _parse_length_seconds(_src.pop("lengthSeconds", UNSET))
 
         def _parse_thumbnail_url(data: object) -> None | str | Unset:
             if data is None:
@@ -197,7 +197,7 @@ class Episode:
                 return data
             return cast(None | str | Unset, data)
 
-        thumbnail_url = _parse_thumbnail_url(d.pop("thumbnailUrl", UNSET))
+        thumbnail_url = _parse_thumbnail_url(_src.pop("thumbnailUrl", UNSET))
 
         episode = cls(
             media_id=media_id,
@@ -212,7 +212,7 @@ class Episode:
             thumbnail_url=thumbnail_url,
         )
 
-        episode.additional_properties = d
+        episode.additional_properties = _src
         return episode
 
     @property

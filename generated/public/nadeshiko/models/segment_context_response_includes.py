@@ -44,8 +44,8 @@ class SegmentContextResponseIncludes:
             SegmentContextResponseIncludesMedia,
         )
 
-        d = dict(src_dict)
-        _media = d.pop("media", UNSET)
+        _src = dict(src_dict)
+        _media = _src.pop("media", UNSET)
         media: SegmentContextResponseIncludesMedia | Unset
         if isinstance(_media, Unset):
             media = UNSET
@@ -56,7 +56,7 @@ class SegmentContextResponseIncludes:
             media=media,
         )
 
-        segment_context_response_includes.additional_properties = d
+        segment_context_response_includes.additional_properties = _src
         return segment_context_response_includes
 
     @property

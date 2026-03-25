@@ -47,12 +47,12 @@ class MediaAuditLatestRunType0:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        result_count = d.pop("resultCount")
+        result_count = _src.pop("resultCount")
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         media_audit_latest_run_type_0 = cls(
             id=id,
@@ -60,7 +60,7 @@ class MediaAuditLatestRunType0:
             created_at=created_at,
         )
 
-        media_audit_latest_run_type_0.additional_properties = d
+        media_audit_latest_run_type_0.additional_properties = _src
         return media_audit_latest_run_type_0
 
     @property

@@ -42,17 +42,17 @@ class AddSegmentToCollectionBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        segment_id = d.pop("segmentId")
+        _src = dict(src_dict)
+        segment_id = _src.pop("segmentId")
 
-        note = d.pop("note", UNSET)
+        note = _src.pop("note", UNSET)
 
         add_segment_to_collection_body = cls(
             segment_id=segment_id,
             note=note,
         )
 
-        add_segment_to_collection_body.additional_properties = d
+        add_segment_to_collection_body.additional_properties = _src
         return add_segment_to_collection_body
 
     @property

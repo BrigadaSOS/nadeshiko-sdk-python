@@ -49,8 +49,8 @@ class GetAdminDashboardSystemResponse200Database:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        status = GetAdminDashboardSystemResponse200DatabaseStatus(d.pop("status"))
+        _src = dict(src_dict)
+        status = GetAdminDashboardSystemResponse200DatabaseStatus(_src.pop("status"))
 
         def _parse_version(data: object) -> None | str | Unset:
             if data is None:
@@ -59,14 +59,14 @@ class GetAdminDashboardSystemResponse200Database:
                 return data
             return cast(None | str | Unset, data)
 
-        version = _parse_version(d.pop("version", UNSET))
+        version = _parse_version(_src.pop("version", UNSET))
 
         get_admin_dashboard_system_response_200_database = cls(
             status=status,
             version=version,
         )
 
-        get_admin_dashboard_system_response_200_database.additional_properties = d
+        get_admin_dashboard_system_response_200_database.additional_properties = _src
         return get_admin_dashboard_system_response_200_database
 
     @property

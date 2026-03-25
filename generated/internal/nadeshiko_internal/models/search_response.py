@@ -57,17 +57,17 @@ class SearchResponse:
         from ..models.search_response_includes import SearchResponseIncludes
         from ..models.segment import Segment
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         segments = []
-        _segments = d.pop("segments")
+        _segments = _src.pop("segments")
         for segments_item_data in _segments:
             segments_item = Segment.from_dict(segments_item_data)
 
             segments.append(segments_item)
 
-        includes = SearchResponseIncludes.from_dict(d.pop("includes"))
+        includes = SearchResponseIncludes.from_dict(_src.pop("includes"))
 
-        pagination = PaginationInfo.from_dict(d.pop("pagination"))
+        pagination = PaginationInfo.from_dict(_src.pop("pagination"))
 
         search_response = cls(
             segments=segments,
@@ -75,7 +75,7 @@ class SearchResponse:
             pagination=pagination,
         )
 
-        search_response.additional_properties = d
+        search_response.additional_properties = _src
         return search_response
 
     @property

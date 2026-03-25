@@ -34,14 +34,14 @@ class SegmentUpdateRequestTextJa:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        content = d.pop("content", UNSET)
+        _src = dict(src_dict)
+        content = _src.pop("content", UNSET)
 
         segment_update_request_text_ja = cls(
             content=content,
         )
 
-        segment_update_request_text_ja.additional_properties = d
+        segment_update_request_text_ja.additional_properties = _src
         return segment_update_request_text_ja
 
     @property

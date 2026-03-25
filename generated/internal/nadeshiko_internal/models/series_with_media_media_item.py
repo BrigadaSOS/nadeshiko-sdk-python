@@ -45,17 +45,17 @@ class SeriesWithMediaMediaItem:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media import Media
 
-        d = dict(src_dict)
-        position = d.pop("position")
+        _src = dict(src_dict)
+        position = _src.pop("position")
 
-        media = Media.from_dict(d.pop("media"))
+        media = Media.from_dict(_src.pop("media"))
 
         series_with_media_media_item = cls(
             position=position,
             media=media,
         )
 
-        series_with_media_media_item.additional_properties = d
+        series_with_media_media_item.additional_properties = _src
         return series_with_media_media_item
 
     @property

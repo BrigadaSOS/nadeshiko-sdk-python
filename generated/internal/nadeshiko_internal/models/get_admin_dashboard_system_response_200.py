@@ -89,19 +89,19 @@ class GetAdminDashboardSystemResponse200:
             GetAdminDashboardSystemResponse200QueuesItem,
         )
 
-        d = dict(src_dict)
-        status = GetAdminDashboardSystemResponse200Status(d.pop("status"))
+        _src = dict(src_dict)
+        status = GetAdminDashboardSystemResponse200Status(_src.pop("status"))
 
-        app = GetAdminDashboardSystemResponse200App.from_dict(d.pop("app"))
+        app = GetAdminDashboardSystemResponse200App.from_dict(_src.pop("app"))
 
         elasticsearch = GetAdminDashboardSystemResponse200Elasticsearch.from_dict(
-            d.pop("elasticsearch")
+            _src.pop("elasticsearch")
         )
 
-        database = GetAdminDashboardSystemResponse200Database.from_dict(d.pop("database"))
+        database = GetAdminDashboardSystemResponse200Database.from_dict(_src.pop("database"))
 
         queues = []
-        _queues = d.pop("queues")
+        _queues = _src.pop("queues")
         for queues_item_data in _queues:
             queues_item = GetAdminDashboardSystemResponse200QueuesItem.from_dict(queues_item_data)
 
@@ -115,7 +115,7 @@ class GetAdminDashboardSystemResponse200:
             queues=queues,
         )
 
-        get_admin_dashboard_system_response_200.additional_properties = d
+        get_admin_dashboard_system_response_200.additional_properties = _src
         return get_admin_dashboard_system_response_200
 
     @property

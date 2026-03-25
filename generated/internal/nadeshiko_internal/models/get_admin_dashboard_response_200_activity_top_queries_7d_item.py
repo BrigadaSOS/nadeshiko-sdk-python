@@ -39,17 +39,17 @@ class GetAdminDashboardResponse200ActivityTopQueries7DItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        query = d.pop("query")
+        _src = dict(src_dict)
+        query = _src.pop("query")
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         get_admin_dashboard_response_200_activity_top_queries_7d_item = cls(
             query=query,
             count=count,
         )
 
-        get_admin_dashboard_response_200_activity_top_queries_7d_item.additional_properties = d
+        get_admin_dashboard_response_200_activity_top_queries_7d_item.additional_properties = _src
         return get_admin_dashboard_response_200_activity_top_queries_7d_item
 
     @property

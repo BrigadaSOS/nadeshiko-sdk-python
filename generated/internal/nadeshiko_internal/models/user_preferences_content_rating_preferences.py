@@ -51,15 +51,15 @@ class UserPreferencesContentRatingPreferences:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        _suggestive = d.pop("suggestive", UNSET)
+        _src = dict(src_dict)
+        _suggestive = _src.pop("suggestive", UNSET)
         suggestive: UserPreferencesContentRatingPreferencesSuggestive | Unset
         if isinstance(_suggestive, Unset):
             suggestive = UNSET
         else:
             suggestive = UserPreferencesContentRatingPreferencesSuggestive(_suggestive)
 
-        _explicit = d.pop("explicit", UNSET)
+        _explicit = _src.pop("explicit", UNSET)
         explicit: UserPreferencesContentRatingPreferencesExplicit | Unset
         if isinstance(_explicit, Unset):
             explicit = UNSET
@@ -71,7 +71,7 @@ class UserPreferencesContentRatingPreferences:
             explicit=explicit,
         )
 
-        user_preferences_content_rating_preferences.additional_properties = d
+        user_preferences_content_rating_preferences.additional_properties = _src
         return user_preferences_content_rating_preferences
 
     @property

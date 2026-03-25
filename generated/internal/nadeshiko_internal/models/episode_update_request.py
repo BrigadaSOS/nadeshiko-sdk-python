@@ -76,25 +76,25 @@ class EpisodeUpdateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        title_en = d.pop("titleEn", UNSET)
+        _src = dict(src_dict)
+        title_en = _src.pop("titleEn", UNSET)
 
-        title_romaji = d.pop("titleRomaji", UNSET)
+        title_romaji = _src.pop("titleRomaji", UNSET)
 
-        title_ja = d.pop("titleJa", UNSET)
+        title_ja = _src.pop("titleJa", UNSET)
 
-        description = d.pop("description", UNSET)
+        description = _src.pop("description", UNSET)
 
-        _aired_at = d.pop("airedAt", UNSET)
+        _aired_at = _src.pop("airedAt", UNSET)
         aired_at: datetime.datetime | Unset
         if isinstance(_aired_at, Unset):
             aired_at = UNSET
         else:
             aired_at = isoparse(_aired_at)
 
-        length_seconds = d.pop("lengthSeconds", UNSET)
+        length_seconds = _src.pop("lengthSeconds", UNSET)
 
-        thumbnail_url = d.pop("thumbnailUrl", UNSET)
+        thumbnail_url = _src.pop("thumbnailUrl", UNSET)
 
         episode_update_request = cls(
             title_en=title_en,
@@ -106,7 +106,7 @@ class EpisodeUpdateRequest:
             thumbnail_url=thumbnail_url,
         )
 
-        episode_update_request.additional_properties = d
+        episode_update_request.additional_properties = _src
         return episode_update_request
 
     @property

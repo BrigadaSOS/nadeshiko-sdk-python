@@ -60,22 +60,22 @@ class SearchStatsResponse:
         from ..models.media_search_stats import MediaSearchStats
         from ..models.search_stats_response_includes import SearchStatsResponseIncludes
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         media = []
-        _media = d.pop("media")
+        _media = _src.pop("media")
         for media_item_data in _media:
             media_item = MediaSearchStats.from_dict(media_item_data)
 
             media.append(media_item)
 
         categories = []
-        _categories = d.pop("categories")
+        _categories = _src.pop("categories")
         for categories_item_data in _categories:
             categories_item = CategoryCount.from_dict(categories_item_data)
 
             categories.append(categories_item)
 
-        includes = SearchStatsResponseIncludes.from_dict(d.pop("includes"))
+        includes = SearchStatsResponseIncludes.from_dict(_src.pop("includes"))
 
         search_stats_response = cls(
             media=media,
@@ -83,7 +83,7 @@ class SearchStatsResponse:
             includes=includes,
         )
 
-        search_stats_response.additional_properties = d
+        search_stats_response.additional_properties = _src
         return search_stats_response
 
     @property

@@ -19,7 +19,6 @@ from ...types import Response
 def _get_kwargs(
     queue_name: ListAdminQueueFailedQueueName,
 ) -> dict[str, Any]:
-
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/admin/queues/{queue_name}/failed".format(

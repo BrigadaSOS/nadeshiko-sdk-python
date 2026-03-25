@@ -173,9 +173,9 @@ class GetAdminDashboardMediaResponse200:
             GetAdminDashboardMediaResponse200TopMediaBySearchesItem,
         )
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         by_category = []
-        _by_category = d.pop("byCategory")
+        _by_category = _src.pop("byCategory")
         for by_category_item_data in _by_category:
             by_category_item = GetAdminDashboardMediaResponse200ByCategoryItem.from_dict(
                 by_category_item_data
@@ -184,7 +184,7 @@ class GetAdminDashboardMediaResponse200:
             by_category.append(by_category_item)
 
         by_format = []
-        _by_format = d.pop("byFormat")
+        _by_format = _src.pop("byFormat")
         for by_format_item_data in _by_format:
             by_format_item = GetAdminDashboardMediaResponse200ByFormatItem.from_dict(
                 by_format_item_data
@@ -193,7 +193,7 @@ class GetAdminDashboardMediaResponse200:
             by_format.append(by_format_item)
 
         by_status = []
-        _by_status = d.pop("byStatus")
+        _by_status = _src.pop("byStatus")
         for by_status_item_data in _by_status:
             by_status_item = GetAdminDashboardMediaResponse200ByStatusItem.from_dict(
                 by_status_item_data
@@ -202,7 +202,7 @@ class GetAdminDashboardMediaResponse200:
             by_status.append(by_status_item)
 
         by_genre = []
-        _by_genre = d.pop("byGenre")
+        _by_genre = _src.pop("byGenre")
         for by_genre_item_data in _by_genre:
             by_genre_item = GetAdminDashboardMediaResponse200ByGenreItem.from_dict(
                 by_genre_item_data
@@ -211,7 +211,7 @@ class GetAdminDashboardMediaResponse200:
             by_genre.append(by_genre_item)
 
         by_studio = []
-        _by_studio = d.pop("byStudio")
+        _by_studio = _src.pop("byStudio")
         for by_studio_item_data in _by_studio:
             by_studio_item = GetAdminDashboardMediaResponse200ByStudioItem.from_dict(
                 by_studio_item_data
@@ -220,7 +220,7 @@ class GetAdminDashboardMediaResponse200:
             by_studio.append(by_studio_item)
 
         segments_by_content_rating = []
-        _segments_by_content_rating = d.pop("segmentsByContentRating")
+        _segments_by_content_rating = _src.pop("segmentsByContentRating")
         for segments_by_content_rating_item_data in _segments_by_content_rating:
             segments_by_content_rating_item = (
                 GetAdminDashboardMediaResponse200SegmentsByContentRatingItem.from_dict(
@@ -231,7 +231,7 @@ class GetAdminDashboardMediaResponse200:
             segments_by_content_rating.append(segments_by_content_rating_item)
 
         segments_by_status = []
-        _segments_by_status = d.pop("segmentsByStatus")
+        _segments_by_status = _src.pop("segmentsByStatus")
         for segments_by_status_item_data in _segments_by_status:
             segments_by_status_item = (
                 GetAdminDashboardMediaResponse200SegmentsByStatusItem.from_dict(
@@ -242,7 +242,7 @@ class GetAdminDashboardMediaResponse200:
             segments_by_status.append(segments_by_status_item)
 
         top_media_by_plays = []
-        _top_media_by_plays = d.pop("topMediaByPlays")
+        _top_media_by_plays = _src.pop("topMediaByPlays")
         for top_media_by_plays_item_data in _top_media_by_plays:
             top_media_by_plays_item = (
                 GetAdminDashboardMediaResponse200TopMediaByPlaysItem.from_dict(
@@ -253,7 +253,7 @@ class GetAdminDashboardMediaResponse200:
             top_media_by_plays.append(top_media_by_plays_item)
 
         top_media_by_searches = []
-        _top_media_by_searches = d.pop("topMediaBySearches")
+        _top_media_by_searches = _src.pop("topMediaBySearches")
         for top_media_by_searches_item_data in _top_media_by_searches:
             top_media_by_searches_item = (
                 GetAdminDashboardMediaResponse200TopMediaBySearchesItem.from_dict(
@@ -264,7 +264,7 @@ class GetAdminDashboardMediaResponse200:
             top_media_by_searches.append(top_media_by_searches_item)
 
         top_media_by_exports = []
-        _top_media_by_exports = d.pop("topMediaByExports")
+        _top_media_by_exports = _src.pop("topMediaByExports")
         for top_media_by_exports_item_data in _top_media_by_exports:
             top_media_by_exports_item = (
                 GetAdminDashboardMediaResponse200TopMediaByExportsItem.from_dict(
@@ -287,7 +287,7 @@ class GetAdminDashboardMediaResponse200:
             top_media_by_exports=top_media_by_exports,
         )
 
-        get_admin_dashboard_media_response_200.additional_properties = d
+        get_admin_dashboard_media_response_200.additional_properties = _src
         return get_admin_dashboard_media_response_200
 
     @property

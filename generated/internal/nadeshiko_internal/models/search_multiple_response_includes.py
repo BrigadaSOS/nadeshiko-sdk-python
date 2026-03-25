@@ -42,14 +42,14 @@ class SearchMultipleResponseIncludes:
             SearchMultipleResponseIncludesMedia,
         )
 
-        d = dict(src_dict)
-        media = SearchMultipleResponseIncludesMedia.from_dict(d.pop("media"))
+        _src = dict(src_dict)
+        media = SearchMultipleResponseIncludesMedia.from_dict(_src.pop("media"))
 
         search_multiple_response_includes = cls(
             media=media,
         )
 
-        search_multiple_response_includes.additional_properties = d
+        search_multiple_response_includes.additional_properties = _src
         return search_multiple_response_includes
 
     @property

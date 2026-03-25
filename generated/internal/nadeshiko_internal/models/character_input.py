@@ -70,18 +70,18 @@ class CharacterInput:
         from ..models.character_input_seiyuu import CharacterInputSeiyuu
         from ..models.external_id import ExternalId
 
-        d = dict(src_dict)
-        external_ids = ExternalId.from_dict(d.pop("externalIds"))
+        _src = dict(src_dict)
+        external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        image_url = d.pop("imageUrl")
+        image_url = _src.pop("imageUrl")
 
-        role = CharacterInputRole(d.pop("role"))
+        role = CharacterInputRole(_src.pop("role"))
 
-        seiyuu = CharacterInputSeiyuu.from_dict(d.pop("seiyuu"))
+        seiyuu = CharacterInputSeiyuu.from_dict(_src.pop("seiyuu"))
 
         character_input = cls(
             external_ids=external_ids,
@@ -92,7 +92,7 @@ class CharacterInput:
             seiyuu=seiyuu,
         )
 
-        character_input.additional_properties = d
+        character_input.additional_properties = _src
         return character_input
 
     @property

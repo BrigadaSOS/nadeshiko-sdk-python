@@ -39,17 +39,17 @@ class ReindexResponseErrorsItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        segment_id = d.pop("segmentId")
+        _src = dict(src_dict)
+        segment_id = _src.pop("segmentId")
 
-        error = d.pop("error")
+        error = _src.pop("error")
 
         reindex_response_errors_item = cls(
             segment_id=segment_id,
             error=error,
         )
 
-        reindex_response_errors_item.additional_properties = d
+        reindex_response_errors_item.additional_properties = _src
         return reindex_response_errors_item
 
     @property

@@ -39,17 +39,17 @@ class GetUserActivityStatsResponse200TopMediaItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         get_user_activity_stats_response_200_top_media_item = cls(
             media_id=media_id,
             count=count,
         )
 
-        get_user_activity_stats_response_200_top_media_item.additional_properties = d
+        get_user_activity_stats_response_200_top_media_item.additional_properties = _src
         return get_user_activity_stats_response_200_top_media_item
 
     @property

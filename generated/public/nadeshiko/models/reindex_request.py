@@ -50,8 +50,8 @@ class ReindexRequest:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.reindex_request_media_item import ReindexRequestMediaItem
 
-        d = dict(src_dict)
-        _media = d.pop("media", UNSET)
+        _src = dict(src_dict)
+        _media = _src.pop("media", UNSET)
         media: list[ReindexRequestMediaItem] | Unset = UNSET
         if _media is not UNSET:
             media = []
@@ -64,7 +64,7 @@ class ReindexRequest:
             media=media,
         )
 
-        reindex_request.additional_properties = d
+        reindex_request.additional_properties = _src
         return reindex_request
 
     @property

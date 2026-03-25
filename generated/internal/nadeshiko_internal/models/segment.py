@@ -122,36 +122,36 @@ class Segment:
         from ..models.segment_text_ja import SegmentTextJa
         from ..models.segment_urls import SegmentUrls
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        uuid = d.pop("uuid")
+        uuid = _src.pop("uuid")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        position = d.pop("position")
+        position = _src.pop("position")
 
-        status = SegmentStatus(d.pop("status"))
+        status = SegmentStatus(_src.pop("status"))
 
-        start_time_ms = d.pop("startTimeMs")
+        start_time_ms = _src.pop("startTimeMs")
 
-        end_time_ms = d.pop("endTimeMs")
+        end_time_ms = _src.pop("endTimeMs")
 
-        content_rating = ContentRating(d.pop("contentRating"))
+        content_rating = ContentRating(_src.pop("contentRating"))
 
-        episode = d.pop("episode")
+        episode = _src.pop("episode")
 
-        media_id = d.pop("mediaId")
+        media_id = _src.pop("mediaId")
 
-        media_public_id = d.pop("mediaPublicId")
+        media_public_id = _src.pop("mediaPublicId")
 
-        text_ja = SegmentTextJa.from_dict(d.pop("textJa"))
+        text_ja = SegmentTextJa.from_dict(_src.pop("textJa"))
 
-        text_en = SegmentTextEn.from_dict(d.pop("textEn"))
+        text_en = SegmentTextEn.from_dict(_src.pop("textEn"))
 
-        text_es = SegmentTextEs.from_dict(d.pop("textEs"))
+        text_es = SegmentTextEs.from_dict(_src.pop("textEs"))
 
-        urls = SegmentUrls.from_dict(d.pop("urls"))
+        urls = SegmentUrls.from_dict(_src.pop("urls"))
 
         segment = cls(
             id=id,
@@ -171,7 +171,7 @@ class Segment:
             urls=urls,
         )
 
-        segment.additional_properties = d
+        segment.additional_properties = _src
         return segment
 
     @property

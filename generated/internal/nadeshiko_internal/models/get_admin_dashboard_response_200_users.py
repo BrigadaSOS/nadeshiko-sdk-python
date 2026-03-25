@@ -44,12 +44,12 @@ class GetAdminDashboardResponse200Users:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        total_users = d.pop("totalUsers")
+        _src = dict(src_dict)
+        total_users = _src.pop("totalUsers")
 
-        recently_registered_count = d.pop("recentlyRegisteredCount")
+        recently_registered_count = _src.pop("recentlyRegisteredCount")
 
-        recently_active_count = d.pop("recentlyActiveCount")
+        recently_active_count = _src.pop("recentlyActiveCount")
 
         get_admin_dashboard_response_200_users = cls(
             total_users=total_users,
@@ -57,7 +57,7 @@ class GetAdminDashboardResponse200Users:
             recently_active_count=recently_active_count,
         )
 
-        get_admin_dashboard_response_200_users.additional_properties = d
+        get_admin_dashboard_response_200_users.additional_properties = _src
         return get_admin_dashboard_response_200_users
 
     @property

@@ -43,9 +43,9 @@ class ListSegmentRevisionsResponse200:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_revision import SegmentRevision
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         revisions = []
-        _revisions = d.pop("revisions")
+        _revisions = _src.pop("revisions")
         for revisions_item_data in _revisions:
             revisions_item = SegmentRevision.from_dict(revisions_item_data)
 
@@ -55,7 +55,7 @@ class ListSegmentRevisionsResponse200:
             revisions=revisions,
         )
 
-        list_segment_revisions_response_200.additional_properties = d
+        list_segment_revisions_response_200.additional_properties = _src
         return list_segment_revisions_response_200
 
     @property

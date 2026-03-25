@@ -44,12 +44,12 @@ class GetAdminDashboardActivityResponse200TopExportedMediaItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        media_name = d.pop("mediaName")
+        media_name = _src.pop("mediaName")
 
-        count = d.pop("count")
+        count = _src.pop("count")
 
         get_admin_dashboard_activity_response_200_top_exported_media_item = cls(
             media_id=media_id,
@@ -57,7 +57,9 @@ class GetAdminDashboardActivityResponse200TopExportedMediaItem:
             count=count,
         )
 
-        get_admin_dashboard_activity_response_200_top_exported_media_item.additional_properties = d
+        get_admin_dashboard_activity_response_200_top_exported_media_item.additional_properties = (
+            _src
+        )
         return get_admin_dashboard_activity_response_200_top_exported_media_item
 
     @property

@@ -66,12 +66,12 @@ class GetAdminDashboardOverviewResponse200:
             GetAdminDashboardOverviewResponse200Users,
         )
 
-        d = dict(src_dict)
-        media = GetAdminDashboardOverviewResponse200Media.from_dict(d.pop("media"))
+        _src = dict(src_dict)
+        media = GetAdminDashboardOverviewResponse200Media.from_dict(_src.pop("media"))
 
-        users = GetAdminDashboardOverviewResponse200Users.from_dict(d.pop("users"))
+        users = GetAdminDashboardOverviewResponse200Users.from_dict(_src.pop("users"))
 
-        activity = GetAdminDashboardOverviewResponse200Activity.from_dict(d.pop("activity"))
+        activity = GetAdminDashboardOverviewResponse200Activity.from_dict(_src.pop("activity"))
 
         get_admin_dashboard_overview_response_200 = cls(
             media=media,
@@ -79,7 +79,7 @@ class GetAdminDashboardOverviewResponse200:
             activity=activity,
         )
 
-        get_admin_dashboard_overview_response_200.additional_properties = d
+        get_admin_dashboard_overview_response_200.additional_properties = _src
         return get_admin_dashboard_overview_response_200
 
     @property

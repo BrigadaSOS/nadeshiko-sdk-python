@@ -50,22 +50,22 @@ class ListAdminMediaAuditRunsResponse200:
         from ..models.media_audit_run import MediaAuditRun
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         runs = []
-        _runs = d.pop("runs")
+        _runs = _src.pop("runs")
         for runs_item_data in _runs:
             runs_item = MediaAuditRun.from_dict(runs_item_data)
 
             runs.append(runs_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         list_admin_media_audit_runs_response_200 = cls(
             runs=runs,
             pagination=pagination,
         )
 
-        list_admin_media_audit_runs_response_200.additional_properties = d
+        list_admin_media_audit_runs_response_200.additional_properties = _src
         return list_admin_media_audit_runs_response_200
 
     @property

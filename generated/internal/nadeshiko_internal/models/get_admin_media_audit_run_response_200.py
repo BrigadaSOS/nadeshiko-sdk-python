@@ -50,11 +50,11 @@ class GetAdminMediaAuditRunResponse200:
         from ..models.media_audit_run import MediaAuditRun
         from ..models.report import Report
 
-        d = dict(src_dict)
-        run = MediaAuditRun.from_dict(d.pop("run"))
+        _src = dict(src_dict)
+        run = MediaAuditRun.from_dict(_src.pop("run"))
 
         reports = []
-        _reports = d.pop("reports")
+        _reports = _src.pop("reports")
         for reports_item_data in _reports:
             reports_item = Report.from_dict(reports_item_data)
 
@@ -65,7 +65,7 @@ class GetAdminMediaAuditRunResponse200:
             reports=reports,
         )
 
-        get_admin_media_audit_run_response_200.additional_properties = d
+        get_admin_media_audit_run_response_200.additional_properties = _src
         return get_admin_media_audit_run_response_200
 
     @property

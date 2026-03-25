@@ -54,16 +54,16 @@ class GetAdminDashboardActivityResponse200DailyActivityByTypeItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        date = d.pop("date")
+        _src = dict(src_dict)
+        date = _src.pop("date")
 
-        search = d.pop("search")
+        search = _src.pop("search")
 
-        anki_export = d.pop("ankiExport")
+        anki_export = _src.pop("ankiExport")
 
-        segment_play = d.pop("segmentPlay")
+        segment_play = _src.pop("segmentPlay")
 
-        share = d.pop("share")
+        share = _src.pop("share")
 
         get_admin_dashboard_activity_response_200_daily_activity_by_type_item = cls(
             date=date,
@@ -73,7 +73,7 @@ class GetAdminDashboardActivityResponse200DailyActivityByTypeItem:
             share=share,
         )
 
-        get_admin_dashboard_activity_response_200_daily_activity_by_type_item.additional_properties = d
+        get_admin_dashboard_activity_response_200_daily_activity_by_type_item.additional_properties = _src
         return get_admin_dashboard_activity_response_200_daily_activity_by_type_item
 
     @property

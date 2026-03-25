@@ -61,18 +61,18 @@ class UserQuotaResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        quota_used = d.pop("quotaUsed")
+        _src = dict(src_dict)
+        quota_used = _src.pop("quotaUsed")
 
-        quota_limit = d.pop("quotaLimit")
+        quota_limit = _src.pop("quotaLimit")
 
-        quota_remaining = d.pop("quotaRemaining")
+        quota_remaining = _src.pop("quotaRemaining")
 
-        period_yyyymm = d.pop("periodYyyymm")
+        period_yyyymm = _src.pop("periodYyyymm")
 
-        period_start = isoparse(d.pop("periodStart"))
+        period_start = isoparse(_src.pop("periodStart"))
 
-        period_end = isoparse(d.pop("periodEnd"))
+        period_end = isoparse(_src.pop("periodEnd"))
 
         user_quota_response = cls(
             quota_used=quota_used,
@@ -83,7 +83,7 @@ class UserQuotaResponse:
             period_end=period_end,
         )
 
-        user_quota_response.additional_properties = d
+        user_quota_response.additional_properties = _src
         return user_quota_response
 
     @property

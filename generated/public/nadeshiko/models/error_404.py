@@ -80,20 +80,20 @@ class Error404:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.error_404_errors import Error404Errors
 
-        d = dict(src_dict)
-        code = Error404Code(d.pop("code"))
+        _src = dict(src_dict)
+        code = Error404Code(_src.pop("code"))
 
-        title = d.pop("title")
+        title = _src.pop("title")
 
-        detail = d.pop("detail")
+        detail = _src.pop("detail")
 
-        status = Error404Status(d.pop("status"))
+        status = Error404Status(_src.pop("status"))
 
-        type_ = d.pop("type", UNSET)
+        type_ = _src.pop("type", UNSET)
 
-        instance = d.pop("instance", UNSET)
+        instance = _src.pop("instance", UNSET)
 
-        _errors = d.pop("errors", UNSET)
+        _errors = _src.pop("errors", UNSET)
         errors: Error404Errors | Unset
         if isinstance(_errors, Unset):
             errors = UNSET
@@ -110,7 +110,7 @@ class Error404:
             errors=errors,
         )
 
-        error_404.additional_properties = d
+        error_404.additional_properties = _src
         return error_404
 
     @property

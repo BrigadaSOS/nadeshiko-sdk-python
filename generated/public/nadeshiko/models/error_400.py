@@ -80,20 +80,20 @@ class Error400:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.error_400_errors import Error400Errors
 
-        d = dict(src_dict)
-        code = Error400Code(d.pop("code"))
+        _src = dict(src_dict)
+        code = Error400Code(_src.pop("code"))
 
-        title = d.pop("title")
+        title = _src.pop("title")
 
-        detail = d.pop("detail")
+        detail = _src.pop("detail")
 
-        status = Error400Status(d.pop("status"))
+        status = Error400Status(_src.pop("status"))
 
-        type_ = d.pop("type", UNSET)
+        type_ = _src.pop("type", UNSET)
 
-        instance = d.pop("instance", UNSET)
+        instance = _src.pop("instance", UNSET)
 
-        _errors = d.pop("errors", UNSET)
+        _errors = _src.pop("errors", UNSET)
         errors: Error400Errors | Unset
         if isinstance(_errors, Unset):
             errors = UNSET
@@ -110,7 +110,7 @@ class Error400:
             errors=errors,
         )
 
-        error_400.additional_properties = d
+        error_400.additional_properties = _src
         return error_400
 
     @property

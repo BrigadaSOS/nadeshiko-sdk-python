@@ -69,14 +69,14 @@ class SegmentRevision:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_revision_snapshot import SegmentRevisionSnapshot
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        revision_number = d.pop("revisionNumber")
+        revision_number = _src.pop("revisionNumber")
 
-        snapshot = SegmentRevisionSnapshot.from_dict(d.pop("snapshot"))
+        snapshot = SegmentRevisionSnapshot.from_dict(_src.pop("snapshot"))
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         def _parse_user_name(data: object) -> None | str | Unset:
             if data is None:
@@ -85,7 +85,7 @@ class SegmentRevision:
                 return data
             return cast(None | str | Unset, data)
 
-        user_name = _parse_user_name(d.pop("userName", UNSET))
+        user_name = _parse_user_name(_src.pop("userName", UNSET))
 
         segment_revision = cls(
             id=id,
@@ -95,7 +95,7 @@ class SegmentRevision:
             user_name=user_name,
         )
 
-        segment_revision.additional_properties = d
+        segment_revision.additional_properties = _src
         return segment_revision
 
     @property

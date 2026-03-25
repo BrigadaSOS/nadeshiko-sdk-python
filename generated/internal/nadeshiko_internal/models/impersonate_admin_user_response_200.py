@@ -49,17 +49,17 @@ class ImpersonateAdminUserResponse200:
             ImpersonateAdminUserResponse200User,
         )
 
-        d = dict(src_dict)
-        message = d.pop("message")
+        _src = dict(src_dict)
+        message = _src.pop("message")
 
-        user = ImpersonateAdminUserResponse200User.from_dict(d.pop("user"))
+        user = ImpersonateAdminUserResponse200User.from_dict(_src.pop("user"))
 
         impersonate_admin_user_response_200 = cls(
             message=message,
             user=user,
         )
 
-        impersonate_admin_user_response_200.additional_properties = d
+        impersonate_admin_user_response_200.additional_properties = _src
         return impersonate_admin_user_response_200
 
     @property

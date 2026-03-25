@@ -21,7 +21,6 @@ class MediaSearchStatsEpisodeHits:
     additional_properties: dict[str, int] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
 
@@ -29,10 +28,10 @@ class MediaSearchStatsEpisodeHits:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+        _src = dict(src_dict)
         media_search_stats_episode_hits = cls()
 
-        media_search_stats_episode_hits.additional_properties = d
+        media_search_stats_episode_hits.additional_properties = _src
         return media_search_stats_episode_hits
 
     @property

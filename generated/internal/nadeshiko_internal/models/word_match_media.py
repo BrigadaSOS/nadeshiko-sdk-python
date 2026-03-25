@@ -40,17 +40,17 @@ class WordMatchMedia:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        media_id = d.pop("mediaId")
+        _src = dict(src_dict)
+        media_id = _src.pop("mediaId")
 
-        match_count = d.pop("matchCount")
+        match_count = _src.pop("matchCount")
 
         word_match_media = cls(
             media_id=media_id,
             match_count=match_count,
         )
 
-        word_match_media.additional_properties = d
+        word_match_media.additional_properties = _src
         return word_match_media
 
     @property

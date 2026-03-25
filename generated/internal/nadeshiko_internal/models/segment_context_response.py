@@ -50,22 +50,22 @@ class SegmentContextResponse:
         from ..models.segment import Segment
         from ..models.segment_context_response_includes import SegmentContextResponseIncludes
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         segments = []
-        _segments = d.pop("segments")
+        _segments = _src.pop("segments")
         for segments_item_data in _segments:
             segments_item = Segment.from_dict(segments_item_data)
 
             segments.append(segments_item)
 
-        includes = SegmentContextResponseIncludes.from_dict(d.pop("includes"))
+        includes = SegmentContextResponseIncludes.from_dict(_src.pop("includes"))
 
         segment_context_response = cls(
             segments=segments,
             includes=includes,
         )
 
-        segment_context_response.additional_properties = d
+        segment_context_response.additional_properties = _src
         return segment_context_response
 
     @property

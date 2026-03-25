@@ -42,14 +42,14 @@ class CollectionWithSegmentsIncludes:
             CollectionWithSegmentsIncludesMedia,
         )
 
-        d = dict(src_dict)
-        media = CollectionWithSegmentsIncludesMedia.from_dict(d.pop("media"))
+        _src = dict(src_dict)
+        media = CollectionWithSegmentsIncludesMedia.from_dict(_src.pop("media"))
 
         collection_with_segments_includes = cls(
             media=media,
         )
 
-        collection_with_segments_includes.additional_properties = d
+        collection_with_segments_includes.additional_properties = _src
         return collection_with_segments_includes
 
     @property

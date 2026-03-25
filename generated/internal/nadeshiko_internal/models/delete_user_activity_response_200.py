@@ -34,14 +34,14 @@ class DeleteUserActivityResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        deleted_count = d.pop("deletedCount")
+        _src = dict(src_dict)
+        deleted_count = _src.pop("deletedCount")
 
         delete_user_activity_response_200 = cls(
             deleted_count=deleted_count,
         )
 
-        delete_user_activity_response_200.additional_properties = d
+        delete_user_activity_response_200.additional_properties = _src
         return delete_user_activity_response_200
 
     @property

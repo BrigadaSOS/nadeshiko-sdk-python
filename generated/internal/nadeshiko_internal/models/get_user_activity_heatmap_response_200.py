@@ -45,16 +45,16 @@ class GetUserActivityHeatmapResponse200:
             GetUserActivityHeatmapResponse200ActivityByDay,
         )
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         activity_by_day = GetUserActivityHeatmapResponse200ActivityByDay.from_dict(
-            d.pop("activityByDay")
+            _src.pop("activityByDay")
         )
 
         get_user_activity_heatmap_response_200 = cls(
             activity_by_day=activity_by_day,
         )
 
-        get_user_activity_heatmap_response_200.additional_properties = d
+        get_user_activity_heatmap_response_200.additional_properties = _src
         return get_user_activity_heatmap_response_200
 
     @property

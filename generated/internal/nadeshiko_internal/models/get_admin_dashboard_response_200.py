@@ -71,14 +71,14 @@ class GetAdminDashboardResponse200:
             GetAdminDashboardResponse200Users,
         )
 
-        d = dict(src_dict)
-        media = GetAdminDashboardResponse200Media.from_dict(d.pop("media"))
+        _src = dict(src_dict)
+        media = GetAdminDashboardResponse200Media.from_dict(_src.pop("media"))
 
-        users = GetAdminDashboardResponse200Users.from_dict(d.pop("users"))
+        users = GetAdminDashboardResponse200Users.from_dict(_src.pop("users"))
 
-        activity = GetAdminDashboardResponse200Activity.from_dict(d.pop("activity"))
+        activity = GetAdminDashboardResponse200Activity.from_dict(_src.pop("activity"))
 
-        system = GetAdminDashboardResponse200System.from_dict(d.pop("system"))
+        system = GetAdminDashboardResponse200System.from_dict(_src.pop("system"))
 
         get_admin_dashboard_response_200 = cls(
             media=media,
@@ -87,7 +87,7 @@ class GetAdminDashboardResponse200:
             system=system,
         )
 
-        get_admin_dashboard_response_200.additional_properties = d
+        get_admin_dashboard_response_200.additional_properties = _src
         return get_admin_dashboard_response_200
 
     @property

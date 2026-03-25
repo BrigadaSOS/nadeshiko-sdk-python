@@ -52,12 +52,12 @@ class GetAdminQueueResponse200:
         from ..models.get_admin_queue_response_200_metadata import GetAdminQueueResponse200Metadata
         from ..models.get_admin_queue_response_200_stats import GetAdminQueueResponse200Stats
 
-        d = dict(src_dict)
-        queue = d.pop("queue")
+        _src = dict(src_dict)
+        queue = _src.pop("queue")
 
-        stats = GetAdminQueueResponse200Stats.from_dict(d.pop("stats"))
+        stats = GetAdminQueueResponse200Stats.from_dict(_src.pop("stats"))
 
-        metadata = GetAdminQueueResponse200Metadata.from_dict(d.pop("metadata"))
+        metadata = GetAdminQueueResponse200Metadata.from_dict(_src.pop("metadata"))
 
         get_admin_queue_response_200 = cls(
             queue=queue,
@@ -65,7 +65,7 @@ class GetAdminQueueResponse200:
             metadata=metadata,
         )
 
-        get_admin_queue_response_200.additional_properties = d
+        get_admin_queue_response_200.additional_properties = _src
         return get_admin_queue_response_200
 
     @property

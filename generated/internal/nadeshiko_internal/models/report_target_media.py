@@ -41,17 +41,17 @@ class ReportTargetMedia:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        type_ = ReportTargetMediaType(d.pop("type"))
+        _src = dict(src_dict)
+        type_ = ReportTargetMediaType(_src.pop("type"))
 
-        media_id = d.pop("mediaId")
+        media_id = _src.pop("mediaId")
 
         report_target_media = cls(
             type_=type_,
             media_id=media_id,
         )
 
-        report_target_media.additional_properties = d
+        report_target_media.additional_properties = _src
         return report_target_media
 
     @property

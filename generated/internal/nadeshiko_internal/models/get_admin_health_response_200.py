@@ -67,14 +67,14 @@ class GetAdminHealthResponse200:
             GetAdminHealthResponse200Elasticsearch,
         )
 
-        d = dict(src_dict)
-        status = GetAdminHealthResponse200Status(d.pop("status"))
+        _src = dict(src_dict)
+        status = GetAdminHealthResponse200Status(_src.pop("status"))
 
-        app = GetAdminHealthResponse200App.from_dict(d.pop("app"))
+        app = GetAdminHealthResponse200App.from_dict(_src.pop("app"))
 
-        elasticsearch = GetAdminHealthResponse200Elasticsearch.from_dict(d.pop("elasticsearch"))
+        elasticsearch = GetAdminHealthResponse200Elasticsearch.from_dict(_src.pop("elasticsearch"))
 
-        database = GetAdminHealthResponse200Database.from_dict(d.pop("database"))
+        database = GetAdminHealthResponse200Database.from_dict(_src.pop("database"))
 
         get_admin_health_response_200 = cls(
             status=status,
@@ -83,7 +83,7 @@ class GetAdminHealthResponse200:
             database=database,
         )
 
-        get_admin_health_response_200.additional_properties = d
+        get_admin_health_response_200.additional_properties = _src
         return get_admin_health_response_200
 
     @property

@@ -42,8 +42,8 @@ class SearchFiltersLanguages:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        _exclude = d.pop("exclude", UNSET)
+        _src = dict(src_dict)
+        _exclude = _src.pop("exclude", UNSET)
         exclude: list[SearchFiltersLanguagesExcludeItem] | Unset = UNSET
         if _exclude is not UNSET:
             exclude = []
@@ -56,7 +56,7 @@ class SearchFiltersLanguages:
             exclude=exclude,
         )
 
-        search_filters_languages.additional_properties = d
+        search_filters_languages.additional_properties = _src
         return search_filters_languages
 
     @property

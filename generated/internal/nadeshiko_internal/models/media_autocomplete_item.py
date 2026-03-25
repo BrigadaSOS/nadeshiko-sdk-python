@@ -67,20 +67,20 @@ class MediaAutocompleteItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        public_id = d.pop("publicId")
+        public_id = _src.pop("publicId")
 
-        name_ja = d.pop("nameJa")
+        name_ja = _src.pop("nameJa")
 
-        name_romaji = d.pop("nameRomaji")
+        name_romaji = _src.pop("nameRomaji")
 
-        name_en = d.pop("nameEn")
+        name_en = _src.pop("nameEn")
 
-        cover_url = d.pop("coverUrl")
+        cover_url = _src.pop("coverUrl")
 
-        category = Category(d.pop("category"))
+        category = Category(_src.pop("category"))
 
         media_autocomplete_item = cls(
             id=id,
@@ -92,7 +92,7 @@ class MediaAutocompleteItem:
             category=category,
         )
 
-        media_autocomplete_item.additional_properties = d
+        media_autocomplete_item.additional_properties = _src
         return media_autocomplete_item
 
     @property

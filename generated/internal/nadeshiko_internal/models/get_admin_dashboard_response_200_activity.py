@@ -86,19 +86,19 @@ class GetAdminDashboardResponse200Activity:
             GetAdminDashboardResponse200ActivityTopQueries7DItem,
         )
 
-        d = dict(src_dict)
-        total_searches = d.pop("totalSearches")
+        _src = dict(src_dict)
+        total_searches = _src.pop("totalSearches")
 
-        total_exports = d.pop("totalExports")
+        total_exports = _src.pop("totalExports")
 
-        total_plays = d.pop("totalPlays")
+        total_plays = _src.pop("totalPlays")
 
-        total_collection_adds = d.pop("totalCollectionAdds")
+        total_collection_adds = _src.pop("totalCollectionAdds")
 
-        active_searchers_7_d = d.pop("activeSearchers7d")
+        active_searchers_7_d = _src.pop("activeSearchers7d")
 
         top_queries_7_d = []
-        _top_queries_7_d = d.pop("topQueries7d")
+        _top_queries_7_d = _src.pop("topQueries7d")
         for top_queries_7_d_item_data in _top_queries_7_d:
             top_queries_7_d_item = GetAdminDashboardResponse200ActivityTopQueries7DItem.from_dict(
                 top_queries_7_d_item_data
@@ -107,7 +107,7 @@ class GetAdminDashboardResponse200Activity:
             top_queries_7_d.append(top_queries_7_d_item)
 
         daily_activity_30_d = []
-        _daily_activity_30_d = d.pop("dailyActivity30d")
+        _daily_activity_30_d = _src.pop("dailyActivity30d")
         for daily_activity_30_d_item_data in _daily_activity_30_d:
             daily_activity_30_d_item = (
                 GetAdminDashboardResponse200ActivityDailyActivity30DItem.from_dict(
@@ -127,7 +127,7 @@ class GetAdminDashboardResponse200Activity:
             daily_activity_30_d=daily_activity_30_d,
         )
 
-        get_admin_dashboard_response_200_activity.additional_properties = d
+        get_admin_dashboard_response_200_activity.additional_properties = _src
         return get_admin_dashboard_response_200_activity
 
     @property

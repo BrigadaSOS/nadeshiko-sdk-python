@@ -46,12 +46,12 @@ class UpdateAnnouncementBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        message = d.pop("message")
+        _src = dict(src_dict)
+        message = _src.pop("message")
 
-        type_ = UpdateAnnouncementBodyType(d.pop("type"))
+        type_ = UpdateAnnouncementBodyType(_src.pop("type"))
 
-        active = d.pop("active")
+        active = _src.pop("active")
 
         update_announcement_body = cls(
             message=message,
@@ -59,7 +59,7 @@ class UpdateAnnouncementBody:
             active=active,
         )
 
-        update_announcement_body.additional_properties = d
+        update_announcement_body.additional_properties = _src
         return update_announcement_body
 
     @property

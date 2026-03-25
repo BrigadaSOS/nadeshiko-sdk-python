@@ -74,16 +74,16 @@ class MediaAuditRun:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media_audit_run_threshold_used import MediaAuditRunThresholdUsed
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        audit_name = d.pop("auditName")
+        audit_name = _src.pop("auditName")
 
-        result_count = d.pop("resultCount")
+        result_count = _src.pop("resultCount")
 
-        threshold_used = MediaAuditRunThresholdUsed.from_dict(d.pop("thresholdUsed"))
+        threshold_used = MediaAuditRunThresholdUsed.from_dict(_src.pop("thresholdUsed"))
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         def _parse_category(data: object) -> None | str | Unset:
             if data is None:
@@ -92,7 +92,7 @@ class MediaAuditRun:
                 return data
             return cast(None | str | Unset, data)
 
-        category = _parse_category(d.pop("category", UNSET))
+        category = _parse_category(_src.pop("category", UNSET))
 
         media_audit_run = cls(
             id=id,
@@ -103,7 +103,7 @@ class MediaAuditRun:
             category=category,
         )
 
-        media_audit_run.additional_properties = d
+        media_audit_run.additional_properties = _src
         return media_audit_run
 
     @property

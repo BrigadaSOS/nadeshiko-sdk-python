@@ -72,19 +72,19 @@ class GetAdminDashboardOverviewResponse200Activity:
             GetAdminDashboardOverviewResponse200ActivityDailyActivityItem,
         )
 
-        d = dict(src_dict)
-        total_searches = d.pop("totalSearches")
+        _src = dict(src_dict)
+        total_searches = _src.pop("totalSearches")
 
-        total_exports = d.pop("totalExports")
+        total_exports = _src.pop("totalExports")
 
-        total_plays = d.pop("totalPlays")
+        total_plays = _src.pop("totalPlays")
 
-        total_shares = d.pop("totalShares")
+        total_shares = _src.pop("totalShares")
 
-        active_searchers_7_d = d.pop("activeSearchers7d")
+        active_searchers_7_d = _src.pop("activeSearchers7d")
 
         daily_activity = []
-        _daily_activity = d.pop("dailyActivity")
+        _daily_activity = _src.pop("dailyActivity")
         for daily_activity_item_data in _daily_activity:
             daily_activity_item = (
                 GetAdminDashboardOverviewResponse200ActivityDailyActivityItem.from_dict(
@@ -103,7 +103,7 @@ class GetAdminDashboardOverviewResponse200Activity:
             daily_activity=daily_activity,
         )
 
-        get_admin_dashboard_overview_response_200_activity.additional_properties = d
+        get_admin_dashboard_overview_response_200_activity.additional_properties = _src
         return get_admin_dashboard_overview_response_200_activity
 
     @property

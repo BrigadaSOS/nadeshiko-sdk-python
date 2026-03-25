@@ -110,15 +110,15 @@ class SearchFilters:
         from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
         from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
 
-        d = dict(src_dict)
-        _media = d.pop("media", UNSET)
+        _src = dict(src_dict)
+        _media = _src.pop("media", UNSET)
         media: SearchFiltersMedia | Unset
         if isinstance(_media, Unset):
             media = UNSET
         else:
             media = SearchFiltersMedia.from_dict(_media)
 
-        _category = d.pop("category", UNSET)
+        _category = _src.pop("category", UNSET)
         category: list[Category] | Unset = UNSET
         if _category is not UNSET:
             category = []
@@ -127,7 +127,7 @@ class SearchFilters:
 
                 category.append(category_item)
 
-        _content_rating = d.pop("contentRating", UNSET)
+        _content_rating = _src.pop("contentRating", UNSET)
         content_rating: list[ContentRating] | Unset = UNSET
         if _content_rating is not UNSET:
             content_rating = []
@@ -136,7 +136,7 @@ class SearchFilters:
 
                 content_rating.append(content_rating_item)
 
-        _status = d.pop("status", UNSET)
+        _status = _src.pop("status", UNSET)
         status: list[SearchFiltersStatusItem] | Unset = UNSET
         if _status is not UNSET:
             status = []
@@ -145,21 +145,21 @@ class SearchFilters:
 
                 status.append(status_item)
 
-        _segment_length_chars = d.pop("segmentLengthChars", UNSET)
+        _segment_length_chars = _src.pop("segmentLengthChars", UNSET)
         segment_length_chars: SearchFiltersSegmentLengthChars | Unset
         if isinstance(_segment_length_chars, Unset):
             segment_length_chars = UNSET
         else:
             segment_length_chars = SearchFiltersSegmentLengthChars.from_dict(_segment_length_chars)
 
-        _segment_duration_ms = d.pop("segmentDurationMs", UNSET)
+        _segment_duration_ms = _src.pop("segmentDurationMs", UNSET)
         segment_duration_ms: SearchFiltersSegmentDurationMs | Unset
         if isinstance(_segment_duration_ms, Unset):
             segment_duration_ms = UNSET
         else:
             segment_duration_ms = SearchFiltersSegmentDurationMs.from_dict(_segment_duration_ms)
 
-        _languages = d.pop("languages", UNSET)
+        _languages = _src.pop("languages", UNSET)
         languages: SearchFiltersLanguages | Unset
         if isinstance(_languages, Unset):
             languages = UNSET
@@ -176,7 +176,7 @@ class SearchFilters:
             languages=languages,
         )
 
-        search_filters.additional_properties = d
+        search_filters.additional_properties = _src
         return search_filters
 
     @property

@@ -154,41 +154,41 @@ class SegmentCreateRequest:
         from ..models.segment_create_request_text_es import SegmentCreateRequestTextEs
         from ..models.segment_create_request_text_ja import SegmentCreateRequestTextJa
 
-        d = dict(src_dict)
-        position = d.pop("position")
+        _src = dict(src_dict)
+        position = _src.pop("position")
 
-        start_time_ms = d.pop("startTimeMs")
+        start_time_ms = _src.pop("startTimeMs")
 
-        end_time_ms = d.pop("endTimeMs")
+        end_time_ms = _src.pop("endTimeMs")
 
-        text_ja = SegmentCreateRequestTextJa.from_dict(d.pop("textJa"))
+        text_ja = SegmentCreateRequestTextJa.from_dict(_src.pop("textJa"))
 
-        storage = SegmentCreateRequestStorage(d.pop("storage"))
+        storage = SegmentCreateRequestStorage(_src.pop("storage"))
 
-        hashed_id = d.pop("hashedId")
+        hashed_id = _src.pop("hashedId")
 
-        _status = d.pop("status", UNSET)
+        _status = _src.pop("status", UNSET)
         status: SegmentCreateRequestStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
             status = SegmentCreateRequestStatus(_status)
 
-        _text_es = d.pop("textEs", UNSET)
+        _text_es = _src.pop("textEs", UNSET)
         text_es: SegmentCreateRequestTextEs | Unset
         if isinstance(_text_es, Unset):
             text_es = UNSET
         else:
             text_es = SegmentCreateRequestTextEs.from_dict(_text_es)
 
-        _text_en = d.pop("textEn", UNSET)
+        _text_en = _src.pop("textEn", UNSET)
         text_en: SegmentCreateRequestTextEn | Unset
         if isinstance(_text_en, Unset):
             text_en = UNSET
         else:
             text_en = SegmentCreateRequestTextEn.from_dict(_text_en)
 
-        _content_rating = d.pop("contentRating", UNSET)
+        _content_rating = _src.pop("contentRating", UNSET)
         content_rating: ContentRating | Unset
         if isinstance(_content_rating, Unset):
             content_rating = UNSET
@@ -212,7 +212,7 @@ class SegmentCreateRequest:
                 pass
             return cast(None | SegmentCreateRequestRatingAnalysisType0 | Unset, data)
 
-        rating_analysis = _parse_rating_analysis(d.pop("ratingAnalysis", UNSET))
+        rating_analysis = _parse_rating_analysis(_src.pop("ratingAnalysis", UNSET))
 
         def _parse_pos_analysis(
             data: object,
@@ -231,7 +231,7 @@ class SegmentCreateRequest:
                 pass
             return cast(None | SegmentCreateRequestPosAnalysisType0 | Unset, data)
 
-        pos_analysis = _parse_pos_analysis(d.pop("posAnalysis", UNSET))
+        pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
 
         segment_create_request = cls(
             position=position,
@@ -248,7 +248,7 @@ class SegmentCreateRequest:
             pos_analysis=pos_analysis,
         )
 
-        segment_create_request.additional_properties = d
+        segment_create_request.additional_properties = _src
         return segment_create_request
 
     @property

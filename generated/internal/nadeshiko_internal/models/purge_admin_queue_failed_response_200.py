@@ -44,12 +44,12 @@ class PurgeAdminQueueFailedResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        success = d.pop("success")
+        _src = dict(src_dict)
+        success = _src.pop("success")
 
-        purged_count = d.pop("purgedCount")
+        purged_count = _src.pop("purgedCount")
 
-        message = d.pop("message")
+        message = _src.pop("message")
 
         purge_admin_queue_failed_response_200 = cls(
             success=success,
@@ -57,7 +57,7 @@ class PurgeAdminQueueFailedResponse200:
             message=message,
         )
 
-        purge_admin_queue_failed_response_200.additional_properties = d
+        purge_admin_queue_failed_response_200.additional_properties = _src
         return purge_admin_queue_failed_response_200
 
     @property

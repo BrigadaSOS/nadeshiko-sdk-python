@@ -41,17 +41,17 @@ class SearchStatsRequestQuery:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        search = d.pop("search", UNSET)
+        _src = dict(src_dict)
+        search = _src.pop("search", UNSET)
 
-        exact_match = d.pop("exactMatch", UNSET)
+        exact_match = _src.pop("exactMatch", UNSET)
 
         search_stats_request_query = cls(
             search=search,
             exact_match=exact_match,
         )
 
-        search_stats_request_query.additional_properties = d
+        search_stats_request_query.additional_properties = _src
         return search_stats_request_query
 
     @property

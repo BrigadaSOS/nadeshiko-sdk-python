@@ -16,7 +16,6 @@ class SegmentRevisionSnapshot:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
 
@@ -24,10 +23,10 @@ class SegmentRevisionSnapshot:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+        _src = dict(src_dict)
         segment_revision_snapshot = cls()
 
-        segment_revision_snapshot.additional_properties = d
+        segment_revision_snapshot.additional_properties = _src
         return segment_revision_snapshot
 
     @property

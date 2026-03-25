@@ -49,14 +49,14 @@ class RunAuditResponseChecksRunItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        audit_name = d.pop("auditName")
+        _src = dict(src_dict)
+        audit_name = _src.pop("auditName")
 
-        label = d.pop("label")
+        label = _src.pop("label")
 
-        result_count = d.pop("resultCount")
+        result_count = _src.pop("resultCount")
 
-        run_id = d.pop("runId")
+        run_id = _src.pop("runId")
 
         run_audit_response_checks_run_item = cls(
             audit_name=audit_name,
@@ -65,7 +65,7 @@ class RunAuditResponseChecksRunItem:
             run_id=run_id,
         )
 
-        run_audit_response_checks_run_item.additional_properties = d
+        run_audit_response_checks_run_item.additional_properties = _src
         return run_audit_response_checks_run_item
 
     @property

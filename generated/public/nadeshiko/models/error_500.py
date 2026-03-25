@@ -80,20 +80,20 @@ class Error500:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.error_500_errors import Error500Errors
 
-        d = dict(src_dict)
-        code = Error500Code(d.pop("code"))
+        _src = dict(src_dict)
+        code = Error500Code(_src.pop("code"))
 
-        title = d.pop("title")
+        title = _src.pop("title")
 
-        detail = d.pop("detail")
+        detail = _src.pop("detail")
 
-        status = Error500Status(d.pop("status"))
+        status = Error500Status(_src.pop("status"))
 
-        type_ = d.pop("type", UNSET)
+        type_ = _src.pop("type", UNSET)
 
-        instance = d.pop("instance", UNSET)
+        instance = _src.pop("instance", UNSET)
 
-        _errors = d.pop("errors", UNSET)
+        _errors = _src.pop("errors", UNSET)
         errors: Error500Errors | Unset
         if isinstance(_errors, Unset):
             errors = UNSET
@@ -110,7 +110,7 @@ class Error500:
             errors=errors,
         )
 
-        error_500.additional_properties = d
+        error_500.additional_properties = _src
         return error_500
 
     @property

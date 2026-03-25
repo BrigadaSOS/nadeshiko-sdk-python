@@ -39,17 +39,17 @@ class UserPreferencesAnkiProfilesItemFieldsItem:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        key = d.pop("key")
+        _src = dict(src_dict)
+        key = _src.pop("key")
 
-        value = d.pop("value")
+        value = _src.pop("value")
 
         user_preferences_anki_profiles_item_fields_item = cls(
             key=key,
             value=value,
         )
 
-        user_preferences_anki_profiles_item_fields_item.additional_properties = d
+        user_preferences_anki_profiles_item_fields_item.additional_properties = _src
         return user_preferences_anki_profiles_item_fields_item
 
     @property

@@ -43,9 +43,9 @@ class MediaAutocompleteResponse:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.media_autocomplete_item import MediaAutocompleteItem
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         media = []
-        _media = d.pop("media")
+        _media = _src.pop("media")
         for media_item_data in _media:
             media_item = MediaAutocompleteItem.from_dict(media_item_data)
 
@@ -55,7 +55,7 @@ class MediaAutocompleteResponse:
             media=media,
         )
 
-        media_autocomplete_response.additional_properties = d
+        media_autocomplete_response.additional_properties = _src
         return media_autocomplete_response
 
     @property

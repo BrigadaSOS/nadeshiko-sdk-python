@@ -23,7 +23,6 @@ def _get_kwargs(
     take: int | Unset = 3,
     content_rating: list[ContentRating] | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["take"] = take

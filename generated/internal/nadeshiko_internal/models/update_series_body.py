@@ -46,12 +46,12 @@ class UpdateSeriesBody:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        name_ja = d.pop("nameJa", UNSET)
+        _src = dict(src_dict)
+        name_ja = _src.pop("nameJa", UNSET)
 
-        name_romaji = d.pop("nameRomaji", UNSET)
+        name_romaji = _src.pop("nameRomaji", UNSET)
 
-        name_en = d.pop("nameEn", UNSET)
+        name_en = _src.pop("nameEn", UNSET)
 
         update_series_body = cls(
             name_ja=name_ja,
@@ -59,7 +59,7 @@ class UpdateSeriesBody:
             name_en=name_en,
         )
 
-        update_series_body.additional_properties = d
+        update_series_body.additional_properties = _src
         return update_series_body
 
     @property

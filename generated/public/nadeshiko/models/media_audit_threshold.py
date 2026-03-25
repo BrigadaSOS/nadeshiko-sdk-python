@@ -16,7 +16,6 @@ class MediaAuditThreshold:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
 
@@ -24,10 +23,10 @@ class MediaAuditThreshold:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+        _src = dict(src_dict)
         media_audit_threshold = cls()
 
-        media_audit_threshold.additional_properties = d
+        media_audit_threshold.additional_properties = _src
         return media_audit_threshold
 
     @property

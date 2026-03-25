@@ -57,17 +57,17 @@ class MediaListResponse:
         from ..models.media_list_response_stats import MediaListResponseStats
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
-        d = dict(src_dict)
+        _src = dict(src_dict)
         media = []
-        _media = d.pop("media")
+        _media = _src.pop("media")
         for media_item_data in _media:
             media_item = Media.from_dict(media_item_data)
 
             media.append(media_item)
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
-        stats = MediaListResponseStats.from_dict(d.pop("stats"))
+        stats = MediaListResponseStats.from_dict(_src.pop("stats"))
 
         media_list_response = cls(
             media=media,
@@ -75,7 +75,7 @@ class MediaListResponse:
             stats=stats,
         )
 
-        media_list_response.additional_properties = d
+        media_list_response.additional_properties = _src
         return media_list_response
 
     @property

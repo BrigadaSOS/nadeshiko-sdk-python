@@ -46,10 +46,10 @@ class CollectionRequests:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        name = d.pop("name")
+        _src = dict(src_dict)
+        name = _src.pop("name")
 
-        _visibility = d.pop("visibility", UNSET)
+        _visibility = _src.pop("visibility", UNSET)
         visibility: CollectionRequestsVisibility | Unset
         if isinstance(_visibility, Unset):
             visibility = UNSET
@@ -61,7 +61,7 @@ class CollectionRequests:
             visibility=visibility,
         )
 
-        collection_requests.additional_properties = d
+        collection_requests.additional_properties = _src
         return collection_requests
 
     @property

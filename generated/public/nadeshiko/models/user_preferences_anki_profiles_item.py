@@ -97,12 +97,12 @@ class UserPreferencesAnkiProfilesItem:
             UserPreferencesAnkiProfilesItemFieldsItem,
         )
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        name = d.pop("name")
+        name = _src.pop("name")
 
-        server_address = d.pop("serverAddress")
+        server_address = _src.pop("serverAddress")
 
         def _parse_deck(data: object) -> None | str | Unset:
             if data is None:
@@ -111,7 +111,7 @@ class UserPreferencesAnkiProfilesItem:
                 return data
             return cast(None | str | Unset, data)
 
-        deck = _parse_deck(d.pop("deck", UNSET))
+        deck = _parse_deck(_src.pop("deck", UNSET))
 
         def _parse_model(data: object) -> None | str | Unset:
             if data is None:
@@ -120,9 +120,9 @@ class UserPreferencesAnkiProfilesItem:
                 return data
             return cast(None | str | Unset, data)
 
-        model = _parse_model(d.pop("model", UNSET))
+        model = _parse_model(_src.pop("model", UNSET))
 
-        _fields = d.pop("fields", UNSET)
+        _fields = _src.pop("fields", UNSET)
         fields: list[UserPreferencesAnkiProfilesItemFieldsItem] | Unset = UNSET
         if _fields is not UNSET:
             fields = []
@@ -138,7 +138,7 @@ class UserPreferencesAnkiProfilesItem:
                 return data
             return cast(None | str | Unset, data)
 
-        key = _parse_key(d.pop("key", UNSET))
+        key = _parse_key(_src.pop("key", UNSET))
 
         user_preferences_anki_profiles_item = cls(
             id=id,
@@ -150,7 +150,7 @@ class UserPreferencesAnkiProfilesItem:
             key=key,
         )
 
-        user_preferences_anki_profiles_item.additional_properties = d
+        user_preferences_anki_profiles_item.additional_properties = _src
         return user_preferences_anki_profiles_item
 
     @property

@@ -20,7 +20,6 @@ def _get_kwargs(
     activity_type: ActivityType | Unset = UNSET,
     date: datetime.date | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["cursor"] = cursor

@@ -103,16 +103,16 @@ class CollectionWithSegments:
         )
         from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
-        d = dict(src_dict)
-        id = d.pop("id")
+        _src = dict(src_dict)
+        id = _src.pop("id")
 
-        name = d.pop("name")
+        name = _src.pop("name")
 
-        visibility = CollectionWithSegmentsVisibility(d.pop("visibility"))
+        visibility = CollectionWithSegmentsVisibility(_src.pop("visibility"))
 
-        segment_count = d.pop("segmentCount")
+        segment_count = _src.pop("segmentCount")
 
-        created_at = isoparse(d.pop("createdAt"))
+        created_at = isoparse(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -127,20 +127,20 @@ class CollectionWithSegments:
                 pass
             return cast(datetime.datetime | None, data)
 
-        updated_at = _parse_updated_at(d.pop("updatedAt"))
+        updated_at = _parse_updated_at(_src.pop("updatedAt"))
 
         segments = []
-        _segments = d.pop("segments")
+        _segments = _src.pop("segments")
         for segments_item_data in _segments:
             segments_item = CollectionWithSegmentsSegmentsItem.from_dict(segments_item_data)
 
             segments.append(segments_item)
 
-        includes = CollectionWithSegmentsIncludes.from_dict(d.pop("includes"))
+        includes = CollectionWithSegmentsIncludes.from_dict(_src.pop("includes"))
 
-        total_count = d.pop("totalCount")
+        total_count = _src.pop("totalCount")
 
-        pagination = OpaqueCursorPagination.from_dict(d.pop("pagination"))
+        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
 
         collection_with_segments = cls(
             id=id,
@@ -155,7 +155,7 @@ class CollectionWithSegments:
             pagination=pagination,
         )
 
-        collection_with_segments.additional_properties = d
+        collection_with_segments.additional_properties = _src
         return collection_with_segments
 
     @property

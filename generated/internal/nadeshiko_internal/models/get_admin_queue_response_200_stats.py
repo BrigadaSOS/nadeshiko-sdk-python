@@ -49,14 +49,14 @@ class GetAdminQueueResponse200Stats:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
-        deferred = d.pop("deferred")
+        _src = dict(src_dict)
+        deferred = _src.pop("deferred")
 
-        queued = d.pop("queued")
+        queued = _src.pop("queued")
 
-        active = d.pop("active")
+        active = _src.pop("active")
 
-        total = d.pop("total")
+        total = _src.pop("total")
 
         get_admin_queue_response_200_stats = cls(
             deferred=deferred,
@@ -65,7 +65,7 @@ class GetAdminQueueResponse200Stats:
             total=total,
         )
 
-        get_admin_queue_response_200_stats.additional_properties = d
+        get_admin_queue_response_200_stats.additional_properties = _src
         return get_admin_queue_response_200_stats
 
     @property
