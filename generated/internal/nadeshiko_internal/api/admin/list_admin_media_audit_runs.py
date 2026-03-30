@@ -19,6 +19,7 @@ def _get_kwargs(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["auditName"] = audit_name

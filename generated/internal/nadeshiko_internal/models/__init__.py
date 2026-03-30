@@ -20,7 +20,6 @@ from .character_with_media_media_appearances_item import CharacterWithMediaMedia
 from .character_with_media_media_appearances_item_role import (
     CharacterWithMediaMediaAppearancesItemRole,
 )
-from .clear_admin_impersonation_response_200 import ClearAdminImpersonationResponse200
 from .collection import Collection
 from .collection_list_response import CollectionListResponse
 from .collection_requests import CollectionRequests
@@ -212,9 +211,6 @@ from .get_user_activity_stats_response_200_top_media_item import (
     GetUserActivityStatsResponse200TopMediaItem,
 )
 from .heatmap_day_counts import HeatmapDayCounts
-from .impersonate_admin_user_body import ImpersonateAdminUserBody
-from .impersonate_admin_user_response_200 import ImpersonateAdminUserResponse200
-from .impersonate_admin_user_response_200_user import ImpersonateAdminUserResponse200User
 from .include_expansion import IncludeExpansion
 from .list_admin_media_audit_runs_response_200 import ListAdminMediaAuditRunsResponse200
 from .list_admin_queue_failed_queue_name import ListAdminQueueFailedQueueName
@@ -403,7 +399,6 @@ __all__ = (
     "CharacterWithMedia",
     "CharacterWithMediaMediaAppearancesItem",
     "CharacterWithMediaMediaAppearancesItemRole",
-    "ClearAdminImpersonationResponse200",
     "Collection",
     "CollectionListResponse",
     "CollectionRequests",
@@ -523,9 +518,6 @@ __all__ = (
     "GetUserActivityStatsResponse200",
     "GetUserActivityStatsResponse200TopMediaItem",
     "HeatmapDayCounts",
-    "ImpersonateAdminUserBody",
-    "ImpersonateAdminUserResponse200",
-    "ImpersonateAdminUserResponse200User",
     "IncludeExpansion",
     "ListAdminMediaAuditRunsResponse200",
     "ListAdminQueueFailedQueueName",

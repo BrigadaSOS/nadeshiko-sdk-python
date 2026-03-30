@@ -20,6 +20,7 @@ def _get_kwargs(
     episode_number: int,
     id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/media/{media_id}/episodes/{episode_number}/segments/{id}".format(
