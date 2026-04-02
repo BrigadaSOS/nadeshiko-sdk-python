@@ -32,6 +32,7 @@ from .collection_with_segments_includes_media import CollectionWithSegmentsInclu
 from .collection_with_segments_segments_item import CollectionWithSegmentsSegmentsItem
 from .collection_with_segments_visibility import CollectionWithSegmentsVisibility
 from .content_rating import ContentRating
+from .covered_word import CoveredWord
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
 from .create_segments_batch_response_201 import CreateSegmentsBatchResponse201
@@ -201,7 +202,12 @@ from .get_admin_queue_response_200_metadata import GetAdminQueueResponse200Metad
 from .get_admin_queue_response_200_stats import GetAdminQueueResponse200Stats
 from .get_announcement_response_200 import GetAnnouncementResponse200
 from .get_announcement_response_200_type import GetAnnouncementResponse200Type
+from .get_covered_words_filter import GetCoveredWordsFilter
+from .get_covered_words_response_200 import GetCoveredWordsResponse200
+from .get_covered_words_response_200_tier_stats import GetCoveredWordsResponse200TierStats
 from .get_segment_by_uuid_include_item import GetSegmentByUuidIncludeItem
+from .get_stats_overview_response_200 import GetStatsOverviewResponse200
+from .get_stats_overview_response_200_translations import GetStatsOverviewResponse200Translations
 from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
 from .get_user_activity_heatmap_response_200_activity_by_day import (
     GetUserActivityHeatmapResponse200ActivityByDay,
@@ -343,6 +349,8 @@ from .series_with_media_media_item import SeriesWithMediaMediaItem
 from .token import Token
 from .track_user_activity_body import TrackUserActivityBody
 from .track_user_activity_body_activity_type import TrackUserActivityBodyActivityType
+from .trigger_covered_words_update_body import TriggerCoveredWordsUpdateBody
+from .trigger_covered_words_update_response_200 import TriggerCoveredWordsUpdateResponse200
 from .update_admin_media_audit_body import UpdateAdminMediaAuditBody
 from .update_admin_media_audit_body_threshold import UpdateAdminMediaAuditBodyThreshold
 from .update_announcement_body import UpdateAnnouncementBody
@@ -377,6 +385,7 @@ from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
 from .user_quota_response import UserQuotaResponse
+from .word_coverage_tier import WordCoverageTier
 from .word_match import WordMatch
 from .word_match_media import WordMatchMedia
 
@@ -411,6 +420,7 @@ __all__ = (
     "CollectionWithSegmentsSegmentsItem",
     "CollectionWithSegmentsVisibility",
     "ContentRating",
+    "CoveredWord",
     "CreateReportRequest",
     "CreateReportRequestReason",
     "CreateSegmentsBatchResponse201",
@@ -512,7 +522,12 @@ __all__ = (
     "GetAdminQueueResponse200Stats",
     "GetAnnouncementResponse200",
     "GetAnnouncementResponse200Type",
+    "GetCoveredWordsFilter",
+    "GetCoveredWordsResponse200",
+    "GetCoveredWordsResponse200TierStats",
     "GetSegmentByUuidIncludeItem",
+    "GetStatsOverviewResponse200",
+    "GetStatsOverviewResponse200Translations",
     "GetUserActivityHeatmapResponse200",
     "GetUserActivityHeatmapResponse200ActivityByDay",
     "GetUserActivityStatsResponse200",
@@ -650,6 +665,8 @@ __all__ = (
     "Token",
     "TrackUserActivityBody",
     "TrackUserActivityBodyActivityType",
+    "TriggerCoveredWordsUpdateBody",
+    "TriggerCoveredWordsUpdateResponse200",
     "UpdateAdminMediaAuditBody",
     "UpdateAdminMediaAuditBodyThreshold",
     "UpdateAnnouncementBody",
@@ -678,6 +695,7 @@ __all__ = (
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
     "UserQuotaResponse",
+    "WordCoverageTier",
     "WordMatch",
     "WordMatchMedia",
 )

@@ -26,6 +26,7 @@ class Media:
     Attributes:
         id (int): Internal unique identifier for the media Example: 7674.
         public_id (str): Public identifier for the media (use this in public URLs) Example: V1StGXR8_Z5d.
+        slug (str): URL-friendly slug for the media Example: bakuman.
         external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
@@ -49,6 +50,7 @@ class Media:
 
     id: int
     public_id: str
+    slug: str
     external_ids: ExternalId
     name_ja: str
     name_romaji: str
@@ -73,6 +75,8 @@ class Media:
         id = self.id
 
         public_id = self.public_id
+
+        slug = self.slug
 
         external_ids = self.external_ids.to_dict()
 
@@ -131,6 +135,7 @@ class Media:
             {
                 "id": id,
                 "publicId": public_id,
+                "slug": slug,
                 "externalIds": external_ids,
                 "nameJa": name_ja,
                 "nameRomaji": name_romaji,
@@ -166,6 +171,8 @@ class Media:
         id = _src.pop("id")
 
         public_id = _src.pop("publicId")
+
+        slug = _src.pop("slug")
 
         external_ids = ExternalId.from_dict(_src.pop("externalIds"))
 
@@ -235,6 +242,7 @@ class Media:
         media = cls(
             id=id,
             public_id=public_id,
+            slug=slug,
             external_ids=external_ids,
             name_ja=name_ja,
             name_romaji=name_romaji,
