@@ -28,6 +28,7 @@ from .collection_with_segments_includes_media import CollectionWithSegmentsInclu
 from .collection_with_segments_segments_item import CollectionWithSegmentsSegmentsItem
 from .collection_with_segments_visibility import CollectionWithSegmentsVisibility
 from .content_rating import ContentRating
+from .covered_word import CoveredWord
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
 from .episode import Episode
@@ -63,7 +64,12 @@ from .error_500_code import Error500Code
 from .error_500_errors import Error500Errors
 from .error_500_status import Error500Status
 from .external_id import ExternalId
+from .get_covered_words_filter import GetCoveredWordsFilter
+from .get_covered_words_response_200 import GetCoveredWordsResponse200
+from .get_covered_words_response_200_tier_stats import GetCoveredWordsResponse200TierStats
 from .get_segment_by_uuid_include_item import GetSegmentByUuidIncludeItem
+from .get_stats_overview_response_200 import GetStatsOverviewResponse200
+from .get_stats_overview_response_200_translations import GetStatsOverviewResponse200Translations
 from .heatmap_day_counts import HeatmapDayCounts
 from .include_expansion import IncludeExpansion
 from .list_media_category import ListMediaCategory
@@ -180,6 +186,8 @@ from .series_list_response import SeriesListResponse
 from .series_with_media import SeriesWithMedia
 from .series_with_media_media_item import SeriesWithMediaMediaItem
 from .token import Token
+from .trigger_covered_words_update_body import TriggerCoveredWordsUpdateBody
+from .trigger_covered_words_update_response_200 import TriggerCoveredWordsUpdateResponse200
 from .update_report_request import UpdateReportRequest
 from .update_report_request_status import UpdateReportRequestStatus
 from .user_activity import UserActivity
@@ -203,6 +211,7 @@ from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
 from .user_quota_response import UserQuotaResponse
+from .word_coverage_tier import WordCoverageTier
 from .word_match import WordMatch
 from .word_match_media import WordMatchMedia
 
@@ -233,6 +242,7 @@ __all__ = (
     "CollectionWithSegmentsSegmentsItem",
     "CollectionWithSegmentsVisibility",
     "ContentRating",
+    "CoveredWord",
     "CreateReportRequest",
     "CreateReportRequestReason",
     "Episode",
@@ -268,7 +278,12 @@ __all__ = (
     "Error500Errors",
     "Error500Status",
     "ExternalId",
+    "GetCoveredWordsFilter",
+    "GetCoveredWordsResponse200",
+    "GetCoveredWordsResponse200TierStats",
     "GetSegmentByUuidIncludeItem",
+    "GetStatsOverviewResponse200",
+    "GetStatsOverviewResponse200Translations",
     "HeatmapDayCounts",
     "IncludeExpansion",
     "ListMediaCategory",
@@ -385,6 +400,8 @@ __all__ = (
     "SeriesWithMedia",
     "SeriesWithMediaMediaItem",
     "Token",
+    "TriggerCoveredWordsUpdateBody",
+    "TriggerCoveredWordsUpdateResponse200",
     "UpdateReportRequest",
     "UpdateReportRequestStatus",
     "UserActivity",
@@ -402,6 +419,7 @@ __all__ = (
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
     "UserQuotaResponse",
+    "WordCoverageTier",
     "WordMatch",
     "WordMatchMedia",
 )
