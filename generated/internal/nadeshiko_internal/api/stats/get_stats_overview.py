@@ -52,7 +52,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
 ) -> Response[Error500 | GetStatsOverviewResponse200]:
     """Get corpus statistics overview
 
@@ -79,7 +79,7 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
 ) -> Error500 | GetStatsOverviewResponse200 | None:
     """Get corpus statistics overview
 
@@ -102,7 +102,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
 ) -> Response[Error500 | GetStatsOverviewResponse200]:
     """Get corpus statistics overview
 
@@ -127,7 +127,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient | Client,
+    client: AuthenticatedClient,
 ) -> Error500 | GetStatsOverviewResponse200 | None:
     """Get corpus statistics overview
 
