@@ -12,12 +12,12 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.list_segments_response_200 import ListSegmentsResponse200
+from ...models.segment_list_response import SegmentListResponse
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     take: int | Unset = 50,
@@ -34,8 +34,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/media/{media_id}/episodes/{episode_number}/segments".format(
-            media_id=quote(str(media_id), safe=""),
+        "url": "/v1/media/{media_public_id}/episodes/{episode_number}/segments".format(
+            media_public_id=quote(str(media_public_id), safe=""),
             episode_number=quote(str(episode_number), safe=""),
         ),
         "params": params,
@@ -46,11 +46,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200 | None
-):
+) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse | None:
     if response.status_code == 200:
-        response_200 = ListSegmentsResponse200.from_dict(response.json())
+        response_200 = SegmentListResponse.from_dict(response.json())
 
         return response_200
 
@@ -93,7 +91,7 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200
+    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -104,21 +102,21 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
     cursor: str | Unset = UNSET,
 ) -> Response[
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200
+    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse
 ]:
     """List segments for an episode
 
      Returns a paginated list of segments for a specific episode.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
@@ -128,11 +126,11 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200]
+        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse]
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         take=take,
         cursor=cursor,
@@ -146,21 +144,19 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
     cursor: str | Unset = UNSET,
-) -> (
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200 | None
-):
+) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse | None:
     """List segments for an episode
 
      Returns a paginated list of segments for a specific episode.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
@@ -170,11 +166,11 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200
+        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse
     """
 
     return sync_detailed(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         client=client,
         take=take,
@@ -183,21 +179,21 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
     cursor: str | Unset = UNSET,
 ) -> Response[
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200
+    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse
 ]:
     """List segments for an episode
 
      Returns a paginated list of segments for a specific episode.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
@@ -207,11 +203,11 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200]
+        Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse]
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         take=take,
         cursor=cursor,
@@ -223,21 +219,19 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
     cursor: str | Unset = UNSET,
-) -> (
-    Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200 | None
-):
+) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse | None:
     """List segments for an episode
 
      Returns a paginated list of segments for a specific episode.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
@@ -247,12 +241,12 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | ListSegmentsResponse200
+        Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SegmentListResponse
     """
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
+            media_public_id=media_public_id,
             episode_number=episode_number,
             client=client,
             take=take,

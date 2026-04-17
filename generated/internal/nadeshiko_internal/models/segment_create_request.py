@@ -7,8 +7,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.content_rating import ContentRating
-from ..models.segment_create_request_status import SegmentCreateRequestStatus
 from ..models.segment_create_request_storage import SegmentCreateRequestStorage
+from ..models.segment_status import SegmentStatus
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -38,8 +38,7 @@ class SegmentCreateRequest:
         storage (SegmentCreateRequestStorage): Storage backend for segment assets Default:
             SegmentCreateRequestStorage.R2. Example: R2.
         hashed_id (str): Hash identifier for the segment (from segment JSON) Example: 0d39e46b14.
-        status (SegmentCreateRequestStatus | Unset): Segment status Default: SegmentCreateRequestStatus.ACTIVE. Example:
-            ACTIVE.
+        status (SegmentStatus | Unset): Segment status Default: SegmentStatus.ACTIVE. Example: ACTIVE.
         text_es (SegmentCreateRequestTextEs | Unset):
         text_en (SegmentCreateRequestTextEn | Unset):
         content_rating (ContentRating | Unset): Content rating level for the segment Example: SAFE.
@@ -55,7 +54,7 @@ class SegmentCreateRequest:
     text_ja: SegmentCreateRequestTextJa
     hashed_id: str
     storage: SegmentCreateRequestStorage = SegmentCreateRequestStorage.R2
-    status: SegmentCreateRequestStatus | Unset = SegmentCreateRequestStatus.ACTIVE
+    status: SegmentStatus | Unset = SegmentStatus.ACTIVE
     text_es: SegmentCreateRequestTextEs | Unset = UNSET
     text_en: SegmentCreateRequestTextEn | Unset = UNSET
     content_rating: ContentRating | Unset = UNSET
@@ -168,11 +167,11 @@ class SegmentCreateRequest:
         hashed_id = _src.pop("hashedId")
 
         _status = _src.pop("status", UNSET)
-        status: SegmentCreateRequestStatus | Unset
+        status: SegmentStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
-            status = SegmentCreateRequestStatus(_status)
+            status = SegmentStatus(_status)
 
         _text_es = _src.pop("textEs", UNSET)
         text_es: SegmentCreateRequestTextEs | Unset

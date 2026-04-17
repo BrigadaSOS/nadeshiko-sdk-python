@@ -5,10 +5,13 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.covered_words_response import CoveredWordsResponse
 from ...models.error_400 import Error400
+from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.get_covered_words_filter import GetCoveredWordsFilter
-from ...models.get_covered_words_response_200 import GetCoveredWordsResponse200
 from ...types import UNSET, Response, Unset
 
 
@@ -17,7 +20,7 @@ def _get_kwargs(
     tier: int,
     min_rank: int | Unset = 0,
     filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
-    cursor: int | Unset = 0,
+    cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> dict[str, Any]:
 
@@ -50,9 +53,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error400 | Error500 | GetCoveredWordsResponse200 | None:
+) -> CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     if response.status_code == 200:
-        response_200 = GetCoveredWordsResponse200.from_dict(response.json())
+        response_200 = CoveredWordsResponse.from_dict(response.json())
 
         return response_200
 
@@ -60,6 +63,21 @@ def _parse_response(
         response_400 = Error400.from_dict(response.json())
 
         return response_400
+
+    if response.status_code == 401:
+        response_401 = Error401.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
 
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
@@ -74,7 +92,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error400 | Error500 | GetCoveredWordsResponse200]:
+) -> Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -89,9 +107,9 @@ def sync_detailed(
     tier: int,
     min_rank: int | Unset = 0,
     filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
-    cursor: int | Unset = 0,
+    cursor: str | Unset = UNSET,
     take: int | Unset = 200,
-) -> Response[Error400 | Error500 | GetCoveredWordsResponse200]:
+) -> Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """List words with coverage information
 
      Returns a paginated list of words from the frequency list within a given
@@ -101,7 +119,7 @@ def sync_detailed(
         tier (int):
         min_rank (int | Unset):  Default: 0.
         filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
-        cursor (int | Unset):  Default: 0.
+        cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
     Raises:
@@ -109,7 +127,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error500 | GetCoveredWordsResponse200]
+        Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -133,9 +151,9 @@ def sync(
     tier: int,
     min_rank: int | Unset = 0,
     filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
-    cursor: int | Unset = 0,
+    cursor: str | Unset = UNSET,
     take: int | Unset = 200,
-) -> Error400 | Error500 | GetCoveredWordsResponse200 | None:
+) -> CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """List words with coverage information
 
      Returns a paginated list of words from the frequency list within a given
@@ -145,7 +163,7 @@ def sync(
         tier (int):
         min_rank (int | Unset):  Default: 0.
         filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
-        cursor (int | Unset):  Default: 0.
+        cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
     Raises:
@@ -153,7 +171,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error500 | GetCoveredWordsResponse200
+        CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -172,9 +190,9 @@ async def asyncio_detailed(
     tier: int,
     min_rank: int | Unset = 0,
     filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
-    cursor: int | Unset = 0,
+    cursor: str | Unset = UNSET,
     take: int | Unset = 200,
-) -> Response[Error400 | Error500 | GetCoveredWordsResponse200]:
+) -> Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """List words with coverage information
 
      Returns a paginated list of words from the frequency list within a given
@@ -184,7 +202,7 @@ async def asyncio_detailed(
         tier (int):
         min_rank (int | Unset):  Default: 0.
         filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
-        cursor (int | Unset):  Default: 0.
+        cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
     Raises:
@@ -192,7 +210,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error500 | GetCoveredWordsResponse200]
+        Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -214,9 +232,9 @@ async def asyncio(
     tier: int,
     min_rank: int | Unset = 0,
     filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
-    cursor: int | Unset = 0,
+    cursor: str | Unset = UNSET,
     take: int | Unset = 200,
-) -> Error400 | Error500 | GetCoveredWordsResponse200 | None:
+) -> CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """List words with coverage information
 
      Returns a paginated list of words from the frequency list within a given
@@ -226,7 +244,7 @@ async def asyncio(
         tier (int):
         min_rank (int | Unset):  Default: 0.
         filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
-        cursor (int | Unset):  Default: 0.
+        cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
     Raises:
@@ -234,7 +252,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error500 | GetCoveredWordsResponse200
+        CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return (

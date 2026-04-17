@@ -16,13 +16,13 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    audit_run_id: int,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/admin/media/audits/runs/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/admin/media/audits/runs/{audit_run_id}".format(
+            audit_run_id=quote(str(audit_run_id), safe=""),
         ),
     }
 
@@ -82,7 +82,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    audit_run_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Response[
@@ -93,7 +93,7 @@ def sync_detailed(
      Returns a specific media audit run record with its linked reports.
 
     Args:
-        id (int):
+        audit_run_id (int):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -104,7 +104,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        audit_run_id=audit_run_id,
     )
 
     response = client.get_httpx_client().request(
@@ -115,7 +115,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    audit_run_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error404 | Error429 | Error500 | GetAdminMediaAuditRunResponse200 | None:
@@ -124,7 +124,7 @@ def sync(
      Returns a specific media audit run record with its linked reports.
 
     Args:
-        id (int):
+        audit_run_id (int):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,13 +135,13 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        audit_run_id=audit_run_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: int,
+    audit_run_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Response[
@@ -152,7 +152,7 @@ async def asyncio_detailed(
      Returns a specific media audit run record with its linked reports.
 
     Args:
-        id (int):
+        audit_run_id (int):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,7 +163,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        audit_run_id=audit_run_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -172,7 +172,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    audit_run_id: int,
     *,
     client: AuthenticatedClient,
 ) -> Error401 | Error403 | Error404 | Error429 | Error500 | GetAdminMediaAuditRunResponse200 | None:
@@ -181,7 +181,7 @@ async def asyncio(
      Returns a specific media audit run record with its linked reports.
 
     Args:
-        id (int):
+        audit_run_id (int):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -193,7 +193,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            audit_run_id=audit_run_id,
             client=client,
         )
     ).parsed

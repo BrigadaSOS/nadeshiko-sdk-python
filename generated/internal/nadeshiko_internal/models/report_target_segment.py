@@ -17,8 +17,8 @@ class ReportTargetSegment:
     """
     Attributes:
         type_ (ReportTargetSegmentType): Report target type Example: SEGMENT.
-        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
-        segment_id (None | str): Segment public ID or UUID Example: abc123xyz.
+        media_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
+        segment_id (None | str): Segment publicId Example: abc123xyz.
         episode_number (int | Unset): Episode number containing the segment Example: 5.
     """
 

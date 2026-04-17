@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.batch_update_admin_reports_response_200 import BatchUpdateAdminReportsResponse200
+from ...models.affected_count_response import AffectedCountResponse
 from ...models.batch_update_reports_request import BatchUpdateReportsRequest
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
@@ -36,11 +36,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500 | None
-):
+) -> AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     if response.status_code == 200:
-        response_200 = BatchUpdateAdminReportsResponse200.from_dict(response.json())
+        response_200 = AffectedCountResponse.from_dict(response.json())
 
         return response_200
 
@@ -77,9 +75,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[
-    BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500
-]:
+) -> Response[AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -92,9 +88,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: BatchUpdateReportsRequest,
-) -> Response[
-    BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500
-]:
+) -> Response[AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Batch update reports
 
      Updates the status (and optionally admin notes) of multiple reports at once.
@@ -107,7 +101,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500]
+        Response[AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -125,9 +119,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: BatchUpdateReportsRequest,
-) -> (
-    BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500 | None
-):
+) -> AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Batch update reports
 
      Updates the status (and optionally admin notes) of multiple reports at once.
@@ -140,7 +132,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500
+        AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -153,9 +145,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: BatchUpdateReportsRequest,
-) -> Response[
-    BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500
-]:
+) -> Response[AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Batch update reports
 
      Updates the status (and optionally admin notes) of multiple reports at once.
@@ -168,7 +158,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500]
+        Response[AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -184,9 +174,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: BatchUpdateReportsRequest,
-) -> (
-    BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500 | None
-):
+) -> AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Batch update reports
 
      Updates the status (and optionally admin notes) of multiple reports at once.
@@ -199,7 +187,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        BatchUpdateAdminReportsResponse200 | Error400 | Error401 | Error403 | Error429 | Error500
+        AffectedCountResponse | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return (

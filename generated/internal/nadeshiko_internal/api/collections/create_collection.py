@@ -6,7 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.collection import Collection
-from ...models.collection_requests import CollectionRequests
+from ...models.collection_create_request import CollectionCreateRequest
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_403 import Error403
@@ -17,7 +17,7 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: CollectionRequests,
+    body: CollectionCreateRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -87,14 +87,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: CollectionRequests,
+    body: CollectionCreateRequest,
 ) -> Response[Collection | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Create collection
 
      Creates a new segment collection for the authenticated user.
 
     Args:
-        body (CollectionRequests): Request body for creating a new collection
+        body (CollectionCreateRequest): Request body for creating a new collection
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -118,14 +118,14 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: CollectionRequests,
+    body: CollectionCreateRequest,
 ) -> Collection | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Create collection
 
      Creates a new segment collection for the authenticated user.
 
     Args:
-        body (CollectionRequests): Request body for creating a new collection
+        body (CollectionCreateRequest): Request body for creating a new collection
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,14 +144,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: CollectionRequests,
+    body: CollectionCreateRequest,
 ) -> Response[Collection | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Create collection
 
      Creates a new segment collection for the authenticated user.
 
     Args:
-        body (CollectionRequests): Request body for creating a new collection
+        body (CollectionCreateRequest): Request body for creating a new collection
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -173,14 +173,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: CollectionRequests,
+    body: CollectionCreateRequest,
 ) -> Collection | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Create collection
 
      Creates a new segment collection for the authenticated user.
 
     Args:
-        body (CollectionRequests): Request body for creating a new collection
+        body (CollectionCreateRequest): Request body for creating a new collection
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

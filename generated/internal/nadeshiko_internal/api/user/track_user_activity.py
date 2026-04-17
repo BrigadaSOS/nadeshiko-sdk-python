@@ -7,14 +7,16 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.track_user_activity_body import TrackUserActivityBody
+from ...models.user_activity_request import UserActivityRequest
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: TrackUserActivityBody,
+    body: UserActivityRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -33,7 +35,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error400 | Error401 | Error500 | None:
+) -> Any | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -48,6 +50,16 @@ def _parse_response(
 
         return response_401
 
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
+
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
 
@@ -61,7 +73,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error400 | Error401 | Error500]:
+) -> Response[Any | Error400 | Error401 | Error403 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,21 +85,21 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: TrackUserActivityBody,
-) -> Response[Any | Error400 | Error401 | Error500]:
+    body: UserActivityRequest,
+) -> Response[Any | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Track user activity
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
 
     Args:
-        body (TrackUserActivityBody):
+        body (UserActivityRequest): Request body for tracking a user activity event
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error400 | Error401 | Error500]
+        Response[Any | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -104,21 +116,21 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: TrackUserActivityBody,
-) -> Any | Error400 | Error401 | Error500 | None:
+    body: UserActivityRequest,
+) -> Any | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Track user activity
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
 
     Args:
-        body (TrackUserActivityBody):
+        body (UserActivityRequest): Request body for tracking a user activity event
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error400 | Error401 | Error500
+        Any | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -130,21 +142,21 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: TrackUserActivityBody,
-) -> Response[Any | Error400 | Error401 | Error500]:
+    body: UserActivityRequest,
+) -> Response[Any | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Track user activity
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
 
     Args:
-        body (TrackUserActivityBody):
+        body (UserActivityRequest): Request body for tracking a user activity event
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error400 | Error401 | Error500]
+        Response[Any | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -159,21 +171,21 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: TrackUserActivityBody,
-) -> Any | Error400 | Error401 | Error500 | None:
+    body: UserActivityRequest,
+) -> Any | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Track user activity
 
      Records a user activity event (e.g. segment play). Fire-and-forget — always returns 204.
 
     Args:
-        body (TrackUserActivityBody):
+        body (UserActivityRequest): Request body for tracking a user activity event
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error400 | Error401 | Error500
+        Any | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return (

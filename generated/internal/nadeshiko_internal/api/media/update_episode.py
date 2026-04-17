@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     body: EpisodeUpdateRequest,
@@ -27,8 +27,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/media/{media_id}/episodes/{episode_number}".format(
-            media_id=quote(str(media_id), safe=""),
+        "url": "/v1/media/{media_public_id}/episodes/{episode_number}".format(
+            media_public_id=quote(str(media_public_id), safe=""),
             episode_number=quote(str(episode_number), safe=""),
         ),
     }
@@ -97,7 +97,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -108,7 +108,7 @@ def sync_detailed(
      Updates an existing episode. Only provided fields will be updated.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         body (EpisodeUpdateRequest): All fields are optional for partial updates
 
@@ -121,7 +121,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         body=body,
     )
@@ -134,7 +134,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -145,7 +145,7 @@ def sync(
      Updates an existing episode. Only provided fields will be updated.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         body (EpisodeUpdateRequest): All fields are optional for partial updates
 
@@ -158,7 +158,7 @@ def sync(
     """
 
     return sync_detailed(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         client=client,
         body=body,
@@ -166,7 +166,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -177,7 +177,7 @@ async def asyncio_detailed(
      Updates an existing episode. Only provided fields will be updated.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         body (EpisodeUpdateRequest): All fields are optional for partial updates
 
@@ -190,7 +190,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         body=body,
     )
@@ -201,7 +201,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -212,7 +212,7 @@ async def asyncio(
      Updates an existing episode. Only provided fields will be updated.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
         body (EpisodeUpdateRequest): All fields are optional for partial updates
 
@@ -226,7 +226,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
+            media_public_id=media_public_id,
             episode_number=episode_number,
             client=client,
             body=body,

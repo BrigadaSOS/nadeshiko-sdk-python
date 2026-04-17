@@ -16,14 +16,14 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/media/{media_id}/episodes/{episode_number}".format(
-            media_id=quote(str(media_id), safe=""),
+        "url": "/v1/media/{media_public_id}/episodes/{episode_number}".format(
+            media_public_id=quote(str(media_public_id), safe=""),
             episode_number=quote(str(episode_number), safe=""),
         ),
     }
@@ -86,7 +86,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -97,7 +97,7 @@ def sync_detailed(
     results.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
 
     Raises:
@@ -109,7 +109,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
     )
 
@@ -121,7 +121,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -132,7 +132,7 @@ def sync(
     results.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
 
     Raises:
@@ -144,14 +144,14 @@ def sync(
     """
 
     return sync_detailed(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -162,7 +162,7 @@ async def asyncio_detailed(
     results.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
 
     Raises:
@@ -174,7 +174,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         episode_number=episode_number,
     )
 
@@ -184,7 +184,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
+    media_public_id: str,
     episode_number: int,
     *,
     client: AuthenticatedClient,
@@ -195,7 +195,7 @@ async def asyncio(
     results.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         episode_number (int):
 
     Raises:
@@ -208,7 +208,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
+            media_public_id=media_public_id,
             episode_number=episode_number,
             client=client,
         )

@@ -18,9 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     body: SegmentUpdateRequest,
 ) -> dict[str, Any]:
@@ -28,10 +26,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/media/{media_id}/episodes/{episode_number}/segments/{id}".format(
-            media_id=quote(str(media_id), safe=""),
-            episode_number=quote(str(episode_number), safe=""),
-            id=quote(str(id), safe=""),
+        "url": "/v1/media/segments/{segment_public_id}".format(
+            segment_public_id=quote(str(segment_public_id), safe=""),
         ),
     }
 
@@ -99,9 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
@@ -111,9 +105,7 @@ def sync_detailed(
      Updates an existing segment. Only provided fields will be updated.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
         body (SegmentUpdateRequest): All fields are optional for partial updates
 
     Raises:
@@ -125,9 +117,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
-        episode_number=episode_number,
-        id=id,
+        segment_public_id=segment_public_id,
         body=body,
     )
 
@@ -139,9 +129,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
@@ -151,9 +139,7 @@ def sync(
      Updates an existing segment. Only provided fields will be updated.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
         body (SegmentUpdateRequest): All fields are optional for partial updates
 
     Raises:
@@ -165,18 +151,14 @@ def sync(
     """
 
     return sync_detailed(
-        media_id=media_id,
-        episode_number=episode_number,
-        id=id,
+        segment_public_id=segment_public_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
@@ -186,9 +168,7 @@ async def asyncio_detailed(
      Updates an existing segment. Only provided fields will be updated.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
         body (SegmentUpdateRequest): All fields are optional for partial updates
 
     Raises:
@@ -200,9 +180,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
-        episode_number=episode_number,
-        id=id,
+        segment_public_id=segment_public_id,
         body=body,
     )
 
@@ -212,9 +190,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
     body: SegmentUpdateRequest,
@@ -224,9 +200,7 @@ async def asyncio(
      Updates an existing segment. Only provided fields will be updated.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
         body (SegmentUpdateRequest): All fields are optional for partial updates
 
     Raises:
@@ -239,9 +213,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
-            episode_number=episode_number,
-            id=id,
+            segment_public_id=segment_public_id,
             client=client,
             body=body,
         )

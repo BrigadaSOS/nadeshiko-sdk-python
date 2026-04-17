@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: int,
+    report_id: int,
     *,
     body: UpdateReportRequest,
 ) -> dict[str, Any]:
@@ -26,8 +26,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/admin/reports/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/admin/reports/{report_id}".format(
+            report_id=quote(str(report_id), safe=""),
         ),
     }
 
@@ -95,7 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: int,
+    report_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateReportRequest,
@@ -106,7 +106,7 @@ def sync_detailed(
     Works for both USER and AUTO reports.
 
     Args:
-        id (int):
+        report_id (int):
         body (UpdateReportRequest):
 
     Raises:
@@ -118,7 +118,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        report_id=report_id,
         body=body,
     )
 
@@ -130,7 +130,7 @@ def sync_detailed(
 
 
 def sync(
-    id: int,
+    report_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateReportRequest,
@@ -141,7 +141,7 @@ def sync(
     Works for both USER and AUTO reports.
 
     Args:
-        id (int):
+        report_id (int):
         body (UpdateReportRequest):
 
     Raises:
@@ -153,14 +153,14 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        report_id=report_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: int,
+    report_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateReportRequest,
@@ -171,7 +171,7 @@ async def asyncio_detailed(
     Works for both USER and AUTO reports.
 
     Args:
-        id (int):
+        report_id (int):
         body (UpdateReportRequest):
 
     Raises:
@@ -183,7 +183,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        report_id=report_id,
         body=body,
     )
 
@@ -193,7 +193,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: int,
+    report_id: int,
     *,
     client: AuthenticatedClient,
     body: UpdateReportRequest,
@@ -204,7 +204,7 @@ async def asyncio(
     Works for both USER and AUTO reports.
 
     Args:
-        id (int):
+        report_id (int):
         body (UpdateReportRequest):
 
     Raises:
@@ -217,7 +217,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            report_id=report_id,
             client=client,
             body=body,
         )

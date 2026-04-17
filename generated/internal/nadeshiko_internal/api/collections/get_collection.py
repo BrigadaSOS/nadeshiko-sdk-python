@@ -6,37 +6,25 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.collection_with_segments import CollectionWithSegments
+from ...models.collection import Collection
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
-    *,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
+    collection_public_id: str,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    params["cursor"] = cursor
-
-    params["take"] = take
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/collections/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/collections/{collection_public_id}".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
         ),
-        "params": params,
     }
 
     return _kwargs
@@ -44,11 +32,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
-):
+) -> Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     if response.status_code == 200:
-        response_200 = CollectionWithSegments.from_dict(response.json())
+        response_200 = Collection.from_dict(response.json())
 
         return response_200
 
@@ -90,9 +76,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[
-    CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
-]:
+) -> Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -102,35 +86,30 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
-) -> Response[
-    CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
-]:
+) -> Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Get collection details
 
-     Returns a collection with paginated segments and their search result data.
+     Returns collection metadata only.
+    To query segments inside the collection, use
+    `POST /v1/collections/{collectionPublicId}/search`.
+    To add or remove saved segments, use the `/segments` endpoints.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
+        Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        cursor=cursor,
-        take=take,
+        collection_public_id=collection_public_id,
     )
 
     response = client.get_httpx_client().request(
@@ -141,69 +120,59 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
-) -> (
-    CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
-):
+) -> Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Get collection details
 
-     Returns a collection with paginated segments and their search result data.
+     Returns collection metadata only.
+    To query segments inside the collection, use
+    `POST /v1/collections/{collectionPublicId}/search`.
+    To add or remove saved segments, use the `/segments` endpoints.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+        Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
     """
 
     return sync_detailed(
-        id=id,
+        collection_public_id=collection_public_id,
         client=client,
-        cursor=cursor,
-        take=take,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
-) -> Response[
-    CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
-]:
+) -> Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Get collection details
 
-     Returns a collection with paginated segments and their search result data.
+     Returns collection metadata only.
+    To query segments inside the collection, use
+    `POST /v1/collections/{collectionPublicId}/search`.
+    To add or remove saved segments, use the `/segments` endpoints.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
+        Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        cursor=cursor,
-        take=take,
+        collection_public_id=collection_public_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -212,36 +181,31 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
-) -> (
-    CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None
-):
+) -> Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Get collection details
 
-     Returns a collection with paginated segments and their search result data.
+     Returns collection metadata only.
+    To query segments inside the collection, use
+    `POST /v1/collections/{collectionPublicId}/search`.
+    To add or remove saved segments, use the `/segments` endpoints.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        CollectionWithSegments | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
+        Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500
     """
 
     return (
         await asyncio_detailed(
-            id=id,
+            collection_public_id=collection_public_id,
             client=client,
-            cursor=cursor,
-            take=take,
         )
     ).parsed

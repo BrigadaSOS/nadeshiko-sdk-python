@@ -5,9 +5,9 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.announcement import Announcement
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.get_announcement_response_200 import GetAnnouncementResponse200
 from ...types import Response
 
 
@@ -23,9 +23,9 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error429 | Error500 | GetAnnouncementResponse200 | None:
+) -> Announcement | Any | Error429 | Error500 | None:
     if response.status_code == 200:
-        response_200 = GetAnnouncementResponse200.from_dict(response.json())
+        response_200 = Announcement.from_dict(response.json())
 
         return response_200
 
@@ -51,7 +51,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error429 | Error500 | GetAnnouncementResponse200]:
+) -> Response[Announcement | Any | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,7 +63,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-) -> Response[Any | Error429 | Error500 | GetAnnouncementResponse200]:
+) -> Response[Announcement | Any | Error429 | Error500]:
     """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
@@ -73,7 +73,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error429 | Error500 | GetAnnouncementResponse200]
+        Response[Announcement | Any | Error429 | Error500]
     """
 
     kwargs = _get_kwargs()
@@ -88,7 +88,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-) -> Any | Error429 | Error500 | GetAnnouncementResponse200 | None:
+) -> Announcement | Any | Error429 | Error500 | None:
     """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
@@ -98,7 +98,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error429 | Error500 | GetAnnouncementResponse200
+        Announcement | Any | Error429 | Error500
     """
 
     return sync_detailed(
@@ -109,7 +109,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-) -> Response[Any | Error429 | Error500 | GetAnnouncementResponse200]:
+) -> Response[Announcement | Any | Error429 | Error500]:
     """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
@@ -119,7 +119,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error429 | Error500 | GetAnnouncementResponse200]
+        Response[Announcement | Any | Error429 | Error500]
     """
 
     kwargs = _get_kwargs()
@@ -132,7 +132,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-) -> Any | Error429 | Error500 | GetAnnouncementResponse200 | None:
+) -> Announcement | Any | Error429 | Error500 | None:
     """Get current announcement
 
      Returns the current announcement if one is active. Public endpoint (no auth required).
@@ -142,7 +142,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error429 | Error500 | GetAnnouncementResponse200
+        Announcement | Any | Error429 | Error500
     """
 
     return (

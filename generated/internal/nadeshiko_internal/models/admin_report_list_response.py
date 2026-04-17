@@ -7,8 +7,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.admin_report import AdminReport
-    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+    from ..models.admin_report_group import AdminReportGroup
+    from ..models.cursor_pagination import CursorPagination
 
 
 T = TypeVar("T", bound="AdminReportListResponse")
@@ -18,19 +18,19 @@ T = TypeVar("T", bound="AdminReportListResponse")
 class AdminReportListResponse:
     """
     Attributes:
-        reports (list[AdminReport]):
-        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+        groups (list[AdminReportGroup]):
+        pagination (CursorPagination): Opaque cursor pagination metadata
     """
 
-    reports: list[AdminReport]
-    pagination: OpaqueCursorPagination
+    groups: list[AdminReportGroup]
+    pagination: CursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        reports = []
-        for reports_item_data in self.reports:
-            reports_item = reports_item_data.to_dict()
-            reports.append(reports_item)
+        groups = []
+        for groups_item_data in self.groups:
+            groups_item = groups_item_data.to_dict()
+            groups.append(groups_item)
 
         pagination = self.pagination.to_dict()
 
@@ -38,7 +38,7 @@ class AdminReportListResponse:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "reports": reports,
+                "groups": groups,
                 "pagination": pagination,
             }
         )
@@ -47,21 +47,21 @@ class AdminReportListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.admin_report import AdminReport
-        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+        from ..models.admin_report_group import AdminReportGroup
+        from ..models.cursor_pagination import CursorPagination
 
         _src = dict(src_dict)
-        reports = []
-        _reports = _src.pop("reports")
-        for reports_item_data in _reports:
-            reports_item = AdminReport.from_dict(reports_item_data)
+        groups = []
+        _groups = _src.pop("groups")
+        for groups_item_data in _groups:
+            groups_item = AdminReportGroup.from_dict(groups_item_data)
 
-            reports.append(reports_item)
+            groups.append(groups_item)
 
-        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
+        pagination = CursorPagination.from_dict(_src.pop("pagination"))
 
         admin_report_list_response = cls(
-            reports=reports,
+            groups=groups,
             pagination=pagination,
         )
 

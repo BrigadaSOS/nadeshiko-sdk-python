@@ -5,15 +5,19 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.covered_words_update_request import CoveredWordsUpdateRequest
+from ...models.covered_words_update_response import CoveredWordsUpdateResponse
+from ...models.error_400 import Error400
+from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.trigger_covered_words_update_body import TriggerCoveredWordsUpdateBody
-from ...models.trigger_covered_words_update_response_200 import TriggerCoveredWordsUpdateResponse200
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: TriggerCoveredWordsUpdateBody | Unset = UNSET,
+    body: CoveredWordsUpdateRequest | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -33,11 +37,31 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error500 | TriggerCoveredWordsUpdateResponse200 | None:
+) -> CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     if response.status_code == 200:
-        response_200 = TriggerCoveredWordsUpdateResponse200.from_dict(response.json())
+        response_200 = CoveredWordsUpdateResponse.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Error400.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Error401.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
 
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
@@ -52,7 +76,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error500 | TriggerCoveredWordsUpdateResponse200]:
+) -> Response[CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,8 +88,8 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: TriggerCoveredWordsUpdateBody | Unset = UNSET,
-) -> Response[Error500 | TriggerCoveredWordsUpdateResponse200]:
+    body: CoveredWordsUpdateRequest | Unset = UNSET,
+) -> Response[CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Trigger word coverage update
 
      Re-checks word coverage by querying Elasticsearch for all words in the frequency table.
@@ -73,14 +97,15 @@ def sync_detailed(
     media).
 
     Args:
-        body (TriggerCoveredWordsUpdateBody | Unset):
+        body (CoveredWordsUpdateRequest | Unset): Request body for triggering a word coverage
+            update
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error500 | TriggerCoveredWordsUpdateResponse200]
+        Response[CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -97,8 +122,8 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: TriggerCoveredWordsUpdateBody | Unset = UNSET,
-) -> Error500 | TriggerCoveredWordsUpdateResponse200 | None:
+    body: CoveredWordsUpdateRequest | Unset = UNSET,
+) -> CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Trigger word coverage update
 
      Re-checks word coverage by querying Elasticsearch for all words in the frequency table.
@@ -106,14 +131,15 @@ def sync(
     media).
 
     Args:
-        body (TriggerCoveredWordsUpdateBody | Unset):
+        body (CoveredWordsUpdateRequest | Unset): Request body for triggering a word coverage
+            update
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error500 | TriggerCoveredWordsUpdateResponse200
+        CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -125,8 +151,8 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: TriggerCoveredWordsUpdateBody | Unset = UNSET,
-) -> Response[Error500 | TriggerCoveredWordsUpdateResponse200]:
+    body: CoveredWordsUpdateRequest | Unset = UNSET,
+) -> Response[CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
     """Trigger word coverage update
 
      Re-checks word coverage by querying Elasticsearch for all words in the frequency table.
@@ -134,14 +160,15 @@ async def asyncio_detailed(
     media).
 
     Args:
-        body (TriggerCoveredWordsUpdateBody | Unset):
+        body (CoveredWordsUpdateRequest | Unset): Request body for triggering a word coverage
+            update
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error500 | TriggerCoveredWordsUpdateResponse200]
+        Response[CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -156,8 +183,8 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: TriggerCoveredWordsUpdateBody | Unset = UNSET,
-) -> Error500 | TriggerCoveredWordsUpdateResponse200 | None:
+    body: CoveredWordsUpdateRequest | Unset = UNSET,
+) -> CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
     """Trigger word coverage update
 
      Re-checks word coverage by querying Elasticsearch for all words in the frequency table.
@@ -165,14 +192,15 @@ async def asyncio(
     media).
 
     Args:
-        body (TriggerCoveredWordsUpdateBody | Unset):
+        body (CoveredWordsUpdateRequest | Unset): Request body for triggering a word coverage
+            update
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error500 | TriggerCoveredWordsUpdateResponse200
+        CoveredWordsUpdateResponse | Error400 | Error401 | Error403 | Error429 | Error500
     """
 
     return (

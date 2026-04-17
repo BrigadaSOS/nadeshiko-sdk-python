@@ -9,11 +9,12 @@ from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
 from ..models.category import Category
-from ..types import UNSET, Unset
+from ..models.media_airing_format import MediaAiringFormat
+from ..models.media_airing_status import MediaAiringStatus
+from ..models.media_season_name import MediaSeasonName
 
 if TYPE_CHECKING:
     from ..models.external_id import ExternalId
-    from ..models.media_character import MediaCharacter
 
 
 T = TypeVar("T", bound="Media")
@@ -24,57 +25,52 @@ class Media:
     """Media entry with full metadata
 
     Attributes:
-        id (int): Internal unique identifier for the media Example: 7674.
-        public_id (str): Public identifier for the media (use this in public URLs) Example: V1StGXR8_Z5d.
+        media_public_id (str): Public ID for the media (use this in public URLs) Example: V1StGXR8_Z5d.
         slug (str): URL-friendly slug for the media Example: bakuman.
-        external_ids (ExternalId): Map of external IDs keyed by source. Only sources with values are included.
+        external_ids (ExternalId): External IDs for this media, keyed by source. Every source appears as a key; absent
+            mappings are represented with a null value.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
         name_en (str): English name of the media Example: Bakuman..
-        airing_format (str): Format of the media release (e.g., TV, OVA, Movie) Example: TV.
-        airing_status (str): Current airing status (FINISHED, RELEASING, NOT_YET_RELEASED, CANCELLED) Example: FINISHED.
+        airing_format (MediaAiringFormat): Format of the media release Example: TV.
+        airing_status (MediaAiringStatus): Current airing status Example: FINISHED.
         genres (list[str]): List of genres associated with the media Example: ['Comedy', 'Drama', 'Romance', 'Slice of
             Life'].
         cover_url (str): Full URL to the cover image Example: https://cdn.example.com/media/anime/bakuman/cover.webp.
         banner_url (str): Full URL to the banner image Example: https://cdn.example.com/media/anime/bakuman/banner.webp.
         start_date (datetime.date): Start date of the media (first airing/release) Example: 2010-10-02.
+        end_date (datetime.date | None): End date of the media (last airing/release) Example: 2011-04-02.
         category (Category): Media category type Example: ANIME.
-        segment_count (int): Total number of subtitle segments available
+        segment_count (int): Total number of subtitle segments available Example: 1234.
         episode_count (int): Total number of episodes available Example: 25.
-        season_name (str): Airing season label for the media Example: FALL.
+        studio (None | str): Animation studio that produced the media Example: J.C.STAFF.
+        season_name (MediaSeasonName): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
-        end_date (datetime.date | None | Unset): End date of the media (last airing/release) Example: 2011-04-02.
-        studio (None | str | Unset): Animation studio that produced the media Example: J.C.STAFF.
-        characters (list[MediaCharacter] | Unset): Characters appearing in the media with their voice actors
     """
 
-    id: int
-    public_id: str
+    media_public_id: str
     slug: str
     external_ids: ExternalId
     name_ja: str
     name_romaji: str
     name_en: str
-    airing_format: str
-    airing_status: str
+    airing_format: MediaAiringFormat
+    airing_status: MediaAiringStatus
     genres: list[str]
     cover_url: str
     banner_url: str
     start_date: datetime.date
+    end_date: datetime.date | None
     category: Category
     segment_count: int
     episode_count: int
-    season_name: str
+    studio: None | str
+    season_name: MediaSeasonName
     season_year: int
-    end_date: datetime.date | None | Unset = UNSET
-    studio: None | str | Unset = UNSET
-    characters: list[MediaCharacter] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id = self.id
-
-        public_id = self.public_id
+        media_public_id = self.media_public_id
 
         slug = self.slug
 
@@ -86,9 +82,9 @@ class Media:
 
         name_en = self.name_en
 
-        airing_format = self.airing_format
+        airing_format = self.airing_format.value
 
-        airing_status = self.airing_status
+        airing_status = self.airing_status.value
 
         genres = self.genres
 
@@ -98,43 +94,30 @@ class Media:
 
         start_date = self.start_date.isoformat()
 
+        end_date: None | str
+        if isinstance(self.end_date, datetime.date):
+            end_date = self.end_date.isoformat()
+        else:
+            end_date = self.end_date
+
         category = self.category.value
 
         segment_count = self.segment_count
 
         episode_count = self.episode_count
 
-        season_name = self.season_name
+        studio: None | str
+        studio = self.studio
+
+        season_name = self.season_name.value
 
         season_year = self.season_year
-
-        end_date: None | str | Unset
-        if isinstance(self.end_date, Unset):
-            end_date = UNSET
-        elif isinstance(self.end_date, datetime.date):
-            end_date = self.end_date.isoformat()
-        else:
-            end_date = self.end_date
-
-        studio: None | str | Unset
-        if isinstance(self.studio, Unset):
-            studio = UNSET
-        else:
-            studio = self.studio
-
-        characters: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.characters, Unset):
-            characters = []
-            for characters_item_data in self.characters:
-                characters_item = characters_item_data.to_dict()
-                characters.append(characters_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "id": id,
-                "publicId": public_id,
+                "mediaPublicId": media_public_id,
                 "slug": slug,
                 "externalIds": external_ids,
                 "nameJa": name_ja,
@@ -146,31 +129,24 @@ class Media:
                 "coverUrl": cover_url,
                 "bannerUrl": banner_url,
                 "startDate": start_date,
+                "endDate": end_date,
                 "category": category,
                 "segmentCount": segment_count,
                 "episodeCount": episode_count,
+                "studio": studio,
                 "seasonName": season_name,
                 "seasonYear": season_year,
             }
         )
-        if end_date is not UNSET:
-            field_dict["endDate"] = end_date
-        if studio is not UNSET:
-            field_dict["studio"] = studio
-        if characters is not UNSET:
-            field_dict["characters"] = characters
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.external_id import ExternalId
-        from ..models.media_character import MediaCharacter
 
         _src = dict(src_dict)
-        id = _src.pop("id")
-
-        public_id = _src.pop("publicId")
+        media_public_id = _src.pop("mediaPublicId")
 
         slug = _src.pop("slug")
 
@@ -182,9 +158,9 @@ class Media:
 
         name_en = _src.pop("nameEn")
 
-        airing_format = _src.pop("airingFormat")
+        airing_format = MediaAiringFormat(_src.pop("airingFormat"))
 
-        airing_status = _src.pop("airingStatus")
+        airing_status = MediaAiringStatus(_src.pop("airingStatus"))
 
         genres = cast(list[str], _src.pop("genres"))
 
@@ -194,20 +170,8 @@ class Media:
 
         start_date = isoparse(_src.pop("startDate")).date()
 
-        category = Category(_src.pop("category"))
-
-        segment_count = _src.pop("segmentCount")
-
-        episode_count = _src.pop("episodeCount")
-
-        season_name = _src.pop("seasonName")
-
-        season_year = _src.pop("seasonYear")
-
-        def _parse_end_date(data: object) -> datetime.date | None | Unset:
+        def _parse_end_date(data: object) -> datetime.date | None:
             if data is None:
-                return data
-            if isinstance(data, Unset):
                 return data
             try:
                 if not isinstance(data, str):
@@ -217,31 +181,29 @@ class Media:
                 return end_date_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(datetime.date | None | Unset, data)
+            return cast(datetime.date | None, data)
 
-        end_date = _parse_end_date(_src.pop("endDate", UNSET))
+        end_date = _parse_end_date(_src.pop("endDate"))
 
-        def _parse_studio(data: object) -> None | str | Unset:
+        category = Category(_src.pop("category"))
+
+        segment_count = _src.pop("segmentCount")
+
+        episode_count = _src.pop("episodeCount")
+
+        def _parse_studio(data: object) -> None | str:
             if data is None:
                 return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
+            return cast(None | str, data)
 
-        studio = _parse_studio(_src.pop("studio", UNSET))
+        studio = _parse_studio(_src.pop("studio"))
 
-        _characters = _src.pop("characters", UNSET)
-        characters: list[MediaCharacter] | Unset = UNSET
-        if _characters is not UNSET:
-            characters = []
-            for characters_item_data in _characters:
-                characters_item = MediaCharacter.from_dict(characters_item_data)
+        season_name = MediaSeasonName(_src.pop("seasonName"))
 
-                characters.append(characters_item)
+        season_year = _src.pop("seasonYear")
 
         media = cls(
-            id=id,
-            public_id=public_id,
+            media_public_id=media_public_id,
             slug=slug,
             external_ids=external_ids,
             name_ja=name_ja,
@@ -253,14 +215,13 @@ class Media:
             cover_url=cover_url,
             banner_url=banner_url,
             start_date=start_date,
+            end_date=end_date,
             category=category,
             segment_count=segment_count,
             episode_count=episode_count,
+            studio=studio,
             season_name=season_name,
             season_year=season_year,
-            end_date=end_date,
-            studio=studio,
-            characters=characters,
         )
 
         media.additional_properties = _src

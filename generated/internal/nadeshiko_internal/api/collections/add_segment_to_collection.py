@@ -6,7 +6,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.add_segment_to_collection_body import AddSegmentToCollectionBody
+from ...models.add_segment_to_collection_request import AddSegmentToCollectionRequest
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_403 import Error403
@@ -17,16 +17,16 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    collection_public_id: str,
     *,
-    body: AddSegmentToCollectionBody,
+    body: AddSegmentToCollectionRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/collections/{id}/segments".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/collections/{collection_public_id}/segments".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
         ),
     }
 
@@ -93,18 +93,18 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddSegmentToCollectionBody,
+    body: AddSegmentToCollectionRequest,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Add segment to collection
 
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (AddSegmentToCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (AddSegmentToCollectionRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,7 +115,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        collection_public_id=collection_public_id,
         body=body,
     )
 
@@ -127,18 +127,18 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddSegmentToCollectionBody,
+    body: AddSegmentToCollectionRequest,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Add segment to collection
 
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (AddSegmentToCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (AddSegmentToCollectionRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,25 +149,25 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        collection_public_id=collection_public_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddSegmentToCollectionBody,
+    body: AddSegmentToCollectionRequest,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Add segment to collection
 
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (AddSegmentToCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (AddSegmentToCollectionRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -178,7 +178,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        collection_public_id=collection_public_id,
         body=body,
     )
 
@@ -188,18 +188,18 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddSegmentToCollectionBody,
+    body: AddSegmentToCollectionRequest,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Add segment to collection
 
      Adds a segment to a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (AddSegmentToCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (AddSegmentToCollectionRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -211,7 +211,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            collection_public_id=collection_public_id,
             client=client,
             body=body,
         )

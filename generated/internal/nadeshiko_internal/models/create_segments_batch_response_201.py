@@ -14,7 +14,7 @@ class CreateSegmentsBatchResponse201:
     """
     Attributes:
         created (int): Number of segments successfully created Example: 700.
-        skipped (int): Number of segments skipped due to duplicate UUIDs Example: 15.
+        skipped (int): Number of segments skipped because they already exist Example: 15.
     """
 
     created: int

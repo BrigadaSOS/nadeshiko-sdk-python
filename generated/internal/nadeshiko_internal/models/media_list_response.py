@@ -7,9 +7,9 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
+    from ..models.cursor_pagination import CursorPagination
     from ..models.media import Media
-    from ..models.media_list_response_stats import MediaListResponseStats
-    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+    from ..models.media_global_stats import MediaGlobalStats
 
 
 T = TypeVar("T", bound="MediaListResponse")
@@ -20,13 +20,13 @@ class MediaListResponse:
     """
     Attributes:
         media (list[Media]):
-        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
-        stats (MediaListResponseStats):
+        pagination (CursorPagination): Opaque cursor pagination metadata
+        stats (MediaGlobalStats): Global corpus totals across all media
     """
 
     media: list[Media]
-    pagination: OpaqueCursorPagination
-    stats: MediaListResponseStats
+    pagination: CursorPagination
+    stats: MediaGlobalStats
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -53,9 +53,9 @@ class MediaListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.cursor_pagination import CursorPagination
         from ..models.media import Media
-        from ..models.media_list_response_stats import MediaListResponseStats
-        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+        from ..models.media_global_stats import MediaGlobalStats
 
         _src = dict(src_dict)
         media = []
@@ -65,9 +65,9 @@ class MediaListResponse:
 
             media.append(media_item)
 
-        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
+        pagination = CursorPagination.from_dict(_src.pop("pagination"))
 
-        stats = MediaListResponseStats.from_dict(_src.pop("stats"))
+        stats = MediaGlobalStats.from_dict(_src.pop("stats"))
 
         media_list_response = cls(
             media=media,

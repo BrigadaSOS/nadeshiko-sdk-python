@@ -19,8 +19,8 @@ class UserActivity:
     Attributes:
         id (int):
         activity_type (ActivityType): Type of user activity
-        segment_id (None | str):
-        media_id (int | None):
+        segment_public_id (None | str):
+        media_public_id (None | str):
         search_query (None | str):
         media_name (None | str):
         japanese_text (None | str):
@@ -29,8 +29,8 @@ class UserActivity:
 
     id: int
     activity_type: ActivityType
-    segment_id: None | str
-    media_id: int | None
+    segment_public_id: None | str
+    media_public_id: None | str
     search_query: None | str
     media_name: None | str
     japanese_text: None | str
@@ -42,11 +42,11 @@ class UserActivity:
 
         activity_type = self.activity_type.value
 
-        segment_id: None | str
-        segment_id = self.segment_id
+        segment_public_id: None | str
+        segment_public_id = self.segment_public_id
 
-        media_id: int | None
-        media_id = self.media_id
+        media_public_id: None | str
+        media_public_id = self.media_public_id
 
         search_query: None | str
         search_query = self.search_query
@@ -65,8 +65,8 @@ class UserActivity:
             {
                 "id": id,
                 "activityType": activity_type,
-                "segmentId": segment_id,
-                "mediaId": media_id,
+                "segmentPublicId": segment_public_id,
+                "mediaPublicId": media_public_id,
                 "searchQuery": search_query,
                 "mediaName": media_name,
                 "japaneseText": japanese_text,
@@ -83,19 +83,19 @@ class UserActivity:
 
         activity_type = ActivityType(_src.pop("activityType"))
 
-        def _parse_segment_id(data: object) -> None | str:
+        def _parse_segment_public_id(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        segment_id = _parse_segment_id(_src.pop("segmentId"))
+        segment_public_id = _parse_segment_public_id(_src.pop("segmentPublicId"))
 
-        def _parse_media_id(data: object) -> int | None:
+        def _parse_media_public_id(data: object) -> None | str:
             if data is None:
                 return data
-            return cast(int | None, data)
+            return cast(None | str, data)
 
-        media_id = _parse_media_id(_src.pop("mediaId"))
+        media_public_id = _parse_media_public_id(_src.pop("mediaPublicId"))
 
         def _parse_search_query(data: object) -> None | str:
             if data is None:
@@ -123,8 +123,8 @@ class UserActivity:
         user_activity = cls(
             id=id,
             activity_type=activity_type,
-            segment_id=segment_id,
-            media_id=media_id,
+            segment_public_id=segment_public_id,
+            media_public_id=media_public_id,
             search_query=search_query,
             media_name=media_name,
             japanese_text=japanese_text,

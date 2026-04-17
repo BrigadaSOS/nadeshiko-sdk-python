@@ -16,13 +16,13 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    collection_public_id: str,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/collections/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/collections/{collection_public_id}".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
         ),
     }
 
@@ -84,7 +84,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -93,7 +93,7 @@ def sync_detailed(
      Deletes a collection and all its segment entries. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -104,7 +104,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        collection_public_id=collection_public_id,
     )
 
     response = client.get_httpx_client().request(
@@ -115,7 +115,7 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -124,7 +124,7 @@ def sync(
      Deletes a collection and all its segment entries. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,13 +135,13 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        collection_public_id=collection_public_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -150,7 +150,7 @@ async def asyncio_detailed(
      Deletes a collection and all its segment entries. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,7 +161,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        collection_public_id=collection_public_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -170,7 +170,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -179,7 +179,7 @@ async def asyncio(
      Deletes a collection and all its segment entries. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -191,7 +191,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            collection_public_id=collection_public_id,
             client=client,
         )
     ).parsed

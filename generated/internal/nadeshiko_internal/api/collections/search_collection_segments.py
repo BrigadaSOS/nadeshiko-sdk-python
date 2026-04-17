@@ -12,33 +12,30 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
+from ...models.search_request import SearchRequest
 from ...models.search_response import SearchResponse
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    collection_public_id: str,
     *,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
+    body: SearchRequest,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    params["cursor"] = cursor
-
-    params["take"] = take
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+    headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
-        "method": "get",
-        "url": "/v1/collections/{id}/search".format(
-            id=quote(str(id), safe=""),
+        "method": "post",
+        "url": "/v1/collections/{collection_public_id}/search".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
         ),
-        "params": params,
     }
 
+    _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -98,21 +95,23 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
+    body: SearchRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SearchResponse]:
-    """Search collection segments
+    """Search segments in a collection
 
-     Returns collection segments in search-response format with pagination.
-    Reshapes the collection data: extracts segment results, includes media, computes pagination.
+     Searches within a collection.
+
+    All search semantics, query parsing, sorting, filters, pagination, and `include`
+    expansions behave the same as `/v1/search`, with one additional constraint:
+    results are limited to segments already present in the target collection.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -123,9 +122,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        cursor=cursor,
-        take=take,
+        collection_public_id=collection_public_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -136,21 +134,23 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
+    body: SearchRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SearchResponse | None:
-    """Search collection segments
+    """Search segments in a collection
 
-     Returns collection segments in search-response format with pagination.
-    Reshapes the collection data: extracts segment results, includes media, computes pagination.
+     Searches within a collection.
+
+    All search semantics, query parsing, sorting, filters, pagination, and `include`
+    expansions behave the same as `/v1/search`, with one additional constraint:
+    results are limited to segments already present in the target collection.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,29 +161,30 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        collection_public_id=collection_public_id,
         client=client,
-        cursor=cursor,
-        take=take,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
+    body: SearchRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SearchResponse]:
-    """Search collection segments
+    """Search segments in a collection
 
-     Returns collection segments in search-response format with pagination.
-    Reshapes the collection data: extracts segment results, includes media, computes pagination.
+     Searches within a collection.
+
+    All search semantics, query parsing, sorting, filters, pagination, and `include`
+    expansions behave the same as `/v1/search`, with one additional constraint:
+    results are limited to segments already present in the target collection.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -194,9 +195,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        cursor=cursor,
-        take=take,
+        collection_public_id=collection_public_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -205,21 +205,23 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    cursor: str | Unset = UNSET,
-    take: int | Unset = 20,
+    body: SearchRequest,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | SearchResponse | None:
-    """Search collection segments
+    """Search segments in a collection
 
-     Returns collection segments in search-response format with pagination.
-    Reshapes the collection data: extracts segment results, includes media, computes pagination.
+     Searches within a collection.
+
+    All search semantics, query parsing, sorting, filters, pagination, and `include`
+    expansions behave the same as `/v1/search`, with one additional constraint:
+    results are limited to segments already present in the target collection.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
-        take (int | Unset):  Default: 20. Example: 20.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -231,9 +233,8 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            collection_public_id=collection_public_id,
             client=client,
-            cursor=cursor,
-            take=take,
+            body=body,
         )
     ).parsed

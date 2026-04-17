@@ -7,7 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+    from ..models.cursor_pagination import CursorPagination
     from ..models.user_activity import UserActivity
 
 
@@ -19,11 +19,11 @@ class ListUserActivityResponse200:
     """
     Attributes:
         activities (list[UserActivity]):
-        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+        pagination (CursorPagination): Opaque cursor pagination metadata
     """
 
     activities: list[UserActivity]
-    pagination: OpaqueCursorPagination
+    pagination: CursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +47,7 @@ class ListUserActivityResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+        from ..models.cursor_pagination import CursorPagination
         from ..models.user_activity import UserActivity
 
         _src = dict(src_dict)
@@ -58,7 +58,7 @@ class ListUserActivityResponse200:
 
             activities.append(activities_item)
 
-        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
+        pagination = CursorPagination.from_dict(_src.pop("pagination"))
 
         list_user_activity_response_200 = cls(
             activities=activities,

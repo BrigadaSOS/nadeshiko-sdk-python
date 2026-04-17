@@ -19,7 +19,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: str,
+    media_public_id: str,
     *,
     body: EpisodeCreateRequest,
 ) -> dict[str, Any]:
@@ -27,8 +27,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v1/media/{media_id}/episodes".format(
-            media_id=quote(str(media_id), safe=""),
+        "url": "/v1/media/{media_public_id}/episodes".format(
+            media_public_id=quote(str(media_public_id), safe=""),
         ),
     }
 
@@ -101,7 +101,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -111,7 +111,7 @@ def sync_detailed(
      Creates a new episode for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -123,7 +123,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         body=body,
     )
 
@@ -135,7 +135,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -145,7 +145,7 @@ def sync(
      Creates a new episode for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -157,14 +157,14 @@ def sync(
     """
 
     return sync_detailed(
-        media_id=media_id,
+        media_public_id=media_public_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -174,7 +174,7 @@ async def asyncio_detailed(
      Creates a new episode for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -186,7 +186,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         body=body,
     )
 
@@ -196,7 +196,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: EpisodeCreateRequest,
@@ -206,7 +206,7 @@ async def asyncio(
      Creates a new episode for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         body (EpisodeCreateRequest):
 
     Raises:
@@ -219,7 +219,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
+            media_public_id=media_public_id,
             client=client,
             body=body,
         )

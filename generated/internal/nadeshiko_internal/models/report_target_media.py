@@ -16,7 +16,7 @@ class ReportTargetMedia:
     """
     Attributes:
         type_ (ReportTargetMediaType): Report target type Example: MEDIA.
-        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
+        media_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
     """
 
     type_: ReportTargetMediaType

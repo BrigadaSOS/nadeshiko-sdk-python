@@ -7,27 +7,27 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.collection import Collection
+from ...models.collection_update_request import CollectionUpdateRequest
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.update_collection_body import UpdateCollectionBody
 from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    collection_public_id: str,
     *,
-    body: UpdateCollectionBody,
+    body: CollectionUpdateRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/collections/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/collections/{collection_public_id}".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
         ),
     }
 
@@ -95,18 +95,18 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionBody,
+    body: CollectionUpdateRequest,
 ) -> Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Update collection metadata
 
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (UpdateCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (CollectionUpdateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -117,7 +117,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        collection_public_id=collection_public_id,
         body=body,
     )
 
@@ -129,18 +129,18 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionBody,
+    body: CollectionUpdateRequest,
 ) -> Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Update collection metadata
 
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (UpdateCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (CollectionUpdateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,25 +151,25 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        collection_public_id=collection_public_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionBody,
+    body: CollectionUpdateRequest,
 ) -> Response[Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Update collection metadata
 
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (UpdateCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (CollectionUpdateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -180,7 +180,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        collection_public_id=collection_public_id,
         body=body,
     )
 
@@ -190,18 +190,18 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    collection_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionBody,
+    body: CollectionUpdateRequest,
 ) -> Collection | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Update collection metadata
 
      Updates collection name or visibility. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        body (UpdateCollectionBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        body (CollectionUpdateRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -213,7 +213,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            collection_public_id=collection_public_id,
             client=client,
             body=body,
         )

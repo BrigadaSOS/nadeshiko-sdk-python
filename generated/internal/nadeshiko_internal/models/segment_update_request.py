@@ -7,7 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.content_rating import ContentRating
-from ..models.segment_update_request_status import SegmentUpdateRequestStatus
+from ..models.segment_status import SegmentStatus
 from ..models.segment_update_request_storage import SegmentUpdateRequestStorage
 from ..types import UNSET, Unset
 
@@ -32,7 +32,7 @@ class SegmentUpdateRequest:
 
     Attributes:
         position (int | Unset): Position of the segment within the episode Example: 1133.
-        status (SegmentUpdateRequestStatus | Unset): Segment status Example: ACTIVE.
+        status (SegmentStatus | Unset): Segment status Example: ACTIVE.
         start_time_ms (int | Unset): Start time of the segment in milliseconds from the beginning of the episode
             Example: 2007255.
         end_time_ms (int | Unset): End time of the segment in milliseconds from the beginning of the episode Example:
@@ -50,7 +50,7 @@ class SegmentUpdateRequest:
     """
 
     position: int | Unset = UNSET
-    status: SegmentUpdateRequestStatus | Unset = UNSET
+    status: SegmentStatus | Unset = UNSET
     start_time_ms: int | Unset = UNSET
     end_time_ms: int | Unset = UNSET
     text_ja: SegmentUpdateRequestTextJa | Unset = UNSET
@@ -165,11 +165,11 @@ class SegmentUpdateRequest:
         position = _src.pop("position", UNSET)
 
         _status = _src.pop("status", UNSET)
-        status: SegmentUpdateRequestStatus | Unset
+        status: SegmentStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
-            status = SegmentUpdateRequestStatus(_status)
+            status = SegmentStatus(_status)
 
         start_time_ms = _src.pop("startTimeMs", UNSET)
 

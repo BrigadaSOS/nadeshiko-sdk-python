@@ -11,7 +11,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.search_filters import SearchFilters
-    from ..models.search_multiple_request_query import SearchMultipleRequestQuery
+    from ..models.search_multiple_query import SearchMultipleQuery
 
 
 T = TypeVar("T", bound="SearchMultipleRequest")
@@ -21,12 +21,12 @@ T = TypeVar("T", bound="SearchMultipleRequest")
 class SearchMultipleRequest:
     """
     Attributes:
-        query (SearchMultipleRequestQuery): What to search for
+        query (SearchMultipleQuery): What to search for (multiple words)
         filters (SearchFilters | Unset): Search filters for narrowing segment results
-        include (list[IncludeExpansion] | Unset): Resources to expand in the response includes block
+        include (list[IncludeExpansion] | Unset): Optional resources to expand in the response `includes` block
     """
 
-    query: SearchMultipleRequestQuery
+    query: SearchMultipleQuery
     filters: SearchFilters | Unset = UNSET
     include: list[IncludeExpansion] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -62,10 +62,10 @@ class SearchMultipleRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.search_filters import SearchFilters
-        from ..models.search_multiple_request_query import SearchMultipleRequestQuery
+        from ..models.search_multiple_query import SearchMultipleQuery
 
         _src = dict(src_dict)
-        query = SearchMultipleRequestQuery.from_dict(_src.pop("query"))
+        query = SearchMultipleQuery.from_dict(_src.pop("query"))
 
         _filters = _src.pop("filters", UNSET)
         filters: SearchFilters | Unset

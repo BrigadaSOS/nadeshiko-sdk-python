@@ -16,7 +16,7 @@ class ReportTargetEpisode:
     """
     Attributes:
         type_ (ReportTargetEpisodeType): Report target type Example: EPISODE.
-        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
+        media_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
         episode_number (int): Episode number this report targets Example: 5.
     """
 

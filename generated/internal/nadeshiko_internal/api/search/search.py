@@ -12,12 +12,12 @@ from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.search_request import SearchRequest
 from ...models.search_response import SearchResponse
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: SearchRequest | Unset = UNSET,
+    body: SearchRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -26,8 +26,7 @@ def _get_kwargs(
         "url": "/v1/search",
     }
 
-    if not isinstance(body, Unset):
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -88,7 +87,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: SearchRequest | Unset = UNSET,
+    body: SearchRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
     r"""Search segments by query
 
@@ -109,15 +108,16 @@ def sync_detailed(
     **Input Type Handling**
     | Input Type | Search Strategy |
     |------------|-----------------|
-    | **Romaji** (`go`, `taberu`) | Boosts EN/ES translations, reading form (pronunciation), and base
-    form |
-    | **Kanji** (`食べる`, `彼女`) | Searches content and base form (dictionary form). Ignores matches by
-    reading (homophones). |
-    | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
-    | **English/Spanish** | Direct translation search |
+    | **Kanji** (`食べる`, `彼女`) | Matches against surface form, dictionary form, and normalized form.
+    Reading-only field is disabled to avoid homophones. |
+    | **Kana** (`たべる`, `かのじょ`) | Matches against surface form, dictionary form, normalized form, and
+    reading form. |
+    | **Romaji / English / Spanish** (`go`, `taberu`, `good morning`) | Boosts EN/ES translations. Also
+    matches kana (reading) and normalized Japanese forms as fallbacks. |
 
     Args:
-        body (SearchRequest | Unset):
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -141,7 +141,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: SearchRequest | Unset = UNSET,
+    body: SearchRequest,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
     r"""Search segments by query
 
@@ -162,15 +162,16 @@ def sync(
     **Input Type Handling**
     | Input Type | Search Strategy |
     |------------|-----------------|
-    | **Romaji** (`go`, `taberu`) | Boosts EN/ES translations, reading form (pronunciation), and base
-    form |
-    | **Kanji** (`食べる`, `彼女`) | Searches content and base form (dictionary form). Ignores matches by
-    reading (homophones). |
-    | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
-    | **English/Spanish** | Direct translation search |
+    | **Kanji** (`食べる`, `彼女`) | Matches against surface form, dictionary form, and normalized form.
+    Reading-only field is disabled to avoid homophones. |
+    | **Kana** (`たべる`, `かのじょ`) | Matches against surface form, dictionary form, normalized form, and
+    reading form. |
+    | **Romaji / English / Spanish** (`go`, `taberu`, `good morning`) | Boosts EN/ES translations. Also
+    matches kana (reading) and normalized Japanese forms as fallbacks. |
 
     Args:
-        body (SearchRequest | Unset):
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,7 +190,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: SearchRequest | Unset = UNSET,
+    body: SearchRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
     r"""Search segments by query
 
@@ -210,15 +211,16 @@ async def asyncio_detailed(
     **Input Type Handling**
     | Input Type | Search Strategy |
     |------------|-----------------|
-    | **Romaji** (`go`, `taberu`) | Boosts EN/ES translations, reading form (pronunciation), and base
-    form |
-    | **Kanji** (`食べる`, `彼女`) | Searches content and base form (dictionary form). Ignores matches by
-    reading (homophones). |
-    | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
-    | **English/Spanish** | Direct translation search |
+    | **Kanji** (`食べる`, `彼女`) | Matches against surface form, dictionary form, and normalized form.
+    Reading-only field is disabled to avoid homophones. |
+    | **Kana** (`たべる`, `かのじょ`) | Matches against surface form, dictionary form, normalized form, and
+    reading form. |
+    | **Romaji / English / Spanish** (`go`, `taberu`, `good morning`) | Boosts EN/ES translations. Also
+    matches kana (reading) and normalized Japanese forms as fallbacks. |
 
     Args:
-        body (SearchRequest | Unset):
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -240,7 +242,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: SearchRequest | Unset = UNSET,
+    body: SearchRequest,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
     r"""Search segments by query
 
@@ -261,15 +263,16 @@ async def asyncio(
     **Input Type Handling**
     | Input Type | Search Strategy |
     |------------|-----------------|
-    | **Romaji** (`go`, `taberu`) | Boosts EN/ES translations, reading form (pronunciation), and base
-    form |
-    | **Kanji** (`食べる`, `彼女`) | Searches content and base form (dictionary form). Ignores matches by
-    reading (homophones). |
-    | **Kana** (`たべる`, `かのじょ`) | Standard search across content, base form, and reading form |
-    | **English/Spanish** | Direct translation search |
+    | **Kanji** (`食べる`, `彼女`) | Matches against surface form, dictionary form, and normalized form.
+    Reading-only field is disabled to avoid homophones. |
+    | **Kana** (`たべる`, `かのじょ`) | Matches against surface form, dictionary form, normalized form, and
+    reading form. |
+    | **Romaji / English / Spanish** (`go`, `taberu`, `good morning`) | Boosts EN/ES translations. Also
+    matches kana (reading) and normalized Japanese forms as fallbacks. |
 
     Args:
-        body (SearchRequest | Unset):
+        body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
+            browse (segments matching filters only).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

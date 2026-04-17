@@ -7,8 +7,10 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.delete_user_activity_by_date_response_200 import DeleteUserActivityByDateResponse200
+from ...models.affected_count_response import AffectedCountResponse
 from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...types import Response
 
@@ -29,9 +31,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> DeleteUserActivityByDateResponse200 | Error401 | Error500 | None:
+) -> AffectedCountResponse | Error401 | Error403 | Error429 | Error500 | None:
     if response.status_code == 200:
-        response_200 = DeleteUserActivityByDateResponse200.from_dict(response.json())
+        response_200 = AffectedCountResponse.from_dict(response.json())
 
         return response_200
 
@@ -39,6 +41,16 @@ def _parse_response(
         response_401 = Error401.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
 
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
@@ -53,7 +65,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[DeleteUserActivityByDateResponse200 | Error401 | Error500]:
+) -> Response[AffectedCountResponse | Error401 | Error403 | Error429 | Error500]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,7 +78,7 @@ def sync_detailed(
     date: datetime.date,
     *,
     client: AuthenticatedClient,
-) -> Response[DeleteUserActivityByDateResponse200 | Error401 | Error500]:
+) -> Response[AffectedCountResponse | Error401 | Error403 | Error429 | Error500]:
     """Delete all activity for a specific date
 
      Deletes all activity records for the authenticated user on the given date.
@@ -79,7 +91,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[DeleteUserActivityByDateResponse200 | Error401 | Error500]
+        Response[AffectedCountResponse | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -97,7 +109,7 @@ def sync(
     date: datetime.date,
     *,
     client: AuthenticatedClient,
-) -> DeleteUserActivityByDateResponse200 | Error401 | Error500 | None:
+) -> AffectedCountResponse | Error401 | Error403 | Error429 | Error500 | None:
     """Delete all activity for a specific date
 
      Deletes all activity records for the authenticated user on the given date.
@@ -110,7 +122,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        DeleteUserActivityByDateResponse200 | Error401 | Error500
+        AffectedCountResponse | Error401 | Error403 | Error429 | Error500
     """
 
     return sync_detailed(
@@ -123,7 +135,7 @@ async def asyncio_detailed(
     date: datetime.date,
     *,
     client: AuthenticatedClient,
-) -> Response[DeleteUserActivityByDateResponse200 | Error401 | Error500]:
+) -> Response[AffectedCountResponse | Error401 | Error403 | Error429 | Error500]:
     """Delete all activity for a specific date
 
      Deletes all activity records for the authenticated user on the given date.
@@ -136,7 +148,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[DeleteUserActivityByDateResponse200 | Error401 | Error500]
+        Response[AffectedCountResponse | Error401 | Error403 | Error429 | Error500]
     """
 
     kwargs = _get_kwargs(
@@ -152,7 +164,7 @@ async def asyncio(
     date: datetime.date,
     *,
     client: AuthenticatedClient,
-) -> DeleteUserActivityByDateResponse200 | Error401 | Error500 | None:
+) -> AffectedCountResponse | Error401 | Error403 | Error429 | Error500 | None:
     """Delete all activity for a specific date
 
      Deletes all activity records for the authenticated user on the given date.
@@ -165,7 +177,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        DeleteUserActivityByDateResponse200 | Error401 | Error500
+        AffectedCountResponse | Error401 | Error403 | Error429 | Error500
     """
 
     return (

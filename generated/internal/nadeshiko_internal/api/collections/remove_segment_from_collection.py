@@ -16,15 +16,15 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v1/collections/{id}/segments/{segment_id}".format(
-            id=quote(str(id), safe=""),
-            segment_id=quote(str(segment_id), safe=""),
+        "url": "/v1/collections/{collection_public_id}/segments/{segment_public_id}".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
+            segment_public_id=quote(str(segment_public_id), safe=""),
         ),
     }
 
@@ -86,8 +86,8 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -96,8 +96,8 @@ def sync_detailed(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -108,8 +108,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        segment_id=segment_id,
+        collection_public_id=collection_public_id,
+        segment_public_id=segment_public_id,
     )
 
     response = client.get_httpx_client().request(
@@ -120,8 +120,8 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -130,8 +130,8 @@ def sync(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -142,15 +142,15 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
-        segment_id=segment_id,
+        collection_public_id=collection_public_id,
+        segment_public_id=segment_public_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
@@ -159,8 +159,8 @@ async def asyncio_detailed(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -171,8 +171,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        segment_id=segment_id,
+        collection_public_id=collection_public_id,
+        segment_public_id=segment_public_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -181,8 +181,8 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
@@ -191,8 +191,8 @@ async def asyncio(
      Removes a segment from a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,8 +204,8 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
-            segment_id=segment_id,
+            collection_public_id=collection_public_id,
+            segment_public_id=segment_public_id,
             client=client,
         )
     ).parsed

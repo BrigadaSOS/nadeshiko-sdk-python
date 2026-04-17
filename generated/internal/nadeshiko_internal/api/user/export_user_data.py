@@ -6,6 +6,8 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.user_export_response import UserExportResponse
 from ...types import Response
@@ -23,7 +25,7 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error401 | Error500 | UserExportResponse | None:
+) -> Error401 | Error403 | Error429 | Error500 | UserExportResponse | None:
     if response.status_code == 200:
         response_200 = UserExportResponse.from_dict(response.json())
 
@@ -33,6 +35,16 @@ def _parse_response(
         response_401 = Error401.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
 
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
@@ -47,7 +59,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error401 | Error500 | UserExportResponse]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | UserExportResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -59,7 +71,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[Error401 | Error500 | UserExportResponse]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | UserExportResponse]:
     """Export all user data
 
      Returns a full JSON export of all user-related data for GDPR data portability.
@@ -70,7 +82,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error500 | UserExportResponse]
+        Response[Error401 | Error403 | Error429 | Error500 | UserExportResponse]
     """
 
     kwargs = _get_kwargs()
@@ -85,7 +97,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-) -> Error401 | Error500 | UserExportResponse | None:
+) -> Error401 | Error403 | Error429 | Error500 | UserExportResponse | None:
     """Export all user data
 
      Returns a full JSON export of all user-related data for GDPR data portability.
@@ -96,7 +108,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error500 | UserExportResponse
+        Error401 | Error403 | Error429 | Error500 | UserExportResponse
     """
 
     return sync_detailed(
@@ -107,7 +119,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[Error401 | Error500 | UserExportResponse]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | UserExportResponse]:
     """Export all user data
 
      Returns a full JSON export of all user-related data for GDPR data portability.
@@ -118,7 +130,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error401 | Error500 | UserExportResponse]
+        Response[Error401 | Error403 | Error429 | Error500 | UserExportResponse]
     """
 
     kwargs = _get_kwargs()
@@ -131,7 +143,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-) -> Error401 | Error500 | UserExportResponse | None:
+) -> Error401 | Error403 | Error429 | Error500 | UserExportResponse | None:
     """Export all user data
 
      Returns a full JSON export of all user-related data for GDPR data portability.
@@ -142,7 +154,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error401 | Error500 | UserExportResponse
+        Error401 | Error403 | Error429 | Error500 | UserExportResponse
     """
 
     return (

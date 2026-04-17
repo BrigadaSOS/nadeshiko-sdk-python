@@ -18,7 +18,7 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
+    media_public_id: str,
     *,
     body: MediaUpdateRequest,
 ) -> dict[str, Any]:
@@ -26,8 +26,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/media/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/media/{media_public_id}".format(
+            media_public_id=quote(str(media_public_id), safe=""),
         ),
     }
 
@@ -95,7 +95,7 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -105,7 +105,7 @@ def sync_detailed(
      Updates an existing media entry. Only provided fields will be updated.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        media_public_id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -118,7 +118,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        media_public_id=media_public_id,
         body=body,
     )
 
@@ -130,7 +130,7 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -140,7 +140,7 @@ def sync(
      Updates an existing media entry. Only provided fields will be updated.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        media_public_id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -153,14 +153,14 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        media_public_id=media_public_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -170,7 +170,7 @@ async def asyncio_detailed(
      Updates an existing media entry. Only provided fields will be updated.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        media_public_id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -183,7 +183,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
+        media_public_id=media_public_id,
         body=body,
     )
 
@@ -193,7 +193,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     body: MediaUpdateRequest,
@@ -203,7 +203,7 @@ async def asyncio(
      Updates an existing media entry. Only provided fields will be updated.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
+        media_public_id (str):  Example: V1StGXR8_Z5d.
         body (MediaUpdateRequest): Request body for updating an existing media entry (all fields
             optional)
 
@@ -217,7 +217,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            media_public_id=media_public_id,
             client=client,
             body=body,
         )

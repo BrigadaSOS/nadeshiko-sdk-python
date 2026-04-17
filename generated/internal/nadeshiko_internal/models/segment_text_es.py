@@ -1,12 +1,10 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="SegmentTextEs")
 
@@ -17,12 +15,13 @@ class SegmentTextEs:
     Attributes:
         content (str): Spanish translation Example: Yo soy yo, y tú eres tú..
         is_machine_translated (bool): Whether the translation was machine-translated
-        highlight (str | Unset): Spanish content with search terms highlighted
+        highlight (None | str): Spanish `content` with `<mark>` tags wrapping terms that matched a search query. Only
+            populated on segments returned from a search endpoint that matched this language.
     """
 
     content: str
     is_machine_translated: bool
-    highlight: str | Unset = UNSET
+    highlight: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,6 +29,7 @@ class SegmentTextEs:
 
         is_machine_translated = self.is_machine_translated
 
+        highlight: None | str
         highlight = self.highlight
 
         field_dict: dict[str, Any] = {}
@@ -38,10 +38,9 @@ class SegmentTextEs:
             {
                 "content": content,
                 "isMachineTranslated": is_machine_translated,
+                "highlight": highlight,
             }
         )
-        if highlight is not UNSET:
-            field_dict["highlight"] = highlight
 
         return field_dict
 
@@ -52,7 +51,12 @@ class SegmentTextEs:
 
         is_machine_translated = _src.pop("isMachineTranslated")
 
-        highlight = _src.pop("highlight", UNSET)
+        def _parse_highlight(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        highlight = _parse_highlight(_src.pop("highlight"))
 
         segment_text_es = cls(
             content=content,

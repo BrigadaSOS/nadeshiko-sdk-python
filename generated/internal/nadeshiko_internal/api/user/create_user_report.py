@@ -9,6 +9,7 @@ from ...models.create_report_request import CreateReportRequest
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_404 import Error404
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.report import Report
 from ...types import Response
@@ -35,7 +36,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error400 | Error401 | Error404 | Error500 | Report | None:
+) -> Error400 | Error401 | Error404 | Error429 | Error500 | Report | None:
     if response.status_code == 201:
         response_201 = Report.from_dict(response.json())
 
@@ -56,6 +57,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
+
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
 
@@ -69,7 +75,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error400 | Error401 | Error404 | Error500 | Report]:
+) -> Response[Error400 | Error401 | Error404 | Error429 | Error500 | Report]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,7 +88,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateReportRequest,
-) -> Response[Error400 | Error401 | Error404 | Error500 | Report]:
+) -> Response[Error400 | Error401 | Error404 | Error429 | Error500 | Report]:
     """Create report
 
      Submits a report for a segment or media entry.
@@ -95,7 +101,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error404 | Error500 | Report]
+        Response[Error400 | Error401 | Error404 | Error429 | Error500 | Report]
     """
 
     kwargs = _get_kwargs(
@@ -113,7 +119,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: CreateReportRequest,
-) -> Error400 | Error401 | Error404 | Error500 | Report | None:
+) -> Error400 | Error401 | Error404 | Error429 | Error500 | Report | None:
     """Create report
 
      Submits a report for a segment or media entry.
@@ -126,7 +132,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error404 | Error500 | Report
+        Error400 | Error401 | Error404 | Error429 | Error500 | Report
     """
 
     return sync_detailed(
@@ -139,7 +145,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: CreateReportRequest,
-) -> Response[Error400 | Error401 | Error404 | Error500 | Report]:
+) -> Response[Error400 | Error401 | Error404 | Error429 | Error500 | Report]:
     """Create report
 
      Submits a report for a segment or media entry.
@@ -152,7 +158,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error404 | Error500 | Report]
+        Response[Error400 | Error401 | Error404 | Error429 | Error500 | Report]
     """
 
     kwargs = _get_kwargs(
@@ -168,7 +174,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: CreateReportRequest,
-) -> Error400 | Error401 | Error404 | Error500 | Report | None:
+) -> Error400 | Error401 | Error404 | Error429 | Error500 | Report | None:
     """Create report
 
      Submits a report for a segment or media entry.
@@ -181,7 +187,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error404 | Error500 | Report
+        Error400 | Error401 | Error404 | Error429 | Error500 | Report
     """
 
     return (

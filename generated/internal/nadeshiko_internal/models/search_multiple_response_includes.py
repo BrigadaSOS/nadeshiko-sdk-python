@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
     from ..models.search_multiple_response_includes_media import SearchMultipleResponseIncludesMedia
 
@@ -15,24 +17,26 @@ T = TypeVar("T", bound="SearchMultipleResponseIncludes")
 
 @_attrs_define
 class SearchMultipleResponseIncludes:
-    """
+    """Optional related resources requested via `include[]`
+
     Attributes:
-        media (SearchMultipleResponseIncludesMedia): Media objects keyed by mediaId
+        media (SearchMultipleResponseIncludesMedia | Unset): Media objects keyed by mediaPublicId. Present only when
+            `include[]=media` is requested.
     """
 
-    media: SearchMultipleResponseIncludesMedia
+    media: SearchMultipleResponseIncludesMedia | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media = self.media.to_dict()
+        media: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.media, Unset):
+            media = self.media.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "media": media,
-            }
-        )
+        field_dict.update({})
+        if media is not UNSET:
+            field_dict["media"] = media
 
         return field_dict
 
@@ -43,7 +47,12 @@ class SearchMultipleResponseIncludes:
         )
 
         _src = dict(src_dict)
-        media = SearchMultipleResponseIncludesMedia.from_dict(_src.pop("media"))
+        _media = _src.pop("media", UNSET)
+        media: SearchMultipleResponseIncludesMedia | Unset
+        if isinstance(_media, Unset):
+            media = UNSET
+        else:
+            media = SearchMultipleResponseIncludesMedia.from_dict(_media)
 
         search_multiple_response_includes = cls(
             media=media,

@@ -11,7 +11,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.search_filters import SearchFilters
-    from ..models.search_stats_request_query import SearchStatsRequestQuery
+    from ..models.search_query import SearchQuery
 
 
 T = TypeVar("T", bound="SearchStatsRequest")
@@ -19,14 +19,15 @@ T = TypeVar("T", bound="SearchStatsRequest")
 
 @_attrs_define
 class SearchStatsRequest:
-    """
+    """Stats request. All fields are optional — omit `query` to get filter counts for the full corpus.
+
     Attributes:
-        query (SearchStatsRequestQuery | Unset): What to search for (omit for queryless stats)
+        query (SearchQuery | Unset): What to search for (omit for queryless browse/stats)
         filters (SearchFilters | Unset): Search filters for narrowing segment results
-        include (list[IncludeExpansion] | Unset): Resources to expand in the response includes block
+        include (list[IncludeExpansion] | Unset): Optional resources to expand in the response `includes` block
     """
 
-    query: SearchStatsRequestQuery | Unset = UNSET
+    query: SearchQuery | Unset = UNSET
     filters: SearchFilters | Unset = UNSET
     include: list[IncludeExpansion] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -62,15 +63,15 @@ class SearchStatsRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.search_filters import SearchFilters
-        from ..models.search_stats_request_query import SearchStatsRequestQuery
+        from ..models.search_query import SearchQuery
 
         _src = dict(src_dict)
         _query = _src.pop("query", UNSET)
-        query: SearchStatsRequestQuery | Unset
+        query: SearchQuery | Unset
         if isinstance(_query, Unset):
             query = UNSET
         else:
-            query = SearchStatsRequestQuery.from_dict(_query)
+            query = SearchQuery.from_dict(_query)
 
         _filters = _src.pop("filters", UNSET)
         filters: SearchFilters | Unset

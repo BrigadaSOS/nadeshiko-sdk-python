@@ -17,17 +17,13 @@ from ...types import Response
 
 
 def _get_kwargs(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
 ) -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/media/{media_id}/episodes/{episode_number}/segments/{id}".format(
-            media_id=quote(str(media_id), safe=""),
-            episode_number=quote(str(episode_number), safe=""),
-            id=quote(str(id), safe=""),
+        "url": "/v1/media/segments/{segment_public_id}".format(
+            segment_public_id=quote(str(segment_public_id), safe=""),
         ),
     }
 
@@ -90,20 +86,16 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]:
     """Get single segment
 
-     Returns a specific segment by its ID within the media/episode hierarchy.
+     Returns a specific segment by its public ID.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -114,9 +106,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
-        episode_number=episode_number,
-        id=id,
+        segment_public_id=segment_public_id,
     )
 
     response = client.get_httpx_client().request(
@@ -127,20 +117,16 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment | None:
     """Get single segment
 
-     Returns a specific segment by its ID within the media/episode hierarchy.
+     Returns a specific segment by its public ID.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,28 +137,22 @@ def sync(
     """
 
     return sync_detailed(
-        media_id=media_id,
-        episode_number=episode_number,
-        id=id,
+        segment_public_id=segment_public_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment]:
     """Get single segment
 
-     Returns a specific segment by its ID within the media/episode hierarchy.
+     Returns a specific segment by its public ID.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -183,9 +163,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
-        episode_number=episode_number,
-        id=id,
+        segment_public_id=segment_public_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -194,20 +172,16 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
-    episode_number: int,
-    id: int,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Segment | None:
     """Get single segment
 
-     Returns a specific segment by its ID within the media/episode hierarchy.
+     Returns a specific segment by its public ID.
 
     Args:
-        media_id (str):
-        episode_number (int):
-        id (int):
+        segment_public_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -219,9 +193,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
-            episode_number=episode_number,
-            id=id,
+            segment_public_id=segment_public_id,
             client=client,
         )
     ).parsed

@@ -15,7 +15,7 @@ T = TypeVar("T", bound="SearchMultipleResponseIncludesMedia")
 
 @_attrs_define
 class SearchMultipleResponseIncludesMedia:
-    """Media objects keyed by mediaId"""
+    """Media objects keyed by mediaPublicId. Present only when `include[]=media` is requested."""
 
     additional_properties: dict[str, Media] = _attrs_field(init=False, factory=dict)
 

@@ -10,8 +10,8 @@ from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.list_admin_reports_source import ListAdminReportsSource
-from ...models.list_admin_reports_target_type import ListAdminReportsTargetType
+from ...models.report_source import ReportSource
+from ...models.report_target_type import ReportTargetType
 from ...types import UNSET, Response, Unset
 
 
@@ -20,12 +20,13 @@ def _get_kwargs(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
     status: str | Unset = UNSET,
-    source: ListAdminReportsSource | Unset = UNSET,
-    target_type: ListAdminReportsTargetType | Unset = UNSET,
+    source: ReportSource | Unset = UNSET,
+    target_type: ReportTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
+    orphaned: bool | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -55,6 +56,8 @@ def _get_kwargs(
     params["target.segmentId"] = target_segment_id
 
     params["auditRunId"] = audit_run_id
+
+    params["orphaned"] = orphaned
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -118,12 +121,13 @@ def sync_detailed(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
     status: str | Unset = UNSET,
-    source: ListAdminReportsSource | Unset = UNSET,
-    target_type: ListAdminReportsTargetType | Unset = UNSET,
+    source: ReportSource | Unset = UNSET,
+    target_type: ReportTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
+    orphaned: bool | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
 
@@ -134,12 +138,13 @@ def sync_detailed(
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
         status (str | Unset):
-        source (ListAdminReportsSource | Unset):
-        target_type (ListAdminReportsTargetType | Unset):
+        source (ReportSource | Unset): Origin of the report Example: USER.
+        target_type (ReportTargetType | Unset): Kind of entity a report is about Example: SEGMENT.
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
         audit_run_id (int | Unset):
+        orphaned (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,6 +164,7 @@ def sync_detailed(
         target_episode_number=target_episode_number,
         target_segment_id=target_segment_id,
         audit_run_id=audit_run_id,
+        orphaned=orphaned,
     )
 
     response = client.get_httpx_client().request(
@@ -174,12 +180,13 @@ def sync(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
     status: str | Unset = UNSET,
-    source: ListAdminReportsSource | Unset = UNSET,
-    target_type: ListAdminReportsTargetType | Unset = UNSET,
+    source: ReportSource | Unset = UNSET,
+    target_type: ReportTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
+    orphaned: bool | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
 
@@ -190,12 +197,13 @@ def sync(
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
         status (str | Unset):
-        source (ListAdminReportsSource | Unset):
-        target_type (ListAdminReportsTargetType | Unset):
+        source (ReportSource | Unset): Origin of the report Example: USER.
+        target_type (ReportTargetType | Unset): Kind of entity a report is about Example: SEGMENT.
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
         audit_run_id (int | Unset):
+        orphaned (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -216,6 +224,7 @@ def sync(
         target_episode_number=target_episode_number,
         target_segment_id=target_segment_id,
         audit_run_id=audit_run_id,
+        orphaned=orphaned,
     ).parsed
 
 
@@ -225,12 +234,13 @@ async def asyncio_detailed(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
     status: str | Unset = UNSET,
-    source: ListAdminReportsSource | Unset = UNSET,
-    target_type: ListAdminReportsTargetType | Unset = UNSET,
+    source: ReportSource | Unset = UNSET,
+    target_type: ReportTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
+    orphaned: bool | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
 
@@ -241,12 +251,13 @@ async def asyncio_detailed(
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
         status (str | Unset):
-        source (ListAdminReportsSource | Unset):
-        target_type (ListAdminReportsTargetType | Unset):
+        source (ReportSource | Unset): Origin of the report Example: USER.
+        target_type (ReportTargetType | Unset): Kind of entity a report is about Example: SEGMENT.
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
         audit_run_id (int | Unset):
+        orphaned (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -266,6 +277,7 @@ async def asyncio_detailed(
         target_episode_number=target_episode_number,
         target_segment_id=target_segment_id,
         audit_run_id=audit_run_id,
+        orphaned=orphaned,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -279,12 +291,13 @@ async def asyncio(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
     status: str | Unset = UNSET,
-    source: ListAdminReportsSource | Unset = UNSET,
-    target_type: ListAdminReportsTargetType | Unset = UNSET,
+    source: ReportSource | Unset = UNSET,
+    target_type: ReportTargetType | Unset = UNSET,
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
     audit_run_id: int | Unset = UNSET,
+    orphaned: bool | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
 
@@ -295,12 +308,13 @@ async def asyncio(
         cursor (str | Unset):
         take (int | Unset):  Default: 20.
         status (str | Unset):
-        source (ListAdminReportsSource | Unset):
-        target_type (ListAdminReportsTargetType | Unset):
+        source (ReportSource | Unset): Origin of the report Example: USER.
+        target_type (ReportTargetType | Unset): Kind of entity a report is about Example: SEGMENT.
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
         audit_run_id (int | Unset):
+        orphaned (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -322,5 +336,6 @@ async def asyncio(
             target_episode_number=target_episode_number,
             target_segment_id=target_segment_id,
             audit_run_id=audit_run_id,
+            orphaned=orphaned,
         )
     ).parsed

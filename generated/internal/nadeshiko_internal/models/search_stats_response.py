@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
     from ..models.category_count import CategoryCount
     from ..models.media_search_stats import MediaSearchStats
@@ -21,12 +23,12 @@ class SearchStatsResponse:
     Attributes:
         media (list[MediaSearchStats]):
         categories (list[CategoryCount]):
-        includes (SearchStatsResponseIncludes):
+        includes (SearchStatsResponseIncludes | Unset): Optional related resources requested via `include[]`
     """
 
     media: list[MediaSearchStats]
     categories: list[CategoryCount]
-    includes: SearchStatsResponseIncludes
+    includes: SearchStatsResponseIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +42,9 @@ class SearchStatsResponse:
             categories_item = categories_item_data.to_dict()
             categories.append(categories_item)
 
-        includes = self.includes.to_dict()
+        includes: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.includes, Unset):
+            includes = self.includes.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -48,9 +52,10 @@ class SearchStatsResponse:
             {
                 "media": media,
                 "categories": categories,
-                "includes": includes,
             }
         )
+        if includes is not UNSET:
+            field_dict["includes"] = includes
 
         return field_dict
 
@@ -75,7 +80,12 @@ class SearchStatsResponse:
 
             categories.append(categories_item)
 
-        includes = SearchStatsResponseIncludes.from_dict(_src.pop("includes"))
+        _includes = _src.pop("includes", UNSET)
+        includes: SearchStatsResponseIncludes | Unset
+        if isinstance(_includes, Unset):
+            includes = UNSET
+        else:
+            includes = SearchStatsResponseIncludes.from_dict(_includes)
 
         search_stats_response = cls(
             media=media,

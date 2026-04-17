@@ -21,38 +21,31 @@ T = TypeVar("T", bound="Segment")
 
 @_attrs_define
 class Segment:
-    """Segment with content, optional highlights, and media URLs
+    """Segment with content, translations, search-related highlights, and media URLs
 
     Attributes:
-        id (int): Numeric identifier for the segment Example: 120045.
-        uuid (str): Unique identifier for the segment Example: 3fd94cef-a3e1-31ae-bc8d-e743f03e9c7e.
-        public_id (str): Public identifier for the segment (use this instead of uuid in public URLs) Example:
-            V1StGXR8_Z5d.
+        segment_public_id (str): Public ID for the segment (nanoid) Example: V1StGXR8_Z5d.
         position (int): Position of the segment within the episode Example: 1133.
         status (SegmentStatus): Segment status Example: ACTIVE.
         start_time_ms (int): Start time of the segment in milliseconds from the beginning of the episode Example:
             2007255.
         end_time_ms (int): End time of the segment in milliseconds from the beginning of the episode Example: 2008464.
         content_rating (ContentRating): Content rating level for the segment Example: SAFE.
-        episode (int): Episode number this segment belongs to Example: 1.
-        media_id (int): Media ID this segment belongs to Example: 7674.
-        media_public_id (str): Public ID of the media this segment belongs to Example: V1StGXR8_Z5d.
+        episode (int): Episode number this segment belongs to (0 for movies/specials) Example: 1.
+        media_public_id (str): Public ID of the media this segment belongs to (nanoid) Example: V1StGXR8_Z5d.
         text_ja (SegmentTextJa):
         text_en (SegmentTextEn):
         text_es (SegmentTextEs):
         urls (SegmentUrls): URLs to media resources for this segment
     """
 
-    id: int
-    uuid: str
-    public_id: str
+    segment_public_id: str
     position: int
     status: SegmentStatus
     start_time_ms: int
     end_time_ms: int
     content_rating: ContentRating
     episode: int
-    media_id: int
     media_public_id: str
     text_ja: SegmentTextJa
     text_en: SegmentTextEn
@@ -61,11 +54,7 @@ class Segment:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id = self.id
-
-        uuid = self.uuid
-
-        public_id = self.public_id
+        segment_public_id = self.segment_public_id
 
         position = self.position
 
@@ -78,8 +67,6 @@ class Segment:
         content_rating = self.content_rating.value
 
         episode = self.episode
-
-        media_id = self.media_id
 
         media_public_id = self.media_public_id
 
@@ -95,16 +82,13 @@ class Segment:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "id": id,
-                "uuid": uuid,
-                "publicId": public_id,
+                "segmentPublicId": segment_public_id,
                 "position": position,
                 "status": status,
                 "startTimeMs": start_time_ms,
                 "endTimeMs": end_time_ms,
                 "contentRating": content_rating,
                 "episode": episode,
-                "mediaId": media_id,
                 "mediaPublicId": media_public_id,
                 "textJa": text_ja,
                 "textEn": text_en,
@@ -123,11 +107,7 @@ class Segment:
         from ..models.segment_urls import SegmentUrls
 
         _src = dict(src_dict)
-        id = _src.pop("id")
-
-        uuid = _src.pop("uuid")
-
-        public_id = _src.pop("publicId")
+        segment_public_id = _src.pop("segmentPublicId")
 
         position = _src.pop("position")
 
@@ -141,8 +121,6 @@ class Segment:
 
         episode = _src.pop("episode")
 
-        media_id = _src.pop("mediaId")
-
         media_public_id = _src.pop("mediaPublicId")
 
         text_ja = SegmentTextJa.from_dict(_src.pop("textJa"))
@@ -154,16 +132,13 @@ class Segment:
         urls = SegmentUrls.from_dict(_src.pop("urls"))
 
         segment = cls(
-            id=id,
-            uuid=uuid,
-            public_id=public_id,
+            segment_public_id=segment_public_id,
             position=position,
             status=status,
             start_time_ms=start_time_ms,
             end_time_ms=end_time_ms,
             content_rating=content_rating,
             episode=episode,
-            media_id=media_id,
             media_public_id=media_public_id,
             text_ja=text_ja,
             text_en=text_en,

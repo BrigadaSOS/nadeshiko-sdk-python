@@ -6,18 +6,18 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.collection_list_response import CollectionListResponse
+from ...models.collection_visibility import CollectionVisibility
 from ...models.error_400 import Error400
 from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.list_collections_visibility import ListCollectionsVisibility
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    visibility: ListCollectionsVisibility | Unset = UNSET,
+    visibility: CollectionVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> dict[str, Any]:
@@ -98,16 +98,16 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    visibility: ListCollectionsVisibility | Unset = UNSET,
+    visibility: CollectionVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> Response[CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
-    """List user's collections
+    """List collections
 
-     Returns all collections for the authenticated user. Can filter by visibility.
+     Returns the authenticated user's collections. Can be filtered by visibility.
 
     Args:
-        visibility (ListCollectionsVisibility | Unset):  Example: private.
+        visibility (CollectionVisibility | Unset): Visibility of a collection Example: PRIVATE.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
@@ -135,16 +135,16 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    visibility: ListCollectionsVisibility | Unset = UNSET,
+    visibility: CollectionVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
-    """List user's collections
+    """List collections
 
-     Returns all collections for the authenticated user. Can filter by visibility.
+     Returns the authenticated user's collections. Can be filtered by visibility.
 
     Args:
-        visibility (ListCollectionsVisibility | Unset):  Example: private.
+        visibility (CollectionVisibility | Unset): Visibility of a collection Example: PRIVATE.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
@@ -167,16 +167,16 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    visibility: ListCollectionsVisibility | Unset = UNSET,
+    visibility: CollectionVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> Response[CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
-    """List user's collections
+    """List collections
 
-     Returns all collections for the authenticated user. Can filter by visibility.
+     Returns the authenticated user's collections. Can be filtered by visibility.
 
     Args:
-        visibility (ListCollectionsVisibility | Unset):  Example: private.
+        visibility (CollectionVisibility | Unset): Visibility of a collection Example: PRIVATE.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 
@@ -202,16 +202,16 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    visibility: ListCollectionsVisibility | Unset = UNSET,
+    visibility: CollectionVisibility | Unset = UNSET,
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> CollectionListResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
-    """List user's collections
+    """List collections
 
-     Returns all collections for the authenticated user. Can filter by visibility.
+     Returns the authenticated user's collections. Can be filtered by visibility.
 
     Args:
-        visibility (ListCollectionsVisibility | Unset):  Example: private.
+        visibility (CollectionVisibility | Unset): Visibility of a collection Example: PRIVATE.
         cursor (str | Unset):  Example: eyJraW5kIjoib2Zmc2V0Iiwic2tpcCI6MjB9.
         take (int | Unset):  Default: 20. Example: 20.
 

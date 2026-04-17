@@ -12,23 +12,23 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.update_collection_segment_body import UpdateCollectionSegmentBody
+from ...models.update_collection_segment_request import UpdateCollectionSegmentRequest
 from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
-    body: UpdateCollectionSegmentBody,
+    body: UpdateCollectionSegmentRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
-        "url": "/v1/collections/{id}/segments/{segment_id}".format(
-            id=quote(str(id), safe=""),
-            segment_id=quote(str(segment_id), safe=""),
+        "url": "/v1/collections/{collection_public_id}/segments/{segment_public_id}".format(
+            collection_public_id=quote(str(collection_public_id), safe=""),
+            segment_public_id=quote(str(segment_public_id), safe=""),
         ),
     }
 
@@ -95,20 +95,20 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionSegmentBody,
+    body: UpdateCollectionSegmentRequest,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Update segment in collection
 
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
-        body (UpdateCollectionSegmentBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
+        body (UpdateCollectionSegmentRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -119,8 +119,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        segment_id=segment_id,
+        collection_public_id=collection_public_id,
+        segment_public_id=segment_public_id,
         body=body,
     )
 
@@ -132,20 +132,20 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionSegmentBody,
+    body: UpdateCollectionSegmentRequest,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Update segment in collection
 
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
-        body (UpdateCollectionSegmentBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
+        body (UpdateCollectionSegmentRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -156,28 +156,28 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
-        segment_id=segment_id,
+        collection_public_id=collection_public_id,
+        segment_public_id=segment_public_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionSegmentBody,
+    body: UpdateCollectionSegmentRequest,
 ) -> Response[Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500]:
     """Update segment in collection
 
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
-        body (UpdateCollectionSegmentBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
+        body (UpdateCollectionSegmentRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,8 +188,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        segment_id=segment_id,
+        collection_public_id=collection_public_id,
+        segment_public_id=segment_public_id,
         body=body,
     )
 
@@ -199,20 +199,20 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
-    segment_id: int,
+    collection_public_id: str,
+    segment_public_id: str,
     *,
     client: AuthenticatedClient,
-    body: UpdateCollectionSegmentBody,
+    body: UpdateCollectionSegmentRequest,
 ) -> Any | Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | None:
     """Update segment in collection
 
      Updates the note or position of a segment in a collection. Requires collection ownership.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        segment_id (int):  Example: 456.
-        body (UpdateCollectionSegmentBody):
+        collection_public_id (str):  Example: V1StGXR8_Z5d.
+        segment_public_id (str):  Example: V1StGXR8_Z5d.
+        body (UpdateCollectionSegmentRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -224,8 +224,8 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
-            segment_id=segment_id,
+            collection_public_id=collection_public_id,
+            segment_public_id=segment_public_id,
             client=client,
             body=body,
         )
