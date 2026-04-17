@@ -16,24 +16,24 @@ class ReportTargetMedia:
     """
     Attributes:
         type_ (ReportTargetMediaType): Report target type Example: MEDIA.
-        media_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
+        media_public_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
     """
 
     type_: ReportTargetMediaType
-    media_id: str
+    media_public_id: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "type": type_,
-                "mediaId": media_id,
+                "mediaPublicId": media_public_id,
             }
         )
 
@@ -44,11 +44,11 @@ class ReportTargetMedia:
         _src = dict(src_dict)
         type_ = ReportTargetMediaType(_src.pop("type"))
 
-        media_id = _src.pop("mediaId")
+        media_public_id = _src.pop("mediaPublicId")
 
         report_target_media = cls(
             type_=type_,
-            media_id=media_id,
+            media_public_id=media_public_id,
         )
 
         report_target_media.additional_properties = _src

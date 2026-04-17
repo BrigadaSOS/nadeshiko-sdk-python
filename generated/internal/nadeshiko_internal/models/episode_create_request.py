@@ -17,7 +17,8 @@ T = TypeVar("T", bound="EpisodeCreateRequest")
 class EpisodeCreateRequest:
     """
     Attributes:
-        episode_number (int): Episode number within the media (must be unique for this media) Example: 1.
+        episode_number (int): Episode number within the media (must be unique for this media; 0 for movies/specials)
+            Example: 1.
         title_en (str | Unset): English title of the episode Example: The Beginning.
         title_romaji (str | Unset): Romanized title of the episode Example: Hajimari.
         title_ja (str | Unset): Japanese title of the episode Example: 始まり.

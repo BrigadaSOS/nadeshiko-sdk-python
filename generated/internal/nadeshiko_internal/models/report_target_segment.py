@@ -17,24 +17,24 @@ class ReportTargetSegment:
     """
     Attributes:
         type_ (ReportTargetSegmentType): Report target type Example: SEGMENT.
-        media_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
-        segment_id (None | str): Segment publicId Example: abc123xyz.
+        media_public_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
+        segment_public_id (None | str): Segment publicId Example: abc123xyz.
         episode_number (int | Unset): Episode number containing the segment Example: 5.
     """
 
     type_: ReportTargetSegmentType
-    media_id: str
-    segment_id: None | str
+    media_public_id: str
+    segment_public_id: None | str
     episode_number: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
-        segment_id: None | str
-        segment_id = self.segment_id
+        segment_public_id: None | str
+        segment_public_id = self.segment_public_id
 
         episode_number = self.episode_number
 
@@ -43,8 +43,8 @@ class ReportTargetSegment:
         field_dict.update(
             {
                 "type": type_,
-                "mediaId": media_id,
-                "segmentId": segment_id,
+                "mediaPublicId": media_public_id,
+                "segmentPublicId": segment_public_id,
             }
         )
         if episode_number is not UNSET:
@@ -57,21 +57,21 @@ class ReportTargetSegment:
         _src = dict(src_dict)
         type_ = ReportTargetSegmentType(_src.pop("type"))
 
-        media_id = _src.pop("mediaId")
+        media_public_id = _src.pop("mediaPublicId")
 
-        def _parse_segment_id(data: object) -> None | str:
+        def _parse_segment_public_id(data: object) -> None | str:
             if data is None:
                 return data
             return cast(None | str, data)
 
-        segment_id = _parse_segment_id(_src.pop("segmentId"))
+        segment_public_id = _parse_segment_public_id(_src.pop("segmentPublicId"))
 
         episode_number = _src.pop("episodeNumber", UNSET)
 
         report_target_segment = cls(
             type_=type_,
-            media_id=media_id,
-            segment_id=segment_id,
+            media_public_id=media_public_id,
+            segment_public_id=segment_public_id,
             episode_number=episode_number,
         )
 

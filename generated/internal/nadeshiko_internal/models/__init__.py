@@ -107,11 +107,6 @@ from .media_update_request_airing_format import MediaUpdateRequestAiringFormat
 from .media_update_request_airing_status import MediaUpdateRequestAiringStatus
 from .media_update_request_season_name import MediaUpdateRequestSeasonName
 from .media_update_request_storage import MediaUpdateRequestStorage
-from .reindex_request import ReindexRequest
-from .reindex_request_media_item import ReindexRequestMediaItem
-from .reindex_response import ReindexResponse
-from .reindex_response_errors_item import ReindexResponseErrorsItem
-from .reindex_response_stats import ReindexResponseStats
 from .report import Report
 from .report_data_type_0 import ReportDataType0
 from .report_reason import ReportReason
@@ -331,11 +326,6 @@ __all__ = (
     "MediaUpdateRequestAiringStatus",
     "MediaUpdateRequestSeasonName",
     "MediaUpdateRequestStorage",
-    "ReindexRequest",
-    "ReindexRequestMediaItem",
-    "ReindexResponse",
-    "ReindexResponseErrorsItem",
-    "ReindexResponseStats",
     "Report",
     "ReportDataType0",
     "ReportReason",
