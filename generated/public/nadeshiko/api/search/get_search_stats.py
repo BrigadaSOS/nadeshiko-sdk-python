@@ -12,12 +12,12 @@ from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.search_stats_request import SearchStatsRequest
 from ...models.search_stats_response import SearchStatsResponse
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: SearchStatsRequest | Unset = UNSET,
+    body: SearchStatsRequest,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -26,8 +26,7 @@ def _get_kwargs(
         "url": "/v1/search/stats",
     }
 
-    if not isinstance(body, Unset):
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -88,21 +87,21 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: SearchStatsRequest | Unset = UNSET,
+    body: SearchStatsRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
     """Get search statistics
 
-     Returns statistics for search filters and category tabs without fetching segment rows.
+     Returns filter statistics for a query without returning segment results. Useful for populating
+    filter UIs:
+    - `media`: media matching the query, with per-episode hit counts
+    - `categories`: segment counts grouped by media category
 
-    This endpoint is optimized for UI filter panels:
-    - `media` powers the media dropdown on the right side.
-    - `categories` powers category tabs below the search bar.
-
-    The stats are scoped by query and category filters, but are not narrowed by a selected
-    media/episode.
+    Stats are scoped by the query and category filters but are not narrowed by a selected media/episode
+    — so selecting a media in the UI doesn't zero out other media from the list.
 
     Args:
-        body (SearchStatsRequest | Unset):
+        body (SearchStatsRequest): Stats request. All fields are optional — omit `query` to get
+            filter counts for the full corpus.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,21 +125,21 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: SearchStatsRequest | Unset = UNSET,
+    body: SearchStatsRequest,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
     """Get search statistics
 
-     Returns statistics for search filters and category tabs without fetching segment rows.
+     Returns filter statistics for a query without returning segment results. Useful for populating
+    filter UIs:
+    - `media`: media matching the query, with per-episode hit counts
+    - `categories`: segment counts grouped by media category
 
-    This endpoint is optimized for UI filter panels:
-    - `media` powers the media dropdown on the right side.
-    - `categories` powers category tabs below the search bar.
-
-    The stats are scoped by query and category filters, but are not narrowed by a selected
-    media/episode.
+    Stats are scoped by the query and category filters but are not narrowed by a selected media/episode
+    — so selecting a media in the UI doesn't zero out other media from the list.
 
     Args:
-        body (SearchStatsRequest | Unset):
+        body (SearchStatsRequest): Stats request. All fields are optional — omit `query` to get
+            filter counts for the full corpus.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,21 +158,21 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: SearchStatsRequest | Unset = UNSET,
+    body: SearchStatsRequest,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
     """Get search statistics
 
-     Returns statistics for search filters and category tabs without fetching segment rows.
+     Returns filter statistics for a query without returning segment results. Useful for populating
+    filter UIs:
+    - `media`: media matching the query, with per-episode hit counts
+    - `categories`: segment counts grouped by media category
 
-    This endpoint is optimized for UI filter panels:
-    - `media` powers the media dropdown on the right side.
-    - `categories` powers category tabs below the search bar.
-
-    The stats are scoped by query and category filters, but are not narrowed by a selected
-    media/episode.
+    Stats are scoped by the query and category filters but are not narrowed by a selected media/episode
+    — so selecting a media in the UI doesn't zero out other media from the list.
 
     Args:
-        body (SearchStatsRequest | Unset):
+        body (SearchStatsRequest): Stats request. All fields are optional — omit `query` to get
+            filter counts for the full corpus.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -195,21 +194,21 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: SearchStatsRequest | Unset = UNSET,
+    body: SearchStatsRequest,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
     """Get search statistics
 
-     Returns statistics for search filters and category tabs without fetching segment rows.
+     Returns filter statistics for a query without returning segment results. Useful for populating
+    filter UIs:
+    - `media`: media matching the query, with per-episode hit counts
+    - `categories`: segment counts grouped by media category
 
-    This endpoint is optimized for UI filter panels:
-    - `media` powers the media dropdown on the right side.
-    - `categories` powers category tabs below the search bar.
-
-    The stats are scoped by query and category filters, but are not narrowed by a selected
-    media/episode.
+    Stats are scoped by the query and category filters but are not narrowed by a selected media/episode
+    — so selecting a media in the UI doesn't zero out other media from the list.
 
     Args:
-        body (SearchStatsRequest | Unset):
+        body (SearchStatsRequest): Stats request. All fields are optional — omit `query` to get
+            filter counts for the full corpus.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

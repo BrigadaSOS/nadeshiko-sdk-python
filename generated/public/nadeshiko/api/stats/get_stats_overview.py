@@ -5,13 +5,15 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.error_401 import Error401
+from ...models.error_403 import Error403
+from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.get_stats_overview_response_200 import GetStatsOverviewResponse200
+from ...models.stats_overview import StatsOverview
 from ...types import Response
 
 
 def _get_kwargs() -> dict[str, Any]:
-
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/stats/overview",
@@ -22,11 +24,26 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error500 | GetStatsOverviewResponse200 | None:
+) -> Error401 | Error403 | Error429 | Error500 | StatsOverview | None:
     if response.status_code == 200:
-        response_200 = GetStatsOverviewResponse200.from_dict(response.json())
+        response_200 = StatsOverview.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 401:
+        response_401 = Error401.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Error403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Error429.from_dict(response.json())
+
+        return response_429
 
     if response.status_code == 500:
         response_500 = Error500.from_dict(response.json())
@@ -41,7 +58,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error500 | GetStatsOverviewResponse200]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | StatsOverview]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,19 +70,20 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[Error500 | GetStatsOverviewResponse200]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | StatsOverview]:
     """Get corpus statistics overview
 
      Returns a comprehensive overview of corpus statistics including headline numbers,
-    word frequency coverage tiers, and translation availability. This is the primary
-    data source for the public /stats page.
+    word frequency coverage tiers, and translation availability.
+
+    The same data powers the public stats page at https://nadeshiko.co/stats.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error500 | GetStatsOverviewResponse200]
+        Response[Error401 | Error403 | Error429 | Error500 | StatsOverview]
     """
 
     kwargs = _get_kwargs()
@@ -80,19 +98,20 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-) -> Error500 | GetStatsOverviewResponse200 | None:
+) -> Error401 | Error403 | Error429 | Error500 | StatsOverview | None:
     """Get corpus statistics overview
 
      Returns a comprehensive overview of corpus statistics including headline numbers,
-    word frequency coverage tiers, and translation availability. This is the primary
-    data source for the public /stats page.
+    word frequency coverage tiers, and translation availability.
+
+    The same data powers the public stats page at https://nadeshiko.co/stats.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error500 | GetStatsOverviewResponse200
+        Error401 | Error403 | Error429 | Error500 | StatsOverview
     """
 
     return sync_detailed(
@@ -103,19 +122,20 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-) -> Response[Error500 | GetStatsOverviewResponse200]:
+) -> Response[Error401 | Error403 | Error429 | Error500 | StatsOverview]:
     """Get corpus statistics overview
 
      Returns a comprehensive overview of corpus statistics including headline numbers,
-    word frequency coverage tiers, and translation availability. This is the primary
-    data source for the public /stats page.
+    word frequency coverage tiers, and translation availability.
+
+    The same data powers the public stats page at https://nadeshiko.co/stats.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error500 | GetStatsOverviewResponse200]
+        Response[Error401 | Error403 | Error429 | Error500 | StatsOverview]
     """
 
     kwargs = _get_kwargs()
@@ -128,19 +148,20 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-) -> Error500 | GetStatsOverviewResponse200 | None:
+) -> Error401 | Error403 | Error429 | Error500 | StatsOverview | None:
     """Get corpus statistics overview
 
      Returns a comprehensive overview of corpus statistics including headline numbers,
-    word frequency coverage tiers, and translation availability. This is the primary
-    data source for the public /stats page.
+    word frequency coverage tiers, and translation availability.
+
+    The same data powers the public stats page at https://nadeshiko.co/stats.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error500 | GetStatsOverviewResponse200
+        Error401 | Error403 | Error429 | Error500 | StatsOverview
     """
 
     return (

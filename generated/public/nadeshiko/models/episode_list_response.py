@@ -7,8 +7,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
+    from ..models.cursor_pagination import CursorPagination
     from ..models.episode import Episode
-    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
 
 T = TypeVar("T", bound="EpisodeListResponse")
@@ -18,12 +18,12 @@ T = TypeVar("T", bound="EpisodeListResponse")
 class EpisodeListResponse:
     """
     Attributes:
-        episodes (list[Episode]): Array of episode objects
-        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+        episodes (list[Episode]):
+        pagination (CursorPagination): Opaque cursor pagination metadata
     """
 
     episodes: list[Episode]
-    pagination: OpaqueCursorPagination
+    pagination: CursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,8 +47,8 @@ class EpisodeListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.cursor_pagination import CursorPagination
         from ..models.episode import Episode
-        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
 
         _src = dict(src_dict)
         episodes = []
@@ -58,7 +58,7 @@ class EpisodeListResponse:
 
             episodes.append(episodes_item)
 
-        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
+        pagination = CursorPagination.from_dict(_src.pop("pagination"))
 
         episode_list_response = cls(
             episodes=episodes,

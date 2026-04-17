@@ -11,7 +11,6 @@ from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.list_media_category import ListMediaCategory
-from ...models.media_include_expansion import MediaIncludeExpansion
 from ...models.media_list_response import MediaListResponse
 from ...types import UNSET, Response, Unset
 
@@ -22,9 +21,7 @@ def _get_kwargs(
     cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["take"] = take
@@ -38,15 +35,6 @@ def _get_kwargs(
     params["category"] = json_category
 
     params["query"] = query
-
-    json_include: list[str] | Unset = UNSET
-    if not isinstance(include, Unset):
-        json_include = []
-        for include_item_data in include:
-            include_item = include_item_data.value
-            json_include.append(include_item)
-
-    params["include"] = json_include
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -116,7 +104,6 @@ def sync_detailed(
     cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | MediaListResponse]:
     """List all media
 
@@ -129,7 +116,6 @@ def sync_detailed(
         cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
-        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,7 +130,6 @@ def sync_detailed(
         cursor=cursor,
         category=category,
         query=query,
-        include=include,
     )
 
     response = client.get_httpx_client().request(
@@ -161,7 +146,6 @@ def sync(
     cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | MediaListResponse | None:
     """List all media
 
@@ -174,7 +158,6 @@ def sync(
         cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
-        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,7 +173,6 @@ def sync(
         cursor=cursor,
         category=category,
         query=query,
-        include=include,
     ).parsed
 
 
@@ -201,7 +183,6 @@ async def asyncio_detailed(
     cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | MediaListResponse]:
     """List all media
 
@@ -214,7 +195,6 @@ async def asyncio_detailed(
         cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
-        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -229,7 +209,6 @@ async def asyncio_detailed(
         cursor=cursor,
         category=category,
         query=query,
-        include=include,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -244,7 +223,6 @@ async def asyncio(
     cursor: str | Unset = UNSET,
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | MediaListResponse | None:
     """List all media
 
@@ -257,7 +235,6 @@ async def asyncio(
         cursor (str | Unset):
         category (ListMediaCategory | Unset):  Example: ANIME.
         query (str | Unset):  Example: steins.
-        include (list[MediaIncludeExpansion] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -274,6 +251,5 @@ async def asyncio(
             cursor=cursor,
             category=category,
             query=query,
-            include=include,
         )
     ).parsed

@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.update_report_request_status import UpdateReportRequestStatus
+from ..models.report_status import ReportStatus
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="UpdateReportRequest")
@@ -16,11 +16,11 @@ T = TypeVar("T", bound="UpdateReportRequest")
 class UpdateReportRequest:
     """
     Attributes:
-        status (UpdateReportRequestStatus | Unset): New status for the report Example: ACCEPTED.
+        status (ReportStatus | Unset): Current status of a report Example: OPEN.
         admin_notes (str | Unset): Admin notes about the report Example: Confirmed wrong translation, will fix.
     """
 
-    status: UpdateReportRequestStatus | Unset = UNSET
+    status: ReportStatus | Unset = UNSET
     admin_notes: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -45,11 +45,11 @@ class UpdateReportRequest:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
         _status = _src.pop("status", UNSET)
-        status: UpdateReportRequestStatus | Unset
+        status: ReportStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
-            status = UpdateReportRequestStatus(_status)
+            status = ReportStatus(_status)
 
         admin_notes = _src.pop("adminNotes", UNSET)
 

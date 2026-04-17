@@ -18,19 +18,17 @@ T = TypeVar("T", bound="UserExportCollection")
 class UserExportCollection:
     """
     Attributes:
-        id (int): Collection ID Example: 123.
-        public_id (str): Public identifier for the collection Example: V1StGXR8_Z5d.
+        collection_public_id (str): Public ID for the collection Example: V1StGXR8_Z5d.
         name (str): Name of the collection Example: Study Favorites.
         type_ (CollectionType): Type of the collection Example: USER.
-        visibility (CollectionVisibility): Visibility of the collection Example: PRIVATE.
+        visibility (CollectionVisibility): Visibility of a collection Example: PRIVATE.
         segment_count (int): Number of segments in the collection Example: 42.
         created_at (datetime.datetime): When the collection was created
         updated_at (datetime.datetime | None): When the collection was last updated
         segment_ids (list[int]): Segment IDs in saved order
     """
 
-    id: int
-    public_id: str
+    collection_public_id: str
     name: str
     type_: CollectionType
     visibility: CollectionVisibility
@@ -41,9 +39,7 @@ class UserExportCollection:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id = self.id
-
-        public_id = self.public_id
+        collection_public_id = self.collection_public_id
 
         name = self.name
 
@@ -67,8 +63,7 @@ class UserExportCollection:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "id": id,
-                "publicId": public_id,
+                "collectionPublicId": collection_public_id,
                 "name": name,
                 "type": type_,
                 "visibility": visibility,
@@ -84,9 +79,7 @@ class UserExportCollection:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        id = _src.pop("id")
-
-        public_id = _src.pop("publicId")
+        collection_public_id = _src.pop("collectionPublicId")
 
         name = _src.pop("name")
 
@@ -116,8 +109,7 @@ class UserExportCollection:
         segment_ids = cast(list[int], _src.pop("segmentIds"))
 
         user_export_collection = cls(
-            id=id,
-            public_id=public_id,
+            collection_public_id=collection_public_id,
             name=name,
             type_=type_,
             visibility=visibility,

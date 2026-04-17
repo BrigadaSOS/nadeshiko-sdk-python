@@ -2,12 +2,10 @@ from enum import Enum
 
 
 class ReportStatus(str, Enum):
-    ACCEPTED = "ACCEPTED"
-    CONCERN = "CONCERN"
-    IGNORED = "IGNORED"
-    PENDING = "PENDING"
-    REJECTED = "REJECTED"
-    RESOLVED = "RESOLVED"
+    DISMISSED = "DISMISSED"
+    FIXED = "FIXED"
+    OPEN = "OPEN"
+    PROCESSING = "PROCESSING"
 
     def __str__(self) -> str:
         return str(self.value)

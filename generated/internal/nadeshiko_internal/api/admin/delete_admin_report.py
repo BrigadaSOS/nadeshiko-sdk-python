@@ -18,7 +18,6 @@ from ...types import Response
 def _get_kwargs(
     report_id: int,
 ) -> dict[str, Any]:
-
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/admin/reports/{report_id}".format(

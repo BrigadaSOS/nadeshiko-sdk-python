@@ -1,0 +1,80 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class OperationMetadata:
+    name: str
+    module_path: str
+    paginated: bool = False
+    doc: str = ''
+
+
+OPERATIONS: tuple[OperationMetadata, ...] = (
+    OperationMetadata(name="add_excluded_media", module_path=".api.user.add_excluded_media", paginated=False, doc="Exclude media from search results"),
+    OperationMetadata(name="add_segment_to_collection", module_path=".api.collections.add_segment_to_collection", paginated=False, doc="Add segment to collection"),
+    OperationMetadata(name="batch_update_admin_reports", module_path=".api.admin.batch_update_admin_reports", paginated=False, doc="Batch update reports"),
+    OperationMetadata(name="bulk_delete_admin_reports", module_path=".api.admin.bulk_delete_admin_reports", paginated=False, doc="Bulk delete reports by filters"),
+    OperationMetadata(name="bulk_update_admin_reports", module_path=".api.admin.bulk_update_admin_reports", paginated=False, doc="Bulk update reports by filters"),
+    OperationMetadata(name="create_collection", module_path=".api.collections.create_collection", paginated=False, doc="Create collection"),
+    OperationMetadata(name="create_episode", module_path=".api.media.create_episode", paginated=False, doc="Create episode"),
+    OperationMetadata(name="create_media", module_path=".api.media.create_media", paginated=False, doc="Create media"),
+    OperationMetadata(name="create_segment", module_path=".api.media.create_segment", paginated=False, doc="Create segment"),
+    OperationMetadata(name="create_segments_batch", module_path=".api.media.create_segments_batch", paginated=False, doc="Batch create segments"),
+    OperationMetadata(name="create_user_report", module_path=".api.user.create_user_report", paginated=False, doc="Create report"),
+    OperationMetadata(name="delete_admin_report", module_path=".api.admin.delete_admin_report", paginated=False, doc="Delete report and its group"),
+    OperationMetadata(name="delete_collection", module_path=".api.collections.delete_collection", paginated=False, doc="Delete collection"),
+    OperationMetadata(name="delete_episode", module_path=".api.media.delete_episode", paginated=False, doc="Delete episode"),
+    OperationMetadata(name="delete_media", module_path=".api.media.delete_media", paginated=False, doc="Delete media"),
+    OperationMetadata(name="delete_user_activity", module_path=".api.user.delete_user_activity", paginated=False, doc="Clear user activity"),
+    OperationMetadata(name="delete_user_activity_by_date", module_path=".api.user.delete_user_activity_by_date", paginated=False, doc="Delete all activity for a specific date"),
+    OperationMetadata(name="delete_user_activity_by_id", module_path=".api.user.delete_user_activity_by_id", paginated=False, doc="Delete activity record"),
+    OperationMetadata(name="enroll_user_lab", module_path=".api.user.enroll_user_lab", paginated=False, doc="Enroll in a lab feature"),
+    OperationMetadata(name="export_user_data", module_path=".api.user.export_user_data", paginated=False, doc="Export all user data"),
+    OperationMetadata(name="get_admin_media_audit_run", module_path=".api.admin.get_admin_media_audit_run", paginated=False, doc="Get audit run details"),
+    OperationMetadata(name="get_announcement", module_path=".api.admin.get_announcement", paginated=False, doc="Get current announcement"),
+    OperationMetadata(name="get_collection", module_path=".api.collections.get_collection", paginated=False, doc="Get collection details"),
+    OperationMetadata(name="get_collection_stats", module_path=".api.collections.get_collection_stats", paginated=False, doc="Get collection statistics"),
+    OperationMetadata(name="get_covered_words", module_path=".api.stats.get_covered_words", paginated=True, doc="List words with coverage information"),
+    OperationMetadata(name="get_episode", module_path=".api.media.get_episode", paginated=False, doc="Get single episode"),
+    OperationMetadata(name="get_me", module_path=".api.user.get_me", paginated=False, doc="Get current user profile"),
+    OperationMetadata(name="get_media", module_path=".api.media.get_media", paginated=False, doc="Get single media"),
+    OperationMetadata(name="get_search_stats", module_path=".api.search.get_search_stats", paginated=False, doc="Get search statistics"),
+    OperationMetadata(name="get_segment", module_path=".api.media.get_segment", paginated=False, doc="Get single segment"),
+    OperationMetadata(name="get_segment_context", module_path=".api.media.get_segment_context", paginated=False, doc="Get surrounding context for a segment"),
+    OperationMetadata(name="get_stats_overview", module_path=".api.stats.get_stats_overview", paginated=False, doc="Get corpus statistics overview"),
+    OperationMetadata(name="get_user_activity_heatmap", module_path=".api.activity.get_user_activity_heatmap", paginated=False, doc="Get activity heatmap data"),
+    OperationMetadata(name="get_user_activity_stats", module_path=".api.activity.get_user_activity_stats", paginated=False, doc="Get user activity statistics"),
+    OperationMetadata(name="get_user_preferences", module_path=".api.user.get_user_preferences", paginated=False, doc="Get user preferences"),
+    OperationMetadata(name="list_admin_media_audit_runs", module_path=".api.admin.list_admin_media_audit_runs", paginated=True, doc="List past audit runs"),
+    OperationMetadata(name="list_admin_media_audits", module_path=".api.admin.list_admin_media_audits", paginated=False, doc="List all media audits"),
+    OperationMetadata(name="list_admin_reports", module_path=".api.admin.list_admin_reports", paginated=True, doc="List all reports"),
+    OperationMetadata(name="list_collections", module_path=".api.collections.list_collections", paginated=True, doc="List collections"),
+    OperationMetadata(name="list_episodes", module_path=".api.media.list_episodes", paginated=True, doc="List episodes for a media"),
+    OperationMetadata(name="list_excluded_media", module_path=".api.user.list_excluded_media", paginated=False, doc="List excluded media"),
+    OperationMetadata(name="list_media", module_path=".api.media.list_media", paginated=True, doc="List all media"),
+    OperationMetadata(name="list_segment_revisions", module_path=".api.media.list_segment_revisions", paginated=False, doc="List segment revision history"),
+    OperationMetadata(name="list_segments", module_path=".api.media.list_segments", paginated=True, doc="List segments for an episode"),
+    OperationMetadata(name="list_user_activity", module_path=".api.activity.list_user_activity", paginated=True, doc="List user activity"),
+    OperationMetadata(name="list_user_labs", module_path=".api.user.list_user_labs", paginated=False, doc="List lab features with user opt-in status"),
+    OperationMetadata(name="remove_excluded_media", module_path=".api.user.remove_excluded_media", paginated=False, doc="Remove media from excluded list"),
+    OperationMetadata(name="remove_segment_from_collection", module_path=".api.collections.remove_segment_from_collection", paginated=False, doc="Remove segment from collection"),
+    OperationMetadata(name="run_admin_media_audit", module_path=".api.admin.run_admin_media_audit", paginated=False, doc="Run media audit"),
+    OperationMetadata(name="search", module_path=".api.search.search", paginated=True, doc="Search segments by query"),
+    OperationMetadata(name="search_collection_segments", module_path=".api.collections.search_collection_segments", paginated=True, doc="Search segments in a collection"),
+    OperationMetadata(name="search_media", module_path=".api.search.search_media", paginated=False, doc="Find media by name"),
+    OperationMetadata(name="search_words", module_path=".api.search.search_words", paginated=False, doc="Search by multiple words"),
+    OperationMetadata(name="track_user_activity", module_path=".api.user.track_user_activity", paginated=False, doc="Track user activity"),
+    OperationMetadata(name="trigger_covered_words_update", module_path=".api.stats.trigger_covered_words_update", paginated=False, doc="Trigger word coverage update"),
+    OperationMetadata(name="unenroll_user_lab", module_path=".api.user.unenroll_user_lab", paginated=False, doc="Unenroll from a lab feature"),
+    OperationMetadata(name="update_admin_media_audit", module_path=".api.admin.update_admin_media_audit", paginated=False, doc="Update media audit config"),
+    OperationMetadata(name="update_admin_report", module_path=".api.admin.update_admin_report", paginated=False, doc="Update report"),
+    OperationMetadata(name="update_announcement", module_path=".api.admin.update_announcement", paginated=False, doc="Create or update announcement"),
+    OperationMetadata(name="update_collection", module_path=".api.collections.update_collection", paginated=False, doc="Update collection metadata"),
+    OperationMetadata(name="update_collection_segment", module_path=".api.collections.update_collection_segment", paginated=False, doc="Update segment in collection"),
+    OperationMetadata(name="update_episode", module_path=".api.media.update_episode", paginated=False, doc="Update episode"),
+    OperationMetadata(name="update_media", module_path=".api.media.update_media", paginated=False, doc="Update media"),
+    OperationMetadata(name="update_segment", module_path=".api.media.update_segment", paginated=False, doc="Update segment"),
+    OperationMetadata(name="update_user_preferences", module_path=".api.user.update_user_preferences", paginated=False, doc="Update user preferences"),
+)

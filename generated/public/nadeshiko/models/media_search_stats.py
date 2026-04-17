@@ -7,7 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
+    from ..models.media_search_stats_episode_hits_item import MediaSearchStatsEpisodeHitsItem
 
 
 T = TypeVar("T", bound="MediaSearchStats")
@@ -18,34 +18,33 @@ class MediaSearchStats:
     """Search hit statistics for a single media
 
     Attributes:
-        media_id (int): Media identifier (look up full details in includes.media) Example: 110316.
-        public_id (str): Public identifier for use in URLs and filters Example: abc123xyz.
+        media_public_id (str): Media public ID (look up full details in `includes.media` when `include[]=media` is
+            requested) Example: V1StGXR8_Z5d.
         match_count (int): Number of matching segments found in this media Example: 42.
-        episode_hits (MediaSearchStatsEpisodeHits): Mapping of episode numbers to segment hit counts Example: {'1': 5,
-            '2': 8, '3': 3}.
+        episode_hits (list[MediaSearchStatsEpisodeHitsItem]): Episode-level hit counts Example: [{'episode': 1,
+            'hitCount': 5}, {'episode': 2, 'hitCount': 8}, {'episode': 3, 'hitCount': 3}].
     """
 
-    media_id: int
-    public_id: str
+    media_public_id: str
     match_count: int
-    episode_hits: MediaSearchStatsEpisodeHits
+    episode_hits: list[MediaSearchStatsEpisodeHitsItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media_id = self.media_id
-
-        public_id = self.public_id
+        media_public_id = self.media_public_id
 
         match_count = self.match_count
 
-        episode_hits = self.episode_hits.to_dict()
+        episode_hits = []
+        for episode_hits_item_data in self.episode_hits:
+            episode_hits_item = episode_hits_item_data.to_dict()
+            episode_hits.append(episode_hits_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "mediaId": media_id,
-                "publicId": public_id,
+                "mediaPublicId": media_public_id,
                 "matchCount": match_count,
                 "episodeHits": episode_hits,
             }
@@ -55,20 +54,22 @@ class MediaSearchStats:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
+        from ..models.media_search_stats_episode_hits_item import MediaSearchStatsEpisodeHitsItem
 
         _src = dict(src_dict)
-        media_id = _src.pop("mediaId")
-
-        public_id = _src.pop("publicId")
+        media_public_id = _src.pop("mediaPublicId")
 
         match_count = _src.pop("matchCount")
 
-        episode_hits = MediaSearchStatsEpisodeHits.from_dict(_src.pop("episodeHits"))
+        episode_hits = []
+        _episode_hits = _src.pop("episodeHits")
+        for episode_hits_item_data in _episode_hits:
+            episode_hits_item = MediaSearchStatsEpisodeHitsItem.from_dict(episode_hits_item_data)
+
+            episode_hits.append(episode_hits_item)
 
         media_search_stats = cls(
-            media_id=media_id,
-            public_id=public_id,
+            media_public_id=media_public_id,
             match_count=match_count,
             episode_hits=episode_hits,
         )

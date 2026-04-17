@@ -17,7 +17,6 @@ from ...types import Response
 def _get_kwargs(
     key: str,
 ) -> dict[str, Any]:
-
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/user/labs/{key}".format(

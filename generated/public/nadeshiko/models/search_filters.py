@@ -8,11 +8,11 @@ from attrs import field as _attrs_field
 
 from ..models.category import Category
 from ..models.content_rating import ContentRating
-from ..models.search_filters_status_item import SearchFiltersStatusItem
+from ..models.search_filters_languages_item import SearchFiltersLanguagesItem
+from ..models.segment_status import SegmentStatus
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.search_filters_languages import SearchFiltersLanguages
     from ..models.search_filters_media import SearchFiltersMedia
     from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
     from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -29,20 +29,24 @@ class SearchFilters:
         media (SearchFiltersMedia | Unset): Media inclusion/exclusion filters
         category (list[Category] | Unset): Media category filter
         content_rating (list[ContentRating] | Unset): Content ratings to include (omit for all ratings)
-        status (list[SearchFiltersStatusItem] | Unset): Segment status filter
+        status (list[SegmentStatus] | Unset): Segment status filter
         segment_length_chars (SearchFiltersSegmentLengthChars | Unset): Content character count range filter
         segment_duration_ms (SearchFiltersSegmentDurationMs | Unset): Segment audio duration range filter (in
             milliseconds)
-        languages (SearchFiltersLanguages | Unset): Language inclusion/exclusion for search matching
+        languages (list[SearchFiltersLanguagesItem] | Unset): Translation languages to include alongside Japanese in
+            search matching.
+            - Omitted / `null`: match against Japanese and all translation languages (default)
+            - `[]`: match against Japanese only
+            - `["EN"]` / `["ES"]` / `["EN", "ES"]`: match against Japanese plus the listed translation languages
     """
 
     media: SearchFiltersMedia | Unset = UNSET
     category: list[Category] | Unset = UNSET
     content_rating: list[ContentRating] | Unset = UNSET
-    status: list[SearchFiltersStatusItem] | Unset = UNSET
+    status: list[SegmentStatus] | Unset = UNSET
     segment_length_chars: SearchFiltersSegmentLengthChars | Unset = UNSET
     segment_duration_ms: SearchFiltersSegmentDurationMs | Unset = UNSET
-    languages: SearchFiltersLanguages | Unset = UNSET
+    languages: list[SearchFiltersLanguagesItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -79,9 +83,12 @@ class SearchFilters:
         if not isinstance(self.segment_duration_ms, Unset):
             segment_duration_ms = self.segment_duration_ms.to_dict()
 
-        languages: dict[str, Any] | Unset = UNSET
+        languages: list[str] | Unset = UNSET
         if not isinstance(self.languages, Unset):
-            languages = self.languages.to_dict()
+            languages = []
+            for languages_item_data in self.languages:
+                languages_item = languages_item_data.value
+                languages.append(languages_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -105,7 +112,6 @@ class SearchFilters:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_filters_languages import SearchFiltersLanguages
         from ..models.search_filters_media import SearchFiltersMedia
         from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
         from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -137,11 +143,11 @@ class SearchFilters:
                 content_rating.append(content_rating_item)
 
         _status = _src.pop("status", UNSET)
-        status: list[SearchFiltersStatusItem] | Unset = UNSET
+        status: list[SegmentStatus] | Unset = UNSET
         if _status is not UNSET:
             status = []
             for status_item_data in _status:
-                status_item = SearchFiltersStatusItem(status_item_data)
+                status_item = SegmentStatus(status_item_data)
 
                 status.append(status_item)
 
@@ -160,11 +166,13 @@ class SearchFilters:
             segment_duration_ms = SearchFiltersSegmentDurationMs.from_dict(_segment_duration_ms)
 
         _languages = _src.pop("languages", UNSET)
-        languages: SearchFiltersLanguages | Unset
-        if isinstance(_languages, Unset):
-            languages = UNSET
-        else:
-            languages = SearchFiltersLanguages.from_dict(_languages)
+        languages: list[SearchFiltersLanguagesItem] | Unset = UNSET
+        if _languages is not UNSET:
+            languages = []
+            for languages_item_data in _languages:
+                languages_item = SearchFiltersLanguagesItem(languages_item_data)
+
+                languages.append(languages_item)
 
         search_filters = cls(
             media=media,

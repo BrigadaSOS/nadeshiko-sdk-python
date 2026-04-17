@@ -1,410 +1,353 @@
 """
 Nadeshiko SDK usage examples.
 
-These snippets are for reference only — they are NOT meant to be executed
+These snippets are for reference only - they are NOT meant to be executed
 as-is. Copy the parts you need into your own project.
 """
 
 from __future__ import annotations
 
-import asyncio
 import os
 
-from nadeshiko import Nadeshiko
-from nadeshiko.api.lists import list_index, list_show
-from nadeshiko.api.media import media_index, media_show
-from nadeshiko.api.search import fetch_media_info, fetch_sentence_context, search, search_multiple
+from nadeshiko import Nadeshiko, NadeshikoError, RetryOptions
 from nadeshiko.models import (
+    AddExcludedMediaBody,
     Category,
-    Error,
-    FetchSentenceContextRequest,
-    SearchMultipleRequest,
-    SearchRequest,
-    SearchRequestContentSort,
-    SearchRequestMediaItem,
+    CollectionCreateRequest,
+    CollectionVisibility,
+    ContentRating,
+    MediaFilterItem,
+    SearchFilters,
+    SearchFiltersMedia,
+    SearchFiltersSegmentLengthChars,
+    SearchMultipleQuery,
+    SearchQuery,
+    SearchSort,
+    SearchSortMode,
 )
-from nadeshiko.types import UNSET
 
-# ---------------------------------------------------------------------------
 # Client setup
-# ---------------------------------------------------------------------------
 
 client = Nadeshiko(
-    base_url=os.getenv("NADESHIKO_BASE_URL", "https://api.nadeshiko.co"),
-    token=os.getenv("NADESHIKO_API_KEY", "your-api-key"),
+    api_key=os.environ["NADESHIKO_API_KEY"],
+    base_url="PRODUCTION",  # "LOCAL" | "DEVELOPMENT" | "PRODUCTION" | custom URL
+)
+
+# With retry + timeout + custom headers
+client_with_retry = Nadeshiko(
+    api_key=os.environ["NADESHIKO_API_KEY"],
+    headers={"User-Agent": "MyApp/1.0"},
+    retry_options=RetryOptions(
+        max_retries=3,
+        timeout=10,
+    ),
 )
 
 
-# ---------------------------------------------------------------------------
-# Basic search
-# ---------------------------------------------------------------------------
+# Basic search - model objects
 
 
 def basic_search() -> None:
-    result = search.sync(
-        client=client,
-        body=SearchRequest(query="食べる"),
+    data = client.search(
+        query=SearchQuery(search="食べる"),
     )
 
-    if isinstance(result, Error):
-        print(result.code, result.detail)
-        return
-
-    for sentence in result.sentences or []:
-        print(sentence.segment_info.content_jp)
-        print(sentence.segment_info.content_en)
-        print(sentence.basic_info.name_anime_en, f"EP {sentence.basic_info.episode}")
-        print("---")
+    for segment in data.segments:
+        print(segment.text_ja.content)
+        print(segment.text_en.content)
+        print(f"{segment.media_public_id} EP {segment.episode}")
 
 
-# ---------------------------------------------------------------------------
 # Search with filters
-# ---------------------------------------------------------------------------
-
 
 def filtered_search() -> None:
-    result = search.sync(
-        client=client,
-        body=SearchRequest(
-            query="おはよう",
+    data = client.search(
+        query=SearchQuery(search="おはよう", exact_match=True),
+        take=5,
+        sort=SearchSort(mode=SearchSortMode.ASC),
+        filters=SearchFilters(
             category=[Category.ANIME],
-            limit=5,
-            content_sort=SearchRequestContentSort.ASC,  # shortest sentences first
-            min_length=3,
-            max_length=30,
-            exact_match=True,  # exact phrase matching
-            excluded_anime_ids=[42, 99],  # exclude specific media
+            content_rating=[ContentRating.SAFE],
+            segment_length_chars=SearchFiltersSegmentLengthChars(min_=3, max_=30),
         ),
     )
 
-    if isinstance(result, Error):
-        return
+    print(f"~{data.pagination.estimated_total_hits} results")
 
-    print(f"Found {len(result.sentences or [])} results")
+    for segment in data.segments:
+        print(segment.text_ja.content)
+        if segment.text_ja.highlight:
+            print("Highlight:", segment.text_ja.highlight)
 
-    for sentence in result.sentences or []:
-        print(sentence.segment_info.content_jp)
-
-        # Highlighted version (search terms wrapped in <em>)
-        if sentence.segment_info.content_jp_highlight is not UNSET:
-            print("Highlight:", sentence.segment_info.content_jp_highlight)
-
-
-# ---------------------------------------------------------------------------
-# Paginated search with cursor
-# ---------------------------------------------------------------------------
-
-
-def paginated_search() -> None:
-    cursor = UNSET
-    page = 0
-
-    while True:
-        result = search.sync(
-            client=client,
-            body=SearchRequest(
-                query="猫",
-                limit=10,
-                cursor=cursor,
-            ),
-        )
-
-        if isinstance(result, Error):
-            print(result.detail)
-            break
-
-        page += 1
-        print(f"Page {page}:")
-        for sentence in result.sentences or []:
-            print(f" - {sentence.segment_info.content_jp}")
-
-        if isinstance(result.cursor, list):
-            cursor = result.cursor
-        else:
-            break
-
-
-# ---------------------------------------------------------------------------
 # Search filtered to specific media + episodes
-# ---------------------------------------------------------------------------
-
 
 def media_filtered_search() -> None:
-    result = search.sync(
-        client=client,
-        body=SearchRequest(
-            query="ありがとう",
-            media=[
-                SearchRequestMediaItem.from_dict({"media_id": 123, "episodes": [1, 2, 3]}),
-                SearchRequestMediaItem.from_dict({"media_id": 456, "episodes": [5]}),
-            ],
+    data = client.search(
+        query=SearchQuery(search="ありがとう"),
+        filters=SearchFilters(
+            media=SearchFiltersMedia(
+                include=[
+                    MediaFilterItem(media_public_id="abc", episodes=[1, 2, 3]),
+                    MediaFilterItem(media_public_id="xyz", episodes=[5]),
+                ]
+            )
         ),
     )
 
-    if isinstance(result, Error):
-        return
-    print(len(result.sentences or []), "results")
+    print(len(data.segments), "results")
 
 
-# ---------------------------------------------------------------------------
 # Search multiple words at once
-# ---------------------------------------------------------------------------
-
 
 def multi_word_search() -> None:
-    result = search_multiple.sync(
-        client=client,
-        body=SearchMultipleRequest(
-            words=["猫", "犬", "鳥"],
-            exact_match=True,
-        ),
+    data = client.search_words(
+        query=SearchMultipleQuery(words=["猫", "犬", "鳥"]),
     )
 
-    if isinstance(result, Error):
-        return
-
-    for match in result.results or []:
-        print(f"{match.word}: {match.total_matches} total matches, found in {len(match.media or [])} media")
-
-        for m in match.media or []:
-            print(f"  {m.name_anime_en} — {m.match_count} hits")
+    for entry in data.results:
+        print(f"{entry.word}: {entry.match_count} occurrences across {len(entry.media)} media")
 
 
-# ---------------------------------------------------------------------------
-# Get search filter stats (for building UI filters)
-# ---------------------------------------------------------------------------
+# Find media by name (autocomplete-style search)
 
+def find_media() -> None:
+    data = client.search_media(
+        query="steins",
+        take=5,
+    )
+
+    for media in data.media:
+        print(f"[{media.media_public_id}] {media.name_en}")
+
+
+# Get corpus statistics overview (powers the /stats page)
+
+def stats_overview() -> None:
+    data = client.get_stats_overview()
+
+    print(f"Total segments: {data.total_segments}")
+    print(f"Total media: {data.total_media}")
+
+
+# Get current user profile and quota
+
+def current_user() -> None:
+    data = client.get_me()
+
+    print(f"User: {data.user.username} ({data.user.role})")
+    print(f"Quota used: {data.quota.used} / {data.quota.limit}")
+
+# Excluded media - hide media from search results
+
+
+def excluded_media() -> None:
+    # List currently excluded media
+    listed = client.list_excluded_media()
+    print(f"Excluding {len(listed.excluded_media)} media")
+
+    # Exclude a media entry
+    client.add_excluded_media(AddExcludedMediaBody(media_public_id="some-public-id"))
+
+    # Re-include it
+    client.remove_excluded_media("some-public-id")
+
+
+# Get search filter stats
 
 def search_stats() -> None:
-    result = search.sync(
-        client=client,
-        body=SearchRequest(
-            query="学校",
-            category=[Category.ANIME],
-        ),
+    data = client.get_search_stats(
+        query=SearchQuery(search="学校"),
+        filters=SearchFilters(category=[Category.ANIME]),
     )
 
-    if isinstance(result, Error):
-        return
+    for category in data.categories:
+        print(f"{category.category}: {category.count} hits")
 
-    # Category tab counts
-    for cat in result.category_statistics or []:
-        print(f"{cat.category}: {cat.count} hits")
-
-    # Per-media breakdown
-    for media in result.statistics or []:
-        print(f"{media.name_anime_en}: {media.segment_count} segments")
-
-
-# ---------------------------------------------------------------------------
-# Get surrounding context for a segment
-# ---------------------------------------------------------------------------
-
-
-def segment_context() -> None:
-    result = fetch_sentence_context.sync(
-        client=client,
-        body=FetchSentenceContextRequest(
-            media_id=123,
-            season=1,
-            episode=1,
-            segment_position=42,
-            limit=3,  # 3 segments before + after
-        ),
-    )
-
-    if isinstance(result, Error):
-        return
-
-    for sentence in result.sentences:
-        print(f"[{sentence.segment_info.start_time}] {sentence.segment_info.content_jp}")
-
-
-# ---------------------------------------------------------------------------
-# Browse media catalog
-# ---------------------------------------------------------------------------
-
-
-def browse_media_catalog() -> None:
-    result = fetch_media_info.sync(
-        client=client,
-        query="naruto",
-        type_="anime",
-        size=20,
-        cursor=0,
-    )
-
-    if isinstance(result, Error):
-        return
-
-    for media in result.data or []:
-        print(f"[{media.id}] {media.name_anime_en}")
-
-
-# ---------------------------------------------------------------------------
-# List all media (paginated)
-# ---------------------------------------------------------------------------
-
-
-def list_all_media() -> None:
-    result = media_index.sync(
-        client=client,
-        limit=20,
-        cursor=0,
-    )
-
-    if isinstance(result, Error):
-        return
-
-    for media in result.media or []:
-        print(f"[{media.id}] {media.english_name} ({media.airing_status})")
-        print(f"  Genres: {', '.join(media.genres or [])}")
-        print(f"  Episodes: {media.episode_count}")
-
-
-# ---------------------------------------------------------------------------
-# Get a single media's details
-# ---------------------------------------------------------------------------
+# Get a single media - string shorthand or keyword args
 
 
 def get_media_details() -> None:
-    result = media_show.sync(
-        123,
-        client=client,
+    # Shorthand: pass the ID directly
+    data = client.get_media("some-public-id")
+
+    # Equivalent keyword form:
+    # data = client.get_media(media_public_id="some-public-id")
+
+    print(data.name_en, data.name_ja)
+    print(f"Episodes: {data.episode_count}, Segments: {data.segment_count}")
+
+
+# Get segment context - string shorthand
+
+def segment_context() -> None:
+    data = client.get_segment_context("some-segment-uuid")
+
+    for segment in data.segments:
+        print(f"[{segment.start_time_ms}ms] {segment.text_ja.content}")
+
+# Browse media catalog - query params as keyword args
+
+
+def browse_media_catalog() -> None:
+    data = client.list_media(
+        query="naruto",
+        category="ANIME",
+        take=20,
     )
 
-    if isinstance(result, Error):
-        if result.status == 404:
-            print("Media not found")
-        return
-
-    print(result.english_name, result.japanese_name)
-    print(f"Category: {result.category}")
-    print(f"Episodes: {result.episode_count}")
-    print(f"Segments: {result.segment_count}")
+    for media in data.media:
+        print(f"[{media.media_public_id}] {media.name_en} ({media.airing_status})")
+        print(f"  Genres: {', '.join(media.genres)}")
+        print(f"  Episodes: {media.episode_count}")
 
 
-# ---------------------------------------------------------------------------
-# Working with lists
-# ---------------------------------------------------------------------------
+# Get episode - path params as keyword args
 
-
-def list_examples() -> None:
-    # Fetch all public lists
-    lists = list_index.sync(
-        client=client,
-        visibility="public",
-        type_="SERIES",
+def get_episode_details() -> None:
+    data = client.get_episode(
+        media_public_id="some-media-id",
+        episode_number=5,
     )
 
-    if isinstance(lists, Error):
-        return
-
-    for lst in lists or []:
-        print(f"[{lst.id}] {lst.name} — {lst.segment_count} segments")
-
-    # Get a single list with its media
-    detail = list_show.sync(
-        1,
-        client=client,
-    )
-
-    if isinstance(detail, Error):
-        return
-
-    print(f"List: {detail.name}")
-    for media_item in detail.media or []:
-        print(f"  {media_item.name_anime_en}")
+    print(data.title_en)
 
 
-# ---------------------------------------------------------------------------
-# Error handling patterns
-# ---------------------------------------------------------------------------
-
-
-def error_handling_exhaustive() -> None:
-    result = search.sync(
-        client=client,
-        body=SearchRequest(query="test"),
-    )
-
-    if isinstance(result, Error):
-        match result.code:
-            # 400 — Bad Request
-            case "VALIDATION_FAILED":
-                print("Validation failed:", result.detail)
-            case "INVALID_JSON":
-                print("Malformed JSON body:", result.detail)
-            case "INVALID_REQUEST":
-                print("Invalid request:", result.detail)
-
-            # 401 — Unauthorized
-            case "AUTH_CREDENTIALS_REQUIRED":
-                print("Missing API key or session token")
-            case "AUTH_CREDENTIALS_INVALID":
-                print("API key is invalid")
-            case "AUTH_CREDENTIALS_EXPIRED":
-                print("Token has expired, re-authenticate")
-            case "EMAIL_NOT_VERIFIED":
-                print("Email verification required")
-
-            # 403 — Forbidden
-            case "ACCESS_DENIED":
-                print("Access denied")
-            case "INSUFFICIENT_PERMISSIONS":
-                print("API key lacks the required scope")
-
-            # 429 — Too Many Requests
-            case "RATE_LIMIT_EXCEEDED":
-                print("Rate limit hit, slow down")
-            case "QUOTA_EXCEEDED":
-                print("Monthly quota exhausted")
-
-            # 500 — Internal Server Error
-            case "INTERNAL_SERVER_EXCEPTION":
-                print("Server error, trace ID:", result.instance)
-        return
-
-    print(result)
-
-
-# ---------------------------------------------------------------------------
-# Async usage
-# ---------------------------------------------------------------------------
-
-
-async def async_search() -> None:
-    result = await search.asyncio(
-        client=client,
-        body=SearchRequest(query="彼女"),
-    )
-
-    if isinstance(result, Error):
-        print(result.code, result.detail)
-        return
-
-    for sentence in result.sentences or []:
-        print(sentence.segment_info.content_jp)
-
-
-# ---------------------------------------------------------------------------
-# Accessing media URLs (images, audio, video)
-# ---------------------------------------------------------------------------
-
+# Access media URLs
 
 def media_urls() -> None:
-    result = search.sync(
-        client=client,
-        body=SearchRequest(query="桜"),
+    data = client.search(
+        query=SearchQuery(search="桜"),
     )
 
-    if isinstance(result, Error):
+    for segment in data.segments:
+        print("Image:", segment.urls.image_url)
+        print("Audio:", segment.urls.audio_url)
+        print("Video:", segment.urls.video_url)
+
+
+# Morpheme / token analysis
+
+def morpheme_analysis() -> None:
+    data = client.search(
+        query=SearchQuery(search="彼女は毎日学校に行く"),
+    )
+
+    segment = data.segments[0]
+    tokens = segment.text_ja.tokens
+    if not tokens:
         return
 
-    for sentence in result.sentences or []:
-        if sentence.media_info.path_image is not UNSET:
-            print("Image:", sentence.media_info.path_image)
-        if sentence.media_info.path_audio is not UNSET:
-            print("Audio:", sentence.media_info.path_audio)
-        if sentence.media_info.path_video is not UNSET:
-            print("Video:", sentence.media_info.path_video)
+    for token in tokens:
+        print(f"{token.s} [{token.r}] - {token.p} (dict: {token.d})")
+
+
+# Paginated search - built-in auto-pagination
+
+def paginated_search() -> None:
+    for segment in client.iter_search(
+        query=SearchQuery(search="猫"),
+        take=20,
+    ):
+        print(segment.text_ja.content)
+
+
+# Browse all media with pagination
+
+def paginated_media_browse() -> None:
+    for media in client.iter_list_media(
+        category="ANIME",
+    ):
+        print(media.name_en)
+
+
+# Manual cursor pagination
+
+def manual_pagination() -> None:
+    cursor: str | None = None
+
+    while True:
+        data = client.search(
+            query=SearchQuery(search="犬"),
+            take=10,
+            cursor=cursor,
+        )
+
+        for segment in data.segments:
+            print(segment.text_ja.content)
+
+        if not data.pagination.has_more or data.pagination.cursor is None:
+            break
+
+        cursor = data.pagination.cursor
+
+
+# Error handling
+
+def error_handling() -> None:
+    try:
+        data = client.search(
+            query=SearchQuery(search="test"),
+        )
+        print(len(data.segments), "results")
+    except NadeshikoError as err:
+        match err.code:
+            case "VALIDATION_FAILED":
+                print("Validation failed:", err.detail)
+                for field, msg in (err.errors or {}).items():
+                    print(f"  {field}: {msg}")
+            case "AUTH_CREDENTIALS_REQUIRED" | "AUTH_CREDENTIALS_INVALID":
+                print("Authentication failed:", err.detail)
+            case "RATE_LIMIT_EXCEEDED":
+                print("Rate limited - slow down")
+            case "QUOTA_EXCEEDED":
+                print("Monthly quota exhausted")
+            case "INTERNAL_SERVER_EXCEPTION":
+                print("Server error, trace ID:", err.trace_id)
+            case _:
+                print(f"[{err.status}] {err.code}: {err.detail}")
+
+
+# Opt out of throwing for a single call
+
+def opt_out_of_throwing() -> None:
+    result = client.search(
+        throw_on_error=False,
+        query=SearchQuery(search="猫"),
+    )
+
+    if result.error is not None:
+        print("Search failed:", result.error)
+    else:
+        print(len(result.data.segments), "results")
+
+
+# Collections
+
+
+def collections() -> None:
+    from nadeshiko.models import AddSegmentToCollectionRequest
+
+    # Create a collection
+    collection = client.create_collection(
+        CollectionCreateRequest(name="Favorites", visibility=CollectionVisibility.PRIVATE)
+    )
+    print(f"Created: {collection.public_id}")
+
+    # Add segment to collection
+    client.add_segment_to_collection(
+        collection.public_id,
+        AddSegmentToCollectionRequest(segment_public_id="segment-uuid", note="Great line"),
+    )
+
+    # List collections
+    collections = client.list_collections()
+    for c in collections.collections:
+        print(f"[{c.public_id}] {c.name} ({len(c.segments)} segments)")
+
+    # Search within a collection
+    results = client.search_collection_segments(
+        collection.public_id,
+        query=SearchQuery(search="ありがとう"),
+    )
+    for segment in results.segments:
+        print(segment.text_ja.content)

@@ -15,7 +15,7 @@ T = TypeVar("T", bound="UserPreferencesHiddenMediaItem")
 class UserPreferencesHiddenMediaItem:
     """
     Attributes:
-        media_public_id (str): Public identifier of the hidden media
+        media_public_id (str): Public ID of the hidden media
         name_en (str | Unset):
         name_ja (str | Unset):
         name_romaji (str | Unset):

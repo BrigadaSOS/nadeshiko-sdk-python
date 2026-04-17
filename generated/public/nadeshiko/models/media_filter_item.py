@@ -16,16 +16,17 @@ class MediaFilterItem:
     """A media filter entry with optional episode restriction
 
     Attributes:
-        media_id (str): Media identifier (publicId or AniList external ID) Example: abc123xyz.
-        episodes (list[int] | Unset): Specific episodes (omit for all episodes) Example: [1, 2].
+        media_public_id (str): Media public ID (nanoid) Example: V1StGXR8_Z5d.
+        episodes (list[int] | Unset): Specific episodes (omit for all episodes). Use 0 for movies/specials Example: [1,
+            2].
     """
 
-    media_id: str
+    media_public_id: str
     episodes: list[int] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
         episodes: list[int] | Unset = UNSET
         if not isinstance(self.episodes, Unset):
@@ -35,7 +36,7 @@ class MediaFilterItem:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "mediaId": media_id,
+                "mediaPublicId": media_public_id,
             }
         )
         if episodes is not UNSET:
@@ -46,12 +47,12 @@ class MediaFilterItem:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        media_id = _src.pop("mediaId")
+        media_public_id = _src.pop("mediaPublicId")
 
         episodes = cast(list[int], _src.pop("episodes", UNSET))
 
         media_filter_item = cls(
-            media_id=media_id,
+            media_public_id=media_public_id,
             episodes=episodes,
         )
 

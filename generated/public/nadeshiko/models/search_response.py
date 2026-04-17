@@ -6,8 +6,10 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
-    from ..models.pagination_info import PaginationInfo
+    from ..models.search_pagination import SearchPagination
     from ..models.search_response_includes import SearchResponseIncludes
     from ..models.segment import Segment
 
@@ -20,13 +22,13 @@ class SearchResponse:
     """
     Attributes:
         segments (list[Segment]):
-        includes (SearchResponseIncludes):
-        pagination (PaginationInfo): Pagination metadata for search results
+        pagination (SearchPagination): Pagination metadata for search results
+        includes (SearchResponseIncludes | Unset): Optional related resources requested via `include[]`
     """
 
     segments: list[Segment]
-    includes: SearchResponseIncludes
-    pagination: PaginationInfo
+    pagination: SearchPagination
+    includes: SearchResponseIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,25 +37,28 @@ class SearchResponse:
             segments_item = segments_item_data.to_dict()
             segments.append(segments_item)
 
-        includes = self.includes.to_dict()
-
         pagination = self.pagination.to_dict()
+
+        includes: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.includes, Unset):
+            includes = self.includes.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "segments": segments,
-                "includes": includes,
                 "pagination": pagination,
             }
         )
+        if includes is not UNSET:
+            field_dict["includes"] = includes
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.pagination_info import PaginationInfo
+        from ..models.search_pagination import SearchPagination
         from ..models.search_response_includes import SearchResponseIncludes
         from ..models.segment import Segment
 
@@ -65,14 +70,19 @@ class SearchResponse:
 
             segments.append(segments_item)
 
-        includes = SearchResponseIncludes.from_dict(_src.pop("includes"))
+        pagination = SearchPagination.from_dict(_src.pop("pagination"))
 
-        pagination = PaginationInfo.from_dict(_src.pop("pagination"))
+        _includes = _src.pop("includes", UNSET)
+        includes: SearchResponseIncludes | Unset
+        if isinstance(_includes, Unset):
+            includes = UNSET
+        else:
+            includes = SearchResponseIncludes.from_dict(_includes)
 
         search_response = cls(
             segments=segments,
-            includes=includes,
             pagination=pagination,
+            includes=includes,
         )
 
         search_response.additional_properties = _src

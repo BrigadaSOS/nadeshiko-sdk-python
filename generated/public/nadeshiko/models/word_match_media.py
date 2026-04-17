@@ -14,16 +14,17 @@ class WordMatchMedia:
     """Media match count entry
 
     Attributes:
-        media_id (int): Media identifier (look up full details in includes.media) Example: 110316.
+        media_public_id (str): Media public ID (look up full details in `includes.media` when `include[]=media` is
+            requested) Example: V1StGXR8_Z5d.
         match_count (int): Number of times the word appears in this media Example: 234.
     """
 
-    media_id: int
+    media_public_id: str
     match_count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
         match_count = self.match_count
 
@@ -31,7 +32,7 @@ class WordMatchMedia:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "mediaId": media_id,
+                "mediaPublicId": media_public_id,
                 "matchCount": match_count,
             }
         )
@@ -41,12 +42,12 @@ class WordMatchMedia:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        media_id = _src.pop("mediaId")
+        media_public_id = _src.pop("mediaPublicId")
 
         match_count = _src.pop("matchCount")
 
         word_match_media = cls(
-            media_id=media_id,
+            media_public_id=media_public_id,
             match_count=match_count,
         )
 

@@ -8,12 +8,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.media_create_request_category import MediaCreateRequestCategory
+from ..models.category import Category
+from ..models.media_create_request_airing_format import MediaCreateRequestAiringFormat
+from ..models.media_create_request_airing_status import MediaCreateRequestAiringStatus
+from ..models.media_create_request_season_name import MediaCreateRequestSeasonName
 from ..models.media_create_request_storage import MediaCreateRequestStorage
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.character_input import CharacterInput
     from ..models.external_id import ExternalId
 
 
@@ -28,44 +30,44 @@ class MediaCreateRequest:
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
         name_en (str): English name of the media Example: Bakuman..
-        airing_format (str): Format of the media release (e.g., TV, OVA, Movie) Example: TV.
-        airing_status (str): Current airing status (FINISHED, RELEASING, NOT_YET_RELEASED, CANCELLED) Example: FINISHED.
+        airing_format (MediaCreateRequestAiringFormat): Format of the media release Example: TV.
+        airing_status (MediaCreateRequestAiringStatus): Current airing status Example: FINISHED.
         genres (list[str]): List of genres associated with the media Example: ['Comedy', 'Drama', 'Romance', 'Slice of
             Life'].
         storage (MediaCreateRequestStorage): Storage backend for media assets Default: MediaCreateRequestStorage.R2.
             Example: R2.
         start_date (datetime.date): Start date of the media (first airing/release) Example: 2010-10-02.
-        category (MediaCreateRequestCategory): Media category Example: ANIME.
+        category (Category): Media category type Example: ANIME.
         version (str): Version of the media-sub-splitter used Example: 6.
         hash_salt (str): Hash salt used when generating the hash for the related media assets Example:
             ba0cbe173ed310528f16130273662a60.
-        season_name (str): Airing season label for the media Example: FALL.
+        season_name (MediaCreateRequestSeasonName): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
-        external_ids (ExternalId | Unset): Map of external IDs keyed by source. Only sources with values are included.
+        external_ids (ExternalId | Unset): External IDs for this media, keyed by source. Every source appears as a key;
+            absent mappings are represented with a null value.
         end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
-        studio (str | Unset): Animation studio that produced the media Example: J.C.STAFF.
+        studio (None | str | Unset): Animation studio that produced the media. Pass `null` to explicitly mark as
+            unknown. Example: J.C.STAFF.
         storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
-        characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
     """
 
     name_ja: str
     name_romaji: str
     name_en: str
-    airing_format: str
-    airing_status: str
+    airing_format: MediaCreateRequestAiringFormat
+    airing_status: MediaCreateRequestAiringStatus
     genres: list[str]
     start_date: datetime.date
-    category: MediaCreateRequestCategory
+    category: Category
     version: str
     hash_salt: str
-    season_name: str
+    season_name: MediaCreateRequestSeasonName
     season_year: int
     storage: MediaCreateRequestStorage = MediaCreateRequestStorage.R2
     external_ids: ExternalId | Unset = UNSET
     end_date: datetime.date | Unset = UNSET
-    studio: str | Unset = UNSET
+    studio: None | str | Unset = UNSET
     storage_base_path: str | Unset = UNSET
-    characters: list[CharacterInput] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -75,9 +77,9 @@ class MediaCreateRequest:
 
         name_en = self.name_en
 
-        airing_format = self.airing_format
+        airing_format = self.airing_format.value
 
-        airing_status = self.airing_status
+        airing_status = self.airing_status.value
 
         genres = self.genres
 
@@ -91,7 +93,7 @@ class MediaCreateRequest:
 
         hash_salt = self.hash_salt
 
-        season_name = self.season_name
+        season_name = self.season_name.value
 
         season_year = self.season_year
 
@@ -103,16 +105,13 @@ class MediaCreateRequest:
         if not isinstance(self.end_date, Unset):
             end_date = self.end_date.isoformat()
 
-        studio = self.studio
+        studio: None | str | Unset
+        if isinstance(self.studio, Unset):
+            studio = UNSET
+        else:
+            studio = self.studio
 
         storage_base_path = self.storage_base_path
-
-        characters: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.characters, Unset):
-            characters = []
-            for characters_item_data in self.characters:
-                characters_item = characters_item_data.to_dict()
-                characters.append(characters_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -141,14 +140,11 @@ class MediaCreateRequest:
             field_dict["studio"] = studio
         if storage_base_path is not UNSET:
             field_dict["storageBasePath"] = storage_base_path
-        if characters is not UNSET:
-            field_dict["characters"] = characters
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.character_input import CharacterInput
         from ..models.external_id import ExternalId
 
         _src = dict(src_dict)
@@ -158,9 +154,9 @@ class MediaCreateRequest:
 
         name_en = _src.pop("nameEn")
 
-        airing_format = _src.pop("airingFormat")
+        airing_format = MediaCreateRequestAiringFormat(_src.pop("airingFormat"))
 
-        airing_status = _src.pop("airingStatus")
+        airing_status = MediaCreateRequestAiringStatus(_src.pop("airingStatus"))
 
         genres = cast(list[str], _src.pop("genres"))
 
@@ -168,13 +164,13 @@ class MediaCreateRequest:
 
         start_date = isoparse(_src.pop("startDate")).date()
 
-        category = MediaCreateRequestCategory(_src.pop("category"))
+        category = Category(_src.pop("category"))
 
         version = _src.pop("version")
 
         hash_salt = _src.pop("hashSalt")
 
-        season_name = _src.pop("seasonName")
+        season_name = MediaCreateRequestSeasonName(_src.pop("seasonName"))
 
         season_year = _src.pop("seasonYear")
 
@@ -192,18 +188,16 @@ class MediaCreateRequest:
         else:
             end_date = isoparse(_end_date).date()
 
-        studio = _src.pop("studio", UNSET)
+        def _parse_studio(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        studio = _parse_studio(_src.pop("studio", UNSET))
 
         storage_base_path = _src.pop("storageBasePath", UNSET)
-
-        _characters = _src.pop("characters", UNSET)
-        characters: list[CharacterInput] | Unset = UNSET
-        if _characters is not UNSET:
-            characters = []
-            for characters_item_data in _characters:
-                characters_item = CharacterInput.from_dict(characters_item_data)
-
-                characters.append(characters_item)
 
         media_create_request = cls(
             name_ja=name_ja,
@@ -223,7 +217,6 @@ class MediaCreateRequest:
             end_date=end_date,
             studio=studio,
             storage_base_path=storage_base_path,
-            characters=characters,
         )
 
         media_create_request.additional_properties = _src

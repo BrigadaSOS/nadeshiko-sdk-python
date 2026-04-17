@@ -16,19 +16,19 @@ class ReportTargetEpisode:
     """
     Attributes:
         type_ (ReportTargetEpisodeType): Report target type Example: EPISODE.
-        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
+        media_public_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
         episode_number (int): Episode number this report targets Example: 5.
     """
 
     type_: ReportTargetEpisodeType
-    media_id: str
+    media_public_id: str
     episode_number: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
         episode_number = self.episode_number
 
@@ -37,7 +37,7 @@ class ReportTargetEpisode:
         field_dict.update(
             {
                 "type": type_,
-                "mediaId": media_id,
+                "mediaPublicId": media_public_id,
                 "episodeNumber": episode_number,
             }
         )
@@ -49,13 +49,13 @@ class ReportTargetEpisode:
         _src = dict(src_dict)
         type_ = ReportTargetEpisodeType(_src.pop("type"))
 
-        media_id = _src.pop("mediaId")
+        media_public_id = _src.pop("mediaPublicId")
 
         episode_number = _src.pop("episodeNumber")
 
         report_target_episode = cls(
             type_=type_,
-            media_id=media_id,
+            media_public_id=media_public_id,
             episode_number=episode_number,
         )
 

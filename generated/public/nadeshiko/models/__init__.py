@@ -1,36 +1,36 @@
 """Contains all the data models used in inputs/outputs"""
 
 from .activity_type import ActivityType
-from .admin_report import AdminReport
+from .add_excluded_media_body import AddExcludedMediaBody
+from .add_segment_to_collection_request import AddSegmentToCollectionRequest
+from .admin_report_group import AdminReportGroup
+from .admin_report_group_item import AdminReportGroupItem
 from .admin_report_list_response import AdminReportListResponse
+from .affected_count_response import AffectedCountResponse
+from .announcement import Announcement
+from .announcement_type import AnnouncementType
 from .batch_update_reports_request import BatchUpdateReportsRequest
-from .batch_update_reports_request_status import BatchUpdateReportsRequestStatus
+from .bulk_delete_reports_request import BulkDeleteReportsRequest
+from .bulk_delete_reports_request_filters import BulkDeleteReportsRequestFilters
+from .bulk_update_reports_request import BulkUpdateReportsRequest
+from .bulk_update_reports_request_filters import BulkUpdateReportsRequestFilters
 from .category import Category
 from .category_count import CategoryCount
-from .character import Character
-from .character_input import CharacterInput
-from .character_input_role import CharacterInputRole
-from .character_input_seiyuu import CharacterInputSeiyuu
-from .character_with_media import CharacterWithMedia
-from .character_with_media_media_appearances_item import CharacterWithMediaMediaAppearancesItem
-from .character_with_media_media_appearances_item_role import (
-    CharacterWithMediaMediaAppearancesItemRole,
-)
 from .collection import Collection
+from .collection_create_request import CollectionCreateRequest
 from .collection_list_response import CollectionListResponse
-from .collection_requests import CollectionRequests
-from .collection_requests_visibility import CollectionRequestsVisibility
 from .collection_type import CollectionType
+from .collection_update_request import CollectionUpdateRequest
 from .collection_visibility import CollectionVisibility
-from .collection_with_segments import CollectionWithSegments
-from .collection_with_segments_includes import CollectionWithSegmentsIncludes
-from .collection_with_segments_includes_media import CollectionWithSegmentsIncludesMedia
-from .collection_with_segments_segments_item import CollectionWithSegmentsSegmentsItem
-from .collection_with_segments_visibility import CollectionWithSegmentsVisibility
 from .content_rating import ContentRating
 from .covered_word import CoveredWord
+from .covered_words_response import CoveredWordsResponse
+from .covered_words_response_tier_stats import CoveredWordsResponseTierStats
+from .covered_words_update_request import CoveredWordsUpdateRequest
+from .covered_words_update_response import CoveredWordsUpdateResponse
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
+from .cursor_pagination import CursorPagination
 from .episode import Episode
 from .episode_create_request import EpisodeCreateRequest
 from .episode_list_response import EpisodeListResponse
@@ -64,16 +64,18 @@ from .error_500_code import Error500Code
 from .error_500_errors import Error500Errors
 from .error_500_status import Error500Status
 from .external_id import ExternalId
-from .get_covered_words_filter import GetCoveredWordsFilter
-from .get_covered_words_response_200 import GetCoveredWordsResponse200
-from .get_covered_words_response_200_tier_stats import GetCoveredWordsResponse200TierStats
-from .get_segment_by_uuid_include_item import GetSegmentByUuidIncludeItem
-from .get_stats_overview_response_200 import GetStatsOverviewResponse200
-from .get_stats_overview_response_200_translations import GetStatsOverviewResponse200Translations
+from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
+from .get_user_activity_heatmap_response_200_activity_by_day import (
+    GetUserActivityHeatmapResponse200ActivityByDay,
+)
 from .heatmap_day_counts import HeatmapDayCounts
 from .include_expansion import IncludeExpansion
+from .list_excluded_media_response_200 import ListExcludedMediaResponse200
 from .list_media_category import ListMediaCategory
+from .list_user_activity_response_200 import ListUserActivityResponse200
 from .media import Media
+from .media_airing_format import MediaAiringFormat
+from .media_airing_status import MediaAiringStatus
 from .media_audit import MediaAudit
 from .media_audit_latest_run_type_0 import MediaAuditLatestRunType0
 from .media_audit_run import MediaAuditRun
@@ -82,30 +84,24 @@ from .media_audit_target_type import MediaAuditTargetType
 from .media_audit_threshold import MediaAuditThreshold
 from .media_audit_threshold_schema_item import MediaAuditThresholdSchemaItem
 from .media_audit_threshold_schema_item_type import MediaAuditThresholdSchemaItemType
-from .media_autocomplete_item import MediaAutocompleteItem
 from .media_autocomplete_response import MediaAutocompleteResponse
-from .media_character import MediaCharacter
-from .media_character_role import MediaCharacterRole
 from .media_create_request import MediaCreateRequest
-from .media_create_request_category import MediaCreateRequestCategory
+from .media_create_request_airing_format import MediaCreateRequestAiringFormat
+from .media_create_request_airing_status import MediaCreateRequestAiringStatus
+from .media_create_request_season_name import MediaCreateRequestSeasonName
 from .media_create_request_storage import MediaCreateRequestStorage
 from .media_filter_item import MediaFilterItem
-from .media_include_expansion import MediaIncludeExpansion
+from .media_global_stats import MediaGlobalStats
 from .media_list_response import MediaListResponse
-from .media_list_response_stats import MediaListResponseStats
 from .media_search_stats import MediaSearchStats
-from .media_search_stats_episode_hits import MediaSearchStatsEpisodeHits
+from .media_search_stats_episode_hits_item import MediaSearchStatsEpisodeHitsItem
+from .media_season_name import MediaSeasonName
+from .media_summary import MediaSummary
 from .media_update_request import MediaUpdateRequest
-from .media_update_request_category import MediaUpdateRequestCategory
+from .media_update_request_airing_format import MediaUpdateRequestAiringFormat
+from .media_update_request_airing_status import MediaUpdateRequestAiringStatus
+from .media_update_request_season_name import MediaUpdateRequestSeasonName
 from .media_update_request_storage import MediaUpdateRequestStorage
-from .opaque_cursor_pagination import OpaqueCursorPagination
-from .pagination_info import PaginationInfo
-from .pagination_info_estimated_total_hits_relation import PaginationInfoEstimatedTotalHitsRelation
-from .reindex_request import ReindexRequest
-from .reindex_request_media_item import ReindexRequestMediaItem
-from .reindex_response import ReindexResponse
-from .reindex_response_errors_item import ReindexResponseErrorsItem
-from .reindex_response_stats import ReindexResponseStats
 from .report import Report
 from .report_data_type_0 import ReportDataType0
 from .report_reason import ReportReason
@@ -119,29 +115,33 @@ from .report_target_segment import ReportTargetSegment
 from .report_target_segment_input import ReportTargetSegmentInput
 from .report_target_segment_input_type import ReportTargetSegmentInputType
 from .report_target_segment_type import ReportTargetSegmentType
+from .report_target_type import ReportTargetType
 from .run_audit_response import RunAuditResponse
 from .run_audit_response_checks_run_item import RunAuditResponseChecksRunItem
 from .search_filters import SearchFilters
-from .search_filters_languages import SearchFiltersLanguages
-from .search_filters_languages_exclude_item import SearchFiltersLanguagesExcludeItem
+from .search_filters_languages_item import SearchFiltersLanguagesItem
 from .search_filters_media import SearchFiltersMedia
 from .search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
 from .search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
-from .search_filters_status_item import SearchFiltersStatusItem
+from .search_media_filters import SearchMediaFilters
+from .search_media_request import SearchMediaRequest
+from .search_multiple_query import SearchMultipleQuery
 from .search_multiple_request import SearchMultipleRequest
-from .search_multiple_request_query import SearchMultipleRequestQuery
 from .search_multiple_response import SearchMultipleResponse
 from .search_multiple_response_includes import SearchMultipleResponseIncludes
 from .search_multiple_response_includes_media import SearchMultipleResponseIncludesMedia
+from .search_pagination import SearchPagination
+from .search_pagination_estimated_total_hits_relation import (
+    SearchPaginationEstimatedTotalHitsRelation,
+)
+from .search_query import SearchQuery
 from .search_request import SearchRequest
-from .search_request_query import SearchRequestQuery
-from .search_request_sort import SearchRequestSort
-from .search_request_sort_mode import SearchRequestSortMode
 from .search_response import SearchResponse
 from .search_response_includes import SearchResponseIncludes
 from .search_response_includes_media import SearchResponseIncludesMedia
+from .search_sort import SearchSort
+from .search_sort_mode import SearchSortMode
 from .search_stats_request import SearchStatsRequest
-from .search_stats_request_query import SearchStatsRequestQuery
 from .search_stats_response import SearchStatsResponse
 from .search_stats_response_includes import SearchStatsResponseIncludes
 from .search_stats_response_includes_media import SearchStatsResponseIncludesMedia
@@ -153,7 +153,6 @@ from .segment_context_response_includes_media import SegmentContextResponseInclu
 from .segment_create_request import SegmentCreateRequest
 from .segment_create_request_pos_analysis_type_0 import SegmentCreateRequestPosAnalysisType0
 from .segment_create_request_rating_analysis_type_0 import SegmentCreateRequestRatingAnalysisType0
-from .segment_create_request_status import SegmentCreateRequestStatus
 from .segment_create_request_storage import SegmentCreateRequestStorage
 from .segment_create_request_text_en import SegmentCreateRequestTextEn
 from .segment_create_request_text_es import SegmentCreateRequestTextEs
@@ -162,6 +161,7 @@ from .segment_internal import SegmentInternal
 from .segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
 from .segment_internal_rating_analysis_type_0 import SegmentInternalRatingAnalysisType0
 from .segment_internal_storage import SegmentInternalStorage
+from .segment_list_response import SegmentListResponse
 from .segment_revision import SegmentRevision
 from .segment_revision_snapshot import SegmentRevisionSnapshot
 from .segment_status import SegmentStatus
@@ -171,30 +171,28 @@ from .segment_text_ja import SegmentTextJa
 from .segment_update_request import SegmentUpdateRequest
 from .segment_update_request_pos_analysis_type_0 import SegmentUpdateRequestPosAnalysisType0
 from .segment_update_request_rating_analysis_type_0 import SegmentUpdateRequestRatingAnalysisType0
-from .segment_update_request_status import SegmentUpdateRequestStatus
 from .segment_update_request_storage import SegmentUpdateRequestStorage
 from .segment_update_request_text_en import SegmentUpdateRequestTextEn
 from .segment_update_request_text_es import SegmentUpdateRequestTextEs
 from .segment_update_request_text_ja import SegmentUpdateRequestTextJa
 from .segment_urls import SegmentUrls
-from .seiyuu import Seiyuu
-from .seiyuu_with_roles import SeiyuuWithRoles
-from .seiyuu_with_roles_characters_item import SeiyuuWithRolesCharactersItem
-from .seiyuu_with_roles_characters_item_role import SeiyuuWithRolesCharactersItemRole
-from .series import Series
-from .series_list_response import SeriesListResponse
-from .series_with_media import SeriesWithMedia
-from .series_with_media_media_item import SeriesWithMediaMediaItem
+from .stats_overview import StatsOverview
+from .stats_overview_translations import StatsOverviewTranslations
 from .token import Token
-from .trigger_covered_words_update_body import TriggerCoveredWordsUpdateBody
-from .trigger_covered_words_update_response_200 import TriggerCoveredWordsUpdateResponse200
+from .update_collection_segment_request import UpdateCollectionSegmentRequest
 from .update_report_request import UpdateReportRequest
-from .update_report_request_status import UpdateReportRequestStatus
 from .user_activity import UserActivity
+from .user_activity_request import UserActivityRequest
+from .user_activity_request_activity_type import UserActivityRequestActivityType
+from .user_activity_stats import UserActivityStats
+from .user_activity_stats_top_media_item import UserActivityStatsTopMediaItem
 from .user_export_collection import UserExportCollection
 from .user_export_response import UserExportResponse
 from .user_export_response_profile import UserExportResponseProfile
 from .user_lab_feature import UserLabFeature
+from .user_me import UserMe
+from .user_me_quota import UserMeQuota
+from .user_me_user import UserMeUser
 from .user_preferences import UserPreferences
 from .user_preferences_anki_profiles_item import UserPreferencesAnkiProfilesItem
 from .user_preferences_anki_profiles_item_fields_item import (
@@ -210,41 +208,42 @@ from .user_preferences_content_rating_preferences_suggestive import (
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
-from .user_quota_response import UserQuotaResponse
 from .word_coverage_tier import WordCoverageTier
 from .word_match import WordMatch
 from .word_match_media import WordMatchMedia
 
 __all__ = (
     "ActivityType",
-    "AdminReport",
+    "AddExcludedMediaBody",
+    "AddSegmentToCollectionRequest",
+    "AdminReportGroup",
+    "AdminReportGroupItem",
     "AdminReportListResponse",
+    "AffectedCountResponse",
+    "Announcement",
+    "AnnouncementType",
     "BatchUpdateReportsRequest",
-    "BatchUpdateReportsRequestStatus",
+    "BulkDeleteReportsRequest",
+    "BulkDeleteReportsRequestFilters",
+    "BulkUpdateReportsRequest",
+    "BulkUpdateReportsRequestFilters",
     "Category",
     "CategoryCount",
-    "Character",
-    "CharacterInput",
-    "CharacterInputRole",
-    "CharacterInputSeiyuu",
-    "CharacterWithMedia",
-    "CharacterWithMediaMediaAppearancesItem",
-    "CharacterWithMediaMediaAppearancesItemRole",
     "Collection",
+    "CollectionCreateRequest",
     "CollectionListResponse",
-    "CollectionRequests",
-    "CollectionRequestsVisibility",
     "CollectionType",
+    "CollectionUpdateRequest",
     "CollectionVisibility",
-    "CollectionWithSegments",
-    "CollectionWithSegmentsIncludes",
-    "CollectionWithSegmentsIncludesMedia",
-    "CollectionWithSegmentsSegmentsItem",
-    "CollectionWithSegmentsVisibility",
     "ContentRating",
     "CoveredWord",
+    "CoveredWordsResponse",
+    "CoveredWordsResponseTierStats",
+    "CoveredWordsUpdateRequest",
+    "CoveredWordsUpdateResponse",
     "CreateReportRequest",
     "CreateReportRequestReason",
+    "CursorPagination",
     "Episode",
     "EpisodeCreateRequest",
     "EpisodeListResponse",
@@ -278,16 +277,16 @@ __all__ = (
     "Error500Errors",
     "Error500Status",
     "ExternalId",
-    "GetCoveredWordsFilter",
-    "GetCoveredWordsResponse200",
-    "GetCoveredWordsResponse200TierStats",
-    "GetSegmentByUuidIncludeItem",
-    "GetStatsOverviewResponse200",
-    "GetStatsOverviewResponse200Translations",
+    "GetUserActivityHeatmapResponse200",
+    "GetUserActivityHeatmapResponse200ActivityByDay",
     "HeatmapDayCounts",
     "IncludeExpansion",
+    "ListExcludedMediaResponse200",
     "ListMediaCategory",
+    "ListUserActivityResponse200",
     "Media",
+    "MediaAiringFormat",
+    "MediaAiringStatus",
     "MediaAudit",
     "MediaAuditLatestRunType0",
     "MediaAuditRun",
@@ -296,30 +295,24 @@ __all__ = (
     "MediaAuditThreshold",
     "MediaAuditThresholdSchemaItem",
     "MediaAuditThresholdSchemaItemType",
-    "MediaAutocompleteItem",
     "MediaAutocompleteResponse",
-    "MediaCharacter",
-    "MediaCharacterRole",
     "MediaCreateRequest",
-    "MediaCreateRequestCategory",
+    "MediaCreateRequestAiringFormat",
+    "MediaCreateRequestAiringStatus",
+    "MediaCreateRequestSeasonName",
     "MediaCreateRequestStorage",
     "MediaFilterItem",
-    "MediaIncludeExpansion",
+    "MediaGlobalStats",
     "MediaListResponse",
-    "MediaListResponseStats",
     "MediaSearchStats",
-    "MediaSearchStatsEpisodeHits",
+    "MediaSearchStatsEpisodeHitsItem",
+    "MediaSeasonName",
+    "MediaSummary",
     "MediaUpdateRequest",
-    "MediaUpdateRequestCategory",
+    "MediaUpdateRequestAiringFormat",
+    "MediaUpdateRequestAiringStatus",
+    "MediaUpdateRequestSeasonName",
     "MediaUpdateRequestStorage",
-    "OpaqueCursorPagination",
-    "PaginationInfo",
-    "PaginationInfoEstimatedTotalHitsRelation",
-    "ReindexRequest",
-    "ReindexRequestMediaItem",
-    "ReindexResponse",
-    "ReindexResponseErrorsItem",
-    "ReindexResponseStats",
     "Report",
     "ReportDataType0",
     "ReportReason",
@@ -333,29 +326,31 @@ __all__ = (
     "ReportTargetSegmentInput",
     "ReportTargetSegmentInputType",
     "ReportTargetSegmentType",
+    "ReportTargetType",
     "RunAuditResponse",
     "RunAuditResponseChecksRunItem",
     "SearchFilters",
-    "SearchFiltersLanguages",
-    "SearchFiltersLanguagesExcludeItem",
+    "SearchFiltersLanguagesItem",
     "SearchFiltersMedia",
     "SearchFiltersSegmentDurationMs",
     "SearchFiltersSegmentLengthChars",
-    "SearchFiltersStatusItem",
+    "SearchMediaFilters",
+    "SearchMediaRequest",
+    "SearchMultipleQuery",
     "SearchMultipleRequest",
-    "SearchMultipleRequestQuery",
     "SearchMultipleResponse",
     "SearchMultipleResponseIncludes",
     "SearchMultipleResponseIncludesMedia",
+    "SearchPagination",
+    "SearchPaginationEstimatedTotalHitsRelation",
+    "SearchQuery",
     "SearchRequest",
-    "SearchRequestQuery",
-    "SearchRequestSort",
-    "SearchRequestSortMode",
     "SearchResponse",
     "SearchResponseIncludes",
     "SearchResponseIncludesMedia",
+    "SearchSort",
+    "SearchSortMode",
     "SearchStatsRequest",
-    "SearchStatsRequestQuery",
     "SearchStatsResponse",
     "SearchStatsResponseIncludes",
     "SearchStatsResponseIncludesMedia",
@@ -367,7 +362,6 @@ __all__ = (
     "SegmentCreateRequest",
     "SegmentCreateRequestPosAnalysisType0",
     "SegmentCreateRequestRatingAnalysisType0",
-    "SegmentCreateRequestStatus",
     "SegmentCreateRequestStorage",
     "SegmentCreateRequestTextEn",
     "SegmentCreateRequestTextEs",
@@ -376,6 +370,7 @@ __all__ = (
     "SegmentInternalPosAnalysisType0",
     "SegmentInternalRatingAnalysisType0",
     "SegmentInternalStorage",
+    "SegmentListResponse",
     "SegmentRevision",
     "SegmentRevisionSnapshot",
     "SegmentStatus",
@@ -385,30 +380,28 @@ __all__ = (
     "SegmentUpdateRequest",
     "SegmentUpdateRequestPosAnalysisType0",
     "SegmentUpdateRequestRatingAnalysisType0",
-    "SegmentUpdateRequestStatus",
     "SegmentUpdateRequestStorage",
     "SegmentUpdateRequestTextEn",
     "SegmentUpdateRequestTextEs",
     "SegmentUpdateRequestTextJa",
     "SegmentUrls",
-    "Seiyuu",
-    "SeiyuuWithRoles",
-    "SeiyuuWithRolesCharactersItem",
-    "SeiyuuWithRolesCharactersItemRole",
-    "Series",
-    "SeriesListResponse",
-    "SeriesWithMedia",
-    "SeriesWithMediaMediaItem",
+    "StatsOverview",
+    "StatsOverviewTranslations",
     "Token",
-    "TriggerCoveredWordsUpdateBody",
-    "TriggerCoveredWordsUpdateResponse200",
+    "UpdateCollectionSegmentRequest",
     "UpdateReportRequest",
-    "UpdateReportRequestStatus",
     "UserActivity",
+    "UserActivityRequest",
+    "UserActivityRequestActivityType",
+    "UserActivityStats",
+    "UserActivityStatsTopMediaItem",
     "UserExportCollection",
     "UserExportResponse",
     "UserExportResponseProfile",
     "UserLabFeature",
+    "UserMe",
+    "UserMeQuota",
+    "UserMeUser",
     "UserPreferences",
     "UserPreferencesAnkiProfilesItem",
     "UserPreferencesAnkiProfilesItemFieldsItem",
@@ -418,7 +411,6 @@ __all__ = (
     "UserPreferencesHiddenMediaItem",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
-    "UserQuotaResponse",
     "WordCoverageTier",
     "WordMatch",
     "WordMatchMedia",

@@ -27,13 +27,13 @@ class Report:
     """
     Attributes:
         id (int): Report ID Example: 1.
-        source (ReportSource): Who created this report Example: USER.
+        source (ReportSource): Origin of the report Example: USER.
         target (ReportTargetEpisode | ReportTargetMedia | ReportTargetSegment):
         audit_run_id (int | None): ID of the audit run that created this report (AUTO only)
         reason (ReportReason): Reason for the report Example: WRONG_TRANSLATION.
         description (None | str): Optional description with additional details
         data (None | ReportDataType0): Check-specific metrics (AUTO reports) or null (USER reports)
-        status (ReportStatus): Current status of the report Example: PENDING.
+        status (ReportStatus): Current status of a report Example: OPEN.
         admin_notes (None | str): Notes from the admin who reviewed the report
         user_id (int | None): ID of the user who submitted the report (USER reports only) Example: 42.
         created_at (datetime.datetime): When the report was created

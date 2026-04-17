@@ -8,7 +8,7 @@ from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
     from ..models.collection import Collection
-    from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+    from ..models.cursor_pagination import CursorPagination
 
 
 T = TypeVar("T", bound="CollectionListResponse")
@@ -20,11 +20,11 @@ class CollectionListResponse:
 
     Attributes:
         collections (list[Collection]):
-        pagination (OpaqueCursorPagination): Opaque cursor pagination metadata
+        pagination (CursorPagination): Opaque cursor pagination metadata
     """
 
     collections: list[Collection]
-    pagination: OpaqueCursorPagination
+    pagination: CursorPagination
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,7 +49,7 @@ class CollectionListResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.collection import Collection
-        from ..models.opaque_cursor_pagination import OpaqueCursorPagination
+        from ..models.cursor_pagination import CursorPagination
 
         _src = dict(src_dict)
         collections = []
@@ -59,7 +59,7 @@ class CollectionListResponse:
 
             collections.append(collections_item)
 
-        pagination = OpaqueCursorPagination.from_dict(_src.pop("pagination"))
+        pagination = CursorPagination.from_dict(_src.pop("pagination"))
 
         collection_list_response = cls(
             collections=collections,

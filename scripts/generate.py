@@ -17,6 +17,8 @@ from urllib.request import Request, urlopen
 
 import yaml
 
+from postprocess_wrappers import collect_operations, write_wrapper_files
+
 ROOT_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = ROOT_DIR / "templates"
 DEFAULT_SPEC_URL = (
@@ -405,12 +407,24 @@ def main() -> int:
         # Generate internal SDK: use the full (normalized) spec directly
         if args.sdk_type in {"all", "internal"}:
             run_codegen(INTERNAL_TARGET, normalized_spec, keep_build=args.keep_build)
+            write_wrapper_files(
+                INTERNAL_TARGET.source_dir,
+                collect_operations(parsed_spec, INTERNAL_TARGET.source_dir),
+                user_agent_name="nadeshiko-internal-sdk-python",
+            )
 
         # Generate public SDK: filter out x-internal operations first
         if args.sdk_type in {"all", "public"}:
             public_spec = filter_public_spec(normalized_spec)
             temp_files.append(public_spec)
+            with public_spec.open("r", encoding="utf-8") as f:
+                parsed_public_spec = yaml.safe_load(f)
             run_codegen(PUBLIC_TARGET, public_spec, keep_build=args.keep_build)
+            write_wrapper_files(
+                PUBLIC_TARGET.source_dir,
+                collect_operations(parsed_public_spec, PUBLIC_TARGET.source_dir),
+                user_agent_name="nadeshiko-sdk-python",
+            )
 
     finally:
         for file_path in temp_files:

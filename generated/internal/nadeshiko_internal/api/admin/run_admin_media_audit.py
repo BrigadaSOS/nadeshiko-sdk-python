@@ -21,7 +21,6 @@ def _get_kwargs(
     *,
     category: RunAdminMediaAuditCategory | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     json_category: str | Unset = UNSET

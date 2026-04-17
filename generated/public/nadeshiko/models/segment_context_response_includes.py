@@ -17,9 +17,11 @@ T = TypeVar("T", bound="SegmentContextResponseIncludes")
 
 @_attrs_define
 class SegmentContextResponseIncludes:
-    """
+    """Optional related resources requested via `include[]`
+
     Attributes:
-        media (SegmentContextResponseIncludesMedia | Unset): Media objects keyed by mediaId
+        media (SegmentContextResponseIncludesMedia | Unset): Media objects keyed by mediaPublicId. Present only when
+            `include[]=media` is requested.
     """
 
     media: SegmentContextResponseIncludesMedia | Unset = UNSET

@@ -13,35 +13,17 @@ from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
 from ...models.media import Media
-from ...models.media_include_expansion import MediaIncludeExpansion
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
-    *,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
+    media_public_id: str,
 ) -> dict[str, Any]:
-
-    params: dict[str, Any] = {}
-
-    json_include: list[str] | Unset = UNSET
-    if not isinstance(include, Unset):
-        json_include = []
-        for include_item_data in include:
-            include_item = include_item_data.value
-            json_include.append(include_item)
-
-    params["include"] = json_include
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/media/{id}".format(
-            id=quote(str(id), safe=""),
+        "url": "/v1/media/{media_public_id}".format(
+            media_public_id=quote(str(media_public_id), safe=""),
         ),
-        "params": params,
     }
 
     return _kwargs
@@ -103,18 +85,16 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media]:
     """Get single media
 
-     Returns a single media entry by its ID with full metadata.
+     Returns a single media entry by its public ID with full metadata.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        include (list[MediaIncludeExpansion] | Unset):
+        media_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,8 +105,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        include=include,
+        media_public_id=media_public_id,
     )
 
     response = client.get_httpx_client().request(
@@ -137,18 +116,16 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media | None:
     """Get single media
 
-     Returns a single media entry by its ID with full metadata.
+     Returns a single media entry by its public ID with full metadata.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        include (list[MediaIncludeExpansion] | Unset):
+        media_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,25 +136,22 @@ def sync(
     """
 
     return sync_detailed(
-        id=id,
+        media_public_id=media_public_id,
         client=client,
-        include=include,
     ).parsed
 
 
 async def asyncio_detailed(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Response[Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media]:
     """Get single media
 
-     Returns a single media entry by its ID with full metadata.
+     Returns a single media entry by its public ID with full metadata.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        include (list[MediaIncludeExpansion] | Unset):
+        media_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,8 +162,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        id=id,
-        include=include,
+        media_public_id=media_public_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -198,18 +171,16 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
-    include: list[MediaIncludeExpansion] | Unset = UNSET,
 ) -> Error400 | Error401 | Error403 | Error404 | Error429 | Error500 | Media | None:
     """Get single media
 
-     Returns a single media entry by its ID with full metadata.
+     Returns a single media entry by its public ID with full metadata.
 
     Args:
-        id (str):  Example: V1StGXR8_Z5d.
-        include (list[MediaIncludeExpansion] | Unset):
+        media_public_id (str):  Example: V1StGXR8_Z5d.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -221,8 +192,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            id=id,
+            media_public_id=media_public_id,
             client=client,
-            include=include,
         )
     ).parsed

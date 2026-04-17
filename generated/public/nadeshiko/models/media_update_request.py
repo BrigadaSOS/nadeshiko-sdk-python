@@ -8,12 +8,14 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.media_update_request_category import MediaUpdateRequestCategory
+from ..models.category import Category
+from ..models.media_update_request_airing_format import MediaUpdateRequestAiringFormat
+from ..models.media_update_request_airing_status import MediaUpdateRequestAiringStatus
+from ..models.media_update_request_season_name import MediaUpdateRequestSeasonName
 from ..models.media_update_request_storage import MediaUpdateRequestStorage
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.character_input import CharacterInput
     from ..models.external_id import ExternalId
 
 
@@ -25,27 +27,28 @@ class MediaUpdateRequest:
     """Request body for updating an existing media entry (all fields optional)
 
     Attributes:
-        external_ids (ExternalId | Unset): Map of external IDs keyed by source. Only sources with values are included.
+        external_ids (ExternalId | Unset): External IDs for this media, keyed by source. Every source appears as a key;
+            absent mappings are represented with a null value.
         name_ja (str | Unset): Original Japanese name of the media Example: バクマン。.
         name_romaji (str | Unset): Romaji transliteration of the media name Example: Bakuman..
         name_en (str | Unset): English name of the media Example: Bakuman..
-        airing_format (str | Unset): Format of the media release (e.g., TV, OVA, Movie) Example: TV.
-        airing_status (str | Unset): Current airing status (FINISHED, RELEASING, NOT_YET_RELEASED, CANCELLED) Example:
-            FINISHED.
+        airing_format (MediaUpdateRequestAiringFormat | Unset): Format of the media release Example: TV.
+        airing_status (MediaUpdateRequestAiringStatus | Unset): Current airing status Example: FINISHED.
         genres (list[str] | Unset): List of genres associated with the media Example: ['Comedy', 'Drama', 'Romance',
             'Slice of Life'].
         storage (MediaUpdateRequestStorage | Unset): Storage backend for media assets Example: R2.
         start_date (datetime.date | Unset): Start date of the media (first airing/release) Example: 2010-10-02.
-        end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
-        category (MediaUpdateRequestCategory | Unset): Media category Example: ANIME.
+        end_date (datetime.date | None | Unset): End date of the media (last airing/release). Pass `null` to clear
+            (return the show to ongoing). Example: 2011-04-02.
+        category (Category | Unset): Media category type Example: ANIME.
         version (str | Unset): Version of the media-sub-splitter used Example: 6.
         hash_salt (str | Unset): Hash salt used when generating the hash for the related media assets Example:
             ba0cbe173ed310528f16130273662a60.
-        studio (str | Unset): Animation studio that produced the media Example: J.C.STAFF.
-        season_name (str | Unset): Airing season label for the media Example: FALL.
+        studio (None | str | Unset): Animation studio that produced the media. Pass `null` to clear back to unknown.
+            Example: J.C.STAFF.
+        season_name (MediaUpdateRequestSeasonName | Unset): Airing season label for the media Example: FALL.
         season_year (int | Unset): Airing year for the media Example: 2010.
         storage_base_path (str | Unset): Base path for R2/CDN storage (e.g. "media/21459") Example: media/21459.
-        characters (list[CharacterInput] | Unset): List of characters appearing in the media with their voice actors
         segment_count (int | Unset): Total number of subtitle segments available Example: 1234.
     """
 
@@ -53,20 +56,19 @@ class MediaUpdateRequest:
     name_ja: str | Unset = UNSET
     name_romaji: str | Unset = UNSET
     name_en: str | Unset = UNSET
-    airing_format: str | Unset = UNSET
-    airing_status: str | Unset = UNSET
+    airing_format: MediaUpdateRequestAiringFormat | Unset = UNSET
+    airing_status: MediaUpdateRequestAiringStatus | Unset = UNSET
     genres: list[str] | Unset = UNSET
     storage: MediaUpdateRequestStorage | Unset = UNSET
     start_date: datetime.date | Unset = UNSET
-    end_date: datetime.date | Unset = UNSET
-    category: MediaUpdateRequestCategory | Unset = UNSET
+    end_date: datetime.date | None | Unset = UNSET
+    category: Category | Unset = UNSET
     version: str | Unset = UNSET
     hash_salt: str | Unset = UNSET
-    studio: str | Unset = UNSET
-    season_name: str | Unset = UNSET
+    studio: None | str | Unset = UNSET
+    season_name: MediaUpdateRequestSeasonName | Unset = UNSET
     season_year: int | Unset = UNSET
     storage_base_path: str | Unset = UNSET
-    characters: list[CharacterInput] | Unset = UNSET
     segment_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -81,9 +83,13 @@ class MediaUpdateRequest:
 
         name_en = self.name_en
 
-        airing_format = self.airing_format
+        airing_format: str | Unset = UNSET
+        if not isinstance(self.airing_format, Unset):
+            airing_format = self.airing_format.value
 
-        airing_status = self.airing_status
+        airing_status: str | Unset = UNSET
+        if not isinstance(self.airing_status, Unset):
+            airing_status = self.airing_status.value
 
         genres: list[str] | Unset = UNSET
         if not isinstance(self.genres, Unset):
@@ -97,9 +103,13 @@ class MediaUpdateRequest:
         if not isinstance(self.start_date, Unset):
             start_date = self.start_date.isoformat()
 
-        end_date: str | Unset = UNSET
-        if not isinstance(self.end_date, Unset):
+        end_date: None | str | Unset
+        if isinstance(self.end_date, Unset):
+            end_date = UNSET
+        elif isinstance(self.end_date, datetime.date):
             end_date = self.end_date.isoformat()
+        else:
+            end_date = self.end_date
 
         category: str | Unset = UNSET
         if not isinstance(self.category, Unset):
@@ -109,20 +119,19 @@ class MediaUpdateRequest:
 
         hash_salt = self.hash_salt
 
-        studio = self.studio
+        studio: None | str | Unset
+        if isinstance(self.studio, Unset):
+            studio = UNSET
+        else:
+            studio = self.studio
 
-        season_name = self.season_name
+        season_name: str | Unset = UNSET
+        if not isinstance(self.season_name, Unset):
+            season_name = self.season_name.value
 
         season_year = self.season_year
 
         storage_base_path = self.storage_base_path
-
-        characters: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.characters, Unset):
-            characters = []
-            for characters_item_data in self.characters:
-                characters_item = characters_item_data.to_dict()
-                characters.append(characters_item)
 
         segment_count = self.segment_count
 
@@ -163,8 +172,6 @@ class MediaUpdateRequest:
             field_dict["seasonYear"] = season_year
         if storage_base_path is not UNSET:
             field_dict["storageBasePath"] = storage_base_path
-        if characters is not UNSET:
-            field_dict["characters"] = characters
         if segment_count is not UNSET:
             field_dict["segmentCount"] = segment_count
 
@@ -172,7 +179,6 @@ class MediaUpdateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.character_input import CharacterInput
         from ..models.external_id import ExternalId
 
         _src = dict(src_dict)
@@ -189,9 +195,19 @@ class MediaUpdateRequest:
 
         name_en = _src.pop("nameEn", UNSET)
 
-        airing_format = _src.pop("airingFormat", UNSET)
+        _airing_format = _src.pop("airingFormat", UNSET)
+        airing_format: MediaUpdateRequestAiringFormat | Unset
+        if isinstance(_airing_format, Unset):
+            airing_format = UNSET
+        else:
+            airing_format = MediaUpdateRequestAiringFormat(_airing_format)
 
-        airing_status = _src.pop("airingStatus", UNSET)
+        _airing_status = _src.pop("airingStatus", UNSET)
+        airing_status: MediaUpdateRequestAiringStatus | Unset
+        if isinstance(_airing_status, Unset):
+            airing_status = UNSET
+        else:
+            airing_status = MediaUpdateRequestAiringStatus(_airing_status)
 
         genres = cast(list[str], _src.pop("genres", UNSET))
 
@@ -209,40 +225,53 @@ class MediaUpdateRequest:
         else:
             start_date = isoparse(_start_date).date()
 
-        _end_date = _src.pop("endDate", UNSET)
-        end_date: datetime.date | Unset
-        if isinstance(_end_date, Unset):
-            end_date = UNSET
-        else:
-            end_date = isoparse(_end_date).date()
+        def _parse_end_date(data: object) -> datetime.date | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                end_date_type_0 = isoparse(data).date()
+
+                return end_date_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.date | None | Unset, data)
+
+        end_date = _parse_end_date(_src.pop("endDate", UNSET))
 
         _category = _src.pop("category", UNSET)
-        category: MediaUpdateRequestCategory | Unset
+        category: Category | Unset
         if isinstance(_category, Unset):
             category = UNSET
         else:
-            category = MediaUpdateRequestCategory(_category)
+            category = Category(_category)
 
         version = _src.pop("version", UNSET)
 
         hash_salt = _src.pop("hashSalt", UNSET)
 
-        studio = _src.pop("studio", UNSET)
+        def _parse_studio(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
 
-        season_name = _src.pop("seasonName", UNSET)
+        studio = _parse_studio(_src.pop("studio", UNSET))
+
+        _season_name = _src.pop("seasonName", UNSET)
+        season_name: MediaUpdateRequestSeasonName | Unset
+        if isinstance(_season_name, Unset):
+            season_name = UNSET
+        else:
+            season_name = MediaUpdateRequestSeasonName(_season_name)
 
         season_year = _src.pop("seasonYear", UNSET)
 
         storage_base_path = _src.pop("storageBasePath", UNSET)
-
-        _characters = _src.pop("characters", UNSET)
-        characters: list[CharacterInput] | Unset = UNSET
-        if _characters is not UNSET:
-            characters = []
-            for characters_item_data in _characters:
-                characters_item = CharacterInput.from_dict(characters_item_data)
-
-                characters.append(characters_item)
 
         segment_count = _src.pop("segmentCount", UNSET)
 
@@ -264,7 +293,6 @@ class MediaUpdateRequest:
             season_name=season_name,
             season_year=season_year,
             storage_base_path=storage_base_path,
-            characters=characters,
             segment_count=segment_count,
         )
 

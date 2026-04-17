@@ -91,10 +91,10 @@ def sync_detailed(
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchMultipleResponse]:
     """Search by multiple words
 
-     Searches for multiple words simultaneously and aggregates results by media.
+     Searches for multiple words simultaneously and aggregates matches per media.
 
-    Unlike the main search endpoint, this returns a summary of matches per media rather than individual
-    segments.
+    Unlike the main search endpoint, this returns a per-word summary of matches across media rather than
+    individual segments. Filters apply the same way as `/v1/search`.
 
     Args:
         body (SearchMultipleRequest):
@@ -125,10 +125,10 @@ def sync(
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchMultipleResponse | None:
     """Search by multiple words
 
-     Searches for multiple words simultaneously and aggregates results by media.
+     Searches for multiple words simultaneously and aggregates matches per media.
 
-    Unlike the main search endpoint, this returns a summary of matches per media rather than individual
-    segments.
+    Unlike the main search endpoint, this returns a per-word summary of matches across media rather than
+    individual segments. Filters apply the same way as `/v1/search`.
 
     Args:
         body (SearchMultipleRequest):
@@ -154,10 +154,10 @@ async def asyncio_detailed(
 ) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchMultipleResponse]:
     """Search by multiple words
 
-     Searches for multiple words simultaneously and aggregates results by media.
+     Searches for multiple words simultaneously and aggregates matches per media.
 
-    Unlike the main search endpoint, this returns a summary of matches per media rather than individual
-    segments.
+    Unlike the main search endpoint, this returns a per-word summary of matches across media rather than
+    individual segments. Filters apply the same way as `/v1/search`.
 
     Args:
         body (SearchMultipleRequest):
@@ -186,10 +186,10 @@ async def asyncio(
 ) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchMultipleResponse | None:
     """Search by multiple words
 
-     Searches for multiple words simultaneously and aggregates results by media.
+     Searches for multiple words simultaneously and aggregates matches per media.
 
-    Unlike the main search endpoint, this returns a summary of matches per media rather than individual
-    segments.
+    Unlike the main search endpoint, this returns a per-word summary of matches across media rather than
+    individual segments. Filters apply the same way as `/v1/search`.
 
     Args:
         body (SearchMultipleRequest):

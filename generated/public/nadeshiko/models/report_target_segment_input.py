@@ -17,23 +17,23 @@ class ReportTargetSegmentInput:
     """
     Attributes:
         type_ (ReportTargetSegmentInputType): Report target type Example: SEGMENT.
-        media_id (str): Public ID of the media this report targets Example: V1StGXR8_Z5d.
-        segment_id (str): Segment public ID or UUID Example: abc123def456.
+        media_public_id (str): publicId of the media this report targets Example: V1StGXR8_Z5d.
+        segment_public_id (str): Segment publicId Example: abc123def456.
         episode_number (int | Unset): Episode number containing the segment Example: 5.
     """
 
     type_: ReportTargetSegmentInputType
-    media_id: str
-    segment_id: str
+    media_public_id: str
+    segment_public_id: str
     episode_number: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        media_id = self.media_id
+        media_public_id = self.media_public_id
 
-        segment_id = self.segment_id
+        segment_public_id = self.segment_public_id
 
         episode_number = self.episode_number
 
@@ -42,8 +42,8 @@ class ReportTargetSegmentInput:
         field_dict.update(
             {
                 "type": type_,
-                "mediaId": media_id,
-                "segmentId": segment_id,
+                "mediaPublicId": media_public_id,
+                "segmentPublicId": segment_public_id,
             }
         )
         if episode_number is not UNSET:
@@ -56,16 +56,16 @@ class ReportTargetSegmentInput:
         _src = dict(src_dict)
         type_ = ReportTargetSegmentInputType(_src.pop("type"))
 
-        media_id = _src.pop("mediaId")
+        media_public_id = _src.pop("mediaPublicId")
 
-        segment_id = _src.pop("segmentId")
+        segment_public_id = _src.pop("segmentPublicId")
 
         episode_number = _src.pop("episodeNumber", UNSET)
 
         report_target_segment_input = cls(
             type_=type_,
-            media_id=media_id,
-            segment_id=segment_id,
+            media_public_id=media_public_id,
+            segment_public_id=segment_public_id,
             episode_number=episode_number,
         )
 

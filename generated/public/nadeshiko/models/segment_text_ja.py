@@ -1,12 +1,10 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.token import Token
@@ -20,38 +18,42 @@ class SegmentTextJa:
     """
     Attributes:
         content (str): Original Japanese content Example: 僕は僕で、君は君だ。.
-        highlight (str | Unset): Japanese content with search terms highlighted
-        tokens (list[Token] | Unset): Morphological tokens for interactive display (Labs feature)
+        highlight (None | str): Japanese `content` with `<mark>` tags wrapping terms that matched a search query. Only
+            populated on segments returned from a search endpoint.
+        tokens (list[Token] | None): Morphological tokens for interactive display. Populated only for segments with
+            available POS analysis.
     """
 
     content: str
-    highlight: str | Unset = UNSET
-    tokens: list[Token] | Unset = UNSET
+    highlight: None | str
+    tokens: list[Token] | None
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         content = self.content
 
+        highlight: None | str
         highlight = self.highlight
 
-        tokens: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.tokens, Unset):
+        tokens: list[dict[str, Any]] | None
+        if isinstance(self.tokens, list):
             tokens = []
-            for tokens_item_data in self.tokens:
-                tokens_item = tokens_item_data.to_dict()
-                tokens.append(tokens_item)
+            for tokens_type_0_item_data in self.tokens:
+                tokens_type_0_item = tokens_type_0_item_data.to_dict()
+                tokens.append(tokens_type_0_item)
+
+        else:
+            tokens = self.tokens
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "content": content,
+                "highlight": highlight,
+                "tokens": tokens,
             }
         )
-        if highlight is not UNSET:
-            field_dict["highlight"] = highlight
-        if tokens is not UNSET:
-            field_dict["tokens"] = tokens
 
         return field_dict
 
@@ -62,16 +64,32 @@ class SegmentTextJa:
         _src = dict(src_dict)
         content = _src.pop("content")
 
-        highlight = _src.pop("highlight", UNSET)
+        def _parse_highlight(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
 
-        _tokens = _src.pop("tokens", UNSET)
-        tokens: list[Token] | Unset = UNSET
-        if _tokens is not UNSET:
-            tokens = []
-            for tokens_item_data in _tokens:
-                tokens_item = Token.from_dict(tokens_item_data)
+        highlight = _parse_highlight(_src.pop("highlight"))
 
-                tokens.append(tokens_item)
+        def _parse_tokens(data: object) -> list[Token] | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                tokens_type_0 = []
+                _tokens_type_0 = data
+                for tokens_type_0_item_data in _tokens_type_0:
+                    tokens_type_0_item = Token.from_dict(tokens_type_0_item_data)
+
+                    tokens_type_0.append(tokens_type_0_item)
+
+                return tokens_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(list[Token] | None, data)
+
+        tokens = _parse_tokens(_src.pop("tokens"))
 
         segment_text_ja = cls(
             content=content,

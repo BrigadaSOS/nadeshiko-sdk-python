@@ -2,9 +2,9 @@ from enum import Enum
 
 
 class UserPreferencesMediaNameLanguage(str, Enum):
-    ENGLISH = "english"
-    JAPANESE = "japanese"
-    ROMAJI = "romaji"
+    ENGLISH = "ENGLISH"
+    JAPANESE = "JAPANESE"
+    ROMAJI = "ROMAJI"
 
     def __str__(self) -> str:
         return str(self.value)

@@ -6,7 +6,7 @@ from typing import Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.batch_update_reports_request_status import BatchUpdateReportsRequestStatus
+from ..models.report_status import ReportStatus
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="BatchUpdateReportsRequest")
@@ -17,12 +17,12 @@ class BatchUpdateReportsRequest:
     """
     Attributes:
         ids (list[int]): Report IDs to update Example: [1, 2, 3].
-        status (BatchUpdateReportsRequestStatus): New status for all selected reports Example: IGNORED.
+        status (ReportStatus): Current status of a report Example: OPEN.
         admin_notes (str | Unset): Optional admin notes to set on all selected reports
     """
 
     ids: list[int]
-    status: BatchUpdateReportsRequestStatus
+    status: ReportStatus
     admin_notes: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -51,7 +51,7 @@ class BatchUpdateReportsRequest:
         _src = dict(src_dict)
         ids = cast(list[int], _src.pop("ids"))
 
-        status = BatchUpdateReportsRequestStatus(_src.pop("status"))
+        status = ReportStatus(_src.pop("status"))
 
         admin_notes = _src.pop("adminNotes", UNSET)
 

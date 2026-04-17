@@ -7,7 +7,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.media_autocomplete_item import MediaAutocompleteItem
+    from ..models.media_summary import MediaSummary
 
 
 T = TypeVar("T", bound="MediaAutocompleteResponse")
@@ -17,10 +17,10 @@ T = TypeVar("T", bound="MediaAutocompleteResponse")
 class MediaAutocompleteResponse:
     """
     Attributes:
-        media (list[MediaAutocompleteItem]):
+        media (list[MediaSummary]):
     """
 
-    media: list[MediaAutocompleteItem]
+    media: list[MediaSummary]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,13 +41,13 @@ class MediaAutocompleteResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.media_autocomplete_item import MediaAutocompleteItem
+        from ..models.media_summary import MediaSummary
 
         _src = dict(src_dict)
         media = []
         _media = _src.pop("media")
         for media_item_data in _media:
-            media_item = MediaAutocompleteItem.from_dict(media_item_data)
+            media_item = MediaSummary.from_dict(media_item_data)
 
             media.append(media_item)
 

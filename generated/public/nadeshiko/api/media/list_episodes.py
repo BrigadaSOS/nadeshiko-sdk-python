@@ -17,12 +17,11 @@ from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    media_id: str,
+    media_public_id: str,
     *,
     take: int | Unset = 50,
     cursor: str | Unset = UNSET,
 ) -> dict[str, Any]:
-
     params: dict[str, Any] = {}
 
     params["take"] = take
@@ -33,8 +32,8 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v1/media/{media_id}/episodes".format(
-            media_id=quote(str(media_id), safe=""),
+        "url": "/v1/media/{media_public_id}/episodes".format(
+            media_public_id=quote(str(media_public_id), safe=""),
         ),
         "params": params,
     }
@@ -100,7 +99,7 @@ def _build_response(
 
 
 def sync_detailed(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -113,7 +112,7 @@ def sync_detailed(
      Returns a paginated list of episodes for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -126,7 +125,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         take=take,
         cursor=cursor,
     )
@@ -139,7 +138,7 @@ def sync_detailed(
 
 
 def sync(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -150,7 +149,7 @@ def sync(
      Returns a paginated list of episodes for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -163,7 +162,7 @@ def sync(
     """
 
     return sync_detailed(
-        media_id=media_id,
+        media_public_id=media_public_id,
         client=client,
         take=take,
         cursor=cursor,
@@ -171,7 +170,7 @@ def sync(
 
 
 async def asyncio_detailed(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -184,7 +183,7 @@ async def asyncio_detailed(
      Returns a paginated list of episodes for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -197,7 +196,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        media_id=media_id,
+        media_public_id=media_public_id,
         take=take,
         cursor=cursor,
     )
@@ -208,7 +207,7 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    media_id: str,
+    media_public_id: str,
     *,
     client: AuthenticatedClient,
     take: int | Unset = 50,
@@ -219,7 +218,7 @@ async def asyncio(
      Returns a paginated list of episodes for a specific media.
 
     Args:
-        media_id (str):
+        media_public_id (str):
         take (int | Unset):  Default: 50.
         cursor (str | Unset):
 
@@ -233,7 +232,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            media_id=media_id,
+            media_public_id=media_public_id,
             client=client,
             take=take,
             cursor=cursor,

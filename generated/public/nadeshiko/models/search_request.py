@@ -11,8 +11,8 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.search_filters import SearchFilters
-    from ..models.search_request_query import SearchRequestQuery
-    from ..models.search_request_sort import SearchRequestSort
+    from ..models.search_query import SearchQuery
+    from ..models.search_sort import SearchSort
 
 
 T = TypeVar("T", bound="SearchRequest")
@@ -20,21 +20,21 @@ T = TypeVar("T", bound="SearchRequest")
 
 @_attrs_define
 class SearchRequest:
-    """
+    """Search request. All fields are optional — omit `query` for queryless browse (segments matching filters only).
+
     Attributes:
-        query (SearchRequestQuery | Unset): What to search for (omit for queryless browse)
-        take (int | Unset): Max amount of entries by response Default: 10.
-        cursor (str | Unset): Opaque cursor token returned from the previous search page Example:
-            eyJraW5kIjoia2V5c2V0IiwiY3Vyc29yIjpbMjMuMzE3MjcsN119.
-        sort (SearchRequestSort | Unset): Sort configuration
+        query (SearchQuery | Unset): What to search for (omit for queryless browse/stats)
+        take (int | Unset): Max number of entries per response Default: 10.
+        cursor (str | Unset): Opaque cursor token returned from the previous search page Example: eyJraW...N119.
+        sort (SearchSort | Unset): Sort configuration
         filters (SearchFilters | Unset): Search filters for narrowing segment results
-        include (list[IncludeExpansion] | Unset): Resources to expand in the response includes block
+        include (list[IncludeExpansion] | Unset): Optional resources to expand in the response `includes` block
     """
 
-    query: SearchRequestQuery | Unset = UNSET
+    query: SearchQuery | Unset = UNSET
     take: int | Unset = 10
     cursor: str | Unset = UNSET
-    sort: SearchRequestSort | Unset = UNSET
+    sort: SearchSort | Unset = UNSET
     filters: SearchFilters | Unset = UNSET
     include: list[IncludeExpansion] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -84,27 +84,27 @@ class SearchRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.search_filters import SearchFilters
-        from ..models.search_request_query import SearchRequestQuery
-        from ..models.search_request_sort import SearchRequestSort
+        from ..models.search_query import SearchQuery
+        from ..models.search_sort import SearchSort
 
         _src = dict(src_dict)
         _query = _src.pop("query", UNSET)
-        query: SearchRequestQuery | Unset
+        query: SearchQuery | Unset
         if isinstance(_query, Unset):
             query = UNSET
         else:
-            query = SearchRequestQuery.from_dict(_query)
+            query = SearchQuery.from_dict(_query)
 
         take = _src.pop("take", UNSET)
 
         cursor = _src.pop("cursor", UNSET)
 
         _sort = _src.pop("sort", UNSET)
-        sort: SearchRequestSort | Unset
+        sort: SearchSort | Unset
         if isinstance(_sort, Unset):
             sort = UNSET
         else:
-            sort = SearchRequestSort.from_dict(_sort)
+            sort = SearchSort.from_dict(_sort)
 
         _filters = _src.pop("filters", UNSET)
         filters: SearchFilters | Unset

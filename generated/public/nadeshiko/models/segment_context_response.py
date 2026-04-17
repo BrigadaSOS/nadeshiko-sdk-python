@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
     from ..models.segment import Segment
     from ..models.segment_context_response_includes import SegmentContextResponseIncludes
@@ -19,11 +21,11 @@ class SegmentContextResponse:
     """
     Attributes:
         segments (list[Segment]):
-        includes (SegmentContextResponseIncludes):
+        includes (SegmentContextResponseIncludes | Unset): Optional related resources requested via `include[]`
     """
 
     segments: list[Segment]
-    includes: SegmentContextResponseIncludes
+    includes: SegmentContextResponseIncludes | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,16 +34,19 @@ class SegmentContextResponse:
             segments_item = segments_item_data.to_dict()
             segments.append(segments_item)
 
-        includes = self.includes.to_dict()
+        includes: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.includes, Unset):
+            includes = self.includes.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "segments": segments,
-                "includes": includes,
             }
         )
+        if includes is not UNSET:
+            field_dict["includes"] = includes
 
         return field_dict
 
@@ -58,7 +63,12 @@ class SegmentContextResponse:
 
             segments.append(segments_item)
 
-        includes = SegmentContextResponseIncludes.from_dict(_src.pop("includes"))
+        _includes = _src.pop("includes", UNSET)
+        includes: SegmentContextResponseIncludes | Unset
+        if isinstance(_includes, Unset):
+            includes = UNSET
+        else:
+            includes = SegmentContextResponseIncludes.from_dict(_includes)
 
         segment_context_response = cls(
             segments=segments,
