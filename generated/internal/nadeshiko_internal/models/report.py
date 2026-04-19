@@ -8,9 +8,9 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.report_reason import ReportReason
-from ..models.report_source import ReportSource
-from ..models.report_status import ReportStatus
+from ..models.report_reason import ReportReason, check_report_reason
+from ..models.report_source import ReportSource, check_report_source
+from ..models.report_status import ReportStatus, check_report_status
 
 if TYPE_CHECKING:
     from ..models.report_data_type_0 import ReportDataType0
@@ -61,7 +61,7 @@ class Report:
 
         id = self.id
 
-        source = self.source.value
+        source: str = self.source
 
         target: dict[str, Any]
         if isinstance(self.target, ReportTargetMedia) or isinstance(
@@ -74,7 +74,7 @@ class Report:
         audit_run_id: int | None
         audit_run_id = self.audit_run_id
 
-        reason = self.reason.value
+        reason: str = self.reason
 
         description: None | str
         description = self.description
@@ -85,7 +85,7 @@ class Report:
         else:
             data = self.data
 
-        status = self.status.value
+        status: str = self.status
 
         admin_notes: None | str
         admin_notes = self.admin_notes
@@ -132,7 +132,7 @@ class Report:
         _src = dict(src_dict)
         id = _src.pop("id")
 
-        source = ReportSource(_src.pop("source"))
+        source = check_report_source(_src.pop("source"))
 
         def _parse_target(
             data: object,
@@ -168,7 +168,7 @@ class Report:
 
         audit_run_id = _parse_audit_run_id(_src.pop("auditRunId"))
 
-        reason = ReportReason(_src.pop("reason"))
+        reason = check_report_reason(_src.pop("reason"))
 
         def _parse_description(data: object) -> None | str:
             if data is None:
@@ -192,7 +192,7 @@ class Report:
 
         data = _parse_data(_src.pop("data"))
 
-        status = ReportStatus(_src.pop("status"))
+        status = check_report_status(_src.pop("status"))
 
         def _parse_admin_notes(data: object) -> None | str:
             if data is None:

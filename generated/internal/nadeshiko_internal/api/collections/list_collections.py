@@ -25,7 +25,7 @@ def _get_kwargs(
 
     json_visibility: str | Unset = UNSET
     if not isinstance(visibility, Unset):
-        json_visibility = visibility.value
+        json_visibility = visibility
 
     params["visibility"] = json_visibility
 

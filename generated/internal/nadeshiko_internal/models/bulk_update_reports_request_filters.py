@@ -6,8 +6,8 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.report_source import ReportSource
-from ..models.report_target_type import ReportTargetType
+from ..models.report_source import ReportSource, check_report_source
+from ..models.report_target_type import ReportTargetType, check_report_target_type
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="BulkUpdateReportsRequestFilters")
@@ -44,11 +44,11 @@ class BulkUpdateReportsRequestFilters:
 
         source: str | Unset = UNSET
         if not isinstance(self.source, Unset):
-            source = self.source.value
+            source = self.source
 
         target_type: str | Unset = UNSET
         if not isinstance(self.target_type, Unset):
-            target_type = self.target_type.value
+            target_type = self.target_type
 
         target_media_id = self.target_media_id
 
@@ -92,14 +92,14 @@ class BulkUpdateReportsRequestFilters:
         if isinstance(_source, Unset):
             source = UNSET
         else:
-            source = ReportSource(_source)
+            source = check_report_source(_source)
 
         _target_type = _src.pop("targetType", UNSET)
         target_type: ReportTargetType | Unset
         if isinstance(_target_type, Unset):
             target_type = UNSET
         else:
-            target_type = ReportTargetType(_target_type)
+            target_type = check_report_target_type(_target_type)
 
         target_media_id = _src.pop("targetMediaId", UNSET)
 

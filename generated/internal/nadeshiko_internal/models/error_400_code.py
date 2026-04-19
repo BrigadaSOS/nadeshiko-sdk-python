@@ -1,10 +1,15 @@
-from enum import Enum
+from typing import Literal, cast
+
+Error400Code = Literal["INVALID_JSON", "INVALID_REQUEST", "VALIDATION_FAILED"]
+
+ERROR_400_CODE_VALUES: set[Error400Code] = {
+    "INVALID_JSON",
+    "INVALID_REQUEST",
+    "VALIDATION_FAILED",
+}
 
 
-class Error400Code(str, Enum):
-    INVALID_JSON = "INVALID_JSON"
-    INVALID_REQUEST = "INVALID_REQUEST"
-    VALIDATION_FAILED = "VALIDATION_FAILED"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_error_400_code(value: str) -> Error400Code:
+    if value in ERROR_400_CODE_VALUES:
+        return cast(Error400Code, value)
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ERROR_400_CODE_VALUES!r}")

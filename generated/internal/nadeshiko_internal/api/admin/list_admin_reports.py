@@ -38,13 +38,13 @@ def _get_kwargs(
 
     json_source: str | Unset = UNSET
     if not isinstance(source, Unset):
-        json_source = source.value
+        json_source = source
 
     params["source"] = json_source
 
     json_target_type: str | Unset = UNSET
     if not isinstance(target_type, Unset):
-        json_target_type = target_type.value
+        json_target_type = target_type
 
     params["target.type"] = json_target_type
 

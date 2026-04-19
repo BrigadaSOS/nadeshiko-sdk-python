@@ -8,10 +8,10 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.category import Category
-from ..models.media_airing_format import MediaAiringFormat
-from ..models.media_airing_status import MediaAiringStatus
-from ..models.media_season_name import MediaSeasonName
+from ..models.category import Category, check_category
+from ..models.media_airing_format import MediaAiringFormat, check_media_airing_format
+from ..models.media_airing_status import MediaAiringStatus, check_media_airing_status
+from ..models.media_season_name import MediaSeasonName, check_media_season_name
 
 if TYPE_CHECKING:
     from ..models.external_id import ExternalId
@@ -25,7 +25,7 @@ class Media:
     """Media entry with full metadata
 
     Attributes:
-        media_public_id (str): Public ID for the media (use this in public URLs) Example: V1StGXR8_Z5d.
+        public_id (str): Public ID for the media (use this in public URLs) Example: V1StGXR8_Z5d.
         slug (str): URL-friendly slug for the media Example: bakuman.
         external_ids (ExternalId): External IDs for this media, keyed by source. Every source appears as a key; absent
             mappings are represented with a null value.
@@ -48,7 +48,7 @@ class Media:
         season_year (int): Airing year for the media Example: 2010.
     """
 
-    media_public_id: str
+    public_id: str
     slug: str
     external_ids: ExternalId
     name_ja: str
@@ -70,7 +70,7 @@ class Media:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media_public_id = self.media_public_id
+        public_id = self.public_id
 
         slug = self.slug
 
@@ -82,9 +82,9 @@ class Media:
 
         name_en = self.name_en
 
-        airing_format = self.airing_format.value
+        airing_format: str = self.airing_format
 
-        airing_status = self.airing_status.value
+        airing_status: str = self.airing_status
 
         genres = self.genres
 
@@ -100,7 +100,7 @@ class Media:
         else:
             end_date = self.end_date
 
-        category = self.category.value
+        category: str = self.category
 
         segment_count = self.segment_count
 
@@ -109,7 +109,7 @@ class Media:
         studio: None | str
         studio = self.studio
 
-        season_name = self.season_name.value
+        season_name: str = self.season_name
 
         season_year = self.season_year
 
@@ -117,7 +117,7 @@ class Media:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "mediaPublicId": media_public_id,
+                "publicId": public_id,
                 "slug": slug,
                 "externalIds": external_ids,
                 "nameJa": name_ja,
@@ -146,7 +146,7 @@ class Media:
         from ..models.external_id import ExternalId
 
         _src = dict(src_dict)
-        media_public_id = _src.pop("mediaPublicId")
+        public_id = _src.pop("publicId")
 
         slug = _src.pop("slug")
 
@@ -158,9 +158,9 @@ class Media:
 
         name_en = _src.pop("nameEn")
 
-        airing_format = MediaAiringFormat(_src.pop("airingFormat"))
+        airing_format = check_media_airing_format(_src.pop("airingFormat"))
 
-        airing_status = MediaAiringStatus(_src.pop("airingStatus"))
+        airing_status = check_media_airing_status(_src.pop("airingStatus"))
 
         genres = cast(list[str], _src.pop("genres"))
 
@@ -185,7 +185,7 @@ class Media:
 
         end_date = _parse_end_date(_src.pop("endDate"))
 
-        category = Category(_src.pop("category"))
+        category = check_category(_src.pop("category"))
 
         segment_count = _src.pop("segmentCount")
 
@@ -198,12 +198,12 @@ class Media:
 
         studio = _parse_studio(_src.pop("studio"))
 
-        season_name = MediaSeasonName(_src.pop("seasonName"))
+        season_name = check_media_season_name(_src.pop("seasonName"))
 
         season_year = _src.pop("seasonYear")
 
         media = cls(
-            media_public_id=media_public_id,
+            public_id=public_id,
             slug=slug,
             external_ids=external_ids,
             name_ja=name_ja,

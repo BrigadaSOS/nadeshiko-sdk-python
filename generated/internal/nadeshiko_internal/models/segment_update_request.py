@@ -6,9 +6,12 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.content_rating import ContentRating
-from ..models.segment_status import SegmentStatus
-from ..models.segment_update_request_storage import SegmentUpdateRequestStorage
+from ..models.content_rating import ContentRating, check_content_rating
+from ..models.segment_status import SegmentStatus, check_segment_status
+from ..models.segment_update_request_storage import (
+    SegmentUpdateRequestStorage,
+    check_segment_update_request_storage,
+)
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -75,7 +78,7 @@ class SegmentUpdateRequest:
 
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
-            status = self.status.value
+            status = self.status
 
         start_time_ms = self.start_time_ms
 
@@ -95,7 +98,7 @@ class SegmentUpdateRequest:
 
         content_rating: str | Unset = UNSET
         if not isinstance(self.content_rating, Unset):
-            content_rating = self.content_rating.value
+            content_rating = self.content_rating
 
         rating_analysis: dict[str, Any] | None | Unset
         if isinstance(self.rating_analysis, Unset):
@@ -115,7 +118,7 @@ class SegmentUpdateRequest:
 
         storage: str | Unset = UNSET
         if not isinstance(self.storage, Unset):
-            storage = self.storage.value
+            storage = self.storage
 
         hashed_id = self.hashed_id
 
@@ -169,7 +172,7 @@ class SegmentUpdateRequest:
         if isinstance(_status, Unset):
             status = UNSET
         else:
-            status = SegmentStatus(_status)
+            status = check_segment_status(_status)
 
         start_time_ms = _src.pop("startTimeMs", UNSET)
 
@@ -201,7 +204,7 @@ class SegmentUpdateRequest:
         if isinstance(_content_rating, Unset):
             content_rating = UNSET
         else:
-            content_rating = ContentRating(_content_rating)
+            content_rating = check_content_rating(_content_rating)
 
         def _parse_rating_analysis(
             data: object,
@@ -246,7 +249,7 @@ class SegmentUpdateRequest:
         if isinstance(_storage, Unset):
             storage = UNSET
         else:
-            storage = SegmentUpdateRequestStorage(_storage)
+            storage = check_segment_update_request_storage(_storage)
 
         hashed_id = _src.pop("hashedId", UNSET)
 

@@ -30,7 +30,7 @@ def _get_kwargs(
 
     json_category: str | Unset = UNSET
     if not isinstance(category, Unset):
-        json_category = category.value
+        json_category = category
 
     params["category"] = json_category
 

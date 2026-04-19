@@ -6,13 +6,17 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.category import Category
-from ..models.content_rating import ContentRating
-from ..models.search_filters_languages_item import SearchFiltersLanguagesItem
-from ..models.segment_status import SegmentStatus
+from ..models.category import Category, check_category
+from ..models.content_rating import ContentRating, check_content_rating
+from ..models.search_filters_languages_type_0_item import (
+    SearchFiltersLanguagesType0Item,
+    check_search_filters_languages_type_0_item,
+)
+from ..models.segment_status import SegmentStatus, check_segment_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.search_filters_languages_type_1 import SearchFiltersLanguagesType1
     from ..models.search_filters_media import SearchFiltersMedia
     from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
     from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -33,11 +37,14 @@ class SearchFilters:
         segment_length_chars (SearchFiltersSegmentLengthChars | Unset): Content character count range filter
         segment_duration_ms (SearchFiltersSegmentDurationMs | Unset): Segment audio duration range filter (in
             milliseconds)
-        languages (list[SearchFiltersLanguagesItem] | Unset): Translation languages to include alongside Japanese in
-            search matching.
+        languages (list[SearchFiltersLanguagesType0Item] | SearchFiltersLanguagesType1 | Unset): Translation languages
+            to include alongside Japanese in search matching.
             - Omitted / `null`: match against Japanese and all translation languages (default)
             - `[]`: match against Japanese only
             - `["EN"]` / `["ES"]` / `["EN", "ES"]`: match against Japanese plus the listed translation languages
+
+            Also accepts the legacy object form `{ exclude: ["en", "es"] }` for backward compatibility.
+            The legacy form is translated on receipt: listed codes are excluded from the default language set.
     """
 
     media: SearchFiltersMedia | Unset = UNSET
@@ -46,7 +53,7 @@ class SearchFilters:
     status: list[SegmentStatus] | Unset = UNSET
     segment_length_chars: SearchFiltersSegmentLengthChars | Unset = UNSET
     segment_duration_ms: SearchFiltersSegmentDurationMs | Unset = UNSET
-    languages: list[SearchFiltersLanguagesItem] | Unset = UNSET
+    languages: list[SearchFiltersLanguagesType0Item] | SearchFiltersLanguagesType1 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -58,21 +65,21 @@ class SearchFilters:
         if not isinstance(self.category, Unset):
             category = []
             for category_item_data in self.category:
-                category_item = category_item_data.value
+                category_item: str = category_item_data
                 category.append(category_item)
 
         content_rating: list[str] | Unset = UNSET
         if not isinstance(self.content_rating, Unset):
             content_rating = []
             for content_rating_item_data in self.content_rating:
-                content_rating_item = content_rating_item_data.value
+                content_rating_item: str = content_rating_item_data
                 content_rating.append(content_rating_item)
 
         status: list[str] | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = []
             for status_item_data in self.status:
-                status_item = status_item_data.value
+                status_item: str = status_item_data
                 status.append(status_item)
 
         segment_length_chars: dict[str, Any] | Unset = UNSET
@@ -83,12 +90,17 @@ class SearchFilters:
         if not isinstance(self.segment_duration_ms, Unset):
             segment_duration_ms = self.segment_duration_ms.to_dict()
 
-        languages: list[str] | Unset = UNSET
-        if not isinstance(self.languages, Unset):
+        languages: dict[str, Any] | list[str] | Unset
+        if isinstance(self.languages, Unset):
+            languages = UNSET
+        elif isinstance(self.languages, list):
             languages = []
-            for languages_item_data in self.languages:
-                languages_item = languages_item_data.value
-                languages.append(languages_item)
+            for languages_type_0_item_data in self.languages:
+                languages_type_0_item: str = languages_type_0_item_data
+                languages.append(languages_type_0_item)
+
+        else:
+            languages = self.languages.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -112,6 +124,7 @@ class SearchFilters:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.search_filters_languages_type_1 import SearchFiltersLanguagesType1
         from ..models.search_filters_media import SearchFiltersMedia
         from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
         from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -129,7 +142,7 @@ class SearchFilters:
         if _category is not UNSET:
             category = []
             for category_item_data in _category:
-                category_item = Category(category_item_data)
+                category_item = check_category(category_item_data)
 
                 category.append(category_item)
 
@@ -138,7 +151,7 @@ class SearchFilters:
         if _content_rating is not UNSET:
             content_rating = []
             for content_rating_item_data in _content_rating:
-                content_rating_item = ContentRating(content_rating_item_data)
+                content_rating_item = check_content_rating(content_rating_item_data)
 
                 content_rating.append(content_rating_item)
 
@@ -147,7 +160,7 @@ class SearchFilters:
         if _status is not UNSET:
             status = []
             for status_item_data in _status:
-                status_item = SegmentStatus(status_item_data)
+                status_item = check_segment_status(status_item_data)
 
                 status.append(status_item)
 
@@ -165,14 +178,33 @@ class SearchFilters:
         else:
             segment_duration_ms = SearchFiltersSegmentDurationMs.from_dict(_segment_duration_ms)
 
-        _languages = _src.pop("languages", UNSET)
-        languages: list[SearchFiltersLanguagesItem] | Unset = UNSET
-        if _languages is not UNSET:
-            languages = []
-            for languages_item_data in _languages:
-                languages_item = SearchFiltersLanguagesItem(languages_item_data)
+        def _parse_languages(
+            data: object,
+        ) -> list[SearchFiltersLanguagesType0Item] | SearchFiltersLanguagesType1 | Unset:
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                languages_type_0 = []
+                _languages_type_0 = data
+                for languages_type_0_item_data in _languages_type_0:
+                    languages_type_0_item = check_search_filters_languages_type_0_item(
+                        languages_type_0_item_data
+                    )
 
-                languages.append(languages_item)
+                    languages_type_0.append(languages_type_0_item)
+
+                return languages_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            languages_type_1 = SearchFiltersLanguagesType1.from_dict(data)
+
+            return languages_type_1
+
+        languages = _parse_languages(_src.pop("languages", UNSET))
 
         search_filters = cls(
             media=media,

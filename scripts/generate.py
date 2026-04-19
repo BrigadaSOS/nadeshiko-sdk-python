@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -142,10 +143,24 @@ def resolve_spec(spec: str | None) -> tuple[Path, bool]:
         ) from error
 
 
-def preserve_version(version_path: Path) -> str:
+def resolve_version(version_path: Path, spec_path: Path, target_name: str) -> str:
+    """Preserve existing _version.py, or derive from spec info.version on first gen.
+
+    Matches the CI logic in validate_payload.py: internal builds append .dev{utc_ts}
+    so versions sort chronologically and PEP 440 .devN is satisfied.
+    """
     if version_path.exists():
         return version_path.read_text(encoding="utf-8")
-    return '__version__ = "0.1.0"\n'
+
+    with spec_path.open("r", encoding="utf-8") as file:
+        spec = yaml.safe_load(file)
+    base_version = str(spec.get("info", {}).get("version") or "").strip() or "0.1.0"
+
+    if target_name == "internal":
+        version = f"{base_version}.dev{int(time.time())}"
+    else:
+        version = base_version
+    return f'__version__ = "{version}"\n'
 
 
 def normalize_openapi_for_codegen(spec_path: Path) -> tuple[Path, bool]:
@@ -348,7 +363,7 @@ def verify_boundaries(spec: dict) -> int:
 
 def run_codegen(target: PackageTarget, spec_path: Path, keep_build: bool) -> None:
     version_path = target.source_dir / "_version.py"
-    version_content = preserve_version(version_path)
+    version_content = resolve_version(version_path, spec_path, target.name)
 
     shutil.rmtree(target.source_dir, ignore_errors=True)
     target.source_dir.parent.mkdir(parents=True, exist_ok=True)

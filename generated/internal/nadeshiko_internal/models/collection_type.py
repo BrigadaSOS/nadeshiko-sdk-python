@@ -1,9 +1,14 @@
-from enum import Enum
+from typing import Literal, cast
+
+CollectionType = Literal["ANKI_EXPORT", "USER"]
+
+COLLECTION_TYPE_VALUES: set[CollectionType] = {
+    "ANKI_EXPORT",
+    "USER",
+}
 
 
-class CollectionType(str, Enum):
-    ANKI_EXPORT = "ANKI_EXPORT"
-    USER = "USER"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_collection_type(value: str) -> CollectionType:
+    if value in COLLECTION_TYPE_VALUES:
+        return cast(CollectionType, value)
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {COLLECTION_TYPE_VALUES!r}")

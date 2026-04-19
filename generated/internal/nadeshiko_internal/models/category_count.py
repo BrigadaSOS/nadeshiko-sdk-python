@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.category import Category
+from ..models.category import Category, check_category
 
 T = TypeVar("T", bound="CategoryCount")
 
@@ -25,7 +25,7 @@ class CategoryCount:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        category = self.category.value
+        category: str = self.category
 
         count = self.count
 
@@ -43,7 +43,7 @@ class CategoryCount:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        category = Category(_src.pop("category"))
+        category = check_category(_src.pop("category"))
 
         count = _src.pop("count")
 

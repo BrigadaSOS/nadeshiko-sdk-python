@@ -1,11 +1,16 @@
-from enum import Enum
+from typing import Literal, cast
+
+ReportStatus = Literal["DISMISSED", "FIXED", "OPEN", "PROCESSING"]
+
+REPORT_STATUS_VALUES: set[ReportStatus] = {
+    "DISMISSED",
+    "FIXED",
+    "OPEN",
+    "PROCESSING",
+}
 
 
-class ReportStatus(str, Enum):
-    DISMISSED = "DISMISSED"
-    FIXED = "FIXED"
-    OPEN = "OPEN"
-    PROCESSING = "PROCESSING"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_report_status(value: str) -> ReportStatus:
+    if value in REPORT_STATUS_VALUES:
+        return cast(ReportStatus, value)
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {REPORT_STATUS_VALUES!r}")

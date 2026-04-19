@@ -8,8 +8,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.collection_type import CollectionType
-from ..models.collection_visibility import CollectionVisibility
+from ..models.collection_type import CollectionType, check_collection_type
+from ..models.collection_visibility import CollectionVisibility, check_collection_visibility
 
 T = TypeVar("T", bound="Collection")
 
@@ -19,7 +19,7 @@ class Collection:
     """User segment collection
 
     Attributes:
-        collection_public_id (str): Public ID for the collection Example: V1StGXR8_Z5d.
+        public_id (str): Public ID for the collection Example: V1StGXR8_Z5d.
         name (str): Name of the collection Example: Study Favorites.
         type_ (CollectionType): Type of the collection Example: USER.
         visibility (CollectionVisibility): Visibility of a collection Example: PRIVATE.
@@ -28,7 +28,7 @@ class Collection:
         updated_at (datetime.datetime | None): When the collection was last updated
     """
 
-    collection_public_id: str
+    public_id: str
     name: str
     type_: CollectionType
     visibility: CollectionVisibility
@@ -38,13 +38,13 @@ class Collection:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        collection_public_id = self.collection_public_id
+        public_id = self.public_id
 
         name = self.name
 
-        type_ = self.type_.value
+        type_: str = self.type_
 
-        visibility = self.visibility.value
+        visibility: str = self.visibility
 
         segment_count = self.segment_count
 
@@ -60,7 +60,7 @@ class Collection:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "collectionPublicId": collection_public_id,
+                "publicId": public_id,
                 "name": name,
                 "type": type_,
                 "visibility": visibility,
@@ -75,13 +75,13 @@ class Collection:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        collection_public_id = _src.pop("collectionPublicId")
+        public_id = _src.pop("publicId")
 
         name = _src.pop("name")
 
-        type_ = CollectionType(_src.pop("type"))
+        type_ = check_collection_type(_src.pop("type"))
 
-        visibility = CollectionVisibility(_src.pop("visibility"))
+        visibility = check_collection_visibility(_src.pop("visibility"))
 
         segment_count = _src.pop("segmentCount")
 
@@ -103,7 +103,7 @@ class Collection:
         updated_at = _parse_updated_at(_src.pop("updatedAt"))
 
         collection = cls(
-            collection_public_id=collection_public_id,
+            public_id=public_id,
             name=name,
             type_=type_,
             visibility=visibility,

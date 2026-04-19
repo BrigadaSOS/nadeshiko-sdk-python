@@ -1,2 +1,3 @@
 project_name_override: nadeshiko-internal-sdk
 package_name_override: nadeshiko_internal
+literal_enums: true

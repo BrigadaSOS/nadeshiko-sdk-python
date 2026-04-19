@@ -1,9 +1,14 @@
-from enum import Enum
+from typing import Literal, cast
+
+Error403Code = Literal["ACCESS_DENIED", "INSUFFICIENT_PERMISSIONS"]
+
+ERROR_403_CODE_VALUES: set[Error403Code] = {
+    "ACCESS_DENIED",
+    "INSUFFICIENT_PERMISSIONS",
+}
 
 
-class Error403Code(str, Enum):
-    ACCESS_DENIED = "ACCESS_DENIED"
-    INSUFFICIENT_PERMISSIONS = "INSUFFICIENT_PERMISSIONS"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_error_403_code(value: str) -> Error403Code:
+    if value in ERROR_403_CODE_VALUES:
+        return cast(Error403Code, value)
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ERROR_403_CODE_VALUES!r}")

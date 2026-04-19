@@ -19,7 +19,7 @@ def _get_kwargs(
     *,
     tier: int,
     min_rank: int | Unset = 0,
-    filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
+    filter_: GetCoveredWordsFilter | Unset = "ALL",
     cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> dict[str, Any]:
@@ -31,7 +31,7 @@ def _get_kwargs(
 
     json_filter_: str | Unset = UNSET
     if not isinstance(filter_, Unset):
-        json_filter_ = filter_.value
+        json_filter_ = filter_
 
     params["filter"] = json_filter_
 
@@ -105,7 +105,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     tier: int,
     min_rank: int | Unset = 0,
-    filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
+    filter_: GetCoveredWordsFilter | Unset = "ALL",
     cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
@@ -117,7 +117,7 @@ def sync_detailed(
     Args:
         tier (int):
         min_rank (int | Unset):  Default: 0.
-        filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
+        filter_ (GetCoveredWordsFilter | Unset):  Default: 'ALL'.
         cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
@@ -149,7 +149,7 @@ def sync(
     client: AuthenticatedClient,
     tier: int,
     min_rank: int | Unset = 0,
-    filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
+    filter_: GetCoveredWordsFilter | Unset = "ALL",
     cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
@@ -161,7 +161,7 @@ def sync(
     Args:
         tier (int):
         min_rank (int | Unset):  Default: 0.
-        filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
+        filter_ (GetCoveredWordsFilter | Unset):  Default: 'ALL'.
         cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
@@ -188,7 +188,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     tier: int,
     min_rank: int | Unset = 0,
-    filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
+    filter_: GetCoveredWordsFilter | Unset = "ALL",
     cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> Response[CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500]:
@@ -200,7 +200,7 @@ async def asyncio_detailed(
     Args:
         tier (int):
         min_rank (int | Unset):  Default: 0.
-        filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
+        filter_ (GetCoveredWordsFilter | Unset):  Default: 'ALL'.
         cursor (str | Unset):
         take (int | Unset):  Default: 200.
 
@@ -230,7 +230,7 @@ async def asyncio(
     client: AuthenticatedClient,
     tier: int,
     min_rank: int | Unset = 0,
-    filter_: GetCoveredWordsFilter | Unset = GetCoveredWordsFilter.ALL,
+    filter_: GetCoveredWordsFilter | Unset = "ALL",
     cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> CoveredWordsResponse | Error400 | Error401 | Error403 | Error429 | Error500 | None:
@@ -242,7 +242,7 @@ async def asyncio(
     Args:
         tier (int):
         min_rank (int | Unset):  Default: 0.
-        filter_ (GetCoveredWordsFilter | Unset):  Default: GetCoveredWordsFilter.ALL.
+        filter_ (GetCoveredWordsFilter | Unset):  Default: 'ALL'.
         cursor (str | Unset):
         take (int | Unset):  Default: 200.
 

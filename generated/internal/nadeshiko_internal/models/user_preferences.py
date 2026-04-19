@@ -8,7 +8,10 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.user_preferences_media_name_language import UserPreferencesMediaNameLanguage
+from ..models.user_preferences_media_name_language import (
+    UserPreferencesMediaNameLanguage,
+    check_user_preferences_media_name_language,
+)
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -47,7 +50,7 @@ class UserPreferences:
     def to_dict(self) -> dict[str, Any]:
         media_name_language: str | Unset = UNSET
         if not isinstance(self.media_name_language, Unset):
-            media_name_language = self.media_name_language.value
+            media_name_language = self.media_name_language
 
         content_rating_preferences: dict[str, Any] | Unset = UNSET
         if not isinstance(self.content_rating_preferences, Unset):
@@ -108,7 +111,7 @@ class UserPreferences:
         if isinstance(_media_name_language, Unset):
             media_name_language = UNSET
         else:
-            media_name_language = UserPreferencesMediaNameLanguage(_media_name_language)
+            media_name_language = check_user_preferences_media_name_language(_media_name_language)
 
         _content_rating_preferences = _src.pop("contentRatingPreferences", UNSET)
         content_rating_preferences: UserPreferencesContentRatingPreferences | Unset

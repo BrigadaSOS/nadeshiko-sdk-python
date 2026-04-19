@@ -8,7 +8,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.report_status import ReportStatus
+from ..models.report_status import ReportStatus, check_report_status
 
 if TYPE_CHECKING:
     from ..models.admin_report_group_item import AdminReportGroupItem
@@ -58,7 +58,7 @@ class AdminReportGroup:
 
         media_name = self.media_name
 
-        status = self.status.value
+        status: str = self.status
 
         report_count = self.report_count
 
@@ -132,7 +132,7 @@ class AdminReportGroup:
 
         media_name = _src.pop("mediaName")
 
-        status = ReportStatus(_src.pop("status"))
+        status = check_report_status(_src.pop("status"))
 
         report_count = _src.pop("reportCount")
 

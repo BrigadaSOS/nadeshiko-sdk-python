@@ -30,7 +30,7 @@ def _get_kwargs(
 
     json_activity_type: str | Unset = UNSET
     if not isinstance(activity_type, Unset):
-        json_activity_type = activity_type.value
+        json_activity_type = activity_type
 
     params["activityType"] = json_activity_type
 

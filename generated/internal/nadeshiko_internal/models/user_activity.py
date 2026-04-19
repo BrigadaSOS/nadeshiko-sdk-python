@@ -8,7 +8,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.activity_type import ActivityType
+from ..models.activity_type import ActivityType, check_activity_type
 
 T = TypeVar("T", bound="UserActivity")
 
@@ -40,7 +40,7 @@ class UserActivity:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        activity_type = self.activity_type.value
+        activity_type: str = self.activity_type
 
         segment_public_id: None | str
         segment_public_id = self.segment_public_id
@@ -81,7 +81,7 @@ class UserActivity:
         _src = dict(src_dict)
         id = _src.pop("id")
 
-        activity_type = ActivityType(_src.pop("activityType"))
+        activity_type = check_activity_type(_src.pop("activityType"))
 
         def _parse_segment_public_id(data: object) -> None | str:
             if data is None:

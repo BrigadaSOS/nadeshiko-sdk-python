@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.content_rating import ContentRating
-from ..models.segment_internal_storage import SegmentInternalStorage
-from ..models.segment_status import SegmentStatus
+from ..models.content_rating import ContentRating, check_content_rating
+from ..models.segment_internal_storage import SegmentInternalStorage, check_segment_internal_storage
+from ..models.segment_status import SegmentStatus, check_segment_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -29,7 +29,7 @@ class SegmentInternal:
     For GET, optional fields are only populated when requested via include[].
 
         Attributes:
-            segment_public_id (str): Public ID for the segment (nanoid) Example: V1StGXR8_Z5d.
+            public_id (str): Public ID for the segment (nanoid) Example: V1StGXR8_Z5d.
             position (int): Position of the segment within the episode Example: 1133.
             status (SegmentStatus): Segment status Example: ACTIVE.
             start_time_ms (int): Start time of the segment in milliseconds from the beginning of the episode Example:
@@ -51,7 +51,7 @@ class SegmentInternal:
                 (sudachi, unidic)
     """
 
-    segment_public_id: str
+    public_id: str
     position: int
     status: SegmentStatus
     start_time_ms: int
@@ -76,17 +76,17 @@ class SegmentInternal:
             SegmentInternalRatingAnalysisType0,
         )
 
-        segment_public_id = self.segment_public_id
+        public_id = self.public_id
 
         position = self.position
 
-        status = self.status.value
+        status: str = self.status
 
         start_time_ms = self.start_time_ms
 
         end_time_ms = self.end_time_ms
 
-        content_rating = self.content_rating.value
+        content_rating: str = self.content_rating
 
         episode = self.episode
 
@@ -102,7 +102,7 @@ class SegmentInternal:
 
         storage: str | Unset = UNSET
         if not isinstance(self.storage, Unset):
-            storage = self.storage.value
+            storage = self.storage
 
         hashed_id: None | str | Unset
         if isinstance(self.hashed_id, Unset):
@@ -136,7 +136,7 @@ class SegmentInternal:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "segmentPublicId": segment_public_id,
+                "publicId": public_id,
                 "position": position,
                 "status": status,
                 "startTimeMs": start_time_ms,
@@ -175,17 +175,17 @@ class SegmentInternal:
         from ..models.segment_urls import SegmentUrls
 
         _src = dict(src_dict)
-        segment_public_id = _src.pop("segmentPublicId")
+        public_id = _src.pop("publicId")
 
         position = _src.pop("position")
 
-        status = SegmentStatus(_src.pop("status"))
+        status = check_segment_status(_src.pop("status"))
 
         start_time_ms = _src.pop("startTimeMs")
 
         end_time_ms = _src.pop("endTimeMs")
 
-        content_rating = ContentRating(_src.pop("contentRating"))
+        content_rating = check_content_rating(_src.pop("contentRating"))
 
         episode = _src.pop("episode")
 
@@ -204,7 +204,7 @@ class SegmentInternal:
         if isinstance(_storage, Unset):
             storage = UNSET
         else:
-            storage = SegmentInternalStorage(_storage)
+            storage = check_segment_internal_storage(_storage)
 
         def _parse_hashed_id(data: object) -> None | str | Unset:
             if data is None:
@@ -261,7 +261,7 @@ class SegmentInternal:
         pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
 
         segment_internal = cls(
-            segment_public_id=segment_public_id,
+            public_id=public_id,
             position=position,
             status=status,
             start_time_ms=start_time_ms,

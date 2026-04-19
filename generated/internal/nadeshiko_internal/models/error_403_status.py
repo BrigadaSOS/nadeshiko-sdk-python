@@ -1,8 +1,13 @@
-from enum import IntEnum
+from typing import Literal, cast
+
+Error403Status = Literal[403]
+
+ERROR_403_STATUS_VALUES: set[Error403Status] = {
+    403,
+}
 
 
-class Error403Status(IntEnum):
-    VALUE_403 = 403
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_error_403_status(value: int) -> Error403Status:
+    if value in ERROR_403_STATUS_VALUES:
+        return cast(Error403Status, value)
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ERROR_403_STATUS_VALUES!r}")

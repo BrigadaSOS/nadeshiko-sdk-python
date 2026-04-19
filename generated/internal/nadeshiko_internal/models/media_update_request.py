@@ -8,11 +8,23 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.category import Category
-from ..models.media_update_request_airing_format import MediaUpdateRequestAiringFormat
-from ..models.media_update_request_airing_status import MediaUpdateRequestAiringStatus
-from ..models.media_update_request_season_name import MediaUpdateRequestSeasonName
-from ..models.media_update_request_storage import MediaUpdateRequestStorage
+from ..models.category import Category, check_category
+from ..models.media_update_request_airing_format import (
+    MediaUpdateRequestAiringFormat,
+    check_media_update_request_airing_format,
+)
+from ..models.media_update_request_airing_status import (
+    MediaUpdateRequestAiringStatus,
+    check_media_update_request_airing_status,
+)
+from ..models.media_update_request_season_name import (
+    MediaUpdateRequestSeasonName,
+    check_media_update_request_season_name,
+)
+from ..models.media_update_request_storage import (
+    MediaUpdateRequestStorage,
+    check_media_update_request_storage,
+)
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -85,11 +97,11 @@ class MediaUpdateRequest:
 
         airing_format: str | Unset = UNSET
         if not isinstance(self.airing_format, Unset):
-            airing_format = self.airing_format.value
+            airing_format = self.airing_format
 
         airing_status: str | Unset = UNSET
         if not isinstance(self.airing_status, Unset):
-            airing_status = self.airing_status.value
+            airing_status = self.airing_status
 
         genres: list[str] | Unset = UNSET
         if not isinstance(self.genres, Unset):
@@ -97,7 +109,7 @@ class MediaUpdateRequest:
 
         storage: str | Unset = UNSET
         if not isinstance(self.storage, Unset):
-            storage = self.storage.value
+            storage = self.storage
 
         start_date: str | Unset = UNSET
         if not isinstance(self.start_date, Unset):
@@ -113,7 +125,7 @@ class MediaUpdateRequest:
 
         category: str | Unset = UNSET
         if not isinstance(self.category, Unset):
-            category = self.category.value
+            category = self.category
 
         version = self.version
 
@@ -127,7 +139,7 @@ class MediaUpdateRequest:
 
         season_name: str | Unset = UNSET
         if not isinstance(self.season_name, Unset):
-            season_name = self.season_name.value
+            season_name = self.season_name
 
         season_year = self.season_year
 
@@ -200,14 +212,14 @@ class MediaUpdateRequest:
         if isinstance(_airing_format, Unset):
             airing_format = UNSET
         else:
-            airing_format = MediaUpdateRequestAiringFormat(_airing_format)
+            airing_format = check_media_update_request_airing_format(_airing_format)
 
         _airing_status = _src.pop("airingStatus", UNSET)
         airing_status: MediaUpdateRequestAiringStatus | Unset
         if isinstance(_airing_status, Unset):
             airing_status = UNSET
         else:
-            airing_status = MediaUpdateRequestAiringStatus(_airing_status)
+            airing_status = check_media_update_request_airing_status(_airing_status)
 
         genres = cast(list[str], _src.pop("genres", UNSET))
 
@@ -216,7 +228,7 @@ class MediaUpdateRequest:
         if isinstance(_storage, Unset):
             storage = UNSET
         else:
-            storage = MediaUpdateRequestStorage(_storage)
+            storage = check_media_update_request_storage(_storage)
 
         _start_date = _src.pop("startDate", UNSET)
         start_date: datetime.date | Unset
@@ -247,7 +259,7 @@ class MediaUpdateRequest:
         if isinstance(_category, Unset):
             category = UNSET
         else:
-            category = Category(_category)
+            category = check_category(_category)
 
         version = _src.pop("version", UNSET)
 
@@ -267,7 +279,7 @@ class MediaUpdateRequest:
         if isinstance(_season_name, Unset):
             season_name = UNSET
         else:
-            season_name = MediaUpdateRequestSeasonName(_season_name)
+            season_name = check_media_update_request_season_name(_season_name)
 
         season_year = _src.pop("seasonYear", UNSET)
 

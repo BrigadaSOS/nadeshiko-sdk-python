@@ -6,7 +6,10 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.create_report_request_reason import CreateReportRequestReason
+from ..models.create_report_request_reason import (
+    CreateReportRequestReason,
+    check_create_report_request_reason,
+)
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -41,7 +44,7 @@ class CreateReportRequest:
         else:
             target = self.target.to_dict()
 
-        reason = self.reason.value
+        reason: str = self.reason
 
         description = self.description
 
@@ -82,7 +85,7 @@ class CreateReportRequest:
 
         target = _parse_target(_src.pop("target"))
 
-        reason = CreateReportRequestReason(_src.pop("reason"))
+        reason = check_create_report_request_reason(_src.pop("reason"))
 
         description = _src.pop("description", UNSET)
 

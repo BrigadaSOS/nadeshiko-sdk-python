@@ -20,7 +20,7 @@ class SegmentContextResponseIncludes:
     """Optional related resources requested via `include[]`
 
     Attributes:
-        media (SegmentContextResponseIncludesMedia | Unset): Media objects keyed by mediaPublicId. Present only when
+        media (SegmentContextResponseIncludesMedia | Unset): Media objects keyed by publicId. Present only when
             `include[]=media` is requested.
     """
 

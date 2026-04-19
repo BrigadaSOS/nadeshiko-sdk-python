@@ -1,10 +1,17 @@
-from enum import Enum
+from typing import Literal, cast
+
+GetCoveredWordsFilter = Literal["ALL", "COVERED", "UNCOVERED"]
+
+GET_COVERED_WORDS_FILTER_VALUES: set[GetCoveredWordsFilter] = {
+    "ALL",
+    "COVERED",
+    "UNCOVERED",
+}
 
 
-class GetCoveredWordsFilter(str, Enum):
-    ALL = "ALL"
-    COVERED = "COVERED"
-    UNCOVERED = "UNCOVERED"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_get_covered_words_filter(value: str) -> GetCoveredWordsFilter:
+    if value in GET_COVERED_WORDS_FILTER_VALUES:
+        return cast(GetCoveredWordsFilter, value)
+    raise TypeError(
+        f"Unexpected value {value!r}. Expected one of {GET_COVERED_WORDS_FILTER_VALUES!r}"
+    )

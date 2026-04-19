@@ -1,11 +1,16 @@
-from enum import Enum
+from typing import Literal, cast
+
+ContentRating = Literal["EXPLICIT", "QUESTIONABLE", "SAFE", "SUGGESTIVE"]
+
+CONTENT_RATING_VALUES: set[ContentRating] = {
+    "EXPLICIT",
+    "QUESTIONABLE",
+    "SAFE",
+    "SUGGESTIVE",
+}
 
 
-class ContentRating(str, Enum):
-    EXPLICIT = "EXPLICIT"
-    QUESTIONABLE = "QUESTIONABLE"
-    SAFE = "SAFE"
-    SUGGESTIVE = "SUGGESTIVE"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_content_rating(value: str) -> ContentRating:
+    if value in CONTENT_RATING_VALUES:
+        return cast(ContentRating, value)
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {CONTENT_RATING_VALUES!r}")

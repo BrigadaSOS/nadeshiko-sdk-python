@@ -11,7 +11,9 @@ from ...models.error_403 import Error403
 from ...models.error_404 import Error404
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
-from ...models.run_admin_media_audit_category import RunAdminMediaAuditCategory
+from ...models.run_admin_media_audit_category import (
+    RunAdminMediaAuditCategory,
+)
 from ...models.run_audit_response import RunAuditResponse
 from ...types import UNSET, Response, Unset
 
@@ -25,7 +27,7 @@ def _get_kwargs(
 
     json_category: str | Unset = UNSET
     if not isinstance(category, Unset):
-        json_category = category.value
+        json_category = category
 
     params["category"] = json_category
 

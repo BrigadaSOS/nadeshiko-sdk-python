@@ -8,11 +8,23 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.category import Category
-from ..models.media_create_request_airing_format import MediaCreateRequestAiringFormat
-from ..models.media_create_request_airing_status import MediaCreateRequestAiringStatus
-from ..models.media_create_request_season_name import MediaCreateRequestSeasonName
-from ..models.media_create_request_storage import MediaCreateRequestStorage
+from ..models.category import Category, check_category
+from ..models.media_create_request_airing_format import (
+    MediaCreateRequestAiringFormat,
+    check_media_create_request_airing_format,
+)
+from ..models.media_create_request_airing_status import (
+    MediaCreateRequestAiringStatus,
+    check_media_create_request_airing_status,
+)
+from ..models.media_create_request_season_name import (
+    MediaCreateRequestSeasonName,
+    check_media_create_request_season_name,
+)
+from ..models.media_create_request_storage import (
+    MediaCreateRequestStorage,
+    check_media_create_request_storage,
+)
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -34,8 +46,7 @@ class MediaCreateRequest:
         airing_status (MediaCreateRequestAiringStatus): Current airing status Example: FINISHED.
         genres (list[str]): List of genres associated with the media Example: ['Comedy', 'Drama', 'Romance', 'Slice of
             Life'].
-        storage (MediaCreateRequestStorage): Storage backend for media assets Default: MediaCreateRequestStorage.R2.
-            Example: R2.
+        storage (MediaCreateRequestStorage): Storage backend for media assets Default: 'R2'. Example: R2.
         start_date (datetime.date): Start date of the media (first airing/release) Example: 2010-10-02.
         category (Category): Media category type Example: ANIME.
         version (str): Version of the media-sub-splitter used Example: 6.
@@ -63,7 +74,7 @@ class MediaCreateRequest:
     hash_salt: str
     season_name: MediaCreateRequestSeasonName
     season_year: int
-    storage: MediaCreateRequestStorage = MediaCreateRequestStorage.R2
+    storage: MediaCreateRequestStorage = "R2"
     external_ids: ExternalId | Unset = UNSET
     end_date: datetime.date | Unset = UNSET
     studio: None | str | Unset = UNSET
@@ -77,23 +88,23 @@ class MediaCreateRequest:
 
         name_en = self.name_en
 
-        airing_format = self.airing_format.value
+        airing_format: str = self.airing_format
 
-        airing_status = self.airing_status.value
+        airing_status: str = self.airing_status
 
         genres = self.genres
 
-        storage = self.storage.value
+        storage: str = self.storage
 
         start_date = self.start_date.isoformat()
 
-        category = self.category.value
+        category: str = self.category
 
         version = self.version
 
         hash_salt = self.hash_salt
 
-        season_name = self.season_name.value
+        season_name: str = self.season_name
 
         season_year = self.season_year
 
@@ -154,23 +165,23 @@ class MediaCreateRequest:
 
         name_en = _src.pop("nameEn")
 
-        airing_format = MediaCreateRequestAiringFormat(_src.pop("airingFormat"))
+        airing_format = check_media_create_request_airing_format(_src.pop("airingFormat"))
 
-        airing_status = MediaCreateRequestAiringStatus(_src.pop("airingStatus"))
+        airing_status = check_media_create_request_airing_status(_src.pop("airingStatus"))
 
         genres = cast(list[str], _src.pop("genres"))
 
-        storage = MediaCreateRequestStorage(_src.pop("storage"))
+        storage = check_media_create_request_storage(_src.pop("storage"))
 
         start_date = isoparse(_src.pop("startDate")).date()
 
-        category = Category(_src.pop("category"))
+        category = check_category(_src.pop("category"))
 
         version = _src.pop("version")
 
         hash_salt = _src.pop("hashSalt")
 
-        season_name = MediaCreateRequestSeasonName(_src.pop("seasonName"))
+        season_name = check_media_create_request_season_name(_src.pop("seasonName"))
 
         season_year = _src.pop("seasonYear")
 

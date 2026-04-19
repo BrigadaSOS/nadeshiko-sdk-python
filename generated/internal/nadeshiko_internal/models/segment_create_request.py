@@ -6,9 +6,12 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.content_rating import ContentRating
-from ..models.segment_create_request_storage import SegmentCreateRequestStorage
-from ..models.segment_status import SegmentStatus
+from ..models.content_rating import ContentRating, check_content_rating
+from ..models.segment_create_request_storage import (
+    SegmentCreateRequestStorage,
+    check_segment_create_request_storage,
+)
+from ..models.segment_status import SegmentStatus, check_segment_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -35,10 +38,9 @@ class SegmentCreateRequest:
             2007255.
         end_time_ms (int): End time of the segment in milliseconds from the beginning of the episode Example: 2008464.
         text_ja (SegmentCreateRequestTextJa):
-        storage (SegmentCreateRequestStorage): Storage backend for segment assets Default:
-            SegmentCreateRequestStorage.R2. Example: R2.
+        storage (SegmentCreateRequestStorage): Storage backend for segment assets Default: 'R2'. Example: R2.
         hashed_id (str): Hash identifier for the segment (from segment JSON) Example: 0d39e46b14.
-        status (SegmentStatus | Unset): Segment status Default: SegmentStatus.ACTIVE. Example: ACTIVE.
+        status (SegmentStatus | Unset): Segment status Default: 'ACTIVE'. Example: ACTIVE.
         text_es (SegmentCreateRequestTextEs | Unset):
         text_en (SegmentCreateRequestTextEn | Unset):
         content_rating (ContentRating | Unset): Content rating level for the segment Example: SAFE.
@@ -53,8 +55,8 @@ class SegmentCreateRequest:
     end_time_ms: int
     text_ja: SegmentCreateRequestTextJa
     hashed_id: str
-    storage: SegmentCreateRequestStorage = SegmentCreateRequestStorage.R2
-    status: SegmentStatus | Unset = SegmentStatus.ACTIVE
+    storage: SegmentCreateRequestStorage = "R2"
+    status: SegmentStatus | Unset = "ACTIVE"
     text_es: SegmentCreateRequestTextEs | Unset = UNSET
     text_en: SegmentCreateRequestTextEn | Unset = UNSET
     content_rating: ContentRating | Unset = UNSET
@@ -78,13 +80,13 @@ class SegmentCreateRequest:
 
         text_ja = self.text_ja.to_dict()
 
-        storage = self.storage.value
+        storage: str = self.storage
 
         hashed_id = self.hashed_id
 
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
-            status = self.status.value
+            status = self.status
 
         text_es: dict[str, Any] | Unset = UNSET
         if not isinstance(self.text_es, Unset):
@@ -96,7 +98,7 @@ class SegmentCreateRequest:
 
         content_rating: str | Unset = UNSET
         if not isinstance(self.content_rating, Unset):
-            content_rating = self.content_rating.value
+            content_rating = self.content_rating
 
         rating_analysis: dict[str, Any] | None | Unset
         if isinstance(self.rating_analysis, Unset):
@@ -162,7 +164,7 @@ class SegmentCreateRequest:
 
         text_ja = SegmentCreateRequestTextJa.from_dict(_src.pop("textJa"))
 
-        storage = SegmentCreateRequestStorage(_src.pop("storage"))
+        storage = check_segment_create_request_storage(_src.pop("storage"))
 
         hashed_id = _src.pop("hashedId")
 
@@ -171,7 +173,7 @@ class SegmentCreateRequest:
         if isinstance(_status, Unset):
             status = UNSET
         else:
-            status = SegmentStatus(_status)
+            status = check_segment_status(_status)
 
         _text_es = _src.pop("textEs", UNSET)
         text_es: SegmentCreateRequestTextEs | Unset
@@ -192,7 +194,7 @@ class SegmentCreateRequest:
         if isinstance(_content_rating, Unset):
             content_rating = UNSET
         else:
-            content_rating = ContentRating(_content_rating)
+            content_rating = check_content_rating(_content_rating)
 
         def _parse_rating_analysis(
             data: object,

@@ -15,7 +15,7 @@ T = TypeVar("T", bound="SegmentContextResponseIncludesMedia")
 
 @_attrs_define
 class SegmentContextResponseIncludesMedia:
-    """Media objects keyed by mediaPublicId. Present only when `include[]=media` is requested."""
+    """Media objects keyed by publicId. Present only when `include[]=media` is requested."""
 
     additional_properties: dict[str, Media] = _attrs_field(init=False, factory=dict)
 

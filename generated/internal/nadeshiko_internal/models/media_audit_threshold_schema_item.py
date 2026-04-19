@@ -6,7 +6,10 @@ from typing import Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.media_audit_threshold_schema_item_type import MediaAuditThresholdSchemaItemType
+from ..models.media_audit_threshold_schema_item_type import (
+    MediaAuditThresholdSchemaItemType,
+    check_media_audit_threshold_schema_item_type,
+)
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MediaAuditThresholdSchemaItem")
@@ -37,7 +40,7 @@ class MediaAuditThresholdSchemaItem:
 
         label = self.label
 
-        type_ = self.type_.value
+        type_: str = self.type_
 
         default: bool | float
         default = self.default
@@ -70,7 +73,7 @@ class MediaAuditThresholdSchemaItem:
 
         label = _src.pop("label")
 
-        type_ = MediaAuditThresholdSchemaItemType(_src.pop("type"))
+        type_ = check_media_audit_threshold_schema_item_type(_src.pop("type"))
 
         def _parse_default(data: object) -> bool | float:
             return cast(bool | float, data)

@@ -8,9 +8,11 @@ from attrs import field as _attrs_field
 
 from ..models.user_preferences_content_rating_preferences_explicit import (
     UserPreferencesContentRatingPreferencesExplicit,
+    check_user_preferences_content_rating_preferences_explicit,
 )
 from ..models.user_preferences_content_rating_preferences_suggestive import (
     UserPreferencesContentRatingPreferencesSuggestive,
+    check_user_preferences_content_rating_preferences_suggestive,
 )
 from ..types import UNSET, Unset
 
@@ -33,11 +35,11 @@ class UserPreferencesContentRatingPreferences:
     def to_dict(self) -> dict[str, Any]:
         suggestive: str | Unset = UNSET
         if not isinstance(self.suggestive, Unset):
-            suggestive = self.suggestive.value
+            suggestive = self.suggestive
 
         explicit: str | Unset = UNSET
         if not isinstance(self.explicit, Unset):
-            explicit = self.explicit.value
+            explicit = self.explicit
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -57,14 +59,14 @@ class UserPreferencesContentRatingPreferences:
         if isinstance(_suggestive, Unset):
             suggestive = UNSET
         else:
-            suggestive = UserPreferencesContentRatingPreferencesSuggestive(_suggestive)
+            suggestive = check_user_preferences_content_rating_preferences_suggestive(_suggestive)
 
         _explicit = _src.pop("explicit", UNSET)
         explicit: UserPreferencesContentRatingPreferencesExplicit | Unset
         if isinstance(_explicit, Unset):
             explicit = UNSET
         else:
-            explicit = UserPreferencesContentRatingPreferencesExplicit(_explicit)
+            explicit = check_user_preferences_content_rating_preferences_explicit(_explicit)
 
         user_preferences_content_rating_preferences = cls(
             suggestive=suggestive,

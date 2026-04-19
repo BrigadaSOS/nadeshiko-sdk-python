@@ -6,7 +6,7 @@ from typing import Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.report_status import ReportStatus
+from ..models.report_status import ReportStatus, check_report_status
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="BatchUpdateReportsRequest")
@@ -29,7 +29,7 @@ class BatchUpdateReportsRequest:
     def to_dict(self) -> dict[str, Any]:
         ids = self.ids
 
-        status = self.status.value
+        status: str = self.status
 
         admin_notes = self.admin_notes
 
@@ -51,7 +51,7 @@ class BatchUpdateReportsRequest:
         _src = dict(src_dict)
         ids = cast(list[int], _src.pop("ids"))
 
-        status = ReportStatus(_src.pop("status"))
+        status = check_report_status(_src.pop("status"))
 
         admin_notes = _src.pop("adminNotes", UNSET)
 
