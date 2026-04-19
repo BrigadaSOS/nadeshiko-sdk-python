@@ -215,6 +215,15 @@ from .user_preferences_content_rating_preferences_nsfw import (
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
+from .user_preferences_translation_visibility_preferences import (
+    UserPreferencesTranslationVisibilityPreferences,
+)
+from .user_preferences_translation_visibility_preferences_en import (
+    UserPreferencesTranslationVisibilityPreferencesEN,
+)
+from .user_preferences_translation_visibility_preferences_es import (
+    UserPreferencesTranslationVisibilityPreferencesES,
+)
 from .word_coverage_tier import WordCoverageTier
 from .word_match import WordMatch
 from .word_match_media import WordMatchMedia
@@ -427,6 +436,9 @@ __all__ = (
     "UserPreferencesHiddenMediaItem",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
+    "UserPreferencesTranslationVisibilityPreferences",
+    "UserPreferencesTranslationVisibilityPreferencesEN",
+    "UserPreferencesTranslationVisibilityPreferencesES",
     "WordCoverageTier",
     "WordMatch",
     "WordMatchMedia",

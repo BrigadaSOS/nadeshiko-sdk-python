@@ -21,6 +21,9 @@ if TYPE_CHECKING:
     )
     from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
     from ..models.user_preferences_search_history import UserPreferencesSearchHistory
+    from ..models.user_preferences_translation_visibility_preferences import (
+        UserPreferencesTranslationVisibilityPreferences,
+    )
 
 
 T = TypeVar("T", bound="UserPreferences")
@@ -33,6 +36,8 @@ class UserPreferences:
         media_name_language (UserPreferencesMediaNameLanguage | Unset): Preferred language for media names display
         content_rating_preferences (UserPreferencesContentRatingPreferences | Unset): Per-category content rating
             display preferences
+        translation_visibility_preferences (UserPreferencesTranslationVisibilityPreferences | Unset): Per-language
+            visibility mode for translations in search results, keyed by ISO 639-1 code (uppercase)
         search_history (UserPreferencesSearchHistory | Unset):
         blog_last_visited (datetime.datetime | Unset): ISO timestamp of when the user last visited the blog page
         anki_profiles (list[UserPreferencesAnkiProfilesItem] | Unset):
@@ -41,6 +46,9 @@ class UserPreferences:
 
     media_name_language: UserPreferencesMediaNameLanguage | Unset = UNSET
     content_rating_preferences: UserPreferencesContentRatingPreferences | Unset = UNSET
+    translation_visibility_preferences: UserPreferencesTranslationVisibilityPreferences | Unset = (
+        UNSET
+    )
     search_history: UserPreferencesSearchHistory | Unset = UNSET
     blog_last_visited: datetime.datetime | Unset = UNSET
     anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
@@ -55,6 +63,10 @@ class UserPreferences:
         content_rating_preferences: dict[str, Any] | Unset = UNSET
         if not isinstance(self.content_rating_preferences, Unset):
             content_rating_preferences = self.content_rating_preferences.to_dict()
+
+        translation_visibility_preferences: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.translation_visibility_preferences, Unset):
+            translation_visibility_preferences = self.translation_visibility_preferences.to_dict()
 
         search_history: dict[str, Any] | Unset = UNSET
         if not isinstance(self.search_history, Unset):
@@ -85,6 +97,8 @@ class UserPreferences:
             field_dict["mediaNameLanguage"] = media_name_language
         if content_rating_preferences is not UNSET:
             field_dict["contentRatingPreferences"] = content_rating_preferences
+        if translation_visibility_preferences is not UNSET:
+            field_dict["translationVisibilityPreferences"] = translation_visibility_preferences
         if search_history is not UNSET:
             field_dict["searchHistory"] = search_history
         if blog_last_visited is not UNSET:
@@ -104,6 +118,9 @@ class UserPreferences:
         )
         from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
         from ..models.user_preferences_search_history import UserPreferencesSearchHistory
+        from ..models.user_preferences_translation_visibility_preferences import (
+            UserPreferencesTranslationVisibilityPreferences,
+        )
 
         _src = dict(src_dict)
         _media_name_language = _src.pop("mediaNameLanguage", UNSET)
@@ -120,6 +137,17 @@ class UserPreferences:
         else:
             content_rating_preferences = UserPreferencesContentRatingPreferences.from_dict(
                 _content_rating_preferences
+            )
+
+        _translation_visibility_preferences = _src.pop("translationVisibilityPreferences", UNSET)
+        translation_visibility_preferences: UserPreferencesTranslationVisibilityPreferences | Unset
+        if isinstance(_translation_visibility_preferences, Unset):
+            translation_visibility_preferences = UNSET
+        else:
+            translation_visibility_preferences = (
+                UserPreferencesTranslationVisibilityPreferences.from_dict(
+                    _translation_visibility_preferences
+                )
             )
 
         _search_history = _src.pop("searchHistory", UNSET)
@@ -159,6 +187,7 @@ class UserPreferences:
         user_preferences = cls(
             media_name_language=media_name_language,
             content_rating_preferences=content_rating_preferences,
+            translation_visibility_preferences=translation_visibility_preferences,
             search_history=search_history,
             blog_last_visited=blog_last_visited,
             anki_profiles=anki_profiles,
