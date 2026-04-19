@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 import collections.abc as cabc
-from contextlib import contextmanager
-from dataclasses import dataclass
-from enum import Enum
 import importlib
 import inspect
-from pathlib import Path
 import re
 import sys
 import textwrap
+from contextlib import contextmanager, suppress
+from dataclasses import dataclass
+from enum import Enum
+from pathlib import Path
 from types import NoneType, UnionType
 from typing import Any, Union, get_args, get_origin, get_type_hints
 
@@ -172,10 +172,8 @@ def _package_import_path(package_dir: Path):
     try:
         yield package_dir.name
     finally:
-        try:
+        with suppress(ValueError):
             sys.path.remove(package_parent)
-        except ValueError:
-            pass
 
 
 def _is_union(annotation: Any) -> bool:
@@ -279,7 +277,8 @@ def _type_to_string(
         return f"list[{inner_repr}]"
 
     if origin in {dict, cabc.Mapping}:
-        key_type, value_type = get_args(annotation) if len(get_args(annotation)) == 2 else (str, Any)
+        args = get_args(annotation)
+        key_type, value_type = args if len(args) == 2 else (str, Any)
         key_repr = _type_to_string(
             key_type,
             unset_type=unset_type,
@@ -330,7 +329,7 @@ def _ensure_input_type(
     if model_type in input_types:
         return
 
-    input_types[model_type] = InputType(name=f"{model_type.__name__}Input", fields=tuple())
+    input_types[model_type] = InputType(name=f"{model_type.__name__}Input", fields=())
     module = importlib.import_module(model_type.__module__)
     namespace = type_namespace | module.__dict__
 
@@ -461,13 +460,14 @@ def collect_stub_data(
     with _package_import_path(package_dir) as package_name:
         models_module = importlib.import_module(f"{package_name}.models")
         types_module = importlib.import_module(f"{package_name}.types")
-        unset_type = getattr(types_module, "Unset")
+        unset_type = types_module.Unset
         type_namespace = dict(models_module.__dict__) | dict(types_module.__dict__)
 
         for operation in operations:
             module = importlib.import_module(operation.module_path, package=package_name)
             signature = inspect.signature(module._get_kwargs)
-            hints = get_type_hints(module._get_kwargs, type_namespace | module.__dict__, type_namespace | module.__dict__)
+            merged_namespace = type_namespace | module.__dict__
+            hints = get_type_hints(module._get_kwargs, merged_namespace, merged_namespace)
 
             path_params: list[StubParameter] = []
             keyword_params: list[StubParameter] = []
@@ -514,8 +514,12 @@ def collect_stub_data(
                     for attr in stripped_body_annotation.__attrs_attrs__:
                         if attr.name == "additional_properties":
                             continue
-                        attr_annotation = _resolve_annotation(getattr(attr, "type", Any), body_namespace)
-                        stripped_annotation, optional_via_unset = _strip_unset(attr_annotation, unset_type)
+                        attr_annotation = _resolve_annotation(
+                            getattr(attr, "type", Any), body_namespace
+                        )
+                        stripped_annotation, optional_via_unset = _strip_unset(
+                            attr_annotation, unset_type
+                        )
                         annotation_repr = _type_to_string(
                             stripped_annotation,
                             unset_type=unset_type,
@@ -570,7 +574,9 @@ def collect_stub_data(
                 )
             )
 
-    ordered_input_types = [input_types[key] for key in sorted(input_types, key=lambda value: value.__name__)]
+    ordered_input_types = [
+        input_types[key] for key in sorted(input_types, key=lambda value: value.__name__)
+    ]
     return stub_operations, ordered_input_types, stub_model_imports
 
 
@@ -621,7 +627,7 @@ def _format_errors_module() -> str:
 
 
         class UnexpectedStatus(Exception):
-            \"\"\"Raised when the API returns an undocumented status and strict mode is enabled.\"\"\"
+            \"\"\"Raised on an undocumented status when strict mode is enabled.\"\"\"
 
             def __init__(self, status_code: int, content: bytes):
                 self.status_code = status_code
@@ -820,7 +826,9 @@ def _format_sdk_module(user_agent_name: str) -> str:
                 super().__init__(*args, **kwargs)
                 self._retry_options = retry_options
 
-            async def request(self, method: str, url: str, *args: Any, **kwargs: Any) -> httpx.Response:
+            async def request(
+                self, method: str, url: str, *args: Any, **kwargs: Any
+            ) -> httpx.Response:
                 attempt = 0
                 while True:
                     try:
@@ -880,7 +888,11 @@ def _format_sdk_module(user_agent_name: str) -> str:
                 inner = _strip_unset(get_args(annotation)[0]) if get_args(annotation) else Any
                 return [_coerce_annotation(item, inner) for item in value]
 
-            if inspect.isclass(annotation) and issubclass(annotation, Enum) and isinstance(value, str):
+            if (
+                inspect.isclass(annotation)
+                and issubclass(annotation, Enum)
+                and isinstance(value, str)
+            ):
                 return annotation(value)
 
             return value
@@ -896,7 +908,11 @@ def _format_sdk_module(user_agent_name: str) -> str:
             if inspect.isclass(body_type) and isinstance(value, body_type):
                 return value
             # If value is a dict of fields and body_type is a model, construct the model
-            if isinstance(value, Mapping) and inspect.isclass(body_type) and hasattr(body_type, "from_dict"):
+            if (
+                isinstance(value, Mapping)
+                and inspect.isclass(body_type)
+                and hasattr(body_type, "from_dict")
+            ):
                 # Convert nested model instances to their dict representation
                 def convert_nested(v: Any) -> Any:
                     if hasattr(v, "to_dict"):
@@ -923,8 +939,14 @@ def _format_sdk_module(user_agent_name: str) -> str:
         def _error_from_response(response: httpx.Response, parsed: Any) -> NadeshikoError:
             if parsed is not None and hasattr(parsed, \"code\") and hasattr(parsed, \"detail\"):
                 problem = {{
-                    \"code\": _coerce_problem_value(getattr(parsed, \"code\", None)) or \"UNKNOWN_ERROR\",
-                    \"title\": _coerce_problem_value(getattr(parsed, \"title\", None)) or \"Unexpected error\",
+                    \"code\": (
+                        _coerce_problem_value(getattr(parsed, \"code\", None))
+                        or \"UNKNOWN_ERROR\"
+                    ),
+                    \"title\": (
+                        _coerce_problem_value(getattr(parsed, \"title\", None))
+                        or \"Unexpected error\"
+                    ),
                     \"detail\": _coerce_problem_value(getattr(parsed, \"detail\", None))
                     or response.text
                     or f\"HTTP {{response.status_code}}\",
@@ -1046,7 +1068,8 @@ def _format_sdk_module(user_agent_name: str) -> str:
                 path_params = tuple(
                     parameter.name
                     for parameter in signature.parameters.values()
-                    if parameter.kind in (parameter.POSITIONAL_ONLY, parameter.POSITIONAL_OR_KEYWORD)
+                    if parameter.kind
+                    in (parameter.POSITIONAL_ONLY, parameter.POSITIONAL_OR_KEYWORD)
                 )
                 query_params = tuple(
                     parameter.name
@@ -1080,7 +1103,8 @@ def _format_sdk_module(user_agent_name: str) -> str:
                 if operation.path_params:
                     if len(args) > len(operation.path_params):
                         raise TypeError(
-                            f\"{{operation.metadata.name}}() accepts at most {{len(operation.path_params)}} positional arguments\"
+                            f\"{{operation.metadata.name}}() accepts at most \"
+                            f\"{{len(operation.path_params)}} positional arguments\"
                         )
                     for name, value in zip(operation.path_params, args):
                         annotation = operation.type_hints.get(name, inspect.Signature.empty)
@@ -1119,10 +1143,11 @@ def _format_sdk_module(user_agent_name: str) -> str:
                 request_kwargs.update(query_values)
 
                 if operation.has_body:
+                    body_hint = operation.type_hints.get(\"body\", inspect.Signature.empty)
                     if \"body\" in remaining:
-                        body = _coerce_body(operation.type_hints.get(\"body\", inspect.Signature.empty), remaining.pop(\"body\"))
+                        body = _coerce_body(body_hint, remaining.pop(\"body\"))
                     elif remaining or operation.body_required:
-                        body = _coerce_body(operation.type_hints.get(\"body\", inspect.Signature.empty), remaining)
+                        body = _coerce_body(body_hint, remaining)
                         remaining = {{}}
                     else:
                         body = UNSET
@@ -1152,7 +1177,9 @@ def _format_sdk_module(user_agent_name: str) -> str:
                 pagination = getattr(page, \"pagination\", None)
                 if pagination is None:
                     return None
-                has_more = getattr(pagination, \"has_more\", getattr(pagination, \"hasMore\", False))
+                has_more = getattr(
+                    pagination, \"has_more\", getattr(pagination, \"hasMore\", False)
+                )
                 cursor = getattr(pagination, \"cursor\", None)
                 if cursor is UNSET:
                     cursor = None
@@ -1253,7 +1280,9 @@ def _format_sdk_module(user_agent_name: str) -> str:
                     raise error
                 return SDKResponse(response=response, error=error)
 
-            async def _iterate(self, operation_name: str, *args: Any, **kwargs: Any) -> AsyncIterator[Any]:
+            async def _iterate(
+                self, operation_name: str, *args: Any, **kwargs: Any
+            ) -> AsyncIterator[Any]:
                 operation = self._load_operation(operation_name)
                 if not operation.metadata.paginated:
                     raise TypeError(f\"{{operation_name}} is not a paginated endpoint\")
@@ -1312,10 +1341,22 @@ def _format_sdk_module(user_agent_name: str) -> str:
 
 
         for _operation in OPERATIONS:
-            setattr(Nadeshiko, _operation.name, _make_sync_method(_operation.name, _operation.doc))
-            setattr(AsyncNadeshiko, _operation.name, _make_async_method(_operation.name, _operation.doc))
+            setattr(
+                Nadeshiko,
+                _operation.name,
+                _make_sync_method(_operation.name, _operation.doc),
+            )
+            setattr(
+                AsyncNadeshiko,
+                _operation.name,
+                _make_async_method(_operation.name, _operation.doc),
+            )
             if _operation.paginated:
-                setattr(Nadeshiko, f\"iter_{{_operation.name}}\", _make_sync_iterator(_operation.name, _operation.doc))
+                setattr(
+                    Nadeshiko,
+                    f\"iter_{{_operation.name}}\",
+                    _make_sync_iterator(_operation.name, _operation.doc),
+                )
                 setattr(
                     AsyncNadeshiko,
                     f\"iter_{{_operation.name}}\",
@@ -1334,7 +1375,9 @@ def _format_sdk_module(user_agent_name: str) -> str:
     )
 
 
-def _format_stub_params(parameters: tuple[StubParameter, ...], *, include_throw_on_error: bool) -> list[str]:
+def _format_stub_params(
+    parameters: tuple[StubParameter, ...], *, include_throw_on_error: bool
+) -> list[str]:
     parts: list[str] = []
     keyword_only_inserted = False
 
@@ -1382,11 +1425,14 @@ def _format_stub_method(
     )
     return_type = operation.response_type
 
+    true_sep = ", " if true_params else ""
+    false_sep = ", " if false_params else ""
     overload_lines = [
         "    @overload",
-        f"    {prefix} {method_name}(self{', ' if true_params else ''}{true_params}) -> {return_type}: ...",
+        f"    {prefix} {method_name}(self{true_sep}{true_params}) -> {return_type}: ...",
         "    @overload",
-        f"    {prefix} {method_name}(self{', ' if false_params else ''}{false_params}) -> SDKResponse[{return_type}]: ...",
+        f"    {prefix} {method_name}(self{false_sep}{false_params})"
+        f" -> SDKResponse[{return_type}]: ...",
     ]
     return overload_lines
 

@@ -17,7 +17,6 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 import yaml
-
 from postprocess_wrappers import collect_operations, write_wrapper_files
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -156,10 +155,7 @@ def resolve_version(version_path: Path, spec_path: Path, target_name: str) -> st
         spec = yaml.safe_load(file)
     base_version = str(spec.get("info", {}).get("version") or "").strip() or "0.1.0"
 
-    if target_name == "internal":
-        version = f"{base_version}.dev{int(time.time())}"
-    else:
-        version = base_version
+    version = f"{base_version}.dev{int(time.time())}" if target_name == "internal" else base_version
     return f'__version__ = "{version}"\n'
 
 
