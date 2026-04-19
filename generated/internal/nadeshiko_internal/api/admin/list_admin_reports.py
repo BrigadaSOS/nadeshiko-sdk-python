@@ -28,6 +28,7 @@ def _get_kwargs(
     audit_run_id: int | Unset = UNSET,
     orphaned: bool | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["cursor"] = cursor

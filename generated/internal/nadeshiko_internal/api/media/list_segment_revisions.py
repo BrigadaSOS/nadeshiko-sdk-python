@@ -19,6 +19,7 @@ from ...types import Response
 def _get_kwargs(
     segment_public_id: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/media/segments/{segment_public_id}/revisions".format(

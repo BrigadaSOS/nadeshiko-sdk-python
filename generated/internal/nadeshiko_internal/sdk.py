@@ -110,7 +110,9 @@ class _RetryingAsyncClient(httpx.AsyncClient):
         super().__init__(*args, **kwargs)
         self._retry_options = retry_options
 
-    async def request(self, method: str, url: str, *args: Any, **kwargs: Any) -> httpx.Response:
+    async def request(
+        self, method: str, url: str, *args: Any, **kwargs: Any
+    ) -> httpx.Response:
         attempt = 0
         while True:
             try:
@@ -170,7 +172,11 @@ def _coerce_annotation(value: Any, annotation: Any) -> Any:
         inner = _strip_unset(get_args(annotation)[0]) if get_args(annotation) else Any
         return [_coerce_annotation(item, inner) for item in value]
 
-    if inspect.isclass(annotation) and issubclass(annotation, Enum) and isinstance(value, str):
+    if (
+        inspect.isclass(annotation)
+        and issubclass(annotation, Enum)
+        and isinstance(value, str)
+    ):
         return annotation(value)
 
     return value
@@ -186,7 +192,11 @@ def _coerce_body(body_type: Any, value: Any) -> Any:
     if inspect.isclass(body_type) and isinstance(value, body_type):
         return value
     # If value is a dict of fields and body_type is a model, construct the model
-    if isinstance(value, Mapping) and inspect.isclass(body_type) and hasattr(body_type, "from_dict"):
+    if (
+        isinstance(value, Mapping)
+        and inspect.isclass(body_type)
+        and hasattr(body_type, "from_dict")
+    ):
         # Convert nested model instances to their dict representation
         def convert_nested(v: Any) -> Any:
             if hasattr(v, "to_dict"):
@@ -213,8 +223,14 @@ def _coerce_problem_value(value: Any) -> Any:
 def _error_from_response(response: httpx.Response, parsed: Any) -> NadeshikoError:
     if parsed is not None and hasattr(parsed, "code") and hasattr(parsed, "detail"):
         problem = {
-            "code": _coerce_problem_value(getattr(parsed, "code", None)) or "UNKNOWN_ERROR",
-            "title": _coerce_problem_value(getattr(parsed, "title", None)) or "Unexpected error",
+            "code": (
+                _coerce_problem_value(getattr(parsed, "code", None))
+                or "UNKNOWN_ERROR"
+            ),
+            "title": (
+                _coerce_problem_value(getattr(parsed, "title", None))
+                or "Unexpected error"
+            ),
             "detail": _coerce_problem_value(getattr(parsed, "detail", None))
             or response.text
             or f"HTTP {response.status_code}",
@@ -336,7 +352,8 @@ class _ClientBase:
         path_params = tuple(
             parameter.name
             for parameter in signature.parameters.values()
-            if parameter.kind in (parameter.POSITIONAL_ONLY, parameter.POSITIONAL_OR_KEYWORD)
+            if parameter.kind
+            in (parameter.POSITIONAL_ONLY, parameter.POSITIONAL_OR_KEYWORD)
         )
         query_params = tuple(
             parameter.name
@@ -370,7 +387,8 @@ class _ClientBase:
         if operation.path_params:
             if len(args) > len(operation.path_params):
                 raise TypeError(
-                    f"{operation.metadata.name}() accepts at most {len(operation.path_params)} positional arguments"
+                    f"{operation.metadata.name}() accepts at most "
+                    f"{len(operation.path_params)} positional arguments"
                 )
             for name, value in zip(operation.path_params, args):
                 annotation = operation.type_hints.get(name, inspect.Signature.empty)
@@ -409,10 +427,11 @@ class _ClientBase:
         request_kwargs.update(query_values)
 
         if operation.has_body:
+            body_hint = operation.type_hints.get("body", inspect.Signature.empty)
             if "body" in remaining:
-                body = _coerce_body(operation.type_hints.get("body", inspect.Signature.empty), remaining.pop("body"))
+                body = _coerce_body(body_hint, remaining.pop("body"))
             elif remaining or operation.body_required:
-                body = _coerce_body(operation.type_hints.get("body", inspect.Signature.empty), remaining)
+                body = _coerce_body(body_hint, remaining)
                 remaining = {}
             else:
                 body = UNSET
@@ -442,7 +461,9 @@ class _ClientBase:
         pagination = getattr(page, "pagination", None)
         if pagination is None:
             return None
-        has_more = getattr(pagination, "has_more", getattr(pagination, "hasMore", False))
+        has_more = getattr(
+            pagination, "has_more", getattr(pagination, "hasMore", False)
+        )
         cursor = getattr(pagination, "cursor", None)
         if cursor is UNSET:
             cursor = None
@@ -543,7 +564,9 @@ class AsyncNadeshiko(_ClientBase):
             raise error
         return SDKResponse(response=response, error=error)
 
-    async def _iterate(self, operation_name: str, *args: Any, **kwargs: Any) -> AsyncIterator[Any]:
+    async def _iterate(
+        self, operation_name: str, *args: Any, **kwargs: Any
+    ) -> AsyncIterator[Any]:
         operation = self._load_operation(operation_name)
         if not operation.metadata.paginated:
             raise TypeError(f"{operation_name} is not a paginated endpoint")
@@ -602,10 +625,22 @@ def _make_async_iterator(name: str, doc: str) -> Any:
 
 
 for _operation in OPERATIONS:
-    setattr(Nadeshiko, _operation.name, _make_sync_method(_operation.name, _operation.doc))
-    setattr(AsyncNadeshiko, _operation.name, _make_async_method(_operation.name, _operation.doc))
+    setattr(
+        Nadeshiko,
+        _operation.name,
+        _make_sync_method(_operation.name, _operation.doc),
+    )
+    setattr(
+        AsyncNadeshiko,
+        _operation.name,
+        _make_async_method(_operation.name, _operation.doc),
+    )
     if _operation.paginated:
-        setattr(Nadeshiko, f"iter_{_operation.name}", _make_sync_iterator(_operation.name, _operation.doc))
+        setattr(
+            Nadeshiko,
+            f"iter_{_operation.name}",
+            _make_sync_iterator(_operation.name, _operation.doc),
+        )
         setattr(
             AsyncNadeshiko,
             f"iter_{_operation.name}",

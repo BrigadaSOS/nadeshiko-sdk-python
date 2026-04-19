@@ -209,11 +209,8 @@ from .user_preferences_anki_profiles_item_fields_item import (
     UserPreferencesAnkiProfilesItemFieldsItem,
 )
 from .user_preferences_content_rating_preferences import UserPreferencesContentRatingPreferences
-from .user_preferences_content_rating_preferences_explicit import (
-    UserPreferencesContentRatingPreferencesExplicit,
-)
-from .user_preferences_content_rating_preferences_suggestive import (
-    UserPreferencesContentRatingPreferencesSuggestive,
+from .user_preferences_content_rating_preferences_nsfw import (
+    UserPreferencesContentRatingPreferencesNsfw,
 )
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
@@ -426,8 +423,7 @@ __all__ = (
     "UserPreferencesAnkiProfilesItem",
     "UserPreferencesAnkiProfilesItemFieldsItem",
     "UserPreferencesContentRatingPreferences",
-    "UserPreferencesContentRatingPreferencesExplicit",
-    "UserPreferencesContentRatingPreferencesSuggestive",
+    "UserPreferencesContentRatingPreferencesNsfw",
     "UserPreferencesHiddenMediaItem",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",

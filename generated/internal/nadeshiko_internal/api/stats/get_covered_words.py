@@ -23,6 +23,7 @@ def _get_kwargs(
     cursor: str | Unset = UNSET,
     take: int | Unset = 200,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["tier"] = tier

@@ -18,6 +18,7 @@ from ...types import Response
 def _get_kwargs(
     audit_run_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/admin/media/audits/runs/{audit_run_id}".format(

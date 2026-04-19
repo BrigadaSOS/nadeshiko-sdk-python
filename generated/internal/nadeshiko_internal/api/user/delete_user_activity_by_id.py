@@ -17,6 +17,7 @@ from ...types import Response
 def _get_kwargs(
     activity_id: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/user/activity/{activity_id}".format(

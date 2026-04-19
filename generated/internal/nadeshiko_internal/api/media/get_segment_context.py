@@ -25,6 +25,7 @@ def _get_kwargs(
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["take"] = take

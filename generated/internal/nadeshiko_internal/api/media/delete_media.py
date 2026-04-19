@@ -18,6 +18,7 @@ from ...types import Response
 def _get_kwargs(
     media_public_id: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/v1/media/{media_public_id}".format(

@@ -9,7 +9,7 @@ import httpx
 
 
 class UnexpectedStatus(Exception):
-    """Raised when the API returns an undocumented status and strict mode is enabled."""
+    """Raised on an undocumented status when strict mode is enabled."""
 
     def __init__(self, status_code: int, content: bytes):
         self.status_code = status_code
