@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.user_preferences_media_name_language import (
     UserPreferencesMediaNameLanguage,
@@ -39,7 +37,6 @@ class UserPreferences:
         translation_visibility_preferences (UserPreferencesTranslationVisibilityPreferences | Unset): Per-language
             visibility mode for translations in search results, keyed by ISO 639-1 code (uppercase)
         search_history (UserPreferencesSearchHistory | Unset):
-        blog_last_visited (datetime.datetime | Unset): ISO timestamp of when the user last visited the blog page
         anki_profiles (list[UserPreferencesAnkiProfilesItem] | Unset):
         hidden_media (list[UserPreferencesHiddenMediaItem] | Unset): Media hidden from search results by the user
     """
@@ -50,7 +47,6 @@ class UserPreferences:
         UNSET
     )
     search_history: UserPreferencesSearchHistory | Unset = UNSET
-    blog_last_visited: datetime.datetime | Unset = UNSET
     anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
     hidden_media: list[UserPreferencesHiddenMediaItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -71,10 +67,6 @@ class UserPreferences:
         search_history: dict[str, Any] | Unset = UNSET
         if not isinstance(self.search_history, Unset):
             search_history = self.search_history.to_dict()
-
-        blog_last_visited: str | Unset = UNSET
-        if not isinstance(self.blog_last_visited, Unset):
-            blog_last_visited = self.blog_last_visited.isoformat()
 
         anki_profiles: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.anki_profiles, Unset):
@@ -101,8 +93,6 @@ class UserPreferences:
             field_dict["translationVisibilityPreferences"] = translation_visibility_preferences
         if search_history is not UNSET:
             field_dict["searchHistory"] = search_history
-        if blog_last_visited is not UNSET:
-            field_dict["blogLastVisited"] = blog_last_visited
         if anki_profiles is not UNSET:
             field_dict["ankiProfiles"] = anki_profiles
         if hidden_media is not UNSET:
@@ -157,13 +147,6 @@ class UserPreferences:
         else:
             search_history = UserPreferencesSearchHistory.from_dict(_search_history)
 
-        _blog_last_visited = _src.pop("blogLastVisited", UNSET)
-        blog_last_visited: datetime.datetime | Unset
-        if isinstance(_blog_last_visited, Unset):
-            blog_last_visited = UNSET
-        else:
-            blog_last_visited = isoparse(_blog_last_visited)
-
         _anki_profiles = _src.pop("ankiProfiles", UNSET)
         anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
         if _anki_profiles is not UNSET:
@@ -189,7 +172,6 @@ class UserPreferences:
             content_rating_preferences=content_rating_preferences,
             translation_visibility_preferences=translation_visibility_preferences,
             search_history=search_history,
-            blog_last_visited=blog_last_visited,
             anki_profiles=anki_profiles,
             hidden_media=hidden_media,
         )
