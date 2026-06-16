@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 CollectionType = Literal["ANKI_EXPORT", "USER"]
 
@@ -10,5 +10,5 @@ COLLECTION_TYPE_VALUES: set[CollectionType] = {
 
 def check_collection_type(value: str) -> CollectionType:
     if value in COLLECTION_TYPE_VALUES:
-        return cast(CollectionType, value)
+        return value
     raise TypeError(f"Unexpected value {value!r}. Expected one of {COLLECTION_TYPE_VALUES!r}")

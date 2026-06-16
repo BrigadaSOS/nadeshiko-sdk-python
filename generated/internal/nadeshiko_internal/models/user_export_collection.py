@@ -6,7 +6,6 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.collection_type import CollectionType, check_collection_type
 from ..models.collection_visibility import CollectionVisibility, check_collection_visibility
@@ -89,7 +88,7 @@ class UserExportCollection:
 
         segment_count = _src.pop("segmentCount")
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -97,7 +96,7 @@ class UserExportCollection:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

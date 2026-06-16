@@ -19,12 +19,14 @@ class ExternalId:
             imdb (None | str): IMDB ID Example: tt1234567.
             tvdb (None | str): TVDB ID Example: 12345.
             tmdb (None | str): TMDB ID Example: 90955.
+            youtube (None | str): YouTube channel ID Example: UCauyM-A8JIJ9NQcw5_jF00Q.
     """
 
     anilist: None | str
     imdb: None | str
     tvdb: None | str
     tmdb: None | str
+    youtube: None | str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,6 +42,9 @@ class ExternalId:
         tmdb: None | str
         tmdb = self.tmdb
 
+        youtube: None | str
+        youtube = self.youtube
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -48,6 +53,7 @@ class ExternalId:
                 "imdb": imdb,
                 "tvdb": tvdb,
                 "tmdb": tmdb,
+                "youtube": youtube,
             }
         )
 
@@ -85,11 +91,19 @@ class ExternalId:
 
         tmdb = _parse_tmdb(_src.pop("tmdb"))
 
+        def _parse_youtube(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        youtube = _parse_youtube(_src.pop("youtube"))
+
         external_id = cls(
             anilist=anilist,
             imdb=imdb,
             tvdb=tvdb,
             tmdb=tmdb,
+            youtube=youtube,
         )
 
         external_id.additional_properties = _src

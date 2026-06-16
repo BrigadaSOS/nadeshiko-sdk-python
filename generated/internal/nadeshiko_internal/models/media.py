@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.category import Category, check_category
 from ..models.media_airing_format import MediaAiringFormat, check_media_airing_format
@@ -168,7 +167,7 @@ class Media:
 
         banner_url = _src.pop("bannerUrl")
 
-        start_date = isoparse(_src.pop("startDate")).date()
+        start_date = datetime.date.fromisoformat(_src.pop("startDate"))
 
         def _parse_end_date(data: object) -> datetime.date | None:
             if data is None:
@@ -176,7 +175,7 @@ class Media:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                end_date_type_0 = isoparse(data).date()
+                end_date_type_0 = datetime.date.fromisoformat(data)
 
                 return end_date_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

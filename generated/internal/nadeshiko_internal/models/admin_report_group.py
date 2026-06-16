@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.report_status import ReportStatus, check_report_status
 
@@ -138,7 +137,7 @@ class AdminReportGroup:
 
         reporter_count = _src.pop("reporterCount")
 
-        first_reported_at = isoparse(_src.pop("firstReportedAt"))
+        first_reported_at = datetime.datetime.fromisoformat(_src.pop("firstReportedAt"))
 
         def _parse_last_status_change(data: object) -> datetime.datetime | None:
             if data is None:
@@ -146,7 +145,7 @@ class AdminReportGroup:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                last_status_change_type_0 = isoparse(data)
+                last_status_change_type_0 = datetime.datetime.fromisoformat(data)
 
                 return last_status_change_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

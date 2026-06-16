@@ -6,7 +6,6 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -27,6 +26,8 @@ class EpisodeCreateRequest:
         length_seconds (int | Unset): Episode duration in seconds Example: 1420.
         thumbnail_url (str | Unset): URL to episode thumbnail image Example:
             https://example.com/thumbnails/episode1.jpg.
+        external_video_id (str | Unset): External source video identifier (YouTube video ID for YOUTUBE media) Example:
+            ZJFMStE1Tjo.
     """
 
     episode_number: int
@@ -37,6 +38,7 @@ class EpisodeCreateRequest:
     aired_at: datetime.datetime | Unset = UNSET
     length_seconds: int | Unset = UNSET
     thumbnail_url: str | Unset = UNSET
+    external_video_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -57,6 +59,8 @@ class EpisodeCreateRequest:
         length_seconds = self.length_seconds
 
         thumbnail_url = self.thumbnail_url
+
+        external_video_id = self.external_video_id
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -79,6 +83,8 @@ class EpisodeCreateRequest:
             field_dict["lengthSeconds"] = length_seconds
         if thumbnail_url is not UNSET:
             field_dict["thumbnailUrl"] = thumbnail_url
+        if external_video_id is not UNSET:
+            field_dict["externalVideoId"] = external_video_id
 
         return field_dict
 
@@ -100,11 +106,13 @@ class EpisodeCreateRequest:
         if isinstance(_aired_at, Unset):
             aired_at = UNSET
         else:
-            aired_at = isoparse(_aired_at)
+            aired_at = datetime.datetime.fromisoformat(_aired_at)
 
         length_seconds = _src.pop("lengthSeconds", UNSET)
 
         thumbnail_url = _src.pop("thumbnailUrl", UNSET)
+
+        external_video_id = _src.pop("externalVideoId", UNSET)
 
         episode_create_request = cls(
             episode_number=episode_number,
@@ -115,6 +123,7 @@ class EpisodeCreateRequest:
             aired_at=aired_at,
             length_seconds=length_seconds,
             thumbnail_url=thumbnail_url,
+            external_video_id=external_video_id,
         )
 
         episode_create_request.additional_properties = _src

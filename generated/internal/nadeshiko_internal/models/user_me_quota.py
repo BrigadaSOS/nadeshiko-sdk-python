@@ -6,7 +6,6 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 T = TypeVar("T", bound="UserMeQuota")
 
@@ -70,9 +69,9 @@ class UserMeQuota:
 
         period_yyyymm = _src.pop("periodYyyymm")
 
-        period_start = isoparse(_src.pop("periodStart"))
+        period_start = datetime.datetime.fromisoformat(_src.pop("periodStart"))
 
-        period_end = isoparse(_src.pop("periodEnd"))
+        period_end = datetime.datetime.fromisoformat(_src.pop("periodEnd"))
 
         user_me_quota = cls(
             used=used,

@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 SegmentStatus = Literal["ACTIVE", "DELETED", "HIDDEN"]
 
@@ -11,5 +11,5 @@ SEGMENT_STATUS_VALUES: set[SegmentStatus] = {
 
 def check_segment_status(value: str) -> SegmentStatus:
     if value in SEGMENT_STATUS_VALUES:
-        return cast(SegmentStatus, value)
+        return value
     raise TypeError(f"Unexpected value {value!r}. Expected one of {SEGMENT_STATUS_VALUES!r}")

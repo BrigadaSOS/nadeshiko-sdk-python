@@ -6,7 +6,6 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.report_reason import ReportReason, check_report_reason
 from ..models.report_source import ReportSource, check_report_source
@@ -87,7 +86,7 @@ class AdminReportGroupItem:
 
         reporter_name = _src.pop("reporterName")
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_admin_notes(data: object) -> None | str:
             if data is None:

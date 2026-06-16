@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 CollectionVisibility = Literal["PRIVATE", "PUBLIC"]
 
@@ -10,5 +10,5 @@ COLLECTION_VISIBILITY_VALUES: set[CollectionVisibility] = {
 
 def check_collection_visibility(value: str) -> CollectionVisibility:
     if value in COLLECTION_VISIBILITY_VALUES:
-        return cast(CollectionVisibility, value)
+        return value
     raise TypeError(f"Unexpected value {value!r}. Expected one of {COLLECTION_VISIBILITY_VALUES!r}")

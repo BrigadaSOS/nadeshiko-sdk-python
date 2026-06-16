@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.report_reason import ReportReason, check_report_reason
 from ..models.report_source import ReportSource, check_report_source
@@ -208,7 +207,7 @@ class Report:
 
         user_id = _parse_user_id(_src.pop("userId"))
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -216,7 +215,7 @@ class Report:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

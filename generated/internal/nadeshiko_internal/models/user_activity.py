@@ -6,7 +6,6 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.activity_type import ActivityType, check_activity_type
 
@@ -118,7 +117,7 @@ class UserActivity:
 
         japanese_text = _parse_japanese_text(_src.pop("japaneseText"))
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         user_activity = cls(
             id=id,

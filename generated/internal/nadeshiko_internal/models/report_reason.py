@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 ReportReason = Literal[
     "BAD_SEGMENT_RATIO",
@@ -57,5 +57,5 @@ REPORT_REASON_VALUES: set[ReportReason] = {
 
 def check_report_reason(value: str) -> ReportReason:
     if value in REPORT_REASON_VALUES:
-        return cast(ReportReason, value)
+        return value
     raise TypeError(f"Unexpected value {value!r}. Expected one of {REPORT_REASON_VALUES!r}")

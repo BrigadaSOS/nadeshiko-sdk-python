@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 ReportTargetType = Literal["EPISODE", "MEDIA", "SEGMENT"]
 
@@ -11,5 +11,5 @@ REPORT_TARGET_TYPE_VALUES: set[ReportTargetType] = {
 
 def check_report_target_type(value: str) -> ReportTargetType:
     if value in REPORT_TARGET_TYPE_VALUES:
-        return cast(ReportTargetType, value)
+        return value
     raise TypeError(f"Unexpected value {value!r}. Expected one of {REPORT_TARGET_TYPE_VALUES!r}")

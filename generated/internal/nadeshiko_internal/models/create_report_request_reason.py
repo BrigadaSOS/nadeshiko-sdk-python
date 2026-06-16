@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 CreateReportRequestReason = Literal[
     "DUPLICATE_MEDIA",
@@ -37,7 +37,7 @@ CREATE_REPORT_REQUEST_REASON_VALUES: set[CreateReportRequestReason] = {
 
 def check_create_report_request_reason(value: str) -> CreateReportRequestReason:
     if value in CREATE_REPORT_REQUEST_REASON_VALUES:
-        return cast(CreateReportRequestReason, value)
+        return value
     raise TypeError(
         f"Unexpected value {value!r}. Expected one of {CREATE_REPORT_REQUEST_REASON_VALUES!r}"
     )

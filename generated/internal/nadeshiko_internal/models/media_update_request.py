@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..models.category import Category, check_category
 from ..models.media_update_request_airing_format import (
@@ -235,7 +234,7 @@ class MediaUpdateRequest:
         if isinstance(_start_date, Unset):
             start_date = UNSET
         else:
-            start_date = isoparse(_start_date).date()
+            start_date = datetime.date.fromisoformat(_start_date)
 
         def _parse_end_date(data: object) -> datetime.date | None | Unset:
             if data is None:
@@ -245,7 +244,7 @@ class MediaUpdateRequest:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                end_date_type_0 = isoparse(data).date()
+                end_date_type_0 = datetime.date.fromisoformat(data)
 
                 return end_date_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

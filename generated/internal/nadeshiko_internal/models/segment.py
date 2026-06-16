@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -32,6 +32,8 @@ class Segment:
         end_time_ms (int): End time of the segment in milliseconds from the beginning of the episode Example: 2008464.
         content_rating (ContentRating): Content rating level for the segment Example: SAFE.
         episode (int): Episode number this segment belongs to (0 for movies/specials) Example: 1.
+        external_video_id (None | str): External source video ID of this segment's episode (YouTube video ID) Example:
+            ZJFMStE1Tjo.
         media_public_id (str): Public ID of the media this segment belongs to (nanoid) Example: V1StGXR8_Z5d.
         text_ja (SegmentTextJa):
         text_en (SegmentTextEn):
@@ -46,6 +48,7 @@ class Segment:
     end_time_ms: int
     content_rating: ContentRating
     episode: int
+    external_video_id: None | str
     media_public_id: str
     text_ja: SegmentTextJa
     text_en: SegmentTextEn
@@ -68,6 +71,9 @@ class Segment:
 
         episode = self.episode
 
+        external_video_id: None | str
+        external_video_id = self.external_video_id
+
         media_public_id = self.media_public_id
 
         text_ja = self.text_ja.to_dict()
@@ -89,6 +95,7 @@ class Segment:
                 "endTimeMs": end_time_ms,
                 "contentRating": content_rating,
                 "episode": episode,
+                "externalVideoId": external_video_id,
                 "mediaPublicId": media_public_id,
                 "textJa": text_ja,
                 "textEn": text_en,
@@ -121,6 +128,13 @@ class Segment:
 
         episode = _src.pop("episode")
 
+        def _parse_external_video_id(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        external_video_id = _parse_external_video_id(_src.pop("externalVideoId"))
+
         media_public_id = _src.pop("mediaPublicId")
 
         text_ja = SegmentTextJa.from_dict(_src.pop("textJa"))
@@ -139,6 +153,7 @@ class Segment:
             end_time_ms=end_time_ms,
             content_rating=content_rating,
             episode=episode,
+            external_video_id=external_video_id,
             media_public_id=media_public_id,
             text_ja=text_ja,
             text_en=text_en,

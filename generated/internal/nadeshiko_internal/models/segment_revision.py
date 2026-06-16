@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -76,7 +75,7 @@ class SegmentRevision:
 
         snapshot = SegmentRevisionSnapshot.from_dict(_src.pop("snapshot"))
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_user_name(data: object) -> None | str | Unset:
             if data is None:

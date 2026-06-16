@@ -1,4 +1,4 @@
-from typing import Literal, cast
+from typing import Literal
 
 UserPreferencesMediaNameLanguage = Literal["ENGLISH", "JAPANESE", "ROMAJI"]
 
@@ -11,7 +11,7 @@ USER_PREFERENCES_MEDIA_NAME_LANGUAGE_VALUES: set[UserPreferencesMediaNameLanguag
 
 def check_user_preferences_media_name_language(value: str) -> UserPreferencesMediaNameLanguage:
     if value in USER_PREFERENCES_MEDIA_NAME_LANGUAGE_VALUES:
-        return cast(UserPreferencesMediaNameLanguage, value)
+        return value
     raise TypeError(
         f"Unexpected value {value!r}. Expected one of {USER_PREFERENCES_MEDIA_NAME_LANGUAGE_VALUES!r}"
     )
