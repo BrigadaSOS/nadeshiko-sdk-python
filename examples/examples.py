@@ -30,7 +30,7 @@ from nadeshiko.models import (
 
 client = Nadeshiko(
     api_key=os.environ["NADESHIKO_API_KEY"],
-    base_url="PRODUCTION",  # "LOCAL" | "DEVELOPMENT" | "PRODUCTION" | custom URL
+    base_url="PRODUCTION",  # "LOCAL" | "DEVELOPMENT" | "STAGING" | "PRODUCTION" | custom URL
 )
 
 # With retry + timeout + custom headers

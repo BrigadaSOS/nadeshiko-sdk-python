@@ -48,7 +48,7 @@ Pass your API key to `Nadeshiko`. It is sent as `Authorization: Bearer <api_key>
 ```python
 client = Nadeshiko(
     api_key=os.environ["NADESHIKO_API_KEY"],
-    base_url="PRODUCTION",  # "LOCAL" | "DEVELOPMENT" | "PRODUCTION" | custom URL
+    base_url="PRODUCTION",  # "LOCAL" | "DEVELOPMENT" | "STAGING" | "PRODUCTION" | custom URL
     headers={"User-Agent": "MyApp/1.0"},
 )
 ```

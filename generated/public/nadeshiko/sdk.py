@@ -24,7 +24,8 @@ T = TypeVar("T")
 RETRYABLE_STATUS = {408, 429, 500, 502, 503, 504}
 ENVIRONMENTS = {
     "LOCAL": "http://localhost:5000/api",
-    "DEVELOPMENT": "https://api-dev.nadeshiko.co",
+    "DEVELOPMENT": "https://api-stg.nadeshiko.co",
+    "STAGING": "https://api-stg.nadeshiko.co",
     "PRODUCTION": "https://api.nadeshiko.co",
 }
 
