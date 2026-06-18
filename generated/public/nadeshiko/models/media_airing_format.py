@@ -1,12 +1,18 @@
-from enum import Enum
+from typing import Literal
+
+MediaAiringFormat = Literal["MOVIE", "ONA", "OVA", "SPECIAL", "TV", "YOUTUBE"]
+
+MEDIA_AIRING_FORMAT_VALUES: set[MediaAiringFormat] = {
+    "MOVIE",
+    "ONA",
+    "OVA",
+    "SPECIAL",
+    "TV",
+    "YOUTUBE",
+}
 
 
-class MediaAiringFormat(str, Enum):
-    MOVIE = "MOVIE"
-    ONA = "ONA"
-    OVA = "OVA"
-    SPECIAL = "SPECIAL"
-    TV = "TV"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_media_airing_format(value: str) -> MediaAiringFormat:
+    if value in MEDIA_AIRING_FORMAT_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {MEDIA_AIRING_FORMAT_VALUES!r}")

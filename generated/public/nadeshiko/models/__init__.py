@@ -119,7 +119,9 @@ from .report_target_type import ReportTargetType
 from .run_audit_response import RunAuditResponse
 from .run_audit_response_checks_run_item import RunAuditResponseChecksRunItem
 from .search_filters import SearchFilters
-from .search_filters_languages_item import SearchFiltersLanguagesItem
+from .search_filters_languages_type_0_item import SearchFiltersLanguagesType0Item
+from .search_filters_languages_type_1 import SearchFiltersLanguagesType1
+from .search_filters_languages_type_1_exclude_item import SearchFiltersLanguagesType1ExcludeItem
 from .search_filters_media import SearchFiltersMedia
 from .search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
 from .search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
@@ -199,15 +201,21 @@ from .user_preferences_anki_profiles_item_fields_item import (
     UserPreferencesAnkiProfilesItemFieldsItem,
 )
 from .user_preferences_content_rating_preferences import UserPreferencesContentRatingPreferences
-from .user_preferences_content_rating_preferences_explicit import (
-    UserPreferencesContentRatingPreferencesExplicit,
-)
-from .user_preferences_content_rating_preferences_suggestive import (
-    UserPreferencesContentRatingPreferencesSuggestive,
+from .user_preferences_content_rating_preferences_nsfw import (
+    UserPreferencesContentRatingPreferencesNsfw,
 )
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
+from .user_preferences_translation_visibility_preferences import (
+    UserPreferencesTranslationVisibilityPreferences,
+)
+from .user_preferences_translation_visibility_preferences_en import (
+    UserPreferencesTranslationVisibilityPreferencesEN,
+)
+from .user_preferences_translation_visibility_preferences_es import (
+    UserPreferencesTranslationVisibilityPreferencesES,
+)
 from .word_coverage_tier import WordCoverageTier
 from .word_match import WordMatch
 from .word_match_media import WordMatchMedia
@@ -330,7 +338,9 @@ __all__ = (
     "RunAuditResponse",
     "RunAuditResponseChecksRunItem",
     "SearchFilters",
-    "SearchFiltersLanguagesItem",
+    "SearchFiltersLanguagesType0Item",
+    "SearchFiltersLanguagesType1",
+    "SearchFiltersLanguagesType1ExcludeItem",
     "SearchFiltersMedia",
     "SearchFiltersSegmentDurationMs",
     "SearchFiltersSegmentLengthChars",
@@ -406,11 +416,13 @@ __all__ = (
     "UserPreferencesAnkiProfilesItem",
     "UserPreferencesAnkiProfilesItemFieldsItem",
     "UserPreferencesContentRatingPreferences",
-    "UserPreferencesContentRatingPreferencesExplicit",
-    "UserPreferencesContentRatingPreferencesSuggestive",
+    "UserPreferencesContentRatingPreferencesNsfw",
     "UserPreferencesHiddenMediaItem",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
+    "UserPreferencesTranslationVisibilityPreferences",
+    "UserPreferencesTranslationVisibilityPreferencesEN",
+    "UserPreferencesTranslationVisibilityPreferencesES",
     "WordCoverageTier",
     "WordMatch",
     "WordMatchMedia",

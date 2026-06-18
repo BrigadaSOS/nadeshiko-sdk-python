@@ -6,7 +6,10 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.report_target_segment_input_type import ReportTargetSegmentInputType
+from ..models.report_target_segment_input_type import (
+    ReportTargetSegmentInputType,
+    check_report_target_segment_input_type,
+)
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ReportTargetSegmentInput")
@@ -29,7 +32,7 @@ class ReportTargetSegmentInput:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        type_ = self.type_.value
+        type_: str = self.type_
 
         media_public_id = self.media_public_id
 
@@ -54,7 +57,7 @@ class ReportTargetSegmentInput:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        type_ = ReportTargetSegmentInputType(_src.pop("type"))
+        type_ = check_report_target_segment_input_type(_src.pop("type"))
 
         media_public_id = _src.pop("mediaPublicId")
 

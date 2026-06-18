@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.content_rating import ContentRating
-from ..models.segment_status import SegmentStatus
+from ..models.content_rating import ContentRating, check_content_rating
+from ..models.segment_status import SegmentStatus, check_segment_status
 
 if TYPE_CHECKING:
     from ..models.segment_text_en import SegmentTextEn
@@ -24,7 +24,7 @@ class Segment:
     """Segment with content, translations, search-related highlights, and media URLs
 
     Attributes:
-        segment_public_id (str): Public ID for the segment (nanoid) Example: V1StGXR8_Z5d.
+        public_id (str): Public ID for the segment (nanoid) Example: V1StGXR8_Z5d.
         position (int): Position of the segment within the episode Example: 1133.
         status (SegmentStatus): Segment status Example: ACTIVE.
         start_time_ms (int): Start time of the segment in milliseconds from the beginning of the episode Example:
@@ -32,6 +32,8 @@ class Segment:
         end_time_ms (int): End time of the segment in milliseconds from the beginning of the episode Example: 2008464.
         content_rating (ContentRating): Content rating level for the segment Example: SAFE.
         episode (int): Episode number this segment belongs to (0 for movies/specials) Example: 1.
+        external_video_id (None | str): External source video ID of this segment's episode (YouTube video ID) Example:
+            ZJFMStE1Tjo.
         media_public_id (str): Public ID of the media this segment belongs to (nanoid) Example: V1StGXR8_Z5d.
         text_ja (SegmentTextJa):
         text_en (SegmentTextEn):
@@ -39,13 +41,14 @@ class Segment:
         urls (SegmentUrls): URLs to media resources for this segment
     """
 
-    segment_public_id: str
+    public_id: str
     position: int
     status: SegmentStatus
     start_time_ms: int
     end_time_ms: int
     content_rating: ContentRating
     episode: int
+    external_video_id: None | str
     media_public_id: str
     text_ja: SegmentTextJa
     text_en: SegmentTextEn
@@ -54,19 +57,22 @@ class Segment:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        segment_public_id = self.segment_public_id
+        public_id = self.public_id
 
         position = self.position
 
-        status = self.status.value
+        status: str = self.status
 
         start_time_ms = self.start_time_ms
 
         end_time_ms = self.end_time_ms
 
-        content_rating = self.content_rating.value
+        content_rating: str = self.content_rating
 
         episode = self.episode
+
+        external_video_id: None | str
+        external_video_id = self.external_video_id
 
         media_public_id = self.media_public_id
 
@@ -82,13 +88,14 @@ class Segment:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "segmentPublicId": segment_public_id,
+                "publicId": public_id,
                 "position": position,
                 "status": status,
                 "startTimeMs": start_time_ms,
                 "endTimeMs": end_time_ms,
                 "contentRating": content_rating,
                 "episode": episode,
+                "externalVideoId": external_video_id,
                 "mediaPublicId": media_public_id,
                 "textJa": text_ja,
                 "textEn": text_en,
@@ -107,19 +114,26 @@ class Segment:
         from ..models.segment_urls import SegmentUrls
 
         _src = dict(src_dict)
-        segment_public_id = _src.pop("segmentPublicId")
+        public_id = _src.pop("publicId")
 
         position = _src.pop("position")
 
-        status = SegmentStatus(_src.pop("status"))
+        status = check_segment_status(_src.pop("status"))
 
         start_time_ms = _src.pop("startTimeMs")
 
         end_time_ms = _src.pop("endTimeMs")
 
-        content_rating = ContentRating(_src.pop("contentRating"))
+        content_rating = check_content_rating(_src.pop("contentRating"))
 
         episode = _src.pop("episode")
+
+        def _parse_external_video_id(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        external_video_id = _parse_external_video_id(_src.pop("externalVideoId"))
 
         media_public_id = _src.pop("mediaPublicId")
 
@@ -132,13 +146,14 @@ class Segment:
         urls = SegmentUrls.from_dict(_src.pop("urls"))
 
         segment = cls(
-            segment_public_id=segment_public_id,
+            public_id=public_id,
             position=position,
             status=status,
             start_time_ms=start_time_ms,
             end_time_ms=end_time_ms,
             content_rating=content_rating,
             episode=episode,
+            external_video_id=external_video_id,
             media_public_id=media_public_id,
             text_ja=text_ja,
             text_en=text_en,

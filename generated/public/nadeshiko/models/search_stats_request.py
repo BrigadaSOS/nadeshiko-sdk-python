@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.include_expansion import IncludeExpansion
+from ..models.include_expansion import IncludeExpansion, check_include_expansion
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -45,7 +45,7 @@ class SearchStatsRequest:
         if not isinstance(self.include, Unset):
             include = []
             for include_item_data in self.include:
-                include_item = include_item_data.value
+                include_item: str = include_item_data
                 include.append(include_item)
 
         field_dict: dict[str, Any] = {}
@@ -85,7 +85,7 @@ class SearchStatsRequest:
         if _include is not UNSET:
             include = []
             for include_item_data in _include:
-                include_item = IncludeExpansion(include_item_data)
+                include_item = check_include_expansion(include_item_data)
 
                 include.append(include_item)
 

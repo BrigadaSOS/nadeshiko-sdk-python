@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.announcement_type import AnnouncementType
+from ..models.announcement_type import AnnouncementType, check_announcement_type
 
 T = TypeVar("T", bound="Announcement")
 
@@ -29,7 +29,7 @@ class Announcement:
     def to_dict(self) -> dict[str, Any]:
         message = self.message
 
-        type_ = self.type_.value
+        type_: str = self.type_
 
         active = self.active
 
@@ -50,7 +50,7 @@ class Announcement:
         _src = dict(src_dict)
         message = _src.pop("message")
 
-        type_ = AnnouncementType(_src.pop("type"))
+        type_ = check_announcement_type(_src.pop("type"))
 
         active = _src.pop("active")
 

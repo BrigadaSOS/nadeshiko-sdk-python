@@ -1,11 +1,16 @@
-from enum import Enum
+from typing import Literal
+
+ActivityType = Literal["ANKI_EXPORT", "SEARCH", "SEGMENT_PLAY", "SHARE"]
+
+ACTIVITY_TYPE_VALUES: set[ActivityType] = {
+    "ANKI_EXPORT",
+    "SEARCH",
+    "SEGMENT_PLAY",
+    "SHARE",
+}
 
 
-class ActivityType(str, Enum):
-    ANKI_EXPORT = "ANKI_EXPORT"
-    SEARCH = "SEARCH"
-    SEGMENT_PLAY = "SEGMENT_PLAY"
-    SHARE = "SHARE"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_activity_type(value: str) -> ActivityType:
+    if value in ACTIVITY_TYPE_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ACTIVITY_TYPE_VALUES!r}")

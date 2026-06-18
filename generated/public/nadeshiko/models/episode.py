@@ -6,7 +6,6 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 T = TypeVar("T", bound="Episode")
 
@@ -25,6 +24,7 @@ class Episode:
         aired_at (datetime.datetime | None): When the episode originally aired Example: 2024-01-15T09:00:00Z.
         length_seconds (int | None): Episode duration in seconds Example: 1420.
         thumbnail_url (None | str): URL to episode thumbnail image Example: https://example.com/thumbnails/episode1.jpg.
+        external_video_id (None | str): External source video identifier for this episode Example: ZJFMStE1Tjo.
         segment_count (int): Number of segments in this episode Example: 450.
     """
 
@@ -37,6 +37,7 @@ class Episode:
     aired_at: datetime.datetime | None
     length_seconds: int | None
     thumbnail_url: None | str
+    external_video_id: None | str
     segment_count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -69,6 +70,9 @@ class Episode:
         thumbnail_url: None | str
         thumbnail_url = self.thumbnail_url
 
+        external_video_id: None | str
+        external_video_id = self.external_video_id
+
         segment_count = self.segment_count
 
         field_dict: dict[str, Any] = {}
@@ -84,6 +88,7 @@ class Episode:
                 "airedAt": aired_at,
                 "lengthSeconds": length_seconds,
                 "thumbnailUrl": thumbnail_url,
+                "externalVideoId": external_video_id,
                 "segmentCount": segment_count,
             }
         )
@@ -131,7 +136,7 @@ class Episode:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                aired_at_type_0 = isoparse(data)
+                aired_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return aired_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -154,6 +159,13 @@ class Episode:
 
         thumbnail_url = _parse_thumbnail_url(_src.pop("thumbnailUrl"))
 
+        def _parse_external_video_id(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        external_video_id = _parse_external_video_id(_src.pop("externalVideoId"))
+
         segment_count = _src.pop("segmentCount")
 
         episode = cls(
@@ -166,6 +178,7 @@ class Episode:
             aired_at=aired_at,
             length_seconds=length_seconds,
             thumbnail_url=thumbnail_url,
+            external_video_id=external_video_id,
             segment_count=segment_count,
         )
 

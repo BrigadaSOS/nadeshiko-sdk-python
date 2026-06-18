@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.category import Category
+from ..models.category import Category, check_category
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="SearchMediaFilters")
@@ -28,7 +28,7 @@ class SearchMediaFilters:
         if not isinstance(self.category, Unset):
             category = []
             for category_item_data in self.category:
-                category_item = category_item_data.value
+                category_item: str = category_item_data
                 category.append(category_item)
 
         field_dict: dict[str, Any] = {}
@@ -47,7 +47,7 @@ class SearchMediaFilters:
         if _category is not UNSET:
             category = []
             for category_item_data in _category:
-                category_item = Category(category_item_data)
+                category_item = check_category(category_item_data)
 
                 category.append(category_item)
 

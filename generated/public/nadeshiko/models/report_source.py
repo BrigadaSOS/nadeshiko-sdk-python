@@ -1,9 +1,14 @@
-from enum import Enum
+from typing import Literal
+
+ReportSource = Literal["AUTO", "USER"]
+
+REPORT_SOURCE_VALUES: set[ReportSource] = {
+    "AUTO",
+    "USER",
+}
 
 
-class ReportSource(str, Enum):
-    AUTO = "AUTO"
-    USER = "USER"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_report_source(value: str) -> ReportSource:
+    if value in REPORT_SOURCE_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {REPORT_SOURCE_VALUES!r}")

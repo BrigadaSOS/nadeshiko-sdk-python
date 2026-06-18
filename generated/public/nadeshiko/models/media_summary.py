@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.category import Category
+from ..models.category import Category, check_category
 
 T = TypeVar("T", bound="MediaSummary")
 
@@ -16,7 +16,7 @@ class MediaSummary:
     """Slim media item returned by autocomplete (names + cover only)
 
     Attributes:
-        media_public_id (str): Public ID for the media Example: V1StGXR8_Z5d.
+        public_id (str): Public ID for the media Example: V1StGXR8_Z5d.
         slug (str): URL-friendly slug for the media Example: bakuman.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
@@ -25,7 +25,7 @@ class MediaSummary:
         category (Category): Media category type Example: ANIME.
     """
 
-    media_public_id: str
+    public_id: str
     slug: str
     name_ja: str
     name_romaji: str
@@ -35,7 +35,7 @@ class MediaSummary:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        media_public_id = self.media_public_id
+        public_id = self.public_id
 
         slug = self.slug
 
@@ -47,13 +47,13 @@ class MediaSummary:
 
         cover_url = self.cover_url
 
-        category = self.category.value
+        category: str = self.category
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "mediaPublicId": media_public_id,
+                "publicId": public_id,
                 "slug": slug,
                 "nameJa": name_ja,
                 "nameRomaji": name_romaji,
@@ -68,7 +68,7 @@ class MediaSummary:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        media_public_id = _src.pop("mediaPublicId")
+        public_id = _src.pop("publicId")
 
         slug = _src.pop("slug")
 
@@ -80,10 +80,10 @@ class MediaSummary:
 
         cover_url = _src.pop("coverUrl")
 
-        category = Category(_src.pop("category"))
+        category = check_category(_src.pop("category"))
 
         media_summary = cls(
-            media_public_id=media_public_id,
+            public_id=public_id,
             slug=slug,
             name_ja=name_ja,
             name_romaji=name_romaji,

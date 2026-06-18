@@ -1,10 +1,15 @@
-from enum import Enum
+from typing import Literal
+
+AnnouncementType = Literal["INFO", "MAINTENANCE", "WARNING"]
+
+ANNOUNCEMENT_TYPE_VALUES: set[AnnouncementType] = {
+    "INFO",
+    "MAINTENANCE",
+    "WARNING",
+}
 
 
-class AnnouncementType(str, Enum):
-    INFO = "INFO"
-    MAINTENANCE = "MAINTENANCE"
-    WARNING = "WARNING"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_announcement_type(value: str) -> AnnouncementType:
+    if value in ANNOUNCEMENT_TYPE_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ANNOUNCEMENT_TYPE_VALUES!r}")

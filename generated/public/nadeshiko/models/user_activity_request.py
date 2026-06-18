@@ -6,7 +6,10 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.user_activity_request_activity_type import UserActivityRequestActivityType
+from ..models.user_activity_request_activity_type import (
+    UserActivityRequestActivityType,
+    check_user_activity_request_activity_type,
+)
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="UserActivityRequest")
@@ -34,7 +37,7 @@ class UserActivityRequest:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        activity_type = self.activity_type.value
+        activity_type: str = self.activity_type
 
         segment_public_id = self.segment_public_id
 
@@ -69,7 +72,7 @@ class UserActivityRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        activity_type = UserActivityRequestActivityType(_src.pop("activityType"))
+        activity_type = check_user_activity_request_activity_type(_src.pop("activityType"))
 
         segment_public_id = _src.pop("segmentPublicId", UNSET)
 

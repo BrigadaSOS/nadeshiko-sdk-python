@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.search_sort_mode import SearchSortMode
+from ..models.search_sort_mode import SearchSortMode, check_search_sort_mode
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="SearchSort")
@@ -22,19 +22,19 @@ class SearchSort:
             - `ASC` / `DESC`: by segment length (character count)
             - `TIME_ASC` / `TIME_DESC`: by episode & position within an episode
             - `RANDOM`: deterministic random order (pass `seed` for reproducibility)
-             Default: SearchSortMode.RELEVANCE.
+             Default: 'RELEVANCE'.
         seed (int | Unset): Non-negative integer seed for deterministic random sorting (only used when mode is RANDOM)
             Example: 42.
     """
 
-    mode: SearchSortMode | Unset = SearchSortMode.RELEVANCE
+    mode: SearchSortMode | Unset = "RELEVANCE"
     seed: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         mode: str | Unset = UNSET
         if not isinstance(self.mode, Unset):
-            mode = self.mode.value
+            mode = self.mode
 
         seed = self.seed
 
@@ -56,7 +56,7 @@ class SearchSort:
         if isinstance(_mode, Unset):
             mode = UNSET
         else:
-            mode = SearchSortMode(_mode)
+            mode = check_search_sort_mode(_mode)
 
         seed = _src.pop("seed", UNSET)
 

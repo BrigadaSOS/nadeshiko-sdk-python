@@ -1,9 +1,16 @@
-from enum import Enum
+from typing import Literal
+
+MediaUpdateRequestStorage = Literal["LOCAL", "R2"]
+
+MEDIA_UPDATE_REQUEST_STORAGE_VALUES: set[MediaUpdateRequestStorage] = {
+    "LOCAL",
+    "R2",
+}
 
 
-class MediaUpdateRequestStorage(str, Enum):
-    LOCAL = "LOCAL"
-    R2 = "R2"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_media_update_request_storage(value: str) -> MediaUpdateRequestStorage:
+    if value in MEDIA_UPDATE_REQUEST_STORAGE_VALUES:
+        return value
+    raise TypeError(
+        f"Unexpected value {value!r}. Expected one of {MEDIA_UPDATE_REQUEST_STORAGE_VALUES!r}"
+    )

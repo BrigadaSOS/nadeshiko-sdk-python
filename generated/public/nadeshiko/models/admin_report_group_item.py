@@ -6,10 +6,9 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.report_reason import ReportReason
-from ..models.report_source import ReportSource
+from ..models.report_reason import ReportReason, check_report_reason
+from ..models.report_source import ReportSource, check_report_source
 
 T = TypeVar("T", bound="AdminReportGroupItem")
 
@@ -39,12 +38,12 @@ class AdminReportGroupItem:
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        reason = self.reason.value
+        reason: str = self.reason
 
         description: None | str
         description = self.description
 
-        source = self.source.value
+        source: str = self.source
 
         reporter_name = self.reporter_name
 
@@ -74,7 +73,7 @@ class AdminReportGroupItem:
         _src = dict(src_dict)
         id = _src.pop("id")
 
-        reason = ReportReason(_src.pop("reason"))
+        reason = check_report_reason(_src.pop("reason"))
 
         def _parse_description(data: object) -> None | str:
             if data is None:
@@ -83,11 +82,11 @@ class AdminReportGroupItem:
 
         description = _parse_description(_src.pop("description"))
 
-        source = ReportSource(_src.pop("source"))
+        source = check_report_source(_src.pop("source"))
 
         reporter_name = _src.pop("reporterName")
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_admin_notes(data: object) -> None | str:
             if data is None:

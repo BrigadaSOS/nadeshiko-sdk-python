@@ -1,11 +1,17 @@
-from enum import Enum
+from typing import Literal
+
+MediaSeasonName = Literal["FALL", "NONE", "SPRING", "SUMMER", "WINTER"]
+
+MEDIA_SEASON_NAME_VALUES: set[MediaSeasonName] = {
+    "FALL",
+    "NONE",
+    "SPRING",
+    "SUMMER",
+    "WINTER",
+}
 
 
-class MediaSeasonName(str, Enum):
-    FALL = "FALL"
-    SPRING = "SPRING"
-    SUMMER = "SUMMER"
-    WINTER = "WINTER"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_media_season_name(value: str) -> MediaSeasonName:
+    if value in MEDIA_SEASON_NAME_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {MEDIA_SEASON_NAME_VALUES!r}")

@@ -6,9 +6,8 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.media_audit_target_type import MediaAuditTargetType
+from ..models.media_audit_target_type import MediaAuditTargetType, check_media_audit_target_type
 
 if TYPE_CHECKING:
     from ..models.media_audit_latest_run_type_0 import MediaAuditLatestRunType0
@@ -60,7 +59,7 @@ class MediaAudit:
 
         description = self.description
 
-        target_type = self.target_type.value
+        target_type: str = self.target_type
 
         threshold = self.threshold.to_dict()
 
@@ -124,7 +123,7 @@ class MediaAudit:
 
         description = _src.pop("description")
 
-        target_type = MediaAuditTargetType(_src.pop("targetType"))
+        target_type = check_media_audit_target_type(_src.pop("targetType"))
 
         threshold = MediaAuditThreshold.from_dict(_src.pop("threshold"))
 
@@ -160,7 +159,7 @@ class MediaAudit:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                created_at_type_0 = isoparse(data)
+                created_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return created_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -175,7 +174,7 @@ class MediaAudit:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

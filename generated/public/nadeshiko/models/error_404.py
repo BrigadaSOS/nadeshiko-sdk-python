@@ -6,8 +6,8 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.error_404_code import Error404Code
-from ..models.error_404_status import Error404Status
+from ..models.error_404_code import Error404Code, check_error_404_code
+from ..models.error_404_status import Error404Status, check_error_404_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -41,13 +41,13 @@ class Error404:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        code = self.code.value
+        code: str = self.code
 
         title = self.title
 
         detail = self.detail
 
-        status = self.status.value
+        status: int = self.status
 
         type_ = self.type_
 
@@ -81,13 +81,13 @@ class Error404:
         from ..models.error_404_errors import Error404Errors
 
         _src = dict(src_dict)
-        code = Error404Code(_src.pop("code"))
+        code = check_error_404_code(_src.pop("code"))
 
         title = _src.pop("title")
 
         detail = _src.pop("detail")
 
-        status = Error404Status(_src.pop("status"))
+        status = check_error_404_status(_src.pop("status"))
 
         type_ = _src.pop("type", UNSET)
 

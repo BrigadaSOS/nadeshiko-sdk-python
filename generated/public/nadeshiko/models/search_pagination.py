@@ -8,6 +8,7 @@ from attrs import field as _attrs_field
 
 from ..models.search_pagination_estimated_total_hits_relation import (
     SearchPaginationEstimatedTotalHitsRelation,
+    check_search_pagination_estimated_total_hits_relation,
 )
 
 T = TypeVar("T", bound="SearchPagination")
@@ -39,7 +40,7 @@ class SearchPagination:
 
         estimated_total_hits = self.estimated_total_hits
 
-        estimated_total_hits_relation = self.estimated_total_hits_relation.value
+        estimated_total_hits_relation: str = self.estimated_total_hits_relation
 
         cursor: None | str
         cursor = self.cursor
@@ -64,7 +65,7 @@ class SearchPagination:
 
         estimated_total_hits = _src.pop("estimatedTotalHits")
 
-        estimated_total_hits_relation = SearchPaginationEstimatedTotalHitsRelation(
+        estimated_total_hits_relation = check_search_pagination_estimated_total_hits_relation(
             _src.pop("estimatedTotalHitsRelation")
         )
 

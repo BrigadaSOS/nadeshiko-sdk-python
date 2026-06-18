@@ -20,7 +20,7 @@ class SearchStatsResponseIncludes:
     """Optional related resources requested via `include[]`
 
     Attributes:
-        media (SearchStatsResponseIncludesMedia | Unset): Media objects keyed by mediaPublicId. Present only when
+        media (SearchStatsResponseIncludesMedia | Unset): Media objects keyed by publicId. Present only when
             `include[]=media` is requested.
     """
 

@@ -6,7 +6,6 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 T = TypeVar("T", bound="UserMeUser")
 
@@ -49,7 +48,7 @@ class UserMeUser:
         _src = dict(src_dict)
         username = _src.pop("username")
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         role = _src.pop("role")
 

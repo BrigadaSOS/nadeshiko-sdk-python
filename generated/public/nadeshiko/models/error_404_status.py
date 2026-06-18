@@ -1,8 +1,13 @@
-from enum import IntEnum
+from typing import Literal
+
+Error404Status = Literal[404]
+
+ERROR_404_STATUS_VALUES: set[Error404Status] = {
+    404,
+}
 
 
-class Error404Status(IntEnum):
-    VALUE_404 = 404
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_error_404_status(value: int) -> Error404Status:
+    if value in ERROR_404_STATUS_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ERROR_404_STATUS_VALUES!r}")

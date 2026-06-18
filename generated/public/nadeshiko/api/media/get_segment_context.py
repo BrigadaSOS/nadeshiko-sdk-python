@@ -25,6 +25,7 @@ def _get_kwargs(
     content_rating: list[ContentRating] | Unset = UNSET,
     include: list[IncludeExpansion] | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["take"] = take
@@ -33,7 +34,7 @@ def _get_kwargs(
     if not isinstance(content_rating, Unset):
         json_content_rating = []
         for content_rating_item_data in content_rating:
-            content_rating_item = content_rating_item_data.value
+            content_rating_item: str = content_rating_item_data
             json_content_rating.append(content_rating_item)
 
     params["contentRating"] = json_content_rating
@@ -42,7 +43,7 @@ def _get_kwargs(
     if not isinstance(include, Unset):
         json_include = []
         for include_item_data in include:
-            include_item = include_item_data.value
+            include_item: str = include_item_data
             json_include.append(include_item)
 
     params["include"] = json_include

@@ -1,8 +1,13 @@
-from enum import IntEnum
+from typing import Literal
+
+Error429Status = Literal[429]
+
+ERROR_429_STATUS_VALUES: set[Error429Status] = {
+    429,
+}
 
 
-class Error429Status(IntEnum):
-    VALUE_429 = 429
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_error_429_status(value: int) -> Error429Status:
+    if value in ERROR_429_STATUS_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {ERROR_429_STATUS_VALUES!r}")

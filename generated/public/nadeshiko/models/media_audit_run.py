@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
@@ -83,7 +82,7 @@ class MediaAuditRun:
 
         threshold_used = MediaAuditRunThresholdUsed.from_dict(_src.pop("thresholdUsed"))
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_category(data: object) -> None | str | Unset:
             if data is None:

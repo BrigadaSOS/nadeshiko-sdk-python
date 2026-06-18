@@ -21,11 +21,12 @@ def _get_kwargs(
     cursor: str | Unset = UNSET,
     take: int | Unset = 20,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_visibility: str | Unset = UNSET
     if not isinstance(visibility, Unset):
-        json_visibility = visibility.value
+        json_visibility = visibility
 
     params["visibility"] = json_visibility
 

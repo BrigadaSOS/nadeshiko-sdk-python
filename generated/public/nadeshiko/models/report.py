@@ -6,11 +6,10 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.report_reason import ReportReason
-from ..models.report_source import ReportSource
-from ..models.report_status import ReportStatus
+from ..models.report_reason import ReportReason, check_report_reason
+from ..models.report_source import ReportSource, check_report_source
+from ..models.report_status import ReportStatus, check_report_status
 
 if TYPE_CHECKING:
     from ..models.report_data_type_0 import ReportDataType0
@@ -61,7 +60,7 @@ class Report:
 
         id = self.id
 
-        source = self.source.value
+        source: str = self.source
 
         target: dict[str, Any]
         if isinstance(self.target, ReportTargetMedia) or isinstance(
@@ -74,7 +73,7 @@ class Report:
         audit_run_id: int | None
         audit_run_id = self.audit_run_id
 
-        reason = self.reason.value
+        reason: str = self.reason
 
         description: None | str
         description = self.description
@@ -85,7 +84,7 @@ class Report:
         else:
             data = self.data
 
-        status = self.status.value
+        status: str = self.status
 
         admin_notes: None | str
         admin_notes = self.admin_notes
@@ -132,7 +131,7 @@ class Report:
         _src = dict(src_dict)
         id = _src.pop("id")
 
-        source = ReportSource(_src.pop("source"))
+        source = check_report_source(_src.pop("source"))
 
         def _parse_target(
             data: object,
@@ -168,7 +167,7 @@ class Report:
 
         audit_run_id = _parse_audit_run_id(_src.pop("auditRunId"))
 
-        reason = ReportReason(_src.pop("reason"))
+        reason = check_report_reason(_src.pop("reason"))
 
         def _parse_description(data: object) -> None | str:
             if data is None:
@@ -192,7 +191,7 @@ class Report:
 
         data = _parse_data(_src.pop("data"))
 
-        status = ReportStatus(_src.pop("status"))
+        status = check_report_status(_src.pop("status"))
 
         def _parse_admin_notes(data: object) -> None | str:
             if data is None:
@@ -208,7 +207,7 @@ class Report:
 
         user_id = _parse_user_id(_src.pop("userId"))
 
-        created_at = isoparse(_src.pop("createdAt"))
+        created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_updated_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -216,7 +215,7 @@ class Report:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                updated_at_type_0 = isoparse(data)
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
 
                 return updated_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

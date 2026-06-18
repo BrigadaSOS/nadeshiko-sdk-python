@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.report_status import ReportStatus
+from ..models.report_status import ReportStatus, check_report_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -32,7 +32,7 @@ class BulkUpdateReportsRequest:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        status = self.status.value
+        status: str = self.status
 
         admin_notes = self.admin_notes
 
@@ -59,7 +59,7 @@ class BulkUpdateReportsRequest:
         from ..models.bulk_update_reports_request_filters import BulkUpdateReportsRequestFilters
 
         _src = dict(src_dict)
-        status = ReportStatus(_src.pop("status"))
+        status = check_report_status(_src.pop("status"))
 
         admin_notes = _src.pop("adminNotes", UNSET)
 

@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.category import Category
+from ..models.category import Category, check_category
 
 T = TypeVar("T", bound="CategoryCount")
 
@@ -17,17 +17,23 @@ class CategoryCount:
 
     Attributes:
         category (Category): Media category type Example: ANIME.
-        count (int): Number of entries in this category Example: 1523.
+        count (int): Number of entries in this category under the current request filters (including any hidden-media
+            exclusion). Example: 1523.
+        real_count (int): Number of entries in this category when the hidden-media exclusion filter is ignored. Equal to
+            `count` when no hidden-media exclusion is in effect. Example: 1700.
     """
 
     category: Category
     count: int
+    real_count: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        category = self.category.value
+        category: str = self.category
 
         count = self.count
+
+        real_count = self.real_count
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -35,6 +41,7 @@ class CategoryCount:
             {
                 "category": category,
                 "count": count,
+                "realCount": real_count,
             }
         )
 
@@ -43,13 +50,16 @@ class CategoryCount:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         _src = dict(src_dict)
-        category = Category(_src.pop("category"))
+        category = check_category(_src.pop("category"))
 
         count = _src.pop("count")
+
+        real_count = _src.pop("realCount")
 
         category_count = cls(
             category=category,
             count=count,
+            real_count=real_count,
         )
 
         category_count.additional_properties = _src

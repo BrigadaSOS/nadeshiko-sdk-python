@@ -1,21 +1,43 @@
-from enum import Enum
+from typing import Literal
+
+CreateReportRequestReason = Literal[
+    "DUPLICATE_MEDIA",
+    "DUPLICATE_SEGMENT",
+    "IMAGE_ISSUE",
+    "INAPPROPRIATE_CONTENT",
+    "LOW_QUALITY_AUDIO",
+    "MISSING_EPISODES",
+    "NSFW_NOT_TAGGED",
+    "OTHER",
+    "WRONG_AUDIO",
+    "WRONG_EPISODE_NUMBER",
+    "WRONG_JAPANESE_TEXT",
+    "WRONG_TIMING",
+    "WRONG_TITLE",
+    "WRONG_TRANSLATION",
+]
+
+CREATE_REPORT_REQUEST_REASON_VALUES: set[CreateReportRequestReason] = {
+    "DUPLICATE_MEDIA",
+    "DUPLICATE_SEGMENT",
+    "IMAGE_ISSUE",
+    "INAPPROPRIATE_CONTENT",
+    "LOW_QUALITY_AUDIO",
+    "MISSING_EPISODES",
+    "NSFW_NOT_TAGGED",
+    "OTHER",
+    "WRONG_AUDIO",
+    "WRONG_EPISODE_NUMBER",
+    "WRONG_JAPANESE_TEXT",
+    "WRONG_TIMING",
+    "WRONG_TITLE",
+    "WRONG_TRANSLATION",
+}
 
 
-class CreateReportRequestReason(str, Enum):
-    DUPLICATE_MEDIA = "DUPLICATE_MEDIA"
-    DUPLICATE_SEGMENT = "DUPLICATE_SEGMENT"
-    IMAGE_ISSUE = "IMAGE_ISSUE"
-    INAPPROPRIATE_CONTENT = "INAPPROPRIATE_CONTENT"
-    LOW_QUALITY_AUDIO = "LOW_QUALITY_AUDIO"
-    MISSING_EPISODES = "MISSING_EPISODES"
-    NSFW_NOT_TAGGED = "NSFW_NOT_TAGGED"
-    OTHER = "OTHER"
-    WRONG_AUDIO = "WRONG_AUDIO"
-    WRONG_EPISODE_NUMBER = "WRONG_EPISODE_NUMBER"
-    WRONG_JAPANESE_TEXT = "WRONG_JAPANESE_TEXT"
-    WRONG_TIMING = "WRONG_TIMING"
-    WRONG_TITLE = "WRONG_TITLE"
-    WRONG_TRANSLATION = "WRONG_TRANSLATION"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_create_report_request_reason(value: str) -> CreateReportRequestReason:
+    if value in CREATE_REPORT_REQUEST_REASON_VALUES:
+        return value
+    raise TypeError(
+        f"Unexpected value {value!r}. Expected one of {CREATE_REPORT_REQUEST_REASON_VALUES!r}"
+    )

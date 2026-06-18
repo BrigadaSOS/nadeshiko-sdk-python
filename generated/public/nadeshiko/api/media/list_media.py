@@ -22,6 +22,7 @@ def _get_kwargs(
     category: ListMediaCategory | Unset = UNSET,
     query: str | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["take"] = take
@@ -30,7 +31,7 @@ def _get_kwargs(
 
     json_category: str | Unset = UNSET
     if not isinstance(category, Unset):
-        json_category = category.value
+        json_category = category
 
     params["category"] = json_category
 

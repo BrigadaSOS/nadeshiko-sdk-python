@@ -20,6 +20,7 @@ def _get_kwargs(
     media_public_id: str,
     episode_number: int,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/media/{media_public_id}/episodes/{episode_number}".format(

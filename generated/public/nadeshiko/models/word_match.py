@@ -20,13 +20,17 @@ class WordMatch:
     Attributes:
         word (str): The word that was searched for Example: 彼女.
         is_match (bool): Indicates whether the word was found in any segment Example: True.
-        match_count (int): Total number of times this word appears across all media Example: 1523.
+        match_count (int): Number of times this word appears across media matching the current request filters
+            (including any hidden-media exclusion). Example: 1523.
+        real_match_count (int): Total occurrences across all media, ignoring the hidden-media exclusion filter. Equal to
+            `matchCount` when no media exclusion is in effect. Example: 5231.
         media (list[WordMatchMedia]): List of media containing this word
     """
 
     word: str
     is_match: bool
     match_count: int
+    real_match_count: int
     media: list[WordMatchMedia]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -36,6 +40,8 @@ class WordMatch:
         is_match = self.is_match
 
         match_count = self.match_count
+
+        real_match_count = self.real_match_count
 
         media = []
         for media_item_data in self.media:
@@ -49,6 +55,7 @@ class WordMatch:
                 "word": word,
                 "isMatch": is_match,
                 "matchCount": match_count,
+                "realMatchCount": real_match_count,
                 "media": media,
             }
         )
@@ -66,6 +73,8 @@ class WordMatch:
 
         match_count = _src.pop("matchCount")
 
+        real_match_count = _src.pop("realMatchCount")
+
         media = []
         _media = _src.pop("media")
         for media_item_data in _media:
@@ -77,6 +86,7 @@ class WordMatch:
             word=word,
             is_match=is_match,
             match_count=match_count,
+            real_match_count=real_match_count,
             media=media,
         )
 

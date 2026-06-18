@@ -1,11 +1,18 @@
-from enum import Enum
+from typing import Literal
+
+MediaCreateRequestAiringStatus = Literal["CANCELLED", "FINISHED", "NOT_YET_RELEASED", "RELEASING"]
+
+MEDIA_CREATE_REQUEST_AIRING_STATUS_VALUES: set[MediaCreateRequestAiringStatus] = {
+    "CANCELLED",
+    "FINISHED",
+    "NOT_YET_RELEASED",
+    "RELEASING",
+}
 
 
-class MediaCreateRequestAiringStatus(str, Enum):
-    CANCELLED = "CANCELLED"
-    FINISHED = "FINISHED"
-    NOT_YET_RELEASED = "NOT_YET_RELEASED"
-    RELEASING = "RELEASING"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_media_create_request_airing_status(value: str) -> MediaCreateRequestAiringStatus:
+    if value in MEDIA_CREATE_REQUEST_AIRING_STATUS_VALUES:
+        return value
+    raise TypeError(
+        f"Unexpected value {value!r}. Expected one of {MEDIA_CREATE_REQUEST_AIRING_STATUS_VALUES!r}"
+    )

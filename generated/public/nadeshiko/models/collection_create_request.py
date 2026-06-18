@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.collection_visibility import CollectionVisibility
+from ..models.collection_visibility import CollectionVisibility, check_collection_visibility
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="CollectionCreateRequest")
@@ -30,7 +30,7 @@ class CollectionCreateRequest:
 
         visibility: str | Unset = UNSET
         if not isinstance(self.visibility, Unset):
-            visibility = self.visibility.value
+            visibility = self.visibility
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -54,7 +54,7 @@ class CollectionCreateRequest:
         if isinstance(_visibility, Unset):
             visibility = UNSET
         else:
-            visibility = CollectionVisibility(_visibility)
+            visibility = check_collection_visibility(_visibility)
 
         collection_create_request = cls(
             name=name,

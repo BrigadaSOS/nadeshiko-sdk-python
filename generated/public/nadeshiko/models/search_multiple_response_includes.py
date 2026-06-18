@@ -20,7 +20,7 @@ class SearchMultipleResponseIncludes:
     """Optional related resources requested via `include[]`
 
     Attributes:
-        media (SearchMultipleResponseIncludesMedia | Unset): Media objects keyed by mediaPublicId. Present only when
+        media (SearchMultipleResponseIncludesMedia | Unset): Media objects keyed by publicId. Present only when
             `include[]=media` is requested.
     """
 

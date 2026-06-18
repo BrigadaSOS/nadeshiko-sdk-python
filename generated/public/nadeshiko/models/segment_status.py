@@ -1,10 +1,15 @@
-from enum import Enum
+from typing import Literal
+
+SegmentStatus = Literal["ACTIVE", "DELETED", "HIDDEN"]
+
+SEGMENT_STATUS_VALUES: set[SegmentStatus] = {
+    "ACTIVE",
+    "DELETED",
+    "HIDDEN",
+}
 
 
-class SegmentStatus(str, Enum):
-    ACTIVE = "ACTIVE"
-    DELETED = "DELETED"
-    HIDDEN = "HIDDEN"
-
-    def __str__(self) -> str:
-        return str(self.value)
+def check_segment_status(value: str) -> SegmentStatus:
+    if value in SEGMENT_STATUS_VALUES:
+        return value
+    raise TypeError(f"Unexpected value {value!r}. Expected one of {SEGMENT_STATUS_VALUES!r}")

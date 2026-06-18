@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.report_status import ReportStatus
+from ..models.report_status import ReportStatus, check_report_status
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="UpdateReportRequest")
@@ -27,7 +27,7 @@ class UpdateReportRequest:
     def to_dict(self) -> dict[str, Any]:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
-            status = self.status.value
+            status = self.status
 
         admin_notes = self.admin_notes
 
@@ -49,7 +49,7 @@ class UpdateReportRequest:
         if isinstance(_status, Unset):
             status = UNSET
         else:
-            status = ReportStatus(_status)
+            status = check_report_status(_status)
 
         admin_notes = _src.pop("adminNotes", UNSET)
 

@@ -15,11 +15,12 @@ T = TypeVar("T", bound="SearchMultipleResponseIncludesMedia")
 
 @_attrs_define
 class SearchMultipleResponseIncludesMedia:
-    """Media objects keyed by mediaPublicId. Present only when `include[]=media` is requested."""
+    """Media objects keyed by publicId. Present only when `include[]=media` is requested."""
 
     additional_properties: dict[str, Media] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         field_dict: dict[str, Any] = {}
         for prop_name, prop in self.additional_properties.items():
             field_dict[prop_name] = prop.to_dict()
