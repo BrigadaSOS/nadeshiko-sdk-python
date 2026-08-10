@@ -25,7 +25,6 @@ class BulkUpdateReportsRequestFilters:
         target_media_id (int | Unset): Filter by target media ID
         target_episode_number (int | Unset): Filter by target episode number
         target_segment_id (int | Unset): Filter by target segment ID
-        audit_run_id (int | Unset): Filter by audit run ID
         orphaned (bool | Unset): Only update reports whose target media no longer exists
     """
 
@@ -35,7 +34,6 @@ class BulkUpdateReportsRequestFilters:
     target_media_id: int | Unset = UNSET
     target_episode_number: int | Unset = UNSET
     target_segment_id: int | Unset = UNSET
-    audit_run_id: int | Unset = UNSET
     orphaned: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -56,8 +54,6 @@ class BulkUpdateReportsRequestFilters:
 
         target_segment_id = self.target_segment_id
 
-        audit_run_id = self.audit_run_id
-
         orphaned = self.orphaned
 
         field_dict: dict[str, Any] = {}
@@ -75,8 +71,6 @@ class BulkUpdateReportsRequestFilters:
             field_dict["targetEpisodeNumber"] = target_episode_number
         if target_segment_id is not UNSET:
             field_dict["targetSegmentId"] = target_segment_id
-        if audit_run_id is not UNSET:
-            field_dict["auditRunId"] = audit_run_id
         if orphaned is not UNSET:
             field_dict["orphaned"] = orphaned
 
@@ -107,8 +101,6 @@ class BulkUpdateReportsRequestFilters:
 
         target_segment_id = _src.pop("targetSegmentId", UNSET)
 
-        audit_run_id = _src.pop("auditRunId", UNSET)
-
         orphaned = _src.pop("orphaned", UNSET)
 
         bulk_update_reports_request_filters = cls(
@@ -118,7 +110,6 @@ class BulkUpdateReportsRequestFilters:
             target_media_id=target_media_id,
             target_episode_number=target_episode_number,
             target_segment_id=target_segment_id,
-            audit_run_id=audit_run_id,
             orphaned=orphaned,
         )
 

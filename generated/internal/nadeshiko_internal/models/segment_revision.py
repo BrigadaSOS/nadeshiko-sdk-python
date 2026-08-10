@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.segment_revision_actor import SegmentRevisionActor, check_segment_revision_actor
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -22,14 +23,20 @@ class SegmentRevision:
     Attributes:
         id (int): Revision ID
         revision_number (int): Sequential revision number per segment
-        snapshot (SegmentRevisionSnapshot): Snapshot of editable fields at the time of the revision
+        snapshot (SegmentRevisionSnapshot): The segment's editable fields as they were *before* this revision's edit.
+            Restoring a revision writes these values back.
+        actor (SegmentRevisionActor): Whether a person or the moderation agent made the change. Derived from the
+            credential at write time — a service API key is the agent.
+        report_id (int | None): The report this edit answered, when it answered one
         created_at (datetime.datetime): When the revision was created
-        user_name (None | str | Unset): Name of the user who made the change
+        user_name (None | str | Unset): Name of the account the change was made under
     """
 
     id: int
     revision_number: int
     snapshot: SegmentRevisionSnapshot
+    actor: SegmentRevisionActor
+    report_id: int | None
     created_at: datetime.datetime
     user_name: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -40,6 +47,11 @@ class SegmentRevision:
         revision_number = self.revision_number
 
         snapshot = self.snapshot.to_dict()
+
+        actor: str = self.actor
+
+        report_id: int | None
+        report_id = self.report_id
 
         created_at = self.created_at.isoformat()
 
@@ -56,6 +68,8 @@ class SegmentRevision:
                 "id": id,
                 "revisionNumber": revision_number,
                 "snapshot": snapshot,
+                "actor": actor,
+                "reportId": report_id,
                 "createdAt": created_at,
             }
         )
@@ -75,6 +89,15 @@ class SegmentRevision:
 
         snapshot = SegmentRevisionSnapshot.from_dict(_src.pop("snapshot"))
 
+        actor = check_segment_revision_actor(_src.pop("actor"))
+
+        def _parse_report_id(data: object) -> int | None:
+            if data is None:
+                return data
+            return cast(int | None, data)
+
+        report_id = _parse_report_id(_src.pop("reportId"))
+
         created_at = datetime.datetime.fromisoformat(_src.pop("createdAt"))
 
         def _parse_user_name(data: object) -> None | str | Unset:
@@ -90,6 +113,8 @@ class SegmentRevision:
             id=id,
             revision_number=revision_number,
             snapshot=snapshot,
+            actor=actor,
+            report_id=report_id,
             created_at=created_at,
             user_name=user_name,
         )

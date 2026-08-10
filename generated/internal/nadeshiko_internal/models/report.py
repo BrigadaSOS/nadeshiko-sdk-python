@@ -28,7 +28,6 @@ class Report:
         id (int): Report ID Example: 1.
         source (ReportSource): Origin of the report Example: USER.
         target (ReportTargetEpisode | ReportTargetMedia | ReportTargetSegment):
-        audit_run_id (int | None): ID of the audit run that created this report (AUTO only)
         reason (ReportReason): Reason for the report Example: WRONG_TRANSLATION.
         description (None | str): Optional description with additional details
         data (None | ReportDataType0): Check-specific metrics (AUTO reports) or null (USER reports)
@@ -42,7 +41,6 @@ class Report:
     id: int
     source: ReportSource
     target: ReportTargetEpisode | ReportTargetMedia | ReportTargetSegment
-    audit_run_id: int | None
     reason: ReportReason
     description: None | str
     data: None | ReportDataType0
@@ -69,9 +67,6 @@ class Report:
             target = self.target.to_dict()
         else:
             target = self.target.to_dict()
-
-        audit_run_id: int | None
-        audit_run_id = self.audit_run_id
 
         reason: str = self.reason
 
@@ -107,7 +102,6 @@ class Report:
                 "id": id,
                 "source": source,
                 "target": target,
-                "auditRunId": audit_run_id,
                 "reason": reason,
                 "description": description,
                 "data": data,
@@ -159,13 +153,6 @@ class Report:
             return componentsschemas_report_target_type_2
 
         target = _parse_target(_src.pop("target"))
-
-        def _parse_audit_run_id(data: object) -> int | None:
-            if data is None:
-                return data
-            return cast(int | None, data)
-
-        audit_run_id = _parse_audit_run_id(_src.pop("auditRunId"))
 
         reason = check_report_reason(_src.pop("reason"))
 
@@ -228,7 +215,6 @@ class Report:
             id=id,
             source=source,
             target=target,
-            audit_run_id=audit_run_id,
             reason=reason,
             description=description,
             data=data,

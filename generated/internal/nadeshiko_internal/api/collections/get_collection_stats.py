@@ -97,7 +97,8 @@ def sync_detailed(
     """Get collection statistics
 
      Returns per-media segment counts and per-category counts for all segments in a collection.
-    Pages through all collection segments internally to compute statistics.
+    Counts are aggregated in the database, so the response size follows the number of media
+    and episodes the collection touches rather than its segment count.
 
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.
@@ -129,7 +130,8 @@ def sync(
     """Get collection statistics
 
      Returns per-media segment counts and per-category counts for all segments in a collection.
-    Pages through all collection segments internally to compute statistics.
+    Counts are aggregated in the database, so the response size follows the number of media
+    and episodes the collection touches rather than its segment count.
 
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.
@@ -158,7 +160,8 @@ async def asyncio_detailed(
     """Get collection statistics
 
      Returns per-media segment counts and per-category counts for all segments in a collection.
-    Pages through all collection segments internally to compute statistics.
+    Counts are aggregated in the database, so the response size follows the number of media
+    and episodes the collection touches rather than its segment count.
 
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.
@@ -188,7 +191,8 @@ async def asyncio(
     """Get collection statistics
 
      Returns per-media segment counts and per-category counts for all segments in a collection.
-    Pages through all collection segments internally to compute statistics.
+    Counts are aggregated in the database, so the response size follows the number of media
+    and episodes the collection touches rather than its segment count.
 
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.

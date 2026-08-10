@@ -12,7 +12,6 @@ from ..models.segment_status import SegmentStatus, check_segment_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
     from ..models.segment_internal_rating_analysis_type_0 import SegmentInternalRatingAnalysisType0
     from ..models.segment_text_en import SegmentTextEn
     from ..models.segment_text_es import SegmentTextEs
@@ -49,8 +48,6 @@ class SegmentInternal:
             storage_base_path (None | str | Unset): Base path in the storage backend Example: anime/steins-gate.
             rating_analysis (None | SegmentInternalRatingAnalysisType0 | Unset): Raw WD Tagger v3 classifier output used to
                 derive content rating
-            pos_analysis (None | SegmentInternalPosAnalysisType0 | Unset): POS tokenization results keyed by engine
-                (sudachi, unidic)
     """
 
     public_id: str
@@ -70,11 +67,9 @@ class SegmentInternal:
     hashed_id: None | str | Unset = UNSET
     storage_base_path: None | str | Unset = UNSET
     rating_analysis: None | SegmentInternalRatingAnalysisType0 | Unset = UNSET
-    pos_analysis: None | SegmentInternalPosAnalysisType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
         from ..models.segment_internal_rating_analysis_type_0 import (
             SegmentInternalRatingAnalysisType0,
         )
@@ -130,14 +125,6 @@ class SegmentInternal:
         else:
             rating_analysis = self.rating_analysis
 
-        pos_analysis: dict[str, Any] | None | Unset
-        if isinstance(self.pos_analysis, Unset):
-            pos_analysis = UNSET
-        elif isinstance(self.pos_analysis, SegmentInternalPosAnalysisType0):
-            pos_analysis = self.pos_analysis.to_dict()
-        else:
-            pos_analysis = self.pos_analysis
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -165,14 +152,11 @@ class SegmentInternal:
             field_dict["storageBasePath"] = storage_base_path
         if rating_analysis is not UNSET:
             field_dict["ratingAnalysis"] = rating_analysis
-        if pos_analysis is not UNSET:
-            field_dict["posAnalysis"] = pos_analysis
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_internal_pos_analysis_type_0 import SegmentInternalPosAnalysisType0
         from ..models.segment_internal_rating_analysis_type_0 import (
             SegmentInternalRatingAnalysisType0,
         )
@@ -257,23 +241,6 @@ class SegmentInternal:
 
         rating_analysis = _parse_rating_analysis(_src.pop("ratingAnalysis", UNSET))
 
-        def _parse_pos_analysis(data: object) -> None | SegmentInternalPosAnalysisType0 | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                pos_analysis_type_0 = SegmentInternalPosAnalysisType0.from_dict(data)
-
-                return pos_analysis_type_0
-            except (TypeError, ValueError, AttributeError, KeyError):
-                pass
-            return cast(None | SegmentInternalPosAnalysisType0 | Unset, data)
-
-        pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
-
         segment_internal = cls(
             public_id=public_id,
             position=position,
@@ -292,7 +259,6 @@ class SegmentInternal:
             hashed_id=hashed_id,
             storage_base_path=storage_base_path,
             rating_analysis=rating_analysis,
-            pos_analysis=pos_analysis,
         )
 
         segment_internal.additional_properties = _src

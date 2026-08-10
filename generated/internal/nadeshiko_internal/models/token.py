@@ -1,10 +1,19 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..models.token_kind import TokenKind, check_token_kind
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.token_f_item import TokenFItem
+    from ..models.token_inflection import TokenInflection
+    from ..models.token_parts_item import TokenPartsItem
+
 
 T = TypeVar("T", bound="Token")
 
@@ -20,10 +29,19 @@ class Token:
         b (int): Begin character offset in textJa.content Example: 3.
         e (int): End character offset in textJa.content Example: 5.
         p (str): Primary part-of-speech tag Example: 動詞.
-        p1 (None | str): POS subtype 1 (UniDic pos[1]) Example: 固有名詞.
-        p2 (None | str): POS subtype 2 (UniDic pos[2]) Example: 人名.
-        p4 (None | str): Conjugation type (UniDic pos[4]) Example: 五段-カ行.
-        cf (None | str): Conjugation form (UniDic pos[5]) Example: 連用形-一般.
+        pos_label (str | Unset): The part of speech in words, so a client needs no UniDic table. Example: Verb.
+        kind (TokenKind | Unset): How this token was grouped: a plain word, a compound, an inflected form, a counter, a
+            function word, a merged grammatical expression, or a symbol.
+             Example: inflected.
+        f (list[TokenFItem] | Unset): Ruby, aligned to this surface: 食べました is 食(た) + べました, over the kanji and not the
+            okurigana. Absent when there is none to show.
+        inflection (TokenInflection | Unset): What this surface does to its dictionary form, outermost step first.
+            Japanese stacks, so it is a chain rather than one name, and a step that is genuinely ambiguous says so
+            ("potential / passive") instead of picking a side. Absent for anything that is not an inflected verb or
+            adjective.
+        parts (list[TokenPartsItem] | Unset): The finer morphemes inside a grouped token, positioned like their parent.
+            Elasticsearch highlights with its own analyzer, so a match can land inside one of these tokens; these are the
+            boundaries that let it render as a partial highlight. Absent when the token is already atomic.
     """
 
     s: str
@@ -32,10 +50,11 @@ class Token:
     b: int
     e: int
     p: str
-    p1: None | str
-    p2: None | str
-    p4: None | str
-    cf: None | str
+    pos_label: str | Unset = UNSET
+    kind: TokenKind | Unset = UNSET
+    f: list[TokenFItem] | Unset = UNSET
+    inflection: TokenInflection | Unset = UNSET
+    parts: list[TokenPartsItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,17 +70,29 @@ class Token:
 
         p = self.p
 
-        p1: None | str
-        p1 = self.p1
+        pos_label = self.pos_label
 
-        p2: None | str
-        p2 = self.p2
+        kind: str | Unset = UNSET
+        if not isinstance(self.kind, Unset):
+            kind = self.kind
 
-        p4: None | str
-        p4 = self.p4
+        f: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.f, Unset):
+            f = []
+            for f_item_data in self.f:
+                f_item = f_item_data.to_dict()
+                f.append(f_item)
 
-        cf: None | str
-        cf = self.cf
+        inflection: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.inflection, Unset):
+            inflection = self.inflection.to_dict()
+
+        parts: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.parts, Unset):
+            parts = []
+            for parts_item_data in self.parts:
+                parts_item = parts_item_data.to_dict()
+                parts.append(parts_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -73,17 +104,27 @@ class Token:
                 "b": b,
                 "e": e,
                 "p": p,
-                "p1": p1,
-                "p2": p2,
-                "p4": p4,
-                "cf": cf,
             }
         )
+        if pos_label is not UNSET:
+            field_dict["posLabel"] = pos_label
+        if kind is not UNSET:
+            field_dict["kind"] = kind
+        if f is not UNSET:
+            field_dict["f"] = f
+        if inflection is not UNSET:
+            field_dict["inflection"] = inflection
+        if parts is not UNSET:
+            field_dict["parts"] = parts
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.token_f_item import TokenFItem
+        from ..models.token_inflection import TokenInflection
+        from ..models.token_parts_item import TokenPartsItem
+
         _src = dict(src_dict)
         s = _src.pop("s")
 
@@ -97,33 +138,39 @@ class Token:
 
         p = _src.pop("p")
 
-        def _parse_p1(data: object) -> None | str:
-            if data is None:
-                return data
-            return cast(None | str, data)
+        pos_label = _src.pop("posLabel", UNSET)
 
-        p1 = _parse_p1(_src.pop("p1"))
+        _kind = _src.pop("kind", UNSET)
+        kind: TokenKind | Unset
+        if isinstance(_kind, Unset):
+            kind = UNSET
+        else:
+            kind = check_token_kind(_kind)
 
-        def _parse_p2(data: object) -> None | str:
-            if data is None:
-                return data
-            return cast(None | str, data)
+        _f = _src.pop("f", UNSET)
+        f: list[TokenFItem] | Unset = UNSET
+        if _f is not UNSET:
+            f = []
+            for f_item_data in _f:
+                f_item = TokenFItem.from_dict(f_item_data)
 
-        p2 = _parse_p2(_src.pop("p2"))
+                f.append(f_item)
 
-        def _parse_p4(data: object) -> None | str:
-            if data is None:
-                return data
-            return cast(None | str, data)
+        _inflection = _src.pop("inflection", UNSET)
+        inflection: TokenInflection | Unset
+        if isinstance(_inflection, Unset):
+            inflection = UNSET
+        else:
+            inflection = TokenInflection.from_dict(_inflection)
 
-        p4 = _parse_p4(_src.pop("p4"))
+        _parts = _src.pop("parts", UNSET)
+        parts: list[TokenPartsItem] | Unset = UNSET
+        if _parts is not UNSET:
+            parts = []
+            for parts_item_data in _parts:
+                parts_item = TokenPartsItem.from_dict(parts_item_data)
 
-        def _parse_cf(data: object) -> None | str:
-            if data is None:
-                return data
-            return cast(None | str, data)
-
-        cf = _parse_cf(_src.pop("cf"))
+                parts.append(parts_item)
 
         token = cls(
             s=s,
@@ -132,10 +179,11 @@ class Token:
             b=b,
             e=e,
             p=p,
-            p1=p1,
-            p2=p2,
-            p4=p4,
-            cf=cf,
+            pos_label=pos_label,
+            kind=kind,
+            f=f,
+            inflection=inflection,
+            parts=parts,
         )
 
         token.additional_properties = _src

@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from ..models.user_activity import UserActivity
     from ..models.user_export_collection import UserExportCollection
     from ..models.user_export_response_profile import UserExportResponseProfile
+    from ..models.user_export_response_truncated import UserExportResponseTruncated
     from ..models.user_preferences import UserPreferences
 
 
@@ -22,6 +23,11 @@ class UserExportResponse:
     """User data export payload (identifier-oriented references)
 
     Attributes:
+        truncated (UserExportResponseTruncated): Which sections were cut short. The export is assembled and returned as
+            a single JSON
+            body, so each section has a ceiling: 50000 activity entries, 5000 reports, 1000
+            collections, and 50000 collection segment references in total. A `true` here means more
+            data exists than the response carries.
         profile (UserExportResponseProfile):
         preferences (UserPreferences):
         activity (list[UserActivity]):
@@ -29,6 +35,7 @@ class UserExportResponse:
         reports (list[Report]):
     """
 
+    truncated: UserExportResponseTruncated
     profile: UserExportResponseProfile
     preferences: UserPreferences
     activity: list[UserActivity]
@@ -37,6 +44,8 @@ class UserExportResponse:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        truncated = self.truncated.to_dict()
+
         profile = self.profile.to_dict()
 
         preferences = self.preferences.to_dict()
@@ -60,6 +69,7 @@ class UserExportResponse:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "truncated": truncated,
                 "profile": profile,
                 "preferences": preferences,
                 "activity": activity,
@@ -76,9 +86,12 @@ class UserExportResponse:
         from ..models.user_activity import UserActivity
         from ..models.user_export_collection import UserExportCollection
         from ..models.user_export_response_profile import UserExportResponseProfile
+        from ..models.user_export_response_truncated import UserExportResponseTruncated
         from ..models.user_preferences import UserPreferences
 
         _src = dict(src_dict)
+        truncated = UserExportResponseTruncated.from_dict(_src.pop("truncated"))
+
         profile = UserExportResponseProfile.from_dict(_src.pop("profile"))
 
         preferences = UserPreferences.from_dict(_src.pop("preferences"))
@@ -105,6 +118,7 @@ class UserExportResponse:
             reports.append(reports_item)
 
         user_export_response = cls(
+            truncated=truncated,
             profile=profile,
             preferences=preferences,
             activity=activity,

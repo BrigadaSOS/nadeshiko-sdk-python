@@ -25,7 +25,6 @@ def _get_kwargs(
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
-    audit_run_id: int | Unset = UNSET,
     orphaned: bool | Unset = UNSET,
 ) -> dict[str, Any]:
 
@@ -54,8 +53,6 @@ def _get_kwargs(
     params["target.episodeNumber"] = target_episode_number
 
     params["target.segmentId"] = target_segment_id
-
-    params["auditRunId"] = audit_run_id
 
     params["orphaned"] = orphaned
 
@@ -126,7 +123,6 @@ def sync_detailed(
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
-    audit_run_id: int | Unset = UNSET,
     orphaned: bool | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
@@ -143,7 +139,6 @@ def sync_detailed(
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
-        audit_run_id (int | Unset):
         orphaned (bool | Unset):
 
     Raises:
@@ -163,7 +158,6 @@ def sync_detailed(
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
         target_segment_id=target_segment_id,
-        audit_run_id=audit_run_id,
         orphaned=orphaned,
     )
 
@@ -185,7 +179,6 @@ def sync(
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
-    audit_run_id: int | Unset = UNSET,
     orphaned: bool | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
@@ -202,7 +195,6 @@ def sync(
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
-        audit_run_id (int | Unset):
         orphaned (bool | Unset):
 
     Raises:
@@ -223,7 +215,6 @@ def sync(
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
         target_segment_id=target_segment_id,
-        audit_run_id=audit_run_id,
         orphaned=orphaned,
     ).parsed
 
@@ -239,7 +230,6 @@ async def asyncio_detailed(
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
-    audit_run_id: int | Unset = UNSET,
     orphaned: bool | Unset = UNSET,
 ) -> Response[AdminReportListResponse | Error401 | Error403 | Error429 | Error500]:
     """List all reports
@@ -256,7 +246,6 @@ async def asyncio_detailed(
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
-        audit_run_id (int | Unset):
         orphaned (bool | Unset):
 
     Raises:
@@ -276,7 +265,6 @@ async def asyncio_detailed(
         target_media_id=target_media_id,
         target_episode_number=target_episode_number,
         target_segment_id=target_segment_id,
-        audit_run_id=audit_run_id,
         orphaned=orphaned,
     )
 
@@ -296,7 +284,6 @@ async def asyncio(
     target_media_id: int | Unset = UNSET,
     target_episode_number: int | Unset = UNSET,
     target_segment_id: int | Unset = UNSET,
-    audit_run_id: int | Unset = UNSET,
     orphaned: bool | Unset = UNSET,
 ) -> AdminReportListResponse | Error401 | Error403 | Error429 | Error500 | None:
     """List all reports
@@ -313,7 +300,6 @@ async def asyncio(
         target_media_id (int | Unset):
         target_episode_number (int | Unset):
         target_segment_id (int | Unset):
-        audit_run_id (int | Unset):
         orphaned (bool | Unset):
 
     Raises:
@@ -335,7 +321,6 @@ async def asyncio(
             target_media_id=target_media_id,
             target_episode_number=target_episode_number,
             target_segment_id=target_segment_id,
-            audit_run_id=audit_run_id,
             orphaned=orphaned,
         )
     ).parsed

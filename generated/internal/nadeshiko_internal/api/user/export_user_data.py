@@ -77,6 +77,10 @@ def sync_detailed(
      Returns a full JSON export of all user-related data for GDPR data portability.
     Includes profile, preferences, activity history, collections, and reports.
 
+    The whole export is one JSON body, so each section is capped: 50000 activity entries,
+    5000 reports, 1000 collections, and 50000 collection segment references. The `truncated`
+    object reports which sections, if any, hit their ceiling.
+
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -103,6 +107,10 @@ def sync(
      Returns a full JSON export of all user-related data for GDPR data portability.
     Includes profile, preferences, activity history, collections, and reports.
 
+    The whole export is one JSON body, so each section is capped: 50000 activity entries,
+    5000 reports, 1000 collections, and 50000 collection segment references. The `truncated`
+    object reports which sections, if any, hit their ceiling.
+
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
@@ -124,6 +132,10 @@ async def asyncio_detailed(
 
      Returns a full JSON export of all user-related data for GDPR data portability.
     Includes profile, preferences, activity history, collections, and reports.
+
+    The whole export is one JSON body, so each section is capped: 50000 activity entries,
+    5000 reports, 1000 collections, and 50000 collection segment references. The `truncated`
+    object reports which sections, if any, hit their ceiling.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -148,6 +160,10 @@ async def asyncio(
 
      Returns a full JSON export of all user-related data for GDPR data portability.
     Includes profile, preferences, activity history, collections, and reports.
+
+    The whole export is one JSON body, so each section is capped: 50000 activity entries,
+    5000 reports, 1000 collections, and 50000 collection segment references. The `truncated`
+    object reports which sections, if any, hit their ceiling.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

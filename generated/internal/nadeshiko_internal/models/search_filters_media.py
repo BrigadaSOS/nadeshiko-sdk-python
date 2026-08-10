@@ -20,8 +20,12 @@ class SearchFiltersMedia:
     """Media inclusion/exclusion filters
 
     Attributes:
-        include (list[MediaFilterItem] | Unset): Include only segments from these media (with optional episode filter)
-        exclude (list[MediaFilterItem] | Unset): Exclude segments from these media (with optional episode filter)
+        include (list[MediaFilterItem] | Unset): Include only segments from these media (with optional episode filter).
+            A `mediaPublicId` that matches no media is rejected with `400`: dropping it would
+            turn a deliberately narrow request into an unfiltered one.
+        exclude (list[MediaFilterItem] | Unset): Exclude segments from these media (with optional episode filter).
+            A `mediaPublicId` that matches no media is ignored, since excluding a media that
+            does not exist excludes nothing.
     """
 
     include: list[MediaFilterItem] | Unset = UNSET

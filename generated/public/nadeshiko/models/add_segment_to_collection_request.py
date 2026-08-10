@@ -6,8 +6,6 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 T = TypeVar("T", bound="AddSegmentToCollectionRequest")
 
 
@@ -16,17 +14,13 @@ class AddSegmentToCollectionRequest:
     """
     Attributes:
         segment_public_id (str): Segment public ID Example: V1StGXR8_Z5d.
-        note (str | Unset): Optional annotation
     """
 
     segment_public_id: str
-    note: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         segment_public_id = self.segment_public_id
-
-        note = self.note
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -35,8 +29,6 @@ class AddSegmentToCollectionRequest:
                 "segmentPublicId": segment_public_id,
             }
         )
-        if note is not UNSET:
-            field_dict["note"] = note
 
         return field_dict
 
@@ -45,11 +37,8 @@ class AddSegmentToCollectionRequest:
         _src = dict(src_dict)
         segment_public_id = _src.pop("segmentPublicId")
 
-        note = _src.pop("note", UNSET)
-
         add_segment_to_collection_request = cls(
             segment_public_id=segment_public_id,
-            note=note,
         )
 
         add_segment_to_collection_request.additional_properties = _src

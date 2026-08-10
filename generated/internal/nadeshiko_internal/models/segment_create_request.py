@@ -15,9 +15,6 @@ from ..models.segment_status import SegmentStatus, check_segment_status
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.segment_create_request_pos_analysis_type_0 import (
-        SegmentCreateRequestPosAnalysisType0,
-    )
     from ..models.segment_create_request_rating_analysis_type_0 import (
         SegmentCreateRequestRatingAnalysisType0,
     )
@@ -46,8 +43,6 @@ class SegmentCreateRequest:
         content_rating (ContentRating | Unset): Content rating level for the segment Example: SAFE.
         rating_analysis (None | SegmentCreateRequestRatingAnalysisType0 | Unset): Raw WD Tagger v3 classifier output
             used to derive content rating
-        pos_analysis (None | SegmentCreateRequestPosAnalysisType0 | Unset): POS tokenization results keyed by engine
-            (sudachi, unidic)
     """
 
     position: int
@@ -61,13 +56,9 @@ class SegmentCreateRequest:
     text_en: SegmentCreateRequestTextEn | Unset = UNSET
     content_rating: ContentRating | Unset = UNSET
     rating_analysis: None | SegmentCreateRequestRatingAnalysisType0 | Unset = UNSET
-    pos_analysis: None | SegmentCreateRequestPosAnalysisType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.segment_create_request_pos_analysis_type_0 import (
-            SegmentCreateRequestPosAnalysisType0,
-        )
         from ..models.segment_create_request_rating_analysis_type_0 import (
             SegmentCreateRequestRatingAnalysisType0,
         )
@@ -108,14 +99,6 @@ class SegmentCreateRequest:
         else:
             rating_analysis = self.rating_analysis
 
-        pos_analysis: dict[str, Any] | None | Unset
-        if isinstance(self.pos_analysis, Unset):
-            pos_analysis = UNSET
-        elif isinstance(self.pos_analysis, SegmentCreateRequestPosAnalysisType0):
-            pos_analysis = self.pos_analysis.to_dict()
-        else:
-            pos_analysis = self.pos_analysis
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -138,16 +121,11 @@ class SegmentCreateRequest:
             field_dict["contentRating"] = content_rating
         if rating_analysis is not UNSET:
             field_dict["ratingAnalysis"] = rating_analysis
-        if pos_analysis is not UNSET:
-            field_dict["posAnalysis"] = pos_analysis
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_create_request_pos_analysis_type_0 import (
-            SegmentCreateRequestPosAnalysisType0,
-        )
         from ..models.segment_create_request_rating_analysis_type_0 import (
             SegmentCreateRequestRatingAnalysisType0,
         )
@@ -215,25 +193,6 @@ class SegmentCreateRequest:
 
         rating_analysis = _parse_rating_analysis(_src.pop("ratingAnalysis", UNSET))
 
-        def _parse_pos_analysis(
-            data: object,
-        ) -> None | SegmentCreateRequestPosAnalysisType0 | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                pos_analysis_type_0 = SegmentCreateRequestPosAnalysisType0.from_dict(data)
-
-                return pos_analysis_type_0
-            except (TypeError, ValueError, AttributeError, KeyError):
-                pass
-            return cast(None | SegmentCreateRequestPosAnalysisType0 | Unset, data)
-
-        pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
-
         segment_create_request = cls(
             position=position,
             start_time_ms=start_time_ms,
@@ -246,7 +205,6 @@ class SegmentCreateRequest:
             text_en=text_en,
             content_rating=content_rating,
             rating_analysis=rating_analysis,
-            pos_analysis=pos_analysis,
         )
 
         segment_create_request.additional_properties = _src

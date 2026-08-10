@@ -108,6 +108,9 @@ def sync_detailed(
     expansions behave the same as `/v1/search`, with one additional constraint:
     results are limited to segments already present in the target collection.
 
+    Restricting the result set means every segment id in the collection is part of the
+    query, so collections larger than 20000 segments cannot be searched and return `400`.
+
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.
         body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
@@ -147,6 +150,9 @@ def sync(
     expansions behave the same as `/v1/search`, with one additional constraint:
     results are limited to segments already present in the target collection.
 
+    Restricting the result set means every segment id in the collection is part of the
+    query, so collections larger than 20000 segments cannot be searched and return `400`.
+
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.
         body (SearchRequest): Search request. All fields are optional — omit `query` for queryless
@@ -180,6 +186,9 @@ async def asyncio_detailed(
     All search semantics, query parsing, sorting, filters, pagination, and `include`
     expansions behave the same as `/v1/search`, with one additional constraint:
     results are limited to segments already present in the target collection.
+
+    Restricting the result set means every segment id in the collection is part of the
+    query, so collections larger than 20000 segments cannot be searched and return `400`.
 
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.
@@ -217,6 +226,9 @@ async def asyncio(
     All search semantics, query parsing, sorting, filters, pagination, and `include`
     expansions behave the same as `/v1/search`, with one additional constraint:
     results are limited to segments already present in the target collection.
+
+    Restricting the result set means every segment id in the collection is part of the
+    query, so collections larger than 20000 segments cannot be searched and return `400`.
 
     Args:
         collection_public_id (str):  Example: V1StGXR8_Z5d.

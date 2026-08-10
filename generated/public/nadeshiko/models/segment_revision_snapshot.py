@@ -11,7 +11,10 @@ T = TypeVar("T", bound="SegmentRevisionSnapshot")
 
 @_attrs_define
 class SegmentRevisionSnapshot:
-    """Snapshot of editable fields at the time of the revision"""
+    """The segment's editable fields as they were *before* this revision's edit.
+    Restoring a revision writes these values back.
+
+    """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

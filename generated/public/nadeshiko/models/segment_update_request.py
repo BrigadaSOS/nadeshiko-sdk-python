@@ -15,9 +15,6 @@ from ..models.segment_update_request_storage import (
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.segment_update_request_pos_analysis_type_0 import (
-        SegmentUpdateRequestPosAnalysisType0,
-    )
     from ..models.segment_update_request_rating_analysis_type_0 import (
         SegmentUpdateRequestRatingAnalysisType0,
     )
@@ -46,10 +43,14 @@ class SegmentUpdateRequest:
         content_rating (ContentRating | Unset): Content rating level for the segment Example: SAFE.
         rating_analysis (None | SegmentUpdateRequestRatingAnalysisType0 | Unset): Raw WD Tagger v3 classifier output
             used to derive content rating
-        pos_analysis (None | SegmentUpdateRequestPosAnalysisType0 | Unset): POS tokenization results keyed by engine
-            (sudachi, unidic)
         storage (SegmentUpdateRequestStorage | Unset): Storage backend for segment assets Example: R2.
         hashed_id (str | Unset): Hash identifier for the segment (from segment JSON) Example: 0d39e46b14.
+        report_id (int | Unset): The report this edit answers, recorded on the resulting revision.
+
+            Optional, and only meaningful for moderation traffic — it is what lets the
+            agent activity feed show which reported problem an edit was made for. Edits
+            that did not come from a report leave it unset.
+             Example: 4821.
     """
 
     position: int | Unset = UNSET
@@ -61,15 +62,12 @@ class SegmentUpdateRequest:
     text_en: SegmentUpdateRequestTextEn | Unset = UNSET
     content_rating: ContentRating | Unset = UNSET
     rating_analysis: None | SegmentUpdateRequestRatingAnalysisType0 | Unset = UNSET
-    pos_analysis: None | SegmentUpdateRequestPosAnalysisType0 | Unset = UNSET
     storage: SegmentUpdateRequestStorage | Unset = UNSET
     hashed_id: str | Unset = UNSET
+    report_id: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.segment_update_request_pos_analysis_type_0 import (
-            SegmentUpdateRequestPosAnalysisType0,
-        )
         from ..models.segment_update_request_rating_analysis_type_0 import (
             SegmentUpdateRequestRatingAnalysisType0,
         )
@@ -108,19 +106,13 @@ class SegmentUpdateRequest:
         else:
             rating_analysis = self.rating_analysis
 
-        pos_analysis: dict[str, Any] | None | Unset
-        if isinstance(self.pos_analysis, Unset):
-            pos_analysis = UNSET
-        elif isinstance(self.pos_analysis, SegmentUpdateRequestPosAnalysisType0):
-            pos_analysis = self.pos_analysis.to_dict()
-        else:
-            pos_analysis = self.pos_analysis
-
         storage: str | Unset = UNSET
         if not isinstance(self.storage, Unset):
             storage = self.storage
 
         hashed_id = self.hashed_id
+
+        report_id = self.report_id
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -143,20 +135,17 @@ class SegmentUpdateRequest:
             field_dict["contentRating"] = content_rating
         if rating_analysis is not UNSET:
             field_dict["ratingAnalysis"] = rating_analysis
-        if pos_analysis is not UNSET:
-            field_dict["posAnalysis"] = pos_analysis
         if storage is not UNSET:
             field_dict["storage"] = storage
         if hashed_id is not UNSET:
             field_dict["hashedId"] = hashed_id
+        if report_id is not UNSET:
+            field_dict["reportId"] = report_id
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_update_request_pos_analysis_type_0 import (
-            SegmentUpdateRequestPosAnalysisType0,
-        )
         from ..models.segment_update_request_rating_analysis_type_0 import (
             SegmentUpdateRequestRatingAnalysisType0,
         )
@@ -225,25 +214,6 @@ class SegmentUpdateRequest:
 
         rating_analysis = _parse_rating_analysis(_src.pop("ratingAnalysis", UNSET))
 
-        def _parse_pos_analysis(
-            data: object,
-        ) -> None | SegmentUpdateRequestPosAnalysisType0 | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                pos_analysis_type_0 = SegmentUpdateRequestPosAnalysisType0.from_dict(data)
-
-                return pos_analysis_type_0
-            except (TypeError, ValueError, AttributeError, KeyError):
-                pass
-            return cast(None | SegmentUpdateRequestPosAnalysisType0 | Unset, data)
-
-        pos_analysis = _parse_pos_analysis(_src.pop("posAnalysis", UNSET))
-
         _storage = _src.pop("storage", UNSET)
         storage: SegmentUpdateRequestStorage | Unset
         if isinstance(_storage, Unset):
@@ -252,6 +222,8 @@ class SegmentUpdateRequest:
             storage = check_segment_update_request_storage(_storage)
 
         hashed_id = _src.pop("hashedId", UNSET)
+
+        report_id = _src.pop("reportId", UNSET)
 
         segment_update_request = cls(
             position=position,
@@ -263,9 +235,9 @@ class SegmentUpdateRequest:
             text_en=text_en,
             content_rating=content_rating,
             rating_analysis=rating_analysis,
-            pos_analysis=pos_analysis,
             storage=storage,
             hashed_id=hashed_id,
+            report_id=report_id,
         )
 
         segment_update_request.additional_properties = _src

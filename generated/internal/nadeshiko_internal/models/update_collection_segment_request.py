@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,29 +16,19 @@ class UpdateCollectionSegmentRequest:
     """
     Attributes:
         position (int | Unset): New position in the collection Example: 2.
-        note (None | str | Unset): Updated annotation
     """
 
     position: int | Unset = UNSET
-    note: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         position = self.position
-
-        note: None | str | Unset
-        if isinstance(self.note, Unset):
-            note = UNSET
-        else:
-            note = self.note
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if position is not UNSET:
             field_dict["position"] = position
-        if note is not UNSET:
-            field_dict["note"] = note
 
         return field_dict
 
@@ -47,18 +37,8 @@ class UpdateCollectionSegmentRequest:
         _src = dict(src_dict)
         position = _src.pop("position", UNSET)
 
-        def _parse_note(data: object) -> None | str | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(None | str | Unset, data)
-
-        note = _parse_note(_src.pop("note", UNSET))
-
         update_collection_segment_request = cls(
             position=position,
-            note=note,
         )
 
         update_collection_segment_request.additional_properties = _src
