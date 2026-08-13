@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.category import Category, check_category
 from ..models.user_preferences_media_name_language import (
     UserPreferencesMediaNameLanguage,
     check_user_preferences_media_name_language,
@@ -38,6 +39,11 @@ class UserPreferences:
             visibility mode for translations in search results, keyed by ISO 639-1 code (uppercase)
         search_history (UserPreferencesSearchHistory | Unset):
         anki_profiles (list[UserPreferencesAnkiProfilesItem] | Unset):
+        hidden_categories (list[Category] | Unset): Whole media categories hidden from search results by the user.
+
+            An empty array means nothing is hidden. Hiding *every* category is rejected with
+            `400`: `filters.category` reads an empty list as "no filter", so hiding the last
+            one would silently show everything back instead of nothing.
         hidden_media (list[UserPreferencesHiddenMediaItem] | Unset): Media hidden from search results by the user
     """
 
@@ -48,6 +54,7 @@ class UserPreferences:
     )
     search_history: UserPreferencesSearchHistory | Unset = UNSET
     anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
+    hidden_categories: list[Category] | Unset = UNSET
     hidden_media: list[UserPreferencesHiddenMediaItem] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -75,6 +82,13 @@ class UserPreferences:
                 anki_profiles_item = anki_profiles_item_data.to_dict()
                 anki_profiles.append(anki_profiles_item)
 
+        hidden_categories: list[str] | Unset = UNSET
+        if not isinstance(self.hidden_categories, Unset):
+            hidden_categories = []
+            for hidden_categories_item_data in self.hidden_categories:
+                hidden_categories_item: str = hidden_categories_item_data
+                hidden_categories.append(hidden_categories_item)
+
         hidden_media: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.hidden_media, Unset):
             hidden_media = []
@@ -95,6 +109,8 @@ class UserPreferences:
             field_dict["searchHistory"] = search_history
         if anki_profiles is not UNSET:
             field_dict["ankiProfiles"] = anki_profiles
+        if hidden_categories is not UNSET:
+            field_dict["hiddenCategories"] = hidden_categories
         if hidden_media is not UNSET:
             field_dict["hiddenMedia"] = hidden_media
 
@@ -158,6 +174,15 @@ class UserPreferences:
 
                 anki_profiles.append(anki_profiles_item)
 
+        _hidden_categories = _src.pop("hiddenCategories", UNSET)
+        hidden_categories: list[Category] | Unset = UNSET
+        if _hidden_categories is not UNSET:
+            hidden_categories = []
+            for hidden_categories_item_data in _hidden_categories:
+                hidden_categories_item = check_category(hidden_categories_item_data)
+
+                hidden_categories.append(hidden_categories_item)
+
         _hidden_media = _src.pop("hiddenMedia", UNSET)
         hidden_media: list[UserPreferencesHiddenMediaItem] | Unset = UNSET
         if _hidden_media is not UNSET:
@@ -173,6 +198,7 @@ class UserPreferences:
             translation_visibility_preferences=translation_visibility_preferences,
             search_history=search_history,
             anki_profiles=anki_profiles,
+            hidden_categories=hidden_categories,
             hidden_media=hidden_media,
         )
 
