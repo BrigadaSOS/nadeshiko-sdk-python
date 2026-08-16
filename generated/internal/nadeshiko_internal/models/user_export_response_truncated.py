@@ -13,20 +13,22 @@ T = TypeVar("T", bound="UserExportResponseTruncated")
 class UserExportResponseTruncated:
     """Which sections were cut short. The export is assembled and returned as a single JSON
     body, so each section has a ceiling: 50000 activity entries, 5000 reports, 1000
-    collections, and 50000 collection segment references in total. A `true` here means more
-    data exists than the response carries.
+    collections, 50000 collection segment references in total, and 50000 media affinity
+    rows. A `true` here means more data exists than the response carries.
 
         Attributes:
             activity (bool):
             collections (bool):
             collection_segments (bool):
             reports (bool):
+            media_affinity (bool):
     """
 
     activity: bool
     collections: bool
     collection_segments: bool
     reports: bool
+    media_affinity: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,6 +40,8 @@ class UserExportResponseTruncated:
 
         reports = self.reports
 
+        media_affinity = self.media_affinity
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -46,6 +50,7 @@ class UserExportResponseTruncated:
                 "collections": collections,
                 "collectionSegments": collection_segments,
                 "reports": reports,
+                "mediaAffinity": media_affinity,
             }
         )
 
@@ -62,11 +67,14 @@ class UserExportResponseTruncated:
 
         reports = _src.pop("reports")
 
+        media_affinity = _src.pop("mediaAffinity")
+
         user_export_response_truncated = cls(
             activity=activity,
             collections=collections,
             collection_segments=collection_segments,
             reports=reports,
+            media_affinity=media_affinity,
         )
 
         user_export_response_truncated.additional_properties = _src

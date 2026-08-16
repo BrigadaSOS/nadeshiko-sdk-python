@@ -28,6 +28,13 @@ class UserPreferencesAnkiProfilesItem:
         model (None | str | Unset):
         fields (list[UserPreferencesAnkiProfilesItemFieldsItem] | Unset):
         key (None | str | Unset):
+        open_browser_on_export (bool | Unset): Whether exporting a card brings Anki's card browser to the front.
+
+            Absent means true, which is what it did before the setting existed.
+            Undeclared until now: the settings page has offered the switch all
+            along, but a profile saved with it off came back from the server
+            without the field at all, so turning it off appeared to save and then
+            did nothing.
     """
 
     id: str
@@ -37,6 +44,7 @@ class UserPreferencesAnkiProfilesItem:
     model: None | str | Unset = UNSET
     fields: list[UserPreferencesAnkiProfilesItemFieldsItem] | Unset = UNSET
     key: None | str | Unset = UNSET
+    open_browser_on_export: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -71,6 +79,8 @@ class UserPreferencesAnkiProfilesItem:
         else:
             key = self.key
 
+        open_browser_on_export = self.open_browser_on_export
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -88,6 +98,8 @@ class UserPreferencesAnkiProfilesItem:
             field_dict["fields"] = fields
         if key is not UNSET:
             field_dict["key"] = key
+        if open_browser_on_export is not UNSET:
+            field_dict["openBrowserOnExport"] = open_browser_on_export
 
         return field_dict
 
@@ -140,6 +152,8 @@ class UserPreferencesAnkiProfilesItem:
 
         key = _parse_key(_src.pop("key", UNSET))
 
+        open_browser_on_export = _src.pop("openBrowserOnExport", UNSET)
+
         user_preferences_anki_profiles_item = cls(
             id=id,
             name=name,
@@ -148,6 +162,7 @@ class UserPreferencesAnkiProfilesItem:
             model=model,
             fields=fields,
             key=key,
+            open_browser_on_export=open_browser_on_export,
         )
 
         user_preferences_anki_profiles_item.additional_properties = _src

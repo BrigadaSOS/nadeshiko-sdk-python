@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from ..models.report import Report
     from ..models.user_activity import UserActivity
     from ..models.user_export_collection import UserExportCollection
+    from ..models.user_export_response_media_affinity_item import (
+        UserExportResponseMediaAffinityItem,
+    )
     from ..models.user_export_response_profile import UserExportResponseProfile
     from ..models.user_export_response_truncated import UserExportResponseTruncated
     from ..models.user_preferences import UserPreferences
@@ -26,13 +29,17 @@ class UserExportResponse:
         truncated (UserExportResponseTruncated): Which sections were cut short. The export is assembled and returned as
             a single JSON
             body, so each section has a ceiling: 50000 activity entries, 5000 reports, 1000
-            collections, and 50000 collection segment references in total. A `true` here means more
-            data exists than the response carries.
+            collections, 50000 collection segment references in total, and 50000 media affinity
+            rows. A `true` here means more data exists than the response carries.
         profile (UserExportResponseProfile):
         preferences (UserPreferences):
         activity (list[UserActivity]):
         collections (list[UserExportCollection]):
         reports (list[Report]):
+        media_affinity (list[UserExportResponseMediaAffinityItem]): The monthly per-title tally behind familiar-media
+            sorting. Stored apart
+            from `activity` and governed by its own preference, so it is exported as
+            its own section rather than folded into the activity log.
     """
 
     truncated: UserExportResponseTruncated
@@ -41,6 +48,7 @@ class UserExportResponse:
     activity: list[UserActivity]
     collections: list[UserExportCollection]
     reports: list[Report]
+    media_affinity: list[UserExportResponseMediaAffinityItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -65,6 +73,11 @@ class UserExportResponse:
             reports_item = reports_item_data.to_dict()
             reports.append(reports_item)
 
+        media_affinity = []
+        for media_affinity_item_data in self.media_affinity:
+            media_affinity_item = media_affinity_item_data.to_dict()
+            media_affinity.append(media_affinity_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -75,6 +88,7 @@ class UserExportResponse:
                 "activity": activity,
                 "collections": collections,
                 "reports": reports,
+                "mediaAffinity": media_affinity,
             }
         )
 
@@ -85,6 +99,9 @@ class UserExportResponse:
         from ..models.report import Report
         from ..models.user_activity import UserActivity
         from ..models.user_export_collection import UserExportCollection
+        from ..models.user_export_response_media_affinity_item import (
+            UserExportResponseMediaAffinityItem,
+        )
         from ..models.user_export_response_profile import UserExportResponseProfile
         from ..models.user_export_response_truncated import UserExportResponseTruncated
         from ..models.user_preferences import UserPreferences
@@ -117,6 +134,15 @@ class UserExportResponse:
 
             reports.append(reports_item)
 
+        media_affinity = []
+        _media_affinity = _src.pop("mediaAffinity")
+        for media_affinity_item_data in _media_affinity:
+            media_affinity_item = UserExportResponseMediaAffinityItem.from_dict(
+                media_affinity_item_data
+            )
+
+            media_affinity.append(media_affinity_item)
+
         user_export_response = cls(
             truncated=truncated,
             profile=profile,
@@ -124,6 +150,7 @@ class UserExportResponse:
             activity=activity,
             collections=collections,
             reports=reports,
+            media_affinity=media_affinity,
         )
 
         user_export_response.additional_properties = _src

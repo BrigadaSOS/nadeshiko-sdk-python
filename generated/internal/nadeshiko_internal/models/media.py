@@ -11,6 +11,7 @@ from ..models.category import Category, check_category
 from ..models.media_airing_format import MediaAiringFormat, check_media_airing_format
 from ..models.media_airing_status import MediaAiringStatus, check_media_airing_status
 from ..models.media_season_name import MediaSeasonName, check_media_season_name
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.external_id import ExternalId
@@ -45,6 +46,12 @@ class Media:
         studio (None | str): Animation studio that produced the media Example: J.C.STAFF.
         season_name (MediaSeasonName): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
+        updated_at (datetime.datetime | None | Unset): When this entry was last modified. Distinct from the airing dates
+            above,
+            which describe the work; this describes the record, and is what the sitemap
+            publishes as `lastmod` so crawlers can tell a changed title from an
+            untouched one. Null for a row never updated since the column was added.
+             Example: 2026-08-14T09:12:44.000Z.
     """
 
     public_id: str
@@ -66,6 +73,7 @@ class Media:
     studio: None | str
     season_name: MediaSeasonName
     season_year: int
+    updated_at: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -112,6 +120,14 @@ class Media:
 
         season_year = self.season_year
 
+        updated_at: None | str | Unset
+        if isinstance(self.updated_at, Unset):
+            updated_at = UNSET
+        elif isinstance(self.updated_at, datetime.datetime):
+            updated_at = self.updated_at.isoformat()
+        else:
+            updated_at = self.updated_at
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -137,6 +153,8 @@ class Media:
                 "seasonYear": season_year,
             }
         )
+        if updated_at is not UNSET:
+            field_dict["updatedAt"] = updated_at
 
         return field_dict
 
@@ -201,6 +219,23 @@ class Media:
 
         season_year = _src.pop("seasonYear")
 
+        def _parse_updated_at(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                updated_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return updated_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        updated_at = _parse_updated_at(_src.pop("updatedAt", UNSET))
+
         media = cls(
             public_id=public_id,
             slug=slug,
@@ -221,6 +256,7 @@ class Media:
             studio=studio,
             season_name=season_name,
             season_year=season_year,
+            updated_at=updated_at,
         )
 
         media.additional_properties = _src

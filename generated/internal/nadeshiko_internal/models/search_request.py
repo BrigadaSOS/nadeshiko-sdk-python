@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -27,6 +27,19 @@ class SearchRequest:
         take (int | Unset): Max number of entries per response Default: 10.
         cursor (str | Unset): Opaque cursor token returned from the previous search page Example: eyJraW...N119.
         sort (SearchSort | Unset): Sort configuration
+        prefer_media (list[str] | Unset): Public IDs of titles the caller wants first, used **only** to break ties.
+
+            Segments Elasticsearch ranked equally are reordered so the ones from these
+            titles come first; nothing crosses a rank boundary. Which segments land on
+            a page, how many there are and the cursor that walks to the next one are
+            all exactly what they would have been without this field — only the order
+            within an already-tied run changes.
+
+            Sent by the web client for a signed-in reader, from the titles they have
+            favourited and the ones their activity says they know. Ignored unless
+            `sort.mode` is `RELEVANCE`, since every other mode sorts on a key the
+            caller asked for by name. Unknown IDs are ignored rather than rejected.
+             Example: ['V1StGXR8_Z5d'].
         filters (SearchFilters | Unset): Search filters for narrowing segment results
         include (list[IncludeExpansion] | Unset): Optional resources to expand in the response `includes` block
     """
@@ -35,6 +48,7 @@ class SearchRequest:
     take: int | Unset = 10
     cursor: str | Unset = UNSET
     sort: SearchSort | Unset = UNSET
+    prefer_media: list[str] | Unset = UNSET
     filters: SearchFilters | Unset = UNSET
     include: list[IncludeExpansion] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -51,6 +65,10 @@ class SearchRequest:
         sort: dict[str, Any] | Unset = UNSET
         if not isinstance(self.sort, Unset):
             sort = self.sort.to_dict()
+
+        prefer_media: list[str] | Unset = UNSET
+        if not isinstance(self.prefer_media, Unset):
+            prefer_media = self.prefer_media
 
         filters: dict[str, Any] | Unset = UNSET
         if not isinstance(self.filters, Unset):
@@ -74,6 +92,8 @@ class SearchRequest:
             field_dict["cursor"] = cursor
         if sort is not UNSET:
             field_dict["sort"] = sort
+        if prefer_media is not UNSET:
+            field_dict["preferMedia"] = prefer_media
         if filters is not UNSET:
             field_dict["filters"] = filters
         if include is not UNSET:
@@ -106,6 +126,8 @@ class SearchRequest:
         else:
             sort = SearchSort.from_dict(_sort)
 
+        prefer_media = cast(list[str], _src.pop("preferMedia", UNSET))
+
         _filters = _src.pop("filters", UNSET)
         filters: SearchFilters | Unset
         if isinstance(_filters, Unset):
@@ -127,6 +149,7 @@ class SearchRequest:
             take=take,
             cursor=cursor,
             sort=sort,
+            prefer_media=prefer_media,
             filters=filters,
             include=include,
         )

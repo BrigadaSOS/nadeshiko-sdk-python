@@ -1,7 +1,10 @@
 """Contains all the data models used in inputs/outputs"""
 
+from .account_quota_state import AccountQuotaState
+from .account_quota_state_quota_source import AccountQuotaStateQuotaSource
 from .activity_type import ActivityType
 from .add_excluded_media_body import AddExcludedMediaBody
+from .add_favorite_media_body import AddFavoriteMediaBody
 from .add_segment_to_collection_request import AddSegmentToCollectionRequest
 from .admin_report_group import AdminReportGroup
 from .admin_report_group_item import AdminReportGroupItem
@@ -15,6 +18,7 @@ from .agent_activity_response_entries_item_current import AgentActivityResponseE
 from .agent_activity_response_entries_item_snapshot import AgentActivityResponseEntriesItemSnapshot
 from .announcement import Announcement
 from .announcement_type import AnnouncementType
+from .api_key_scope import ApiKeyScope
 from .batch_update_reports_request import BatchUpdateReportsRequest
 from .bulk_delete_reports_request import BulkDeleteReportsRequest
 from .bulk_delete_reports_request_filters import BulkDeleteReportsRequestFilters
@@ -37,6 +41,8 @@ from .covered_words_update_response import CoveredWordsUpdateResponse
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
 from .create_segments_batch_response_201 import CreateSegmentsBatchResponse201
+from .create_user_api_key_body import CreateUserApiKeyBody
+from .create_user_api_key_response_201 import CreateUserApiKeyResponse201
 from .cursor_pagination import CursorPagination
 from .episode import Episode
 from .episode_create_request import EpisodeCreateRequest
@@ -80,8 +86,14 @@ from .get_user_activity_heatmap_response_200_activity_by_day import (
 from .heatmap_day_counts import HeatmapDayCounts
 from .include_expansion import IncludeExpansion
 from .list_excluded_media_response_200 import ListExcludedMediaResponse200
+from .list_familiar_media_response_200 import ListFamiliarMediaResponse200
+from .list_familiar_media_response_200_familiar_media_item import (
+    ListFamiliarMediaResponse200FamiliarMediaItem,
+)
+from .list_favorite_media_response_200 import ListFavoriteMediaResponse200
 from .list_media_category import ListMediaCategory
 from .list_segment_revisions_response_200 import ListSegmentRevisionsResponse200
+from .list_tiers_response_200 import ListTiersResponse200
 from .list_user_activity_response_200 import ListUserActivityResponse200
 from .media import Media
 from .media_airing_format import MediaAiringFormat
@@ -180,11 +192,13 @@ from .segment_update_request_text_ja import SegmentUpdateRequestTextJa
 from .segment_urls import SegmentUrls
 from .stats_overview import StatsOverview
 from .stats_overview_translations import StatsOverviewTranslations
+from .tier import Tier
 from .token import Token
 from .token_f_item import TokenFItem
 from .token_inflection import TokenInflection
 from .token_kind import TokenKind
 from .token_parts_item import TokenPartsItem
+from .update_account_quota_request import UpdateAccountQuotaRequest
 from .update_collection_segment_request import UpdateCollectionSegmentRequest
 from .update_report_request import UpdateReportRequest
 from .user_activity import UserActivity
@@ -194,10 +208,13 @@ from .user_activity_stats import UserActivityStats
 from .user_activity_stats_top_media_item import UserActivityStatsTopMediaItem
 from .user_export_collection import UserExportCollection
 from .user_export_response import UserExportResponse
+from .user_export_response_media_affinity_item import UserExportResponseMediaAffinityItem
 from .user_export_response_profile import UserExportResponseProfile
 from .user_export_response_truncated import UserExportResponseTruncated
 from .user_me import UserMe
 from .user_me_quota import UserMeQuota
+from .user_me_quota_burst import UserMeQuotaBurst
+from .user_me_quota_tier_type_0 import UserMeQuotaTierType0
 from .user_me_user import UserMeUser
 from .user_preferences import UserPreferences
 from .user_preferences_anki_profiles_item import UserPreferencesAnkiProfilesItem
@@ -208,9 +225,13 @@ from .user_preferences_content_rating_preferences import UserPreferencesContentR
 from .user_preferences_content_rating_preferences_nsfw import (
     UserPreferencesContentRatingPreferencesNsfw,
 )
+from .user_preferences_default_search_category import UserPreferencesDefaultSearchCategory
+from .user_preferences_familiar_media import UserPreferencesFamiliarMedia
+from .user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_search_history import UserPreferencesSearchHistory
+from .user_preferences_translation_languages_item import UserPreferencesTranslationLanguagesItem
 from .user_preferences_translation_visibility_preferences import (
     UserPreferencesTranslationVisibilityPreferences,
 )
@@ -225,8 +246,11 @@ from .word_match import WordMatch
 from .word_match_media import WordMatchMedia
 
 __all__ = (
+    "AccountQuotaState",
+    "AccountQuotaStateQuotaSource",
     "ActivityType",
     "AddExcludedMediaBody",
+    "AddFavoriteMediaBody",
     "AddSegmentToCollectionRequest",
     "AdminReportGroup",
     "AdminReportGroupItem",
@@ -240,6 +264,7 @@ __all__ = (
     "AgentActivityResponseEntriesItemSnapshot",
     "Announcement",
     "AnnouncementType",
+    "ApiKeyScope",
     "BatchUpdateReportsRequest",
     "BulkDeleteReportsRequest",
     "BulkDeleteReportsRequestFilters",
@@ -262,6 +287,8 @@ __all__ = (
     "CreateReportRequest",
     "CreateReportRequestReason",
     "CreateSegmentsBatchResponse201",
+    "CreateUserApiKeyBody",
+    "CreateUserApiKeyResponse201",
     "CursorPagination",
     "Episode",
     "EpisodeCreateRequest",
@@ -303,8 +330,12 @@ __all__ = (
     "HeatmapDayCounts",
     "IncludeExpansion",
     "ListExcludedMediaResponse200",
+    "ListFamiliarMediaResponse200",
+    "ListFamiliarMediaResponse200FamiliarMediaItem",
+    "ListFavoriteMediaResponse200",
     "ListMediaCategory",
     "ListSegmentRevisionsResponse200",
+    "ListTiersResponse200",
     "ListUserActivityResponse200",
     "Media",
     "MediaAiringFormat",
@@ -401,11 +432,13 @@ __all__ = (
     "SegmentUrls",
     "StatsOverview",
     "StatsOverviewTranslations",
+    "Tier",
     "Token",
     "TokenFItem",
     "TokenInflection",
     "TokenKind",
     "TokenPartsItem",
+    "UpdateAccountQuotaRequest",
     "UpdateCollectionSegmentRequest",
     "UpdateReportRequest",
     "UserActivity",
@@ -415,19 +448,26 @@ __all__ = (
     "UserActivityStatsTopMediaItem",
     "UserExportCollection",
     "UserExportResponse",
+    "UserExportResponseMediaAffinityItem",
     "UserExportResponseProfile",
     "UserExportResponseTruncated",
     "UserMe",
     "UserMeQuota",
+    "UserMeQuotaBurst",
+    "UserMeQuotaTierType0",
     "UserMeUser",
     "UserPreferences",
     "UserPreferencesAnkiProfilesItem",
     "UserPreferencesAnkiProfilesItemFieldsItem",
     "UserPreferencesContentRatingPreferences",
     "UserPreferencesContentRatingPreferencesNsfw",
+    "UserPreferencesDefaultSearchCategory",
+    "UserPreferencesFamiliarMedia",
+    "UserPreferencesFavoriteMediaItem",
     "UserPreferencesHiddenMediaItem",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesSearchHistory",
+    "UserPreferencesTranslationLanguagesItem",
     "UserPreferencesTranslationVisibilityPreferences",
     "UserPreferencesTranslationVisibilityPreferencesEN",
     "UserPreferencesTranslationVisibilityPreferencesES",

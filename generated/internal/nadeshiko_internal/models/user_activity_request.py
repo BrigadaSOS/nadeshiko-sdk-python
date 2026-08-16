@@ -26,6 +26,9 @@ class UserActivityRequest:
         media_name (str | Unset):
         japanese_text (str | Unset):
         search_query (str | Unset):
+        autoplay (bool | Unset): Whether this `SEGMENT_PLAY` was started by autoplay rather than by the
+            reader. Recorded as activity either way; excluded from the familiar-media
+            tally, where a playlist running on its own is not evidence of studying.
     """
 
     activity_type: UserActivityRequestActivityType
@@ -34,6 +37,7 @@ class UserActivityRequest:
     media_name: str | Unset = UNSET
     japanese_text: str | Unset = UNSET
     search_query: str | Unset = UNSET
+    autoplay: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,6 +52,8 @@ class UserActivityRequest:
         japanese_text = self.japanese_text
 
         search_query = self.search_query
+
+        autoplay = self.autoplay
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -66,6 +72,8 @@ class UserActivityRequest:
             field_dict["japaneseText"] = japanese_text
         if search_query is not UNSET:
             field_dict["searchQuery"] = search_query
+        if autoplay is not UNSET:
+            field_dict["autoplay"] = autoplay
 
         return field_dict
 
@@ -84,6 +92,8 @@ class UserActivityRequest:
 
         search_query = _src.pop("searchQuery", UNSET)
 
+        autoplay = _src.pop("autoplay", UNSET)
+
         user_activity_request = cls(
             activity_type=activity_type,
             segment_public_id=segment_public_id,
@@ -91,6 +101,7 @@ class UserActivityRequest:
             media_name=media_name,
             japanese_text=japanese_text,
             search_query=search_query,
+            autoplay=autoplay,
         )
 
         user_activity_request.additional_properties = _src
