@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from ..models.user_preferences_translation_visibility_preferences import (
         UserPreferencesTranslationVisibilityPreferences,
     )
+    from ..models.user_preferences_word_popup import UserPreferencesWordPopup
 
 
 T = TypeVar("T", bound="UserPreferences")
@@ -50,6 +51,8 @@ class UserPreferences:
         translation_languages (list[UserPreferencesTranslationLanguagesItem] | Unset): Translation languages the reader
             wants in dictionary content, in display order. This is the global preference; translationVisibilityPreferences
             is a search-surface override for showing, spoiling, or hiding a language.
+        word_popup (UserPreferencesWordPopup | Unset): How the word card behaves when a reader taps a word in a
+            sentence. A group rather than a loose key so the settings that follow it have somewhere to live.
         search_history (UserPreferencesSearchHistory | Unset):
         anki_profiles (list[UserPreferencesAnkiProfilesItem] | Unset):
         default_search_category (UserPreferencesDefaultSearchCategory | Unset): Category tab a search opens on when the
@@ -99,6 +102,7 @@ class UserPreferences:
         UNSET
     )
     translation_languages: list[UserPreferencesTranslationLanguagesItem] | Unset = UNSET
+    word_popup: UserPreferencesWordPopup | Unset = UNSET
     search_history: UserPreferencesSearchHistory | Unset = UNSET
     anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
     default_search_category: UserPreferencesDefaultSearchCategory | Unset = UNSET
@@ -127,6 +131,10 @@ class UserPreferences:
             for translation_languages_item_data in self.translation_languages:
                 translation_languages_item: str = translation_languages_item_data
                 translation_languages.append(translation_languages_item)
+
+        word_popup: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.word_popup, Unset):
+            word_popup = self.word_popup.to_dict()
 
         search_history: dict[str, Any] | Unset = UNSET
         if not isinstance(self.search_history, Unset):
@@ -179,6 +187,8 @@ class UserPreferences:
             field_dict["translationVisibilityPreferences"] = translation_visibility_preferences
         if translation_languages is not UNSET:
             field_dict["translationLanguages"] = translation_languages
+        if word_popup is not UNSET:
+            field_dict["wordPopup"] = word_popup
         if search_history is not UNSET:
             field_dict["searchHistory"] = search_history
         if anki_profiles is not UNSET:
@@ -209,6 +219,7 @@ class UserPreferences:
         from ..models.user_preferences_translation_visibility_preferences import (
             UserPreferencesTranslationVisibilityPreferences,
         )
+        from ..models.user_preferences_word_popup import UserPreferencesWordPopup
 
         _src = dict(src_dict)
         _media_name_language = _src.pop("mediaNameLanguage", UNSET)
@@ -248,6 +259,13 @@ class UserPreferences:
                 )
 
                 translation_languages.append(translation_languages_item)
+
+        _word_popup = _src.pop("wordPopup", UNSET)
+        word_popup: UserPreferencesWordPopup | Unset
+        if isinstance(_word_popup, Unset):
+            word_popup = UNSET
+        else:
+            word_popup = UserPreferencesWordPopup.from_dict(_word_popup)
 
         _search_history = _src.pop("searchHistory", UNSET)
         search_history: UserPreferencesSearchHistory | Unset
@@ -317,6 +335,7 @@ class UserPreferences:
             content_rating_preferences=content_rating_preferences,
             translation_visibility_preferences=translation_visibility_preferences,
             translation_languages=translation_languages,
+            word_popup=word_popup,
             search_history=search_history,
             anki_profiles=anki_profiles,
             default_search_category=default_search_category,
