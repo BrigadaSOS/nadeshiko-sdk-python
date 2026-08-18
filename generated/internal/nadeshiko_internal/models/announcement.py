@@ -16,7 +16,11 @@ class Announcement:
     """Site-wide announcement banner
 
     Attributes:
-        message (str):  Example: Scheduled maintenance tonight from 2-4 AM UTC..
+        message (str): The banner text. Stored and returned verbatim; the web client renders a small inline markdown
+            subset from it -- links, bold, italic, code spans and line breaks -- so `maxLength` counts the markup as well as
+            the words. Anything outside that subset, raw HTML included, is shown as the characters it is made of rather than
+            interpreted. Other clients are free to print it as plain text.
+             Example: Scheduled maintenance tonight. See [the status page](/blog)..
         type_ (AnnouncementType):  Example: INFO.
         active (bool):  Example: True.
     """
