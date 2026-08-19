@@ -72,6 +72,7 @@ OPERATIONS: tuple[OperationMetadata, ...] = (
     OperationMetadata(name="remove_excluded_media", module_path=".api.user.remove_excluded_media", paginated=False, doc="Remove media from excluded list"),
     OperationMetadata(name="remove_favorite_media", module_path=".api.user.remove_favorite_media", paginated=False, doc="Unstar media"),
     OperationMetadata(name="remove_segment_from_collection", module_path=".api.collections.remove_segment_from_collection", paginated=False, doc="Remove segment from collection"),
+    OperationMetadata(name="report_shirabe_refusal", module_path=".api.user.report_shirabe_refusal", paginated=False, doc="Report that Shirabe refused a reader's key on a lookup"),
     OperationMetadata(name="restore_segment_revision", module_path=".api.media.restore_segment_revision", paginated=False, doc="Restore a segment revision"),
     OperationMetadata(name="resync_shirabe_stack", module_path=".api.user.resync_shirabe_stack", paginated=False, doc="Reconcile the stored Shirabe stack against a fingerprint a lookup saw"),
     OperationMetadata(name="search", module_path=".api.search.search", paginated=True, doc="Search segments by query"),

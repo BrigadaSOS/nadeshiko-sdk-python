@@ -30,6 +30,10 @@ class ShirabeConnection:
                 before that feature existed. A re-consent, not a repair: what the account was linked for keeps working the whole
                 time, and only the newer feature is unavailable.
             missing_scopes (list[str]): The permissions a re-consent would add. Empty unless `needsUpgrade`.
+            disconnected (bool): True when Shirabe refused this key outright -- the reader revoked it from their Shirabe
+                access list, or it was swept for being idle. The link is over until they make a new one, and their own
+                dictionaries are not being used until they do. Distinct from `needsUpgrade`, which is a link that still works:
+                this one is a repair.
             linked_at (datetime.datetime):
             token_prefix (str): The first characters of the key, to recognise it by. Not usable. Example: shr_2f8Kq1zX.
             scopes (list[str]): What the reader granted. Today that is READ_ACCOUNT and nothing else. Example:
@@ -50,6 +54,7 @@ class ShirabeConnection:
 
     needs_upgrade: bool
     missing_scopes: list[str]
+    disconnected: bool
     linked_at: datetime.datetime
     token_prefix: str
     scopes: list[str]
@@ -64,6 +69,8 @@ class ShirabeConnection:
         needs_upgrade = self.needs_upgrade
 
         missing_scopes = self.missing_scopes
+
+        disconnected = self.disconnected
 
         linked_at = self.linked_at.isoformat()
 
@@ -99,6 +106,7 @@ class ShirabeConnection:
             {
                 "needsUpgrade": needs_upgrade,
                 "missingScopes": missing_scopes,
+                "disconnected": disconnected,
                 "linkedAt": linked_at,
                 "tokenPrefix": token_prefix,
                 "scopes": scopes,
@@ -123,6 +131,8 @@ class ShirabeConnection:
         needs_upgrade = _src.pop("needsUpgrade")
 
         missing_scopes = cast(list[str], _src.pop("missingScopes"))
+
+        disconnected = _src.pop("disconnected")
 
         linked_at = datetime.datetime.fromisoformat(_src.pop("linkedAt"))
 
@@ -170,6 +180,7 @@ class ShirabeConnection:
         shirabe_connection = cls(
             needs_upgrade=needs_upgrade,
             missing_scopes=missing_scopes,
+            disconnected=disconnected,
             linked_at=linked_at,
             token_prefix=token_prefix,
             scopes=scopes,

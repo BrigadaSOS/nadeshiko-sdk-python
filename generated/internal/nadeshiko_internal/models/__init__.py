@@ -128,6 +128,7 @@ from .moderate_episode_segments_request_action import ModerateEpisodeSegmentsReq
 from .report import Report
 from .report_data_type_0 import ReportDataType0
 from .report_reason import ReportReason
+from .report_shirabe_refusal_body import ReportShirabeRefusalBody
 from .report_source import ReportSource
 from .report_status import ReportStatus
 from .report_target_episode import ReportTargetEpisode
@@ -383,6 +384,7 @@ __all__ = (
     "Report",
     "ReportDataType0",
     "ReportReason",
+    "ReportShirabeRefusalBody",
     "ReportSource",
     "ReportStatus",
     "ReportTargetEpisode",
