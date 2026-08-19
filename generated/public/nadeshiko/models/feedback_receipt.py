@@ -1,39 +1,35 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.shirabe_connection import ShirabeConnection
-
-
-T = TypeVar("T", bound="CompleteShirabeLinkResponse200")
+T = TypeVar("T", bound="FeedbackReceipt")
 
 
 @_attrs_define
-class CompleteShirabeLinkResponse200:
+class FeedbackReceipt:
     """
     Attributes:
-        connection (ShirabeConnection): A reader's linked Shirabe account, as the reader is shown it.
-
-            Never carries the stored tokens: nothing here can be used to act on their
-            Shirabe account.
+        received (bool): Always `true`. The response is deliberately uniform: a submission dropped
+            as automated answers exactly like one that was stored, so a bot learns
+            nothing from the reply about what tripped it.
+             Example: True.
     """
 
-    connection: ShirabeConnection
+    received: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connection = self.connection.to_dict()
+        received = self.received
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "connection": connection,
+                "received": received,
             }
         )
 
@@ -41,17 +37,15 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
-
         _src = dict(src_dict)
-        connection = ShirabeConnection.from_dict(_src.pop("connection"))
+        received = _src.pop("received")
 
-        complete_shirabe_link_response_200 = cls(
-            connection=connection,
+        feedback_receipt = cls(
+            received=received,
         )
 
-        complete_shirabe_link_response_200.additional_properties = _src
-        return complete_shirabe_link_response_200
+        feedback_receipt.additional_properties = _src
+        return feedback_receipt
 
     @property
     def additional_keys(self) -> list[str]:

@@ -1,39 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.shirabe_connection import ShirabeConnection
-
-
-T = TypeVar("T", bound="CompleteShirabeLinkResponse200")
+T = TypeVar("T", bound="AddFavoriteMediaBody")
 
 
 @_attrs_define
-class CompleteShirabeLinkResponse200:
+class AddFavoriteMediaBody:
     """
     Attributes:
-        connection (ShirabeConnection): A reader's linked Shirabe account, as the reader is shown it.
-
-            Never carries the stored tokens: nothing here can be used to act on their
-            Shirabe account.
+        media_public_id (str): Public ID of the media to star Example: V1StGXR8_Z5d.
     """
 
-    connection: ShirabeConnection
+    media_public_id: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connection = self.connection.to_dict()
+        media_public_id = self.media_public_id
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "connection": connection,
+                "mediaPublicId": media_public_id,
             }
         )
 
@@ -41,17 +34,15 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
-
         _src = dict(src_dict)
-        connection = ShirabeConnection.from_dict(_src.pop("connection"))
+        media_public_id = _src.pop("mediaPublicId")
 
-        complete_shirabe_link_response_200 = cls(
-            connection=connection,
+        add_favorite_media_body = cls(
+            media_public_id=media_public_id,
         )
 
-        complete_shirabe_link_response_200.additional_properties = _src
-        return complete_shirabe_link_response_200
+        add_favorite_media_body.additional_properties = _src
+        return add_favorite_media_body
 
     @property
     def additional_keys(self) -> list[str]:

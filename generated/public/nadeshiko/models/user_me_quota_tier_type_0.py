@@ -1,39 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.shirabe_connection import ShirabeConnection
-
-
-T = TypeVar("T", bound="CompleteShirabeLinkResponse200")
+T = TypeVar("T", bound="UserMeQuotaTierType0")
 
 
 @_attrs_define
-class CompleteShirabeLinkResponse200:
-    """
-    Attributes:
-        connection (ShirabeConnection): A reader's linked Shirabe account, as the reader is shown it.
+class UserMeQuotaTierType0:
+    """The quota tier this account sits on. Null when the account is on none,
+    or when an override is in force and the tier no longer describes the
+    limit.
 
-            Never carries the stored tokens: nothing here can be used to act on their
-            Shirabe account.
+        Attributes:
+            id (str):  Example: plus.
+            display_name (str):  Example: Plus.
     """
 
-    connection: ShirabeConnection
+    id: str
+    display_name: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connection = self.connection.to_dict()
+        id = self.id
+
+        display_name = self.display_name
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "connection": connection,
+                "id": id,
+                "displayName": display_name,
             }
         )
 
@@ -41,17 +42,18 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
-
         _src = dict(src_dict)
-        connection = ShirabeConnection.from_dict(_src.pop("connection"))
+        id = _src.pop("id")
 
-        complete_shirabe_link_response_200 = cls(
-            connection=connection,
+        display_name = _src.pop("displayName")
+
+        user_me_quota_tier_type_0 = cls(
+            id=id,
+            display_name=display_name,
         )
 
-        complete_shirabe_link_response_200.additional_properties = _src
-        return complete_shirabe_link_response_200
+        user_me_quota_tier_type_0.additional_properties = _src
+        return user_me_quota_tier_type_0
 
     @property
     def additional_keys(self) -> list[str]:

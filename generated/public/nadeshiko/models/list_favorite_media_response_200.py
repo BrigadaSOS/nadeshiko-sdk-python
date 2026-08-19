@@ -7,33 +7,33 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.shirabe_connection import ShirabeConnection
+    from ..models.media_summary import MediaSummary
 
 
-T = TypeVar("T", bound="CompleteShirabeLinkResponse200")
+T = TypeVar("T", bound="ListFavoriteMediaResponse200")
 
 
 @_attrs_define
-class CompleteShirabeLinkResponse200:
+class ListFavoriteMediaResponse200:
     """
     Attributes:
-        connection (ShirabeConnection): A reader's linked Shirabe account, as the reader is shown it.
-
-            Never carries the stored tokens: nothing here can be used to act on their
-            Shirabe account.
+        favorite_media (list[MediaSummary]):
     """
 
-    connection: ShirabeConnection
+    favorite_media: list[MediaSummary]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connection = self.connection.to_dict()
+        favorite_media = []
+        for favorite_media_item_data in self.favorite_media:
+            favorite_media_item = favorite_media_item_data.to_dict()
+            favorite_media.append(favorite_media_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "connection": connection,
+                "favoriteMedia": favorite_media,
             }
         )
 
@@ -41,17 +41,22 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
+        from ..models.media_summary import MediaSummary
 
         _src = dict(src_dict)
-        connection = ShirabeConnection.from_dict(_src.pop("connection"))
+        favorite_media = []
+        _favorite_media = _src.pop("favoriteMedia")
+        for favorite_media_item_data in _favorite_media:
+            favorite_media_item = MediaSummary.from_dict(favorite_media_item_data)
 
-        complete_shirabe_link_response_200 = cls(
-            connection=connection,
+            favorite_media.append(favorite_media_item)
+
+        list_favorite_media_response_200 = cls(
+            favorite_media=favorite_media,
         )
 
-        complete_shirabe_link_response_200.additional_properties = _src
-        return complete_shirabe_link_response_200
+        list_favorite_media_response_200.additional_properties = _src
+        return list_favorite_media_response_200
 
     @property
     def additional_keys(self) -> list[str]:

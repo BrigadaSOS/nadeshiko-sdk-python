@@ -13,8 +13,10 @@ class OperationMetadata:
 
 OPERATIONS: tuple[OperationMetadata, ...] = (
     OperationMetadata(name="add_excluded_media", module_path=".api.user.add_excluded_media", paginated=False, doc="Exclude media from search results"),
+    OperationMetadata(name="add_favorite_media", module_path=".api.user.add_favorite_media", paginated=False, doc="Star media"),
     OperationMetadata(name="add_segment_to_collection", module_path=".api.collections.add_segment_to_collection", paginated=False, doc="Add segment to collection"),
     OperationMetadata(name="create_collection", module_path=".api.collections.create_collection", paginated=False, doc="Create collection"),
+    OperationMetadata(name="create_user_api_key", module_path=".api.user.create_user_api_key", paginated=False, doc="Create an API key with chosen scopes"),
     OperationMetadata(name="delete_collection", module_path=".api.collections.delete_collection", paginated=False, doc="Delete collection"),
     OperationMetadata(name="get_collection", module_path=".api.collections.get_collection", paginated=False, doc="Get collection details"),
     OperationMetadata(name="get_episode", module_path=".api.media.get_episode", paginated=False, doc="Get single episode"),
@@ -29,9 +31,12 @@ OPERATIONS: tuple[OperationMetadata, ...] = (
     OperationMetadata(name="list_collections", module_path=".api.collections.list_collections", paginated=True, doc="List collections"),
     OperationMetadata(name="list_episodes", module_path=".api.media.list_episodes", paginated=True, doc="List episodes for a media"),
     OperationMetadata(name="list_excluded_media", module_path=".api.user.list_excluded_media", paginated=False, doc="List excluded media"),
+    OperationMetadata(name="list_familiar_media", module_path=".api.activity.list_familiar_media", paginated=False, doc="List the titles the reader studies most"),
+    OperationMetadata(name="list_favorite_media", module_path=".api.user.list_favorite_media", paginated=False, doc="List starred media"),
     OperationMetadata(name="list_media", module_path=".api.media.list_media", paginated=True, doc="List all media"),
     OperationMetadata(name="list_user_activity", module_path=".api.activity.list_user_activity", paginated=True, doc="List user activity"),
     OperationMetadata(name="remove_excluded_media", module_path=".api.user.remove_excluded_media", paginated=False, doc="Remove media from excluded list"),
+    OperationMetadata(name="remove_favorite_media", module_path=".api.user.remove_favorite_media", paginated=False, doc="Unstar media"),
     OperationMetadata(name="remove_segment_from_collection", module_path=".api.collections.remove_segment_from_collection", paginated=False, doc="Remove segment from collection"),
     OperationMetadata(name="search", module_path=".api.search.search", paginated=True, doc="Search segments by query"),
     OperationMetadata(name="search_collection_segments", module_path=".api.collections.search_collection_segments", paginated=True, doc="Search segments in a collection"),

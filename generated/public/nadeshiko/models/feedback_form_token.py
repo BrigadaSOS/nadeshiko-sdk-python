@@ -1,39 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.shirabe_connection import ShirabeConnection
-
-
-T = TypeVar("T", bound="CompleteShirabeLinkResponse200")
+T = TypeVar("T", bound="FeedbackFormToken")
 
 
 @_attrs_define
-class CompleteShirabeLinkResponse200:
+class FeedbackFormToken:
     """
     Attributes:
-        connection (ShirabeConnection): A reader's linked Shirabe account, as the reader is shown it.
-
-            Never carries the stored tokens: nothing here can be used to act on their
-            Shirabe account.
+        token (str): Opaque, short-lived. Pass back as `formToken` when submitting.
     """
 
-    connection: ShirabeConnection
+    token: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connection = self.connection.to_dict()
+        token = self.token
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "connection": connection,
+                "token": token,
             }
         )
 
@@ -41,17 +34,15 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
-
         _src = dict(src_dict)
-        connection = ShirabeConnection.from_dict(_src.pop("connection"))
+        token = _src.pop("token")
 
-        complete_shirabe_link_response_200 = cls(
-            connection=connection,
+        feedback_form_token = cls(
+            token=token,
         )
 
-        complete_shirabe_link_response_200.additional_properties = _src
-        return complete_shirabe_link_response_200
+        feedback_form_token.additional_properties = _src
+        return feedback_form_token
 
     @property
     def additional_keys(self) -> list[str]:

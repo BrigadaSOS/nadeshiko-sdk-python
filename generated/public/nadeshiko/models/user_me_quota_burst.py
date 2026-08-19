@@ -1,39 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-if TYPE_CHECKING:
-    from ..models.shirabe_connection import ShirabeConnection
-
-
-T = TypeVar("T", bound="CompleteShirabeLinkResponse200")
+T = TypeVar("T", bound="UserMeQuotaBurst")
 
 
 @_attrs_define
-class CompleteShirabeLinkResponse200:
-    """
-    Attributes:
-        connection (ShirabeConnection): A reader's linked Shirabe account, as the reader is shown it.
+class UserMeQuotaBurst:
+    """The OTHER limit. Separate from the monthly allowance and enforced per
+    API key over a short window, so a caller can exhaust it with plenty of
+    month left -- which is why both are surfaced together, and why the two
+    429s carry an `X-RateLimit-Reason` telling them apart.
 
-            Never carries the stored tokens: nothing here can be used to act on their
-            Shirabe account.
+        Attributes:
+            max_ (int): Requests allowed per key within `windowMs`. Example: 150.
+            window_ms (int): Length of the burst window, in milliseconds. Example: 60000.
     """
 
-    connection: ShirabeConnection
+    max_: int
+    window_ms: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connection = self.connection.to_dict()
+        max_ = self.max_
+
+        window_ms = self.window_ms
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "connection": connection,
+                "max": max_,
+                "windowMs": window_ms,
             }
         )
 
@@ -41,17 +43,18 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
-
         _src = dict(src_dict)
-        connection = ShirabeConnection.from_dict(_src.pop("connection"))
+        max_ = _src.pop("max")
 
-        complete_shirabe_link_response_200 = cls(
-            connection=connection,
+        window_ms = _src.pop("windowMs")
+
+        user_me_quota_burst = cls(
+            max_=max_,
+            window_ms=window_ms,
         )
 
-        complete_shirabe_link_response_200.additional_properties = _src
-        return complete_shirabe_link_response_200
+        user_me_quota_burst.additional_properties = _src
+        return user_me_quota_burst
 
     @property
     def additional_keys(self) -> list[str]:
