@@ -210,6 +210,7 @@ from .token_f_item import TokenFItem
 from .token_inflection import TokenInflection
 from .token_kind import TokenKind
 from .token_parts_item import TokenPartsItem
+from .unsubscribe_receipt import UnsubscribeReceipt
 from .update_account_quota_request import UpdateAccountQuotaRequest
 from .update_collection_segment_request import UpdateCollectionSegmentRequest
 from .update_report_request import UpdateReportRequest
@@ -242,6 +243,7 @@ from .user_preferences_familiar_media import UserPreferencesFamiliarMedia
 from .user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
+from .user_preferences_product_emails import UserPreferencesProductEmails
 from .user_preferences_search_history import UserPreferencesSearchHistory
 from .user_preferences_translation_languages_item import UserPreferencesTranslationLanguagesItem
 from .user_preferences_translation_visibility_preferences import (
@@ -464,6 +466,7 @@ __all__ = (
     "TokenInflection",
     "TokenKind",
     "TokenPartsItem",
+    "UnsubscribeReceipt",
     "UpdateAccountQuotaRequest",
     "UpdateCollectionSegmentRequest",
     "UpdateReportRequest",
@@ -492,6 +495,7 @@ __all__ = (
     "UserPreferencesFavoriteMediaItem",
     "UserPreferencesHiddenMediaItem",
     "UserPreferencesMediaNameLanguage",
+    "UserPreferencesProductEmails",
     "UserPreferencesSearchHistory",
     "UserPreferencesTranslationLanguagesItem",
     "UserPreferencesTranslationVisibilityPreferences",

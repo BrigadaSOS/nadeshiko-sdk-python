@@ -83,6 +83,7 @@ OPERATIONS: tuple[OperationMetadata, ...] = (
     OperationMetadata(name="track_user_activity", module_path=".api.user.track_user_activity", paginated=False, doc="Track user activity"),
     OperationMetadata(name="trigger_covered_words_update", module_path=".api.stats.trigger_covered_words_update", paginated=False, doc="Trigger word coverage update"),
     OperationMetadata(name="unlink_shirabe", module_path=".api.user.unlink_shirabe", paginated=False, doc="Unlink the Shirabe account"),
+    OperationMetadata(name="unsubscribe_from_email", module_path=".api.email.unsubscribe_from_email", paginated=False, doc="Turn off lifecycle email"),
     OperationMetadata(name="update_admin_report", module_path=".api.admin.update_admin_report", paginated=False, doc="Update report"),
     OperationMetadata(name="update_admin_user_quota", module_path=".api.admin.update_admin_user_quota", paginated=False, doc="Move an account to a tier, or give it an override"),
     OperationMetadata(name="update_announcement", module_path=".api.admin.update_announcement", paginated=False, doc="Create or update announcement"),

@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     from ..models.user_preferences_familiar_media import UserPreferencesFamiliarMedia
     from ..models.user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
     from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
+    from ..models.user_preferences_product_emails import UserPreferencesProductEmails
     from ..models.user_preferences_search_history import UserPreferencesSearchHistory
     from ..models.user_preferences_translation_visibility_preferences import (
         UserPreferencesTranslationVisibilityPreferences,
@@ -94,6 +95,15 @@ class UserPreferences:
             count per title per month. A reader can reasonably want the tally without
             the diary, so the two are stored apart, cleared apart, and expire apart.
             Existing readers who had `searchHistory` off were seeded to `false` here.
+        product_emails (UserPreferencesProductEmails | Unset): Whether we may send this account the lifecycle mail — the
+            day-7 note, the
+            feedback ask, the monthly recap. Absent means yes: these are service
+            messages about the functionality the reader uses, so the default is on and
+            the reader turns it off, here or from the link in any of them.
+
+            Does NOT govern transactional mail. Sign-in links and address verification
+            are the account working rather than news about it, and honouring this flag
+            for them would let somebody lock themselves out by unsubscribing.
     """
 
     media_name_language: UserPreferencesMediaNameLanguage | Unset = UNSET
@@ -110,6 +120,7 @@ class UserPreferences:
     hidden_media: list[UserPreferencesHiddenMediaItem] | Unset = UNSET
     favorite_media: list[UserPreferencesFavoriteMediaItem] | Unset = UNSET
     familiar_media: UserPreferencesFamiliarMedia | Unset = UNSET
+    product_emails: UserPreferencesProductEmails | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -176,6 +187,10 @@ class UserPreferences:
         if not isinstance(self.familiar_media, Unset):
             familiar_media = self.familiar_media.to_dict()
 
+        product_emails: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.product_emails, Unset):
+            product_emails = self.product_emails.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -203,6 +218,8 @@ class UserPreferences:
             field_dict["favoriteMedia"] = favorite_media
         if familiar_media is not UNSET:
             field_dict["familiarMedia"] = familiar_media
+        if product_emails is not UNSET:
+            field_dict["productEmails"] = product_emails
 
         return field_dict
 
@@ -215,6 +232,7 @@ class UserPreferences:
         from ..models.user_preferences_familiar_media import UserPreferencesFamiliarMedia
         from ..models.user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
         from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
+        from ..models.user_preferences_product_emails import UserPreferencesProductEmails
         from ..models.user_preferences_search_history import UserPreferencesSearchHistory
         from ..models.user_preferences_translation_visibility_preferences import (
             UserPreferencesTranslationVisibilityPreferences,
@@ -330,6 +348,13 @@ class UserPreferences:
         else:
             familiar_media = UserPreferencesFamiliarMedia.from_dict(_familiar_media)
 
+        _product_emails = _src.pop("productEmails", UNSET)
+        product_emails: UserPreferencesProductEmails | Unset
+        if isinstance(_product_emails, Unset):
+            product_emails = UNSET
+        else:
+            product_emails = UserPreferencesProductEmails.from_dict(_product_emails)
+
         user_preferences = cls(
             media_name_language=media_name_language,
             content_rating_preferences=content_rating_preferences,
@@ -343,6 +368,7 @@ class UserPreferences:
             hidden_media=hidden_media,
             favorite_media=favorite_media,
             familiar_media=familiar_media,
+            product_emails=product_emails,
         )
 
         user_preferences.additional_properties = _src
