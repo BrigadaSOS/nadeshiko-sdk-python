@@ -30,6 +30,12 @@ class Token:
         e (int): End character offset in textJa.content Example: 5.
         p (str): Primary part-of-speech tag Example: 動詞.
         pos_label (str | Unset): The part of speech in words, so a client needs no UniDic table. Example: Verb.
+        pt (str | Unset): The short part-of-speech tag the dictionary lookup ranks by (`verb`, `prt`, `exp`), where `p`
+            is UniDic's Japanese category and `posLabel` is the printable wording. A client resolving a word should send
+            this rather than mapping `p` itself: the mapping is the parser's to make, and a category it grows that a hand-
+            written table lacks would otherwise silently resolve to no tag at all. Empty for punctuation, symbols and
+            whitespace, which are nothing to look up. Absent on anything parsed before it was stored.
+             Example: verb.
         kind (TokenKind | Unset): How this token was grouped: a plain word, a compound, an inflected form, a counter, a
             function word, a merged grammatical expression, or a symbol.
              Example: inflected.
@@ -51,6 +57,7 @@ class Token:
     e: int
     p: str
     pos_label: str | Unset = UNSET
+    pt: str | Unset = UNSET
     kind: TokenKind | Unset = UNSET
     f: list[TokenFItem] | Unset = UNSET
     inflection: TokenInflection | Unset = UNSET
@@ -71,6 +78,8 @@ class Token:
         p = self.p
 
         pos_label = self.pos_label
+
+        pt = self.pt
 
         kind: str | Unset = UNSET
         if not isinstance(self.kind, Unset):
@@ -108,6 +117,8 @@ class Token:
         )
         if pos_label is not UNSET:
             field_dict["posLabel"] = pos_label
+        if pt is not UNSET:
+            field_dict["pt"] = pt
         if kind is not UNSET:
             field_dict["kind"] = kind
         if f is not UNSET:
@@ -139,6 +150,8 @@ class Token:
         p = _src.pop("p")
 
         pos_label = _src.pop("posLabel", UNSET)
+
+        pt = _src.pop("pt", UNSET)
 
         _kind = _src.pop("kind", UNSET)
         kind: TokenKind | Unset
@@ -180,6 +193,7 @@ class Token:
             e=e,
             p=p,
             pos_label=pos_label,
+            pt=pt,
             kind=kind,
             f=f,
             inflection=inflection,

@@ -1,12 +1,12 @@
 from typing import Literal
 
-SearchFiltersLanguagesType1ExcludeItem = Literal["en", "EN", "ES", "es"]
+SearchFiltersLanguagesType1ExcludeItem = Literal["en", "EN", "es", "ES"]
 
 SEARCH_FILTERS_LANGUAGES_TYPE_1_EXCLUDE_ITEM_VALUES: set[SearchFiltersLanguagesType1ExcludeItem] = {
     "en",
     "EN",
-    "ES",
     "es",
+    "ES",
 }
 
 
