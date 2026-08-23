@@ -6,8 +6,6 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 T = TypeVar("T", bound="UserPreferencesHiddenMediaItem")
 
 
@@ -16,25 +14,13 @@ class UserPreferencesHiddenMediaItem:
     """
     Attributes:
         media_public_id (str): Public ID of the hidden media
-        name_en (str | Unset):
-        name_ja (str | Unset):
-        name_romaji (str | Unset):
     """
 
     media_public_id: str
-    name_en: str | Unset = UNSET
-    name_ja: str | Unset = UNSET
-    name_romaji: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         media_public_id = self.media_public_id
-
-        name_en = self.name_en
-
-        name_ja = self.name_ja
-
-        name_romaji = self.name_romaji
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -43,12 +29,6 @@ class UserPreferencesHiddenMediaItem:
                 "mediaPublicId": media_public_id,
             }
         )
-        if name_en is not UNSET:
-            field_dict["nameEn"] = name_en
-        if name_ja is not UNSET:
-            field_dict["nameJa"] = name_ja
-        if name_romaji is not UNSET:
-            field_dict["nameRomaji"] = name_romaji
 
         return field_dict
 
@@ -57,17 +37,8 @@ class UserPreferencesHiddenMediaItem:
         _src = dict(src_dict)
         media_public_id = _src.pop("mediaPublicId")
 
-        name_en = _src.pop("nameEn", UNSET)
-
-        name_ja = _src.pop("nameJa", UNSET)
-
-        name_romaji = _src.pop("nameRomaji", UNSET)
-
         user_preferences_hidden_media_item = cls(
             media_public_id=media_public_id,
-            name_en=name_en,
-            name_ja=name_ja,
-            name_romaji=name_romaji,
         )
 
         user_preferences_hidden_media_item.additional_properties = _src

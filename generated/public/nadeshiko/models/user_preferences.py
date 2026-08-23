@@ -72,7 +72,22 @@ class UserPreferences:
             An empty array means nothing is hidden. Hiding *every* category is rejected with
             `400`: `filters.category` reads an empty list as "no filter", so hiding the last
             one would silently show everything back instead of nothing.
-        hidden_media (list[UserPreferencesHiddenMediaItem] | Unset): Media hidden from search results by the user
+        hidden_media (list[UserPreferencesHiddenMediaItem] | Unset): Media hidden from search results by the user, as
+            IDs.
+
+            Entries used to carry the title's names as well. Nothing read them back --
+            `GET /v1/user/excluded-media` resolves names from the catalogue, where a
+            rename actually lands, and the search filter needs only IDs -- while the
+            whole preferences blob rides `get-session` into the hydration payload of
+            every page the reader loads. At ~141 bytes an entry against the 34 an
+            ID-only one costs, a reader who had hidden 200 titles carried ~21KB of
+            duplicated catalogue on every render.
+
+            Still an object wrapping the ID rather than a bare string. Dropping the
+            optional name fields is a change every previously-valid reader already
+            accepts; replacing the object with a string is not, and old clients
+            reaching for `mediaPublicId` would read the list as empty and show the
+            reader results they had hidden.
         favorite_media (list[UserPreferencesFavoriteMediaItem] | Unset): Media the reader has starred. Starred titles
             sort to the top of the search
             media filter; they change the ORDER of that list, never its contents, so a
@@ -85,7 +100,9 @@ class UserPreferences:
 
             `favoritedAt` is declared here and written by the server, unlike
             `hiddenMedia`'s `hiddenAt` -- which the client invents and this schema has
-            never described.
+            never described. It is the one thing about a starred title that the
+            catalogue cannot answer, which is why it stayed when the names went -- for
+            the same reason they went from `hiddenMedia`.
         familiar_media (UserPreferencesFamiliarMedia | Unset): Whether to keep a monthly tally of which titles the
             reader studies, used to
             sort those titles up the search media filter.
