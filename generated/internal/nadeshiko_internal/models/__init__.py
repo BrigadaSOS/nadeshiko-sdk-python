@@ -84,6 +84,13 @@ from .feedback_form_token import FeedbackFormToken
 from .feedback_receipt import FeedbackReceipt
 from .get_admin_users_with_providers_response_200 import GetAdminUsersWithProvidersResponse200
 from .get_covered_words_filter import GetCoveredWordsFilter
+from .get_email_preferences_by_token_response_200 import GetEmailPreferencesByTokenResponse200
+from .get_email_preferences_by_token_response_200_categories import (
+    GetEmailPreferencesByTokenResponse200Categories,
+)
+from .get_email_preferences_by_token_response_200_category import (
+    GetEmailPreferencesByTokenResponse200Category,
+)
 from .get_shirabe_connection_response_200 import GetShirabeConnectionResponse200
 from .get_shirabe_credential_response_200 import GetShirabeCredentialResponse200
 from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
@@ -213,6 +220,11 @@ from .token_parts_item import TokenPartsItem
 from .unsubscribe_receipt import UnsubscribeReceipt
 from .update_account_quota_request import UpdateAccountQuotaRequest
 from .update_collection_segment_request import UpdateCollectionSegmentRequest
+from .update_email_preferences_by_token_body import UpdateEmailPreferencesByTokenBody
+from .update_email_preferences_by_token_response_200 import UpdateEmailPreferencesByTokenResponse200
+from .update_email_preferences_by_token_response_200_categories import (
+    UpdateEmailPreferencesByTokenResponse200Categories,
+)
 from .update_report_request import UpdateReportRequest
 from .user_activity import UserActivity
 from .user_activity_request import UserActivityRequest
@@ -242,6 +254,7 @@ from .user_preferences_default_search_category import UserPreferencesDefaultSear
 from .user_preferences_familiar_media import UserPreferencesFamiliarMedia
 from .user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
+from .user_preferences_media_card_default import UserPreferencesMediaCardDefault
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_product_emails import UserPreferencesProductEmails
 from .user_preferences_search_history import UserPreferencesSearchHistory
@@ -346,6 +359,9 @@ __all__ = (
     "FeedbackReceipt",
     "GetAdminUsersWithProvidersResponse200",
     "GetCoveredWordsFilter",
+    "GetEmailPreferencesByTokenResponse200",
+    "GetEmailPreferencesByTokenResponse200Categories",
+    "GetEmailPreferencesByTokenResponse200Category",
     "GetShirabeConnectionResponse200",
     "GetShirabeCredentialResponse200",
     "GetUserActivityHeatmapResponse200",
@@ -469,6 +485,9 @@ __all__ = (
     "UnsubscribeReceipt",
     "UpdateAccountQuotaRequest",
     "UpdateCollectionSegmentRequest",
+    "UpdateEmailPreferencesByTokenBody",
+    "UpdateEmailPreferencesByTokenResponse200",
+    "UpdateEmailPreferencesByTokenResponse200Categories",
     "UpdateReportRequest",
     "UserActivity",
     "UserActivityRequest",
@@ -494,6 +513,7 @@ __all__ = (
     "UserPreferencesFamiliarMedia",
     "UserPreferencesFavoriteMediaItem",
     "UserPreferencesHiddenMediaItem",
+    "UserPreferencesMediaCardDefault",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesProductEmails",
     "UserPreferencesSearchHistory",
