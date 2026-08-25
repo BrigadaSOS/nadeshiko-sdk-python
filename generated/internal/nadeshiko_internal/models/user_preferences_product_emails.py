@@ -23,20 +23,44 @@ class UserPreferencesProductEmails:
     for them would let somebody lock themselves out by unsubscribing.
 
         Attributes:
-            enabled (bool | Unset): Whether lifecycle emails are enabled (default true)
+            enabled (bool | Unset): The master switch, and the only thing a `List-Unsubscribe` header with
+                no category sets. Off here stops every category below it.
+            recap (bool | Unset): The monthly digest of the reader's own activity. Absent means follow
+                `enabled` — never a fresh yes, or a reader who left before this
+                category existed would be re-subscribed by its arrival.
+            checkins (bool | Unset): The occasional one-off questions: the day-7 note and the win-back.
+                Absent means follow `enabled`.
+            updates (bool | Unset): Releases and new features, including any request for support that
+                rides in one. Sent through Zoho Campaigns rather than from here, so
+                this governs the audience export. Absent means follow `enabled`.
     """
 
     enabled: bool | Unset = UNSET
+    recap: bool | Unset = UNSET
+    checkins: bool | Unset = UNSET
+    updates: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         enabled = self.enabled
+
+        recap = self.recap
+
+        checkins = self.checkins
+
+        updates = self.updates
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if enabled is not UNSET:
             field_dict["enabled"] = enabled
+        if recap is not UNSET:
+            field_dict["recap"] = recap
+        if checkins is not UNSET:
+            field_dict["checkins"] = checkins
+        if updates is not UNSET:
+            field_dict["updates"] = updates
 
         return field_dict
 
@@ -45,8 +69,17 @@ class UserPreferencesProductEmails:
         _src = dict(src_dict)
         enabled = _src.pop("enabled", UNSET)
 
+        recap = _src.pop("recap", UNSET)
+
+        checkins = _src.pop("checkins", UNSET)
+
+        updates = _src.pop("updates", UNSET)
+
         user_preferences_product_emails = cls(
             enabled=enabled,
+            recap=recap,
+            checkins=checkins,
+            updates=updates,
         )
 
         user_preferences_product_emails.additional_properties = _src
