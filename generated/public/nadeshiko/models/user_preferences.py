@@ -11,6 +11,10 @@ from ..models.user_preferences_default_search_category import (
     UserPreferencesDefaultSearchCategory,
     check_user_preferences_default_search_category,
 )
+from ..models.user_preferences_media_card_default import (
+    UserPreferencesMediaCardDefault,
+    check_user_preferences_media_card_default,
+)
 from ..models.user_preferences_media_name_language import (
     UserPreferencesMediaNameLanguage,
     check_user_preferences_media_name_language,
@@ -67,6 +71,20 @@ class UserPreferences:
             A value the user has since hidden (see `hiddenCategories`) is ignored and
             the search falls back to `ALL`. It is stored rather than rejected, so
             unhiding the category brings the choice back.
+        media_card_default (UserPreferencesMediaCardDefault | Unset): Whether the title card starts open or closed on a
+            title's own page, and on
+            a search narrowed to one title.
+
+            The card is a disclosure: a single line -- thumbnail, title, sentence and
+            episode counts -- with the alternate names, studio, season, airing status,
+            genres and catalogue links folded underneath it. Anyone can open and close
+            it from the card itself; this only decides which way it starts, and
+            `OPEN` -- assumed when unset -- is that default.
+
+            It exists because the card is context for a page whose subject is the
+            sentence list underneath it. At its old fixed size on a phone it took
+            roughly a third of the viewport, so every visit to a title a reader
+            already knows began with the same scroll past the same card.
         hidden_categories (list[Category] | Unset): Whole media categories hidden from search results by the user.
 
             An empty array means nothing is hidden. Hiding *every* category is rejected with
@@ -133,6 +151,7 @@ class UserPreferences:
     search_history: UserPreferencesSearchHistory | Unset = UNSET
     anki_profiles: list[UserPreferencesAnkiProfilesItem] | Unset = UNSET
     default_search_category: UserPreferencesDefaultSearchCategory | Unset = UNSET
+    media_card_default: UserPreferencesMediaCardDefault | Unset = UNSET
     hidden_categories: list[Category] | Unset = UNSET
     hidden_media: list[UserPreferencesHiddenMediaItem] | Unset = UNSET
     favorite_media: list[UserPreferencesFavoriteMediaItem] | Unset = UNSET
@@ -178,6 +197,10 @@ class UserPreferences:
         default_search_category: str | Unset = UNSET
         if not isinstance(self.default_search_category, Unset):
             default_search_category = self.default_search_category
+
+        media_card_default: str | Unset = UNSET
+        if not isinstance(self.media_card_default, Unset):
+            media_card_default = self.media_card_default
 
         hidden_categories: list[str] | Unset = UNSET
         if not isinstance(self.hidden_categories, Unset):
@@ -227,6 +250,8 @@ class UserPreferences:
             field_dict["ankiProfiles"] = anki_profiles
         if default_search_category is not UNSET:
             field_dict["defaultSearchCategory"] = default_search_category
+        if media_card_default is not UNSET:
+            field_dict["mediaCardDefault"] = media_card_default
         if hidden_categories is not UNSET:
             field_dict["hiddenCategories"] = hidden_categories
         if hidden_media is not UNSET:
@@ -329,6 +354,13 @@ class UserPreferences:
                 _default_search_category
             )
 
+        _media_card_default = _src.pop("mediaCardDefault", UNSET)
+        media_card_default: UserPreferencesMediaCardDefault | Unset
+        if isinstance(_media_card_default, Unset):
+            media_card_default = UNSET
+        else:
+            media_card_default = check_user_preferences_media_card_default(_media_card_default)
+
         _hidden_categories = _src.pop("hiddenCategories", UNSET)
         hidden_categories: list[Category] | Unset = UNSET
         if _hidden_categories is not UNSET:
@@ -381,6 +413,7 @@ class UserPreferences:
             search_history=search_history,
             anki_profiles=anki_profiles,
             default_search_category=default_search_category,
+            media_card_default=media_card_default,
             hidden_categories=hidden_categories,
             hidden_media=hidden_media,
             favorite_media=favorite_media,

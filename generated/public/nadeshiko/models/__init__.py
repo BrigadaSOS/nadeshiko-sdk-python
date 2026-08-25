@@ -230,6 +230,7 @@ from .user_preferences_default_search_category import UserPreferencesDefaultSear
 from .user_preferences_familiar_media import UserPreferencesFamiliarMedia
 from .user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
 from .user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
+from .user_preferences_media_card_default import UserPreferencesMediaCardDefault
 from .user_preferences_media_name_language import UserPreferencesMediaNameLanguage
 from .user_preferences_product_emails import UserPreferencesProductEmails
 from .user_preferences_search_history import UserPreferencesSearchHistory
@@ -470,6 +471,7 @@ __all__ = (
     "UserPreferencesFamiliarMedia",
     "UserPreferencesFavoriteMediaItem",
     "UserPreferencesHiddenMediaItem",
+    "UserPreferencesMediaCardDefault",
     "UserPreferencesMediaNameLanguage",
     "UserPreferencesProductEmails",
     "UserPreferencesSearchHistory",
