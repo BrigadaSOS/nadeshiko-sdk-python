@@ -26,12 +26,12 @@ class ShirabeConnection:
         Attributes:
             needs_upgrade (bool): True when the link works but is missing a permission a newer feature needs -- granted
                 before that feature existed. A re-consent, not a repair: what the account was linked for keeps working the whole
-                time, and only the newer feature is unavailable.
-            missing_scopes (list[str]): The permissions a re-consent would add. Empty unless `needsUpgrade`.
+                time, and only the newer feature is unavailable. Example: False.
+            missing_scopes (list[str]): The permissions a re-consent would add. Empty unless `needsUpgrade`. Example: [].
             disconnected (bool): True when Shirabe refused this key outright -- the reader revoked it from their Shirabe
                 access list, or it was swept for being idle. The link is over until they make a new one, and their own
                 dictionaries are not being used until they do. Distinct from `needsUpgrade`, which is a link that still works:
-                this one is a repair.
+                this one is a repair. Example: False.
             linked_at (datetime.datetime):
             scopes (list[str]): What the reader granted. Today that is READ_ACCOUNT and nothing else. Example:
                 ['READ_ACCOUNT'].
@@ -39,7 +39,7 @@ class ShirabeConnection:
                 resolve, in which languages, in what order. This is what makes a word lookup here answer the way it does over
                 there. Example: ['sanseido:ja', 'jmdict:en'].
             stack_is_private (bool): True when their stack names one of their own uploads, which makes its answers theirs
-                alone and stops a lookup being cached for anyone else.
+                alone and stops a lookup being cached for anyone else. Example: False.
             shirabe_name (None | str | Unset): Who they are on Shirabe, for the settings page to name the link. Example:
                 Lumi.
             dictionary_names (ShirabeConnectionDictionaryNames | Unset): What each dictionary above is CALLED, keyed by
@@ -118,7 +118,7 @@ class ShirabeConnection:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection_dictionary_names import ShirabeConnectionDictionaryNames
+        from ..models.shirabe_connection_dictionary_names import ShirabeConnectionDictionaryNames  # noqa: PLC0415
 
         _src = dict(src_dict)
         needs_upgrade = _src.pop("needsUpgrade")

@@ -267,19 +267,19 @@ class UserPreferences:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.user_preferences_anki_profiles_item import UserPreferencesAnkiProfilesItem
+        from ..models.user_preferences_anki_profiles_item import UserPreferencesAnkiProfilesItem  # noqa: PLC0415
         from ..models.user_preferences_content_rating_preferences import (
-            UserPreferencesContentRatingPreferences,
+            UserPreferencesContentRatingPreferences,  # noqa: PLC0415
         )
-        from ..models.user_preferences_familiar_media import UserPreferencesFamiliarMedia
-        from ..models.user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem
-        from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem
-        from ..models.user_preferences_product_emails import UserPreferencesProductEmails
-        from ..models.user_preferences_search_history import UserPreferencesSearchHistory
+        from ..models.user_preferences_familiar_media import UserPreferencesFamiliarMedia  # noqa: PLC0415
+        from ..models.user_preferences_favorite_media_item import UserPreferencesFavoriteMediaItem  # noqa: PLC0415
+        from ..models.user_preferences_hidden_media_item import UserPreferencesHiddenMediaItem  # noqa: PLC0415
+        from ..models.user_preferences_product_emails import UserPreferencesProductEmails  # noqa: PLC0415
+        from ..models.user_preferences_search_history import UserPreferencesSearchHistory  # noqa: PLC0415
         from ..models.user_preferences_translation_visibility_preferences import (
-            UserPreferencesTranslationVisibilityPreferences,
+            UserPreferencesTranslationVisibilityPreferences,  # noqa: PLC0415
         )
-        from ..models.user_preferences_word_popup import UserPreferencesWordPopup
+        from ..models.user_preferences_word_popup import UserPreferencesWordPopup  # noqa: PLC0415
 
         _src = dict(src_dict)
         _media_name_language = _src.pop("mediaNameLanguage", UNSET)

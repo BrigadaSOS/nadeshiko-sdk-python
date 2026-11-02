@@ -44,8 +44,8 @@ class UserMe:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.user_me_quota import UserMeQuota
-        from ..models.user_me_user import UserMeUser
+        from ..models.user_me_quota import UserMeQuota  # noqa: PLC0415
+        from ..models.user_me_user import UserMeUser  # noqa: PLC0415
 
         _src = dict(src_dict)
         user = UserMeUser.from_dict(_src.pop("user"))

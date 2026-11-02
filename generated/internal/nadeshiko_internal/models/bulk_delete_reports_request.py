@@ -41,7 +41,7 @@ class BulkDeleteReportsRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.bulk_delete_reports_request_filters import BulkDeleteReportsRequestFilters
+        from ..models.bulk_delete_reports_request_filters import BulkDeleteReportsRequestFilters  # noqa: PLC0415
 
         _src = dict(src_dict)
         _filters = _src.pop("filters", UNSET)

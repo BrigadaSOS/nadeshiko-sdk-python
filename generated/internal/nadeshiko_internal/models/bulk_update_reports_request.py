@@ -56,7 +56,7 @@ class BulkUpdateReportsRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.bulk_update_reports_request_filters import BulkUpdateReportsRequestFilters
+        from ..models.bulk_update_reports_request_filters import BulkUpdateReportsRequestFilters  # noqa: PLC0415
 
         _src = dict(src_dict)
         status = check_report_status(_src.pop("status"))

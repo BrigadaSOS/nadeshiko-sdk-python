@@ -32,6 +32,8 @@ from .collection_list_response import CollectionListResponse
 from .collection_type import CollectionType
 from .collection_update_request import CollectionUpdateRequest
 from .collection_visibility import CollectionVisibility
+from .complete_patreon_link_body import CompletePatreonLinkBody
+from .complete_patreon_link_response_200 import CompletePatreonLinkResponse200
 from .complete_shirabe_link_body import CompleteShirabeLinkBody
 from .complete_shirabe_link_response_200 import CompleteShirabeLinkResponse200
 from .content_rating import ContentRating
@@ -43,6 +45,7 @@ from .covered_words_update_response import CoveredWordsUpdateResponse
 from .create_feedback_request import CreateFeedbackRequest
 from .create_report_request import CreateReportRequest
 from .create_report_request_reason import CreateReportRequestReason
+from .create_roadmap_proposal_body import CreateRoadmapProposalBody
 from .create_segments_batch_response_201 import CreateSegmentsBatchResponse201
 from .create_user_api_key_body import CreateUserApiKeyBody
 from .create_user_api_key_response_201 import CreateUserApiKeyResponse201
@@ -79,6 +82,10 @@ from .error_500 import Error500
 from .error_500_code import Error500Code
 from .error_500_errors import Error500Errors
 from .error_500_status import Error500Status
+from .error_503 import Error503
+from .error_503_code import Error503Code
+from .error_503_errors import Error503Errors
+from .error_503_status import Error503Status
 from .external_id import ExternalId
 from .feedback_form_token import FeedbackFormToken
 from .feedback_receipt import FeedbackReceipt
@@ -91,6 +98,7 @@ from .get_email_preferences_by_token_response_200_categories import (
 from .get_email_preferences_by_token_response_200_category import (
     GetEmailPreferencesByTokenResponse200Category,
 )
+from .get_patreon_connection_response_200 import GetPatreonConnectionResponse200
 from .get_shirabe_connection_response_200 import GetShirabeConnectionResponse200
 from .get_shirabe_credential_response_200 import GetShirabeCredentialResponse200
 from .get_user_activity_heatmap_response_200 import GetUserActivityHeatmapResponse200
@@ -99,6 +107,7 @@ from .get_user_activity_heatmap_response_200_activity_by_day import (
 )
 from .heatmap_day_counts import HeatmapDayCounts
 from .include_expansion import IncludeExpansion
+from .list_admin_roadmap_response_200 import ListAdminRoadmapResponse200
 from .list_excluded_media_response_200 import ListExcludedMediaResponse200
 from .list_familiar_media_response_200 import ListFamiliarMediaResponse200
 from .list_familiar_media_response_200_familiar_media_item import (
@@ -106,6 +115,7 @@ from .list_familiar_media_response_200_familiar_media_item import (
 )
 from .list_favorite_media_response_200 import ListFavoriteMediaResponse200
 from .list_media_category import ListMediaCategory
+from .list_roadmap_response_200 import ListRoadmapResponse200
 from .list_segment_revisions_response_200 import ListSegmentRevisionsResponse200
 from .list_tiers_response_200 import ListTiersResponse200
 from .list_user_activity_response_200 import ListUserActivityResponse200
@@ -132,6 +142,7 @@ from .media_update_request_season_name import MediaUpdateRequestSeasonName
 from .media_update_request_storage import MediaUpdateRequestStorage
 from .moderate_episode_segments_request import ModerateEpisodeSegmentsRequest
 from .moderate_episode_segments_request_action import ModerateEpisodeSegmentsRequestAction
+from .patreon_connection import PatreonConnection
 from .report import Report
 from .report_data_type_0 import ReportDataType0
 from .report_reason import ReportReason
@@ -148,6 +159,12 @@ from .report_target_segment_input_type import ReportTargetSegmentInputType
 from .report_target_segment_type import ReportTargetSegmentType
 from .report_target_type import ReportTargetType
 from .resync_shirabe_stack_body import ResyncShirabeStackBody
+from .roadmap_item import RoadmapItem
+from .roadmap_item_kind import RoadmapItemKind
+from .roadmap_item_status import RoadmapItemStatus
+from .roadmap_item_write import RoadmapItemWrite
+from .roadmap_item_write_kind import RoadmapItemWriteKind
+from .roadmap_item_write_status import RoadmapItemWriteStatus
 from .search_filters import SearchFilters
 from .search_filters_languages_type_0_item import SearchFiltersLanguagesType0Item
 from .search_filters_languages_type_1 import SearchFiltersLanguagesType1
@@ -208,6 +225,7 @@ from .segment_update_request_text_ja import SegmentUpdateRequestTextJa
 from .segment_urls import SegmentUrls
 from .shirabe_connection import ShirabeConnection
 from .shirabe_connection_dictionary_names import ShirabeConnectionDictionaryNames
+from .start_patreon_link_response_201 import StartPatreonLinkResponse201
 from .start_shirabe_link_response_201 import StartShirabeLinkResponse201
 from .stats_overview import StatsOverview
 from .stats_overview_translations import StatsOverviewTranslations
@@ -219,6 +237,9 @@ from .token_kind import TokenKind
 from .token_parts_item import TokenPartsItem
 from .unsubscribe_receipt import UnsubscribeReceipt
 from .update_account_quota_request import UpdateAccountQuotaRequest
+from .update_admin_roadmap_item_body import UpdateAdminRoadmapItemBody
+from .update_admin_roadmap_item_body_kind import UpdateAdminRoadmapItemBodyKind
+from .update_admin_roadmap_item_body_status import UpdateAdminRoadmapItemBodyStatus
 from .update_collection_segment_request import UpdateCollectionSegmentRequest
 from .update_email_preferences_by_token_body import UpdateEmailPreferencesByTokenBody
 from .update_email_preferences_by_token_response_200 import UpdateEmailPreferencesByTokenResponse200
@@ -307,6 +328,8 @@ __all__ = (
     "CollectionType",
     "CollectionUpdateRequest",
     "CollectionVisibility",
+    "CompletePatreonLinkBody",
+    "CompletePatreonLinkResponse200",
     "CompleteShirabeLinkBody",
     "CompleteShirabeLinkResponse200",
     "ContentRating",
@@ -318,6 +341,7 @@ __all__ = (
     "CreateFeedbackRequest",
     "CreateReportRequest",
     "CreateReportRequestReason",
+    "CreateRoadmapProposalBody",
     "CreateSegmentsBatchResponse201",
     "CreateUserApiKeyBody",
     "CreateUserApiKeyResponse201",
@@ -354,6 +378,10 @@ __all__ = (
     "Error500Code",
     "Error500Errors",
     "Error500Status",
+    "Error503",
+    "Error503Code",
+    "Error503Errors",
+    "Error503Status",
     "ExternalId",
     "FeedbackFormToken",
     "FeedbackReceipt",
@@ -362,17 +390,20 @@ __all__ = (
     "GetEmailPreferencesByTokenResponse200",
     "GetEmailPreferencesByTokenResponse200Categories",
     "GetEmailPreferencesByTokenResponse200Category",
+    "GetPatreonConnectionResponse200",
     "GetShirabeConnectionResponse200",
     "GetShirabeCredentialResponse200",
     "GetUserActivityHeatmapResponse200",
     "GetUserActivityHeatmapResponse200ActivityByDay",
     "HeatmapDayCounts",
     "IncludeExpansion",
+    "ListAdminRoadmapResponse200",
     "ListExcludedMediaResponse200",
     "ListFamiliarMediaResponse200",
     "ListFamiliarMediaResponse200FamiliarMediaItem",
     "ListFavoriteMediaResponse200",
     "ListMediaCategory",
+    "ListRoadmapResponse200",
     "ListSegmentRevisionsResponse200",
     "ListTiersResponse200",
     "ListUserActivityResponse200",
@@ -399,6 +430,7 @@ __all__ = (
     "MediaUpdateRequestStorage",
     "ModerateEpisodeSegmentsRequest",
     "ModerateEpisodeSegmentsRequestAction",
+    "PatreonConnection",
     "Report",
     "ReportDataType0",
     "ReportReason",
@@ -415,6 +447,12 @@ __all__ = (
     "ReportTargetSegmentType",
     "ReportTargetType",
     "ResyncShirabeStackBody",
+    "RoadmapItem",
+    "RoadmapItemKind",
+    "RoadmapItemStatus",
+    "RoadmapItemWrite",
+    "RoadmapItemWriteKind",
+    "RoadmapItemWriteStatus",
     "SearchFilters",
     "SearchFiltersLanguagesType0Item",
     "SearchFiltersLanguagesType1",
@@ -473,6 +511,7 @@ __all__ = (
     "SegmentUrls",
     "ShirabeConnection",
     "ShirabeConnectionDictionaryNames",
+    "StartPatreonLinkResponse201",
     "StartShirabeLinkResponse201",
     "StatsOverview",
     "StatsOverviewTranslations",
@@ -484,6 +523,9 @@ __all__ = (
     "TokenPartsItem",
     "UnsubscribeReceipt",
     "UpdateAccountQuotaRequest",
+    "UpdateAdminRoadmapItemBody",
+    "UpdateAdminRoadmapItemBodyKind",
+    "UpdateAdminRoadmapItemBodyStatus",
     "UpdateCollectionSegmentRequest",
     "UpdateEmailPreferencesByTokenBody",
     "UpdateEmailPreferencesByTokenResponse200",

@@ -26,7 +26,8 @@ class Error400:
         title (str): A short, human-readable summary of the problem
         detail (str): A human-readable explanation specific to this occurrence
         status (Error400Status): The HTTP status code
-        type_ (str | Unset): A URI reference that identifies the problem type (e.g., GitHub issues link)
+        type_ (str | Unset): A URI reference that identifies the problem type (`about:blank` when the problem has no
+            further semantics beyond the HTTP status, per RFC 9457)
         instance (str | Unset): A URI reference that identifies the specific occurrence (e.g., trace ID)
         errors (Error400Errors | Unset): Optional map of field names to their error messages (for validation errors)
     """
@@ -78,7 +79,7 @@ class Error400:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.error_400_errors import Error400Errors
+        from ..models.error_400_errors import Error400Errors  # noqa: PLC0415
 
         _src = dict(src_dict)
         code = check_error_400_code(_src.pop("code"))

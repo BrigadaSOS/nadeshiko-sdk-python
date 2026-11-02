@@ -54,7 +54,7 @@ class SearchMediaRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_media_filters import SearchMediaFilters
+        from ..models.search_media_filters import SearchMediaFilters  # noqa: PLC0415
 
         _src = dict(src_dict)
         query = _src.pop("query")

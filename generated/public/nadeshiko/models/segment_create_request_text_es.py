@@ -17,6 +17,7 @@ class SegmentCreateRequestTextEs:
     Attributes:
         content (str | Unset): Spanish translation of the segment content Example: Yo soy yo, y tú eres tú..
         is_machine_translated (bool | Unset): Whether the Spanish translation was machine-translated Default: False.
+            Example: False.
     """
 
     content: str | Unset = UNSET

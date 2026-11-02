@@ -103,9 +103,9 @@ class SearchRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_filters import SearchFilters
-        from ..models.search_query import SearchQuery
-        from ..models.search_sort import SearchSort
+        from ..models.search_filters import SearchFilters  # noqa: PLC0415
+        from ..models.search_query import SearchQuery  # noqa: PLC0415
+        from ..models.search_sort import SearchSort  # noqa: PLC0415
 
         _src = dict(src_dict)
         _query = _src.pop("query", UNSET)

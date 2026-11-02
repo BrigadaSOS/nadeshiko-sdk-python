@@ -61,8 +61,8 @@ class SearchMultipleRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_filters import SearchFilters
-        from ..models.search_multiple_query import SearchMultipleQuery
+        from ..models.search_filters import SearchFilters  # noqa: PLC0415
+        from ..models.search_multiple_query import SearchMultipleQuery  # noqa: PLC0415
 
         _src = dict(src_dict)
         query = SearchMultipleQuery.from_dict(_src.pop("query"))

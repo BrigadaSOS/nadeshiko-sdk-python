@@ -52,8 +52,8 @@ class SegmentContextResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment import Segment
-        from ..models.segment_context_response_includes import SegmentContextResponseIncludes
+        from ..models.segment import Segment  # noqa: PLC0415
+        from ..models.segment_context_response_includes import SegmentContextResponseIncludes  # noqa: PLC0415
 
         _src = dict(src_dict)
         segments = []

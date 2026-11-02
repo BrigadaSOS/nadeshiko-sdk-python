@@ -53,9 +53,9 @@ class MediaListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cursor_pagination import CursorPagination
-        from ..models.media import Media
-        from ..models.media_global_stats import MediaGlobalStats
+        from ..models.cursor_pagination import CursorPagination  # noqa: PLC0415
+        from ..models.media import Media  # noqa: PLC0415
+        from ..models.media_global_stats import MediaGlobalStats  # noqa: PLC0415
 
         _src = dict(src_dict)
         media = []

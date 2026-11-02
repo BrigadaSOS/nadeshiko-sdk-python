@@ -76,6 +76,10 @@ from .error_500 import Error500
 from .error_500_code import Error500Code
 from .error_500_errors import Error500Errors
 from .error_500_status import Error500Status
+from .error_503 import Error503
+from .error_503_code import Error503Code
+from .error_503_errors import Error503Errors
+from .error_503_status import Error503Status
 from .external_id import ExternalId
 from .feedback_form_token import FeedbackFormToken
 from .feedback_receipt import FeedbackReceipt
@@ -116,6 +120,7 @@ from .media_update_request_season_name import MediaUpdateRequestSeasonName
 from .media_update_request_storage import MediaUpdateRequestStorage
 from .moderate_episode_segments_request import ModerateEpisodeSegmentsRequest
 from .moderate_episode_segments_request_action import ModerateEpisodeSegmentsRequestAction
+from .patreon_connection import PatreonConnection
 from .report import Report
 from .report_data_type_0 import ReportDataType0
 from .report_reason import ReportReason
@@ -130,6 +135,12 @@ from .report_target_segment_input import ReportTargetSegmentInput
 from .report_target_segment_input_type import ReportTargetSegmentInputType
 from .report_target_segment_type import ReportTargetSegmentType
 from .report_target_type import ReportTargetType
+from .roadmap_item import RoadmapItem
+from .roadmap_item_kind import RoadmapItemKind
+from .roadmap_item_status import RoadmapItemStatus
+from .roadmap_item_write import RoadmapItemWrite
+from .roadmap_item_write_kind import RoadmapItemWriteKind
+from .roadmap_item_write_status import RoadmapItemWriteStatus
 from .search_filters import SearchFilters
 from .search_filters_languages_type_0_item import SearchFiltersLanguagesType0Item
 from .search_filters_languages_type_1 import SearchFiltersLanguagesType1
@@ -327,6 +338,10 @@ __all__ = (
     "Error500Code",
     "Error500Errors",
     "Error500Status",
+    "Error503",
+    "Error503Code",
+    "Error503Errors",
+    "Error503Status",
     "ExternalId",
     "FeedbackFormToken",
     "FeedbackReceipt",
@@ -363,6 +378,7 @@ __all__ = (
     "MediaUpdateRequestStorage",
     "ModerateEpisodeSegmentsRequest",
     "ModerateEpisodeSegmentsRequestAction",
+    "PatreonConnection",
     "Report",
     "ReportDataType0",
     "ReportReason",
@@ -377,6 +393,12 @@ __all__ = (
     "ReportTargetSegmentInputType",
     "ReportTargetSegmentType",
     "ReportTargetType",
+    "RoadmapItem",
+    "RoadmapItemKind",
+    "RoadmapItemStatus",
+    "RoadmapItemWrite",
+    "RoadmapItemWriteKind",
+    "RoadmapItemWriteStatus",
     "SearchFilters",
     "SearchFiltersLanguagesType0Item",
     "SearchFiltersLanguagesType1",

@@ -106,7 +106,7 @@ class UserPreferencesAnkiProfilesItem:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.user_preferences_anki_profiles_item_fields_item import (
-            UserPreferencesAnkiProfilesItemFieldsItem,
+            UserPreferencesAnkiProfilesItemFieldsItem,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

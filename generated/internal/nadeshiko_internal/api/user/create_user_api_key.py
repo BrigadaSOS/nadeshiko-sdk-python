@@ -89,7 +89,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: CreateUserApiKeyBody,
 ) -> Response[CreateUserApiKeyResponse201 | Error400 | Error401 | Error403 | Error429 | Error500]:
-    r"""Create an API key with chosen scopes
+    """Create an API key with chosen scopes
 
      Creates an API key for the signed-in reader, carrying exactly the scopes
     asked for.
@@ -104,7 +104,7 @@ def sync_detailed(
     role when the key is used, so a key with `WRITE_PROFILE` can rewrite that
     account's profile from anywhere it ends up. Grant the narrowest set the
     consumer needs: a third-party search or dictionary tool wants
-    `[\"READ_MEDIA\"]` and nothing else.
+    `["READ_MEDIA"]` and nothing else.
 
     Session-authenticated only. A key cannot be used to mint another key.
 
@@ -135,7 +135,7 @@ def sync(
     client: AuthenticatedClient,
     body: CreateUserApiKeyBody,
 ) -> CreateUserApiKeyResponse201 | Error400 | Error401 | Error403 | Error429 | Error500 | None:
-    r"""Create an API key with chosen scopes
+    """Create an API key with chosen scopes
 
      Creates an API key for the signed-in reader, carrying exactly the scopes
     asked for.
@@ -150,7 +150,7 @@ def sync(
     role when the key is used, so a key with `WRITE_PROFILE` can rewrite that
     account's profile from anywhere it ends up. Grant the narrowest set the
     consumer needs: a third-party search or dictionary tool wants
-    `[\"READ_MEDIA\"]` and nothing else.
+    `["READ_MEDIA"]` and nothing else.
 
     Session-authenticated only. A key cannot be used to mint another key.
 
@@ -176,7 +176,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: CreateUserApiKeyBody,
 ) -> Response[CreateUserApiKeyResponse201 | Error400 | Error401 | Error403 | Error429 | Error500]:
-    r"""Create an API key with chosen scopes
+    """Create an API key with chosen scopes
 
      Creates an API key for the signed-in reader, carrying exactly the scopes
     asked for.
@@ -191,7 +191,7 @@ async def asyncio_detailed(
     role when the key is used, so a key with `WRITE_PROFILE` can rewrite that
     account's profile from anywhere it ends up. Grant the narrowest set the
     consumer needs: a third-party search or dictionary tool wants
-    `[\"READ_MEDIA\"]` and nothing else.
+    `["READ_MEDIA"]` and nothing else.
 
     Session-authenticated only. A key cannot be used to mint another key.
 
@@ -220,7 +220,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: CreateUserApiKeyBody,
 ) -> CreateUserApiKeyResponse201 | Error400 | Error401 | Error403 | Error429 | Error500 | None:
-    r"""Create an API key with chosen scopes
+    """Create an API key with chosen scopes
 
      Creates an API key for the signed-in reader, carrying exactly the scopes
     asked for.
@@ -235,7 +235,7 @@ async def asyncio(
     role when the key is used, so a key with `WRITE_PROFILE` can rewrite that
     account's profile from anywhere it ends up. Grant the narrowest set the
     consumer needs: a third-party search or dictionary tool wants
-    `[\"READ_MEDIA\"]` and nothing else.
+    `["READ_MEDIA"]` and nothing else.
 
     Session-authenticated only. A key cannot be used to mint another key.
 

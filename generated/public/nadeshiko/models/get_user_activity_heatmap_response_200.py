@@ -42,7 +42,7 @@ class GetUserActivityHeatmapResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.get_user_activity_heatmap_response_200_activity_by_day import (
-            GetUserActivityHeatmapResponse200ActivityByDay,
+            GetUserActivityHeatmapResponse200ActivityByDay,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

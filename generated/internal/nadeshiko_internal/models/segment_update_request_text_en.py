@@ -16,7 +16,7 @@ class SegmentUpdateRequestTextEn:
     """
     Attributes:
         content (str | Unset): English translation of the segment content Example: I am me, and you are you..
-        is_machine_translated (bool | Unset): Whether the English translation was machine-translated
+        is_machine_translated (bool | Unset): Whether the English translation was machine-translated Example: False.
     """
 
     content: str | Unset = UNSET

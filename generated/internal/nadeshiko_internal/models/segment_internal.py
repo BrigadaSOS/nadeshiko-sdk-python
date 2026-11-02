@@ -71,7 +71,7 @@ class SegmentInternal:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.segment_internal_rating_analysis_type_0 import (
-            SegmentInternalRatingAnalysisType0,
+            SegmentInternalRatingAnalysisType0,  # noqa: PLC0415
         )
 
         public_id = self.public_id
@@ -158,12 +158,12 @@ class SegmentInternal:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_internal_rating_analysis_type_0 import (
-            SegmentInternalRatingAnalysisType0,
+            SegmentInternalRatingAnalysisType0,  # noqa: PLC0415
         )
-        from ..models.segment_text_en import SegmentTextEn
-        from ..models.segment_text_es import SegmentTextEs
-        from ..models.segment_text_ja import SegmentTextJa
-        from ..models.segment_urls import SegmentUrls
+        from ..models.segment_text_en import SegmentTextEn  # noqa: PLC0415
+        from ..models.segment_text_es import SegmentTextEs  # noqa: PLC0415
+        from ..models.segment_text_ja import SegmentTextJa  # noqa: PLC0415
+        from ..models.segment_urls import SegmentUrls  # noqa: PLC0415
 
         _src = dict(src_dict)
         public_id = _src.pop("publicId")

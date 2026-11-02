@@ -46,7 +46,7 @@ class GetAdminUsersWithProvidersResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.admin_user_with_providers import AdminUserWithProviders
+        from ..models.admin_user_with_providers import AdminUserWithProviders  # noqa: PLC0415
 
         _src = dict(src_dict)
         users = []

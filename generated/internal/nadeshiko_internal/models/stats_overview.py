@@ -83,8 +83,8 @@ class StatsOverview:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.stats_overview_translations import StatsOverviewTranslations
-        from ..models.word_coverage_tier import WordCoverageTier
+        from ..models.stats_overview_translations import StatsOverviewTranslations  # noqa: PLC0415
+        from ..models.word_coverage_tier import WordCoverageTier  # noqa: PLC0415
 
         _src = dict(src_dict)
         total_segments = _src.pop("totalSegments")

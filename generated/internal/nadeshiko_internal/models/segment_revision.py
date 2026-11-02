@@ -80,7 +80,7 @@ class SegmentRevision:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_revision_snapshot import SegmentRevisionSnapshot
+        from ..models.segment_revision_snapshot import SegmentRevisionSnapshot  # noqa: PLC0415
 
         _src = dict(src_dict)
         id = _src.pop("id")

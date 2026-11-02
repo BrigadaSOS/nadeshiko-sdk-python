@@ -58,9 +58,9 @@ class SearchResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_pagination import SearchPagination
-        from ..models.search_response_includes import SearchResponseIncludes
-        from ..models.segment import Segment
+        from ..models.search_pagination import SearchPagination  # noqa: PLC0415
+        from ..models.search_response_includes import SearchResponseIncludes  # noqa: PLC0415
+        from ..models.segment import Segment  # noqa: PLC0415
 
         _src = dict(src_dict)
         segments = []

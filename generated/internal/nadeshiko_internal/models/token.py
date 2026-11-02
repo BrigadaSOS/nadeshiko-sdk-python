@@ -132,9 +132,9 @@ class Token:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.token_f_item import TokenFItem
-        from ..models.token_inflection import TokenInflection
-        from ..models.token_parts_item import TokenPartsItem
+        from ..models.token_f_item import TokenFItem  # noqa: PLC0415
+        from ..models.token_inflection import TokenInflection  # noqa: PLC0415
+        from ..models.token_parts_item import TokenPartsItem  # noqa: PLC0415
 
         _src = dict(src_dict)
         s = _src.pop("s")

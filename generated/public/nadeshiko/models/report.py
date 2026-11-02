@@ -52,9 +52,9 @@ class Report:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.report_data_type_0 import ReportDataType0
-        from ..models.report_target_episode import ReportTargetEpisode
-        from ..models.report_target_media import ReportTargetMedia
+        from ..models.report_data_type_0 import ReportDataType0  # noqa: PLC0415
+        from ..models.report_target_episode import ReportTargetEpisode  # noqa: PLC0415
+        from ..models.report_target_media import ReportTargetMedia  # noqa: PLC0415
 
         id = self.id
 
@@ -117,10 +117,10 @@ class Report:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.report_data_type_0 import ReportDataType0
-        from ..models.report_target_episode import ReportTargetEpisode
-        from ..models.report_target_media import ReportTargetMedia
-        from ..models.report_target_segment import ReportTargetSegment
+        from ..models.report_data_type_0 import ReportDataType0  # noqa: PLC0415
+        from ..models.report_target_episode import ReportTargetEpisode  # noqa: PLC0415
+        from ..models.report_target_media import ReportTargetMedia  # noqa: PLC0415
+        from ..models.report_target_segment import ReportTargetSegment  # noqa: PLC0415
 
         _src = dict(src_dict)
         id = _src.pop("id")

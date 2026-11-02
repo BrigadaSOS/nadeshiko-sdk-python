@@ -43,7 +43,7 @@ class SegmentContextResponseIncludes:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_context_response_includes_media import (
-            SegmentContextResponseIncludesMedia,
+            SegmentContextResponseIncludesMedia,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

@@ -52,8 +52,8 @@ class SearchMultipleResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_multiple_response_includes import SearchMultipleResponseIncludes
-        from ..models.word_match import WordMatch
+        from ..models.search_multiple_response_includes import SearchMultipleResponseIncludes  # noqa: PLC0415
+        from ..models.word_match import WordMatch  # noqa: PLC0415
 
         _src = dict(src_dict)
         results = []

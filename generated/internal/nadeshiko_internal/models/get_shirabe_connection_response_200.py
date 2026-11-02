@@ -24,7 +24,7 @@ class GetShirabeConnectionResponse200:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.shirabe_connection import ShirabeConnection
+        from ..models.shirabe_connection import ShirabeConnection  # noqa: PLC0415
 
         connection: dict[str, Any] | None
         if isinstance(self.connection, ShirabeConnection):
@@ -44,7 +44,7 @@ class GetShirabeConnectionResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
+        from ..models.shirabe_connection import ShirabeConnection  # noqa: PLC0415
 
         _src = dict(src_dict)
 

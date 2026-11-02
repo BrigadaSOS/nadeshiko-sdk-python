@@ -41,7 +41,7 @@ class AgentActivityResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_activity_response_entries_item import AgentActivityResponseEntriesItem
+        from ..models.agent_activity_response_entries_item import AgentActivityResponseEntriesItem  # noqa: PLC0415
 
         _src = dict(src_dict)
         entries = []

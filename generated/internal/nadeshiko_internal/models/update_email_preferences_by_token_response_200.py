@@ -46,7 +46,7 @@ class UpdateEmailPreferencesByTokenResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.update_email_preferences_by_token_response_200_categories import (
-            UpdateEmailPreferencesByTokenResponse200Categories,
+            UpdateEmailPreferencesByTokenResponse200Categories,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

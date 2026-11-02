@@ -44,7 +44,7 @@ class ListFamiliarMediaResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.list_familiar_media_response_200_familiar_media_item import (
-            ListFamiliarMediaResponse200FamiliarMediaItem,
+            ListFamiliarMediaResponse200FamiliarMediaItem,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

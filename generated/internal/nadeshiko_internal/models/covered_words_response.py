@@ -54,9 +54,9 @@ class CoveredWordsResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.covered_word import CoveredWord
-        from ..models.covered_words_response_tier_stats import CoveredWordsResponseTierStats
-        from ..models.cursor_pagination import CursorPagination
+        from ..models.covered_word import CoveredWord  # noqa: PLC0415
+        from ..models.covered_words_response_tier_stats import CoveredWordsResponseTierStats  # noqa: PLC0415
+        from ..models.cursor_pagination import CursorPagination  # noqa: PLC0415
 
         _src = dict(src_dict)
         words = []

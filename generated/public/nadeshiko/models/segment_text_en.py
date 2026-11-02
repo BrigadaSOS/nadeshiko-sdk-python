@@ -14,7 +14,7 @@ class SegmentTextEn:
     """
     Attributes:
         content (str): English translation Example: I am me, and you are you..
-        is_machine_translated (bool): Whether the translation was machine-translated
+        is_machine_translated (bool): Whether the translation was machine-translated Example: False.
         highlight (None | str): English `content` with `<mark>` tags wrapping terms that matched a search query. Only
             populated on segments returned from a search endpoint that matched this language.
     """

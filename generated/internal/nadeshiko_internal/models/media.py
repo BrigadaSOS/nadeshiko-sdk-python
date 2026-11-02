@@ -160,7 +160,7 @@ class Media:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.external_id import ExternalId
+        from ..models.external_id import ExternalId  # noqa: PLC0415
 
         _src = dict(src_dict)
         public_id = _src.pop("publicId")

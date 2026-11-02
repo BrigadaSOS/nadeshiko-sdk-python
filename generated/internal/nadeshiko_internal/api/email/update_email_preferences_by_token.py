@@ -67,14 +67,14 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: UpdateEmailPreferencesByTokenBody,
 ) -> Response[Error400 | UpdateEmailPreferencesByTokenResponse200]:
-    r"""Change email preferences from an unsubscribe token
+    """Change email preferences from an unsubscribe token
 
      Writes the categories the reader chose on the unsubscribe page.
 
     Every field is optional and only what is sent is changed, so the page can
     submit one checkbox without having to know or restate the rest.
 
-    Turning the master off stops everything, which is what the \"stop all of it\"
+    Turning the master off stops everything, which is what the "stop all of it"
     control does; turning it on again restores whatever the categories say.
 
     Args:
@@ -104,14 +104,14 @@ def sync(
     client: AuthenticatedClient | Client,
     body: UpdateEmailPreferencesByTokenBody,
 ) -> Error400 | UpdateEmailPreferencesByTokenResponse200 | None:
-    r"""Change email preferences from an unsubscribe token
+    """Change email preferences from an unsubscribe token
 
      Writes the categories the reader chose on the unsubscribe page.
 
     Every field is optional and only what is sent is changed, so the page can
     submit one checkbox without having to know or restate the rest.
 
-    Turning the master off stops everything, which is what the \"stop all of it\"
+    Turning the master off stops everything, which is what the "stop all of it"
     control does; turning it on again restores whatever the categories say.
 
     Args:
@@ -136,14 +136,14 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: UpdateEmailPreferencesByTokenBody,
 ) -> Response[Error400 | UpdateEmailPreferencesByTokenResponse200]:
-    r"""Change email preferences from an unsubscribe token
+    """Change email preferences from an unsubscribe token
 
      Writes the categories the reader chose on the unsubscribe page.
 
     Every field is optional and only what is sent is changed, so the page can
     submit one checkbox without having to know or restate the rest.
 
-    Turning the master off stops everything, which is what the \"stop all of it\"
+    Turning the master off stops everything, which is what the "stop all of it"
     control does; turning it on again restores whatever the categories say.
 
     Args:
@@ -171,14 +171,14 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: UpdateEmailPreferencesByTokenBody,
 ) -> Error400 | UpdateEmailPreferencesByTokenResponse200 | None:
-    r"""Change email preferences from an unsubscribe token
+    """Change email preferences from an unsubscribe token
 
      Writes the categories the reader chose on the unsubscribe page.
 
     Every field is optional and only what is sent is changed, so the page can
     submit one checkbox without having to know or restate the rest.
 
-    Turning the master off stops everything, which is what the \"stop all of it\"
+    Turning the master off stops everything, which is what the "stop all of it"
     control does; turning it on again restores whatever the categories say.
 
     Args:

@@ -61,9 +61,9 @@ class SearchStatsResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.category_count import CategoryCount
-        from ..models.media_search_stats import MediaSearchStats
-        from ..models.search_stats_response_includes import SearchStatsResponseIncludes
+        from ..models.category_count import CategoryCount  # noqa: PLC0415
+        from ..models.media_search_stats import MediaSearchStats  # noqa: PLC0415
+        from ..models.search_stats_response_includes import SearchStatsResponseIncludes  # noqa: PLC0415
 
         _src = dict(src_dict)
         media = []

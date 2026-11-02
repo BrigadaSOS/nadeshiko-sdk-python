@@ -41,7 +41,7 @@ class ListSegmentRevisionsResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_revision import SegmentRevision
+        from ..models.segment_revision import SegmentRevision  # noqa: PLC0415
 
         _src = dict(src_dict)
         revisions = []

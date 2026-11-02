@@ -42,7 +42,7 @@ class SearchResponseIncludes:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_response_includes_media import SearchResponseIncludesMedia
+        from ..models.search_response_includes_media import SearchResponseIncludesMedia  # noqa: PLC0415
 
         _src = dict(src_dict)
         _media = _src.pop("media", UNSET)

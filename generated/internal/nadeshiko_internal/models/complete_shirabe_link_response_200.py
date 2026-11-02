@@ -41,7 +41,7 @@ class CompleteShirabeLinkResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.shirabe_connection import ShirabeConnection
+        from ..models.shirabe_connection import ShirabeConnection  # noqa: PLC0415
 
         _src = dict(src_dict)
         connection = ShirabeConnection.from_dict(_src.pop("connection"))

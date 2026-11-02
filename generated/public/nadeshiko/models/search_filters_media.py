@@ -64,7 +64,7 @@ class SearchFiltersMedia:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.media_filter_item import MediaFilterItem
+        from ..models.media_filter_item import MediaFilterItem  # noqa: PLC0415
 
         _src = dict(src_dict)
         _include = _src.pop("include", UNSET)

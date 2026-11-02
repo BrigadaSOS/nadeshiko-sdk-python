@@ -39,7 +39,8 @@ class SearchFilters:
             milliseconds)
         languages (list[SearchFiltersLanguagesType0Item] | SearchFiltersLanguagesType1 | Unset): Translation languages
             to include alongside Japanese in search matching.
-            - Omitted / `null`: match against Japanese and all translation languages (default)
+            - Omitted: match against Japanese and all translation languages (default)
+            - `null`: not accepted; omit this field to use the default
             - `[]`: match against Japanese only
             - `["EN"]` / `["ES"]` / `["EN", "ES"]`: match against Japanese plus the listed translation languages
 
@@ -124,10 +125,10 @@ class SearchFilters:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.search_filters_languages_type_1 import SearchFiltersLanguagesType1
-        from ..models.search_filters_media import SearchFiltersMedia
-        from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs
-        from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars
+        from ..models.search_filters_languages_type_1 import SearchFiltersLanguagesType1  # noqa: PLC0415
+        from ..models.search_filters_media import SearchFiltersMedia  # noqa: PLC0415
+        from ..models.search_filters_segment_duration_ms import SearchFiltersSegmentDurationMs  # noqa: PLC0415
+        from ..models.search_filters_segment_length_chars import SearchFiltersSegmentLengthChars  # noqa: PLC0415
 
         _src = dict(src_dict)
         _media = _src.pop("media", UNSET)

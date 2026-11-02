@@ -60,7 +60,7 @@ class SegmentCreateRequest:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.segment_create_request_rating_analysis_type_0 import (
-            SegmentCreateRequestRatingAnalysisType0,
+            SegmentCreateRequestRatingAnalysisType0,  # noqa: PLC0415
         )
 
         position = self.position
@@ -127,11 +127,11 @@ class SegmentCreateRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_create_request_rating_analysis_type_0 import (
-            SegmentCreateRequestRatingAnalysisType0,
+            SegmentCreateRequestRatingAnalysisType0,  # noqa: PLC0415
         )
-        from ..models.segment_create_request_text_en import SegmentCreateRequestTextEn
-        from ..models.segment_create_request_text_es import SegmentCreateRequestTextEs
-        from ..models.segment_create_request_text_ja import SegmentCreateRequestTextJa
+        from ..models.segment_create_request_text_en import SegmentCreateRequestTextEn  # noqa: PLC0415
+        from ..models.segment_create_request_text_es import SegmentCreateRequestTextEs  # noqa: PLC0415
+        from ..models.segment_create_request_text_ja import SegmentCreateRequestTextJa  # noqa: PLC0415
 
         _src = dict(src_dict)
         position = _src.pop("position")

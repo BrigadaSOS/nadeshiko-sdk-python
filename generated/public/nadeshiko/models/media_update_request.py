@@ -190,7 +190,7 @@ class MediaUpdateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.external_id import ExternalId
+        from ..models.external_id import ExternalId  # noqa: PLC0415
 
         _src = dict(src_dict)
         _external_ids = _src.pop("externalIds", UNSET)

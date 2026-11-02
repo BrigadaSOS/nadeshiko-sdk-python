@@ -43,7 +43,7 @@ class SearchMultipleResponseIncludes:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.search_multiple_response_includes_media import (
-            SearchMultipleResponseIncludesMedia,
+            SearchMultipleResponseIncludesMedia,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

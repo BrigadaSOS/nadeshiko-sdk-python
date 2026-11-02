@@ -54,7 +54,7 @@ class MediaSearchStats:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.media_search_stats_episode_hits_item import MediaSearchStatsEpisodeHitsItem
+        from ..models.media_search_stats_episode_hits_item import MediaSearchStatsEpisodeHitsItem  # noqa: PLC0415
 
         _src = dict(src_dict)
         media_public_id = _src.pop("mediaPublicId")

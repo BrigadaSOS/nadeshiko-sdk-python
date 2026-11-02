@@ -66,7 +66,7 @@ class GetEmailPreferencesByTokenResponse200:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.get_email_preferences_by_token_response_200_categories import (
-            GetEmailPreferencesByTokenResponse200Categories,
+            GetEmailPreferencesByTokenResponse200Categories,  # noqa: PLC0415
         )
 
         _src = dict(src_dict)

@@ -69,7 +69,7 @@ class SegmentUpdateRequest:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.segment_update_request_rating_analysis_type_0 import (
-            SegmentUpdateRequestRatingAnalysisType0,
+            SegmentUpdateRequestRatingAnalysisType0,  # noqa: PLC0415
         )
 
         position = self.position
@@ -147,11 +147,11 @@ class SegmentUpdateRequest:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.segment_update_request_rating_analysis_type_0 import (
-            SegmentUpdateRequestRatingAnalysisType0,
+            SegmentUpdateRequestRatingAnalysisType0,  # noqa: PLC0415
         )
-        from ..models.segment_update_request_text_en import SegmentUpdateRequestTextEn
-        from ..models.segment_update_request_text_es import SegmentUpdateRequestTextEs
-        from ..models.segment_update_request_text_ja import SegmentUpdateRequestTextJa
+        from ..models.segment_update_request_text_en import SegmentUpdateRequestTextEn  # noqa: PLC0415
+        from ..models.segment_update_request_text_es import SegmentUpdateRequestTextEs  # noqa: PLC0415
+        from ..models.segment_update_request_text_ja import SegmentUpdateRequestTextJa  # noqa: PLC0415
 
         _src = dict(src_dict)
         position = _src.pop("position", UNSET)

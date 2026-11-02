@@ -47,8 +47,8 @@ class AdminReportListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.admin_report_group import AdminReportGroup
-        from ..models.cursor_pagination import CursorPagination
+        from ..models.admin_report_group import AdminReportGroup  # noqa: PLC0415
+        from ..models.cursor_pagination import CursorPagination  # noqa: PLC0415
 
         _src = dict(src_dict)
         groups = []

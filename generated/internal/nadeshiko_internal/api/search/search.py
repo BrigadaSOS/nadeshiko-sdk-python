@@ -10,6 +10,7 @@ from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
+from ...models.error_503 import Error503
 from ...models.search_request import SearchRequest
 from ...models.search_response import SearchResponse
 from ...types import Response
@@ -36,7 +37,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse | None:
     if response.status_code == 200:
         response_200 = SearchResponse.from_dict(response.json())
 
@@ -67,6 +68,11 @@ def _parse_response(
 
         return response_500
 
+    if response.status_code == 503:
+        response_503 = Error503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -75,7 +81,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
+) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -88,8 +94,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: SearchRequest,
-) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
-    r"""Search segments by query
+) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse]:
+    """Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
     media (anime, J-Drama).
@@ -100,7 +106,7 @@ def sync_detailed(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `"good morning"`), or pass `exactMatch:
     true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
@@ -124,7 +130,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]
+        Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse]
     """
 
     kwargs = _get_kwargs(
@@ -142,8 +148,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: SearchRequest,
-) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
-    r"""Search segments by query
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse | None:
+    """Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
     media (anime, J-Drama).
@@ -154,7 +160,7 @@ def sync(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `"good morning"`), or pass `exactMatch:
     true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
@@ -178,7 +184,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse
+        Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse
     """
 
     return sync_detailed(
@@ -191,8 +197,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: SearchRequest,
-) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]:
-    r"""Search segments by query
+) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse]:
+    """Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
     media (anime, J-Drama).
@@ -203,7 +209,7 @@ async def asyncio_detailed(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `"good morning"`), or pass `exactMatch:
     true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
@@ -227,7 +233,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse]
+        Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse]
     """
 
     kwargs = _get_kwargs(
@@ -243,8 +249,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: SearchRequest,
-) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse | None:
-    r"""Search segments by query
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse | None:
+    """Search segments by query
 
      The primary search endpoint for finding Japanese segments and their translations across indexed
     media (anime, J-Drama).
@@ -255,7 +261,7 @@ async def asyncio(
     **Query Features**
     - **Multi-language Support:** Search using Japanese (kanji/kana), Romaji, or English/Spanish
     - **Boolean Operators:** `AND`, `OR`, `NOT` supported (e.g., `(cat OR dog) AND bird`)
-    - **Phrase Matching:** Use quotes for exact phrases (e.g., `\"good morning\"`), or pass `exactMatch:
+    - **Phrase Matching:** Use quotes for exact phrases (e.g., `"good morning"`), or pass `exactMatch:
     true` to the request body
     - **Wildcards:** `te*t` format (leading wildcards not supported)
     - **Smart Field Selection:** Automatically chooses optimal search fields based on input type
@@ -279,7 +285,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error429 | Error500 | SearchResponse
+        Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchResponse
     """
 
     return (

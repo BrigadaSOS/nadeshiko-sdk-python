@@ -14,7 +14,7 @@ class SegmentTextEs:
     """
     Attributes:
         content (str): Spanish translation Example: Yo soy yo, y tú eres tú..
-        is_machine_translated (bool): Whether the translation was machine-translated
+        is_machine_translated (bool): Whether the translation was machine-translated Example: False.
         highlight (None | str): Spanish `content` with `<mark>` tags wrapping terms that matched a search query. Only
             populated on segments returned from a search endpoint that matched this language.
     """

@@ -96,15 +96,15 @@ class UserExportResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.report import Report
-        from ..models.user_activity import UserActivity
-        from ..models.user_export_collection import UserExportCollection
+        from ..models.report import Report  # noqa: PLC0415
+        from ..models.user_activity import UserActivity  # noqa: PLC0415
+        from ..models.user_export_collection import UserExportCollection  # noqa: PLC0415
         from ..models.user_export_response_media_affinity_item import (
-            UserExportResponseMediaAffinityItem,
+            UserExportResponseMediaAffinityItem,  # noqa: PLC0415
         )
-        from ..models.user_export_response_profile import UserExportResponseProfile
-        from ..models.user_export_response_truncated import UserExportResponseTruncated
-        from ..models.user_preferences import UserPreferences
+        from ..models.user_export_response_profile import UserExportResponseProfile  # noqa: PLC0415
+        from ..models.user_export_response_truncated import UserExportResponseTruncated  # noqa: PLC0415
+        from ..models.user_preferences import UserPreferences  # noqa: PLC0415
 
         _src = dict(src_dict)
         truncated = UserExportResponseTruncated.from_dict(_src.pop("truncated"))

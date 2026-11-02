@@ -41,7 +41,7 @@ class SegmentBatchCreateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.segment_create_request import SegmentCreateRequest
+        from ..models.segment_create_request import SegmentCreateRequest  # noqa: PLC0415
 
         _src = dict(src_dict)
         segments = []

@@ -59,7 +59,7 @@ class SegmentTextJa:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.token import Token
+        from ..models.token import Token  # noqa: PLC0415
 
         _src = dict(src_dict)
         content = _src.pop("content")

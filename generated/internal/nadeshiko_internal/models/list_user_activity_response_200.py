@@ -47,8 +47,8 @@ class ListUserActivityResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cursor_pagination import CursorPagination
-        from ..models.user_activity import UserActivity
+        from ..models.cursor_pagination import CursorPagination  # noqa: PLC0415
+        from ..models.user_activity import UserActivity  # noqa: PLC0415
 
         _src = dict(src_dict)
         activities = []

@@ -10,6 +10,7 @@ from ...models.error_401 import Error401
 from ...models.error_403 import Error403
 from ...models.error_429 import Error429
 from ...models.error_500 import Error500
+from ...models.error_503 import Error503
 from ...models.search_stats_request import SearchStatsRequest
 from ...models.search_stats_response import SearchStatsResponse
 from ...types import Response
@@ -36,7 +37,7 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse | None:
     if response.status_code == 200:
         response_200 = SearchStatsResponse.from_dict(response.json())
 
@@ -67,6 +68,11 @@ def _parse_response(
 
         return response_500
 
+    if response.status_code == 503:
+        response_503 = Error503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -75,7 +81,9 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
+) -> Response[
+    Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse
+]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -88,7 +96,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: SearchStatsRequest,
-) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
+) -> Response[
+    Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse
+]:
     """Get search statistics
 
      Returns filter statistics for a query without returning segment results. Useful for populating
@@ -108,7 +118,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]
+        Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -126,7 +136,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: SearchStatsRequest,
-) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse | None:
     """Get search statistics
 
      Returns filter statistics for a query without returning segment results. Useful for populating
@@ -146,7 +156,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse
+        Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse
     """
 
     return sync_detailed(
@@ -159,7 +169,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: SearchStatsRequest,
-) -> Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]:
+) -> Response[
+    Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse
+]:
     """Get search statistics
 
      Returns filter statistics for a query without returning segment results. Useful for populating
@@ -179,7 +191,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse]
+        Response[Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -195,7 +207,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: SearchStatsRequest,
-) -> Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse | None:
+) -> Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse | None:
     """Get search statistics
 
      Returns filter statistics for a query without returning segment results. Useful for populating
@@ -215,7 +227,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error400 | Error401 | Error403 | Error429 | Error500 | SearchStatsResponse
+        Error400 | Error401 | Error403 | Error429 | Error500 | Error503 | SearchStatsResponse
     """
 
     return (

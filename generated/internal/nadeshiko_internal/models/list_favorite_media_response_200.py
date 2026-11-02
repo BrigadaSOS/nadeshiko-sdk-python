@@ -41,7 +41,7 @@ class ListFavoriteMediaResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.media_summary import MediaSummary
+        from ..models.media_summary import MediaSummary  # noqa: PLC0415
 
         _src = dict(src_dict)
         favorite_media = []

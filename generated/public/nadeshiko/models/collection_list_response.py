@@ -48,8 +48,8 @@ class CollectionListResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.collection import Collection
-        from ..models.cursor_pagination import CursorPagination
+        from ..models.collection import Collection  # noqa: PLC0415
+        from ..models.cursor_pagination import CursorPagination  # noqa: PLC0415
 
         _src = dict(src_dict)
         collections = []

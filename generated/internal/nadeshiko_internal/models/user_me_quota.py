@@ -45,7 +45,7 @@ class UserMeQuota:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.user_me_quota_tier_type_0 import UserMeQuotaTierType0
+        from ..models.user_me_quota_tier_type_0 import UserMeQuotaTierType0  # noqa: PLC0415
 
         used = self.used
 
@@ -86,8 +86,8 @@ class UserMeQuota:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.user_me_quota_burst import UserMeQuotaBurst
-        from ..models.user_me_quota_tier_type_0 import UserMeQuotaTierType0
+        from ..models.user_me_quota_burst import UserMeQuotaBurst  # noqa: PLC0415
+        from ..models.user_me_quota_tier_type_0 import UserMeQuotaTierType0  # noqa: PLC0415
 
         _src = dict(src_dict)
         used = _src.pop("used")
