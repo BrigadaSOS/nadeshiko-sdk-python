@@ -38,8 +38,9 @@ class MediaUpdateRequest:
     """Request body for updating an existing media entry (all fields optional)
 
     Attributes:
-        external_ids (ExternalId | Unset): External IDs for this media, keyed by source. Every source appears as a key;
-            absent mappings are represented with a null value.
+        external_ids (ExternalId | Unset): External IDs for this media, keyed by source. Responses always carry every
+            source as a key, with null for absent mappings. In requests `asin` may be omitted, so clients that predate it
+            keep working.
         name_ja (str | Unset): Original Japanese name of the media Example: バクマン。.
         name_romaji (str | Unset): Romaji transliteration of the media name Example: Bakuman..
         name_en (str | Unset): English name of the media Example: Bakuman..

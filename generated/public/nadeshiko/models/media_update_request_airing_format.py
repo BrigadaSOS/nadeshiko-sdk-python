@@ -1,8 +1,11 @@
 from typing import Literal
 
-MediaUpdateRequestAiringFormat = Literal["MOVIE", "ONA", "OVA", "SPECIAL", "TV", "YOUTUBE"]
+MediaUpdateRequestAiringFormat = Literal[
+    "AUDIOBOOK", "MOVIE", "ONA", "OVA", "SPECIAL", "TV", "YOUTUBE"
+]
 
 MEDIA_UPDATE_REQUEST_AIRING_FORMAT_VALUES: set[MediaUpdateRequestAiringFormat] = {
+    "AUDIOBOOK",
     "MOVIE",
     "ONA",
     "OVA",

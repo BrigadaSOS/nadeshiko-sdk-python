@@ -43,6 +43,8 @@ class SegmentInternal:
             text_en (SegmentTextEn):
             text_es (SegmentTextEs):
             urls (SegmentUrls): URLs to media resources for this segment
+            episode_title (None | str | Unset): Title of this segment's episode when it has one (an audiobook chapter's
+                title), else null Example: (1)とにかく比企谷八幡はくさっている。.
             storage (SegmentInternalStorage | Unset): Storage backend for segment assets Example: R2.
             hashed_id (None | str | Unset): Hash identifier for the segment Example: 0d39e46b14.
             storage_base_path (None | str | Unset): Base path in the storage backend Example: anime/steins-gate.
@@ -63,6 +65,7 @@ class SegmentInternal:
     text_en: SegmentTextEn
     text_es: SegmentTextEs
     urls: SegmentUrls
+    episode_title: None | str | Unset = UNSET
     storage: SegmentInternalStorage | Unset = UNSET
     hashed_id: None | str | Unset = UNSET
     storage_base_path: None | str | Unset = UNSET
@@ -100,6 +103,12 @@ class SegmentInternal:
         text_es = self.text_es.to_dict()
 
         urls = self.urls.to_dict()
+
+        episode_title: None | str | Unset
+        if isinstance(self.episode_title, Unset):
+            episode_title = UNSET
+        else:
+            episode_title = self.episode_title
 
         storage: str | Unset = UNSET
         if not isinstance(self.storage, Unset):
@@ -144,6 +153,8 @@ class SegmentInternal:
                 "urls": urls,
             }
         )
+        if episode_title is not UNSET:
+            field_dict["episodeTitle"] = episode_title
         if storage is not UNSET:
             field_dict["storage"] = storage
         if hashed_id is not UNSET:
@@ -196,6 +207,15 @@ class SegmentInternal:
         text_es = SegmentTextEs.from_dict(_src.pop("textEs"))
 
         urls = SegmentUrls.from_dict(_src.pop("urls"))
+
+        def _parse_episode_title(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        episode_title = _parse_episode_title(_src.pop("episodeTitle", UNSET))
 
         _storage = _src.pop("storage", UNSET)
         storage: SegmentInternalStorage | Unset
@@ -255,6 +275,7 @@ class SegmentInternal:
             text_en=text_en,
             text_es=text_es,
             urls=urls,
+            episode_title=episode_title,
             storage=storage,
             hashed_id=hashed_id,
             storage_base_path=storage_base_path,
