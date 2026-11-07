@@ -27,8 +27,9 @@ class Media:
     Attributes:
         public_id (str): Public ID for the media (use this in public URLs) Example: V1StGXR8_Z5d.
         slug (str): URL-friendly slug for the media Example: bakuman.
-        external_ids (ExternalId): External IDs for this media, keyed by source. Every source appears as a key; absent
-            mappings are represented with a null value.
+        external_ids (ExternalId): External IDs for this media, keyed by source. Responses always carry every source as
+            a key, with null for absent mappings. In requests `asin` may be omitted, so clients that predate it keep
+            working.
         name_ja (str): Original Japanese name of the media Example: バクマン。.
         name_romaji (str): Romaji transliteration of the media name Example: Bakuman..
         name_en (str): English name of the media Example: Bakuman..

@@ -1,10 +1,11 @@
 from typing import Literal
 
-UserPreferencesDefaultSearchCategory = Literal["ALL", "ANIME", "JDRAMA", "YOUTUBE"]
+UserPreferencesDefaultSearchCategory = Literal["ALL", "ANIME", "AUDIOBOOK", "JDRAMA", "YOUTUBE"]
 
 USER_PREFERENCES_DEFAULT_SEARCH_CATEGORY_VALUES: set[UserPreferencesDefaultSearchCategory] = {
     "ALL",
     "ANIME",
+    "AUDIOBOOK",
     "JDRAMA",
     "YOUTUBE",
 }

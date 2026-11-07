@@ -8,6 +8,7 @@ from attrs import field as _attrs_field
 
 from ..models.content_rating import ContentRating, check_content_rating
 from ..models.segment_status import SegmentStatus, check_segment_status
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.segment_text_en import SegmentTextEn
@@ -39,6 +40,8 @@ class Segment:
         text_en (SegmentTextEn):
         text_es (SegmentTextEs):
         urls (SegmentUrls): URLs to media resources for this segment
+        episode_title (None | str | Unset): Title of this segment's episode when it has one (an audiobook chapter's
+            title), else null Example: (1)とにかく比企谷八幡はくさっている。.
     """
 
     public_id: str
@@ -54,6 +57,7 @@ class Segment:
     text_en: SegmentTextEn
     text_es: SegmentTextEs
     urls: SegmentUrls
+    episode_title: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -84,6 +88,12 @@ class Segment:
 
         urls = self.urls.to_dict()
 
+        episode_title: None | str | Unset
+        if isinstance(self.episode_title, Unset):
+            episode_title = UNSET
+        else:
+            episode_title = self.episode_title
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -103,6 +113,8 @@ class Segment:
                 "urls": urls,
             }
         )
+        if episode_title is not UNSET:
+            field_dict["episodeTitle"] = episode_title
 
         return field_dict
 
@@ -145,6 +157,15 @@ class Segment:
 
         urls = SegmentUrls.from_dict(_src.pop("urls"))
 
+        def _parse_episode_title(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        episode_title = _parse_episode_title(_src.pop("episodeTitle", UNSET))
+
         segment = cls(
             public_id=public_id,
             position=position,
@@ -159,6 +180,7 @@ class Segment:
             text_en=text_en,
             text_es=text_es,
             urls=urls,
+            episode_title=episode_title,
         )
 
         segment.additional_properties = _src

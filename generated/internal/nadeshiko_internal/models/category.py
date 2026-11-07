@@ -1,9 +1,10 @@
 from typing import Literal
 
-Category = Literal["ANIME", "JDRAMA", "YOUTUBE"]
+Category = Literal["ANIME", "AUDIOBOOK", "JDRAMA", "YOUTUBE"]
 
 CATEGORY_VALUES: set[Category] = {
     "ANIME",
+    "AUDIOBOOK",
     "JDRAMA",
     "YOUTUBE",
 }

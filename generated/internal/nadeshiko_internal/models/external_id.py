@@ -6,13 +6,15 @@ from typing import Any, TypeVar, cast
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 T = TypeVar("T", bound="ExternalId")
 
 
 @_attrs_define
 class ExternalId:
-    """External IDs for this media, keyed by source. Every source appears as a key; absent mappings are represented with a
-    null value.
+    """External IDs for this media, keyed by source. Responses always carry every source as a key, with null for absent
+    mappings. In requests `asin` may be omitted, so clients that predate it keep working.
 
         Attributes:
             anilist (None | str): AniList ID Example: 21459.
@@ -20,6 +22,7 @@ class ExternalId:
             tvdb (None | str): TVDB ID Example: 12345.
             tmdb (None | str): TMDB ID Example: 90955.
             youtube (None | str): YouTube channel ID Example: UCauyM-A8JIJ9NQcw5_jF00Q.
+            asin (None | str | Unset): Audible ASIN (audiobooks) Example: B07PPMBZHX.
     """
 
     anilist: None | str
@@ -27,6 +30,7 @@ class ExternalId:
     tvdb: None | str
     tmdb: None | str
     youtube: None | str
+    asin: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,6 +49,12 @@ class ExternalId:
         youtube: None | str
         youtube = self.youtube
 
+        asin: None | str | Unset
+        if isinstance(self.asin, Unset):
+            asin = UNSET
+        else:
+            asin = self.asin
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -56,6 +66,8 @@ class ExternalId:
                 "youtube": youtube,
             }
         )
+        if asin is not UNSET:
+            field_dict["asin"] = asin
 
         return field_dict
 
@@ -98,12 +110,22 @@ class ExternalId:
 
         youtube = _parse_youtube(_src.pop("youtube"))
 
+        def _parse_asin(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        asin = _parse_asin(_src.pop("asin", UNSET))
+
         external_id = cls(
             anilist=anilist,
             imdb=imdb,
             tvdb=tvdb,
             tmdb=tmdb,
             youtube=youtube,
+            asin=asin,
         )
 
         external_id.additional_properties = _src

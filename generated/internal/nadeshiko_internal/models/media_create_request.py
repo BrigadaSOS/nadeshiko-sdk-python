@@ -53,8 +53,9 @@ class MediaCreateRequest:
             ba0cbe173ed310528f16130273662a60.
         season_name (MediaCreateRequestSeasonName): Airing season label for the media Example: FALL.
         season_year (int): Airing year for the media Example: 2010.
-        external_ids (ExternalId | Unset): External IDs for this media, keyed by source. Every source appears as a key;
-            absent mappings are represented with a null value.
+        external_ids (ExternalId | Unset): External IDs for this media, keyed by source. Responses always carry every
+            source as a key, with null for absent mappings. In requests `asin` may be omitted, so clients that predate it
+            keep working.
         end_date (datetime.date | Unset): End date of the media (last airing/release) Example: 2011-04-02.
         studio (None | str | Unset): Animation studio that produced the media. Pass `null` to explicitly mark as
             unknown. Example: J.C.STAFF.
