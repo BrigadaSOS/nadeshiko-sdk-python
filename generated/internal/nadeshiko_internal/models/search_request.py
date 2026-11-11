@@ -27,18 +27,20 @@ class SearchRequest:
         take (int | Unset): Max number of entries per response Default: 10.
         cursor (str | Unset): Opaque cursor token returned from the previous search page Example: eyJraW...N119.
         sort (SearchSort | Unset): Sort configuration
-        prefer_media (list[str] | Unset): Public IDs of titles the caller wants first, used **only** to break ties.
+        prefer_media (list[str] | Unset): Public IDs of titles the caller wants first.
 
-            Segments Elasticsearch ranked equally are reordered so the ones from these
-            titles come first; nothing crosses a rank boundary. Which segments land on
-            a page, how many there are and the cursor that walks to the next one are
-            all exactly what they would have been without this field — only the order
-            within an already-tied run changes.
+            With a search word and the default `RELEVANCE` order, results come in
+            rounds by title -- the best segment of every title, then the second best
+            of every title, then everything else by relevance -- so one title cannot
+            fill the top. These titles form a block of their own ahead of all others:
+            their rounds, then the rest of their segments, then the same for every
+            other title. Without a search word they get a small relevance boost
+            instead. Keep the list the same while paging through one search.
 
             Sent by the web client for a signed-in reader, from the titles they have
-            favourited and the ones their activity says they know. Ignored unless
-            `sort.mode` is `RELEVANCE`, since every other mode sorts on a key the
-            caller asked for by name. Unknown IDs are ignored rather than rejected.
+            starred. Ignored unless `sort.mode` is `RELEVANCE`, since every other mode
+            sorts on a key the caller asked for by name. Unknown IDs are ignored
+            rather than rejected.
              Example: ['V1StGXR8_Z5d'].
         filters (SearchFilters | Unset): Search filters for narrowing segment results
         include (list[IncludeExpansion] | Unset): Optional resources to expand in the response `includes` block
