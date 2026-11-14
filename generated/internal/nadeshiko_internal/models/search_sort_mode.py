@@ -1,10 +1,21 @@
 from typing import Literal
 
-SearchSortMode = Literal["ASC", "DESC", "RANDOM", "RELEVANCE", "TIME_ASC", "TIME_DESC"]
+SearchSortMode = Literal[
+    "ASC",
+    "DESC",
+    "DIFFICULTY_ASC",
+    "DIFFICULTY_DESC",
+    "RANDOM",
+    "RELEVANCE",
+    "TIME_ASC",
+    "TIME_DESC",
+]
 
 SEARCH_SORT_MODE_VALUES: set[SearchSortMode] = {
     "ASC",
     "DESC",
+    "DIFFICULTY_ASC",
+    "DIFFICULTY_DESC",
     "RANDOM",
     "RELEVANCE",
     "TIME_ASC",
